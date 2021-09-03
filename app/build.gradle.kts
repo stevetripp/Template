@@ -3,6 +3,14 @@ plugins {
     kotlin("android")
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
+    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.languageVersion = "1.4"
+    kotlinOptions.freeCompilerArgs += listOf(
+        "-Xopt-in=kotlin.RequiresOptIn" // Needed for @OptIn(ExperimentalMaterialApi::class)
+    )
+}
+
 android {
     compileSdk = 31
 
@@ -58,6 +66,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.compose.activity)
     implementation(libs.androidx.splashscreen)
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)

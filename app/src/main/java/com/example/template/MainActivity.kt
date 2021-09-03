@@ -5,12 +5,23 @@ import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.template.ui.screen.Home
+import com.example.template.ui.screen.NavigationPager
+import com.example.template.ui.screen.Pager
 import com.example.template.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,10 +32,8 @@ class MainActivity : ComponentActivity() {
         startup(savedInstanceState)
         setContent {
             AppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+                var nav by remember { mutableStateOf(Nav.HOME) }
+                Screen(nav = nav) { nav = it }
             }
         }
     }
@@ -55,15 +64,32 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+enum class Nav(val title: String) {
+    HOME("Template"),
+    PAGER("Pager"),
+    NAVIGATION_PAGER("Navigation Pager"),
 }
 
-@Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    AppTheme {
-        Greeting("Android")
+private fun Screen(nav: Nav, onNavigate: (Nav) -> Unit) {
+    val onBack: () -> Unit = { onNavigate(Nav.HOME) }
+    Surface(color = MaterialTheme.colors.background) {
+        when (nav) {
+            Nav.HOME -> Home(nav, onNavigate)
+            Nav.PAGER -> Pager(nav, onBack)
+            Nav.NAVIGATION_PAGER -> NavigationPager(nav, onBack)
+        }
     }
+}
+
+@Composable
+fun AppBar(nav: Nav, onBack: () -> Unit = {}) {
+    val navIcon: (@Composable () -> Unit)? = if (nav == Nav.HOME) null else {
+        {
+            IconButton(onClick = { onBack() }) {
+                Icon(Icons.Default.ArrowBack, "Back")
+            }
+        }
+    }
+    TopAppBar(title = { Text(text = nav.title) }, navigationIcon = navIcon)
 }
