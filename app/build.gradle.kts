@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.compose.activity)
+    implementation(libs.androidx.splashscreen)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
