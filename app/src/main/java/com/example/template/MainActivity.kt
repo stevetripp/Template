@@ -22,6 +22,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.template.ui.screen.Home
 import com.example.template.ui.screen.NavigationPager
 import com.example.template.ui.screen.Pager
+import com.example.template.ui.screen.Swipable
 import com.example.template.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -68,6 +69,7 @@ enum class Nav(val title: String) {
     HOME("Template"),
     PAGER("Pager"),
     NAVIGATION_PAGER("Navigation Pager"),
+    SWIPABLE("Swipable"),
 }
 
 @Composable
@@ -78,6 +80,7 @@ private fun Screen(nav: Nav, onNavigate: (Nav) -> Unit) {
             Nav.HOME -> Home(nav, onNavigate)
             Nav.PAGER -> Pager(nav, onBack)
             Nav.NAVIGATION_PAGER -> NavigationPager(nav, onBack)
+            Nav.SWIPABLE -> Swipable(nav, onBack)
         }
     }
 }
