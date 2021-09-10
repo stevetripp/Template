@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.template.ui.screen.AnimatedGesture
 import com.example.template.ui.screen.Home
 import com.example.template.ui.screen.NavigationPager
 import com.example.template.ui.screen.Pager
@@ -70,6 +71,7 @@ enum class Nav(val title: String) {
     PAGER("Pager"),
     NAVIGATION_PAGER("Navigation Pager"),
     SWIPABLE("Swipable"),
+    ANIMATED_GESTURE("Animated Gesture")
 }
 
 @Composable
@@ -81,6 +83,7 @@ private fun Screen(nav: Nav, onNavigate: (Nav) -> Unit) {
             Nav.PAGER -> Pager(nav, onBack)
             Nav.NAVIGATION_PAGER -> NavigationPager(nav, onBack)
             Nav.SWIPABLE -> Swipable(nav, onBack)
+            Nav.ANIMATED_GESTURE -> AnimatedGesture(nav, onBack)
         }
     }
 }
