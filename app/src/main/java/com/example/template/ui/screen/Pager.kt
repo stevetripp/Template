@@ -24,19 +24,22 @@ import com.google.accompanist.pager.rememberPagerState
 fun Pager(nav: Nav, onBack: () -> Unit) {
     BackHandler(onBack = onBack)
     Scaffold(topBar = { AppBar(nav, onBack) }) {
-        val pagerState = rememberPagerState(pageCount = 10)
+        val pagerState = rememberPagerState()
         Box {
-            HorizontalPager(state = pagerState) { page ->
+            HorizontalPager(
+                state = pagerState,
+                count = 10
+            ) { page ->
                 Box(modifier = Modifier.fillMaxSize()) {
                     Text("Page: $page", modifier = Modifier.align(Alignment.Center))
                 }
             }
 
             HorizontalPagerIndicator(
-                pagerState = pagerState,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(16.dp),
+                pagerState = pagerState,
             )
         }
     }

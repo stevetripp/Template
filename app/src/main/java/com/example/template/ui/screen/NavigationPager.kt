@@ -3,10 +3,11 @@ package com.example.template.ui.screen
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -30,24 +31,30 @@ import com.google.android.material.math.MathUtils
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
-
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun NavigationPager(nav: Nav, onBack: () -> Unit) {
     BackHandler(onBack = onBack)
+    val colors = mapOf(0 to Color.Blue, 1 to Color.Red, 2 to Color.Green)
+    val pagerState = rememberPagerState(1)
+    val coroutineScope = rememberCoroutineScope()
     Scaffold(topBar = { AppBar(nav, onBack) }) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            val pagerState = rememberPagerState(pageCount = 3, initialOffscreenLimit = 3)
-            val coroutineScope = rememberCoroutineScope()
-
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.BottomCenter
+        ) {
             HorizontalPager(
-                state = pagerState, modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth()
+                modifier = Modifier
+                    .height(100.dp),
+                count = 3,
+                state = pagerState,
+                contentPadding = PaddingValues(horizontal = 130.dp)
             ) { page ->
                 // Our page content
                 Card(
                     Modifier
+                        .width(100.dp)
                         .graphicsLayer {
                             // Calculate the absolute offset for the current page from the
                             // scroll position. We use the absolute value which allows us to mirror
@@ -66,13 +73,11 @@ fun NavigationPager(nav: Nav, onBack: () -> Unit) {
                             // We animate the alpha, between 50% and 100%
                             alpha = MathUtils.lerp(1f, .5f, percentage)
                         }
-                        .fillMaxWidth(.3f)
-                        .fillMaxHeight(.1f)
-                        .clickable { coroutineScope.launch { pagerState.animateScrollToPage(page) } }
-                        .padding(bottom = 12.dp),
-                    backgroundColor = Color.Blue,
+                        .fillMaxHeight(.6f)
+                        .clickable { coroutineScope.launch { pagerState.animateScrollToPage(page) } },
+                    backgroundColor = colors[page]!!,
                 ) {
-                    Box(modifier = Modifier.fillMaxSize())
+                    Box(/*modifier = Modifier.background(Color.LightGray)*/)
                     {
                         Text(
                             text = "Page: $page",
