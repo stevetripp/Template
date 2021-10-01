@@ -57,23 +57,24 @@ android {
 
 dependencies {
 
-    implementation(libs.google.play.core)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.google.material)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.material.material)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.compose.activity)
-    implementation(libs.androidx.splashscreen)
     implementation(libs.accompanist.pager)
     implementation(libs.accompanist.pager.indicators)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.splashscreen)
+    implementation(libs.google.play.core)
+    implementation(libs.google.material)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.material.material)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.tooling.preview)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
 
-    androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.androidx.test.espresso)
+    androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.compose.ui.test)
+
     debugImplementation(libs.compose.ui.tooling)
 }

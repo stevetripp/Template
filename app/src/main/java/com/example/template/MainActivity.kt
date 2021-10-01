@@ -20,9 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.template.ui.screen.AnimatedGesture
+import com.example.template.ui.screen.BottomSheet
 import com.example.template.ui.screen.Home
 import com.example.template.ui.screen.NavigationPager
 import com.example.template.ui.screen.Pager
+import com.example.template.ui.screen.Snackbar
 import com.example.template.ui.screen.Swipable
 import com.example.template.ui.theme.AppTheme
 
@@ -71,7 +73,9 @@ enum class Nav(val title: String) {
     PAGER("Pager"),
     NAVIGATION_PAGER("Navigation Pager"),
     SWIPABLE("Swipable"),
-    ANIMATED_GESTURE("Animated Gesture")
+    ANIMATED_GESTURE("Animated Gesture"),
+    BOTTOM_SHEET("Bottom Sheet"),
+    SNACKBAR("Snackbar")
 }
 
 @Composable
@@ -84,6 +88,8 @@ private fun Screen(nav: Nav, onNavigate: (Nav) -> Unit) {
             Nav.NAVIGATION_PAGER -> NavigationPager(nav, onBack)
             Nav.SWIPABLE -> Swipable(nav, onBack)
             Nav.ANIMATED_GESTURE -> AnimatedGesture(nav, onBack)
+            Nav.BOTTOM_SHEET -> BottomSheet(nav, onBack)
+            Nav.SNACKBAR -> Snackbar(nav, onBack)
         }
     }
 }
