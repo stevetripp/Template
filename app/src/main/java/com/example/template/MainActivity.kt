@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.template.ui.screen.AnimatedGesture
 import com.example.template.ui.screen.BottomSheet
+import com.example.template.ui.screen.PanningZooming
 import com.example.template.ui.screen.Home
 import com.example.template.ui.screen.NavigationPager
 import com.example.template.ui.screen.Pager
@@ -75,7 +76,8 @@ enum class Nav(val title: String) {
     SWIPABLE("Swipable"),
     ANIMATED_GESTURE("Animated Gesture"),
     BOTTOM_SHEET("Bottom Sheet"),
-    SNACKBAR("Snackbar")
+    SNACKBAR("Snackbar"),
+    PANNING_ZOOMING("Panning and Zooming");
 }
 
 @Composable
@@ -90,6 +92,7 @@ private fun Screen(nav: Nav, onNavigate: (Nav) -> Unit) {
             Nav.ANIMATED_GESTURE -> AnimatedGesture(nav, onBack)
             Nav.BOTTOM_SHEET -> BottomSheet(nav, onBack)
             Nav.SNACKBAR -> Snackbar(nav, onBack)
+            Nav.PANNING_ZOOMING-> PanningZooming(nav, onBack)
         }
     }
 }

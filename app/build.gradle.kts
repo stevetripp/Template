@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.splashscreen)
     implementation(libs.google.play.core)
     implementation(libs.google.material)
+    implementation(libs.coil.compose)
     implementation(libs.compose.activity)
     implementation(libs.compose.material.material)
     implementation(libs.compose.ui)
@@ -77,4 +78,9 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test)
 
     debugImplementation(libs.compose.ui.tooling)
+}
+
+// create JUnit reports
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

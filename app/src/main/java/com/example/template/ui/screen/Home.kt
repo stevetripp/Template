@@ -3,6 +3,8 @@ package com.example.template.ui.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -17,11 +19,13 @@ import com.example.template.Nav
 
 @Composable
 fun Home(nav: Nav, onNavigate: (Nav) -> Unit) {
+    val scrollState = rememberScrollState()
     Scaffold(topBar = { AppBar(nav) }) {
         Column(
             Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(8.dp)
+                .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Nav.values().filterNot { it == Nav.HOME }.forEach { destination ->
