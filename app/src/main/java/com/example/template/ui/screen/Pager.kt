@@ -1,5 +1,6 @@
 package com.example.template.ui.screen
 
+import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,10 +46,9 @@ fun Pager(nav: Nav, onBack: () -> Unit) {
     }
 }
 
-@Preview
+@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
 private fun PagerPreview() {
-    AppTheme {
-        Pager(nav = Nav.PAGER, onBack = {})
-    }
+    AppTheme { Pager(nav = Nav.PAGER, onBack = {}) }
 }

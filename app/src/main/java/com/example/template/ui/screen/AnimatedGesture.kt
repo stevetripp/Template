@@ -1,5 +1,6 @@
 package com.example.template.ui.screen
 
+import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -148,14 +149,11 @@ private fun UpdateTransitionExample() {
     }
 }
 
-
-@Preview
+@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
 private fun AnimatedGesturePreview() {
-    AppTheme {
-        AnimatedGesture(nav = Nav.ANIMATED_GESTURE) {
-        }
-    }
+    AppTheme { AnimatedGesture(nav = Nav.ANIMATED_GESTURE) { } }
 }
 
 @Composable
@@ -168,7 +166,8 @@ private fun GestureIndicator(modifier: Modifier = Modifier) {
     )
 }
 
-@Preview
+@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
 private fun GestureIndicatorPreview() {
     AppTheme { Surface() { GestureIndicator() } }

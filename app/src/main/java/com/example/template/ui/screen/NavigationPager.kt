@@ -1,5 +1,6 @@
 package com.example.template.ui.screen
 
+import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -93,10 +94,9 @@ fun NavigationPager(nav: Nav, onBack: () -> Unit) {
     }
 }
 
-@Preview
+@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
 private fun NavigationPagerPreview() {
-    AppTheme {
-        NavigationPager(nav = Nav.PAGER, onBack = {})
-    }
+    AppTheme { NavigationPager(nav = Nav.PAGER, onBack = {}) }
 }
