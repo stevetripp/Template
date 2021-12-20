@@ -19,14 +19,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.template.ui.screen.AnimatedGesture
-import com.example.template.ui.screen.BottomSheet
-import com.example.template.ui.screen.PanningZooming
-import com.example.template.ui.screen.Home
-import com.example.template.ui.screen.NavigationPager
-import com.example.template.ui.screen.Pager
-import com.example.template.ui.screen.Snackbar
-import com.example.template.ui.screen.Swipable
+import com.example.template.ui.screen.AnimatedGestureScreen
+import com.example.template.ui.screen.BottomSheetScreen
+import com.example.template.ui.screen.PanningZoomingScreen
+import com.example.template.ui.screen.HomeScreen
+import com.example.template.ui.screen.NavigationPagerScreen
+import com.example.template.ui.screen.PagerScreen
+import com.example.template.ui.screen.SnackbarScreen
+import com.example.template.ui.screen.SwipableScreen
 import com.example.template.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -71,13 +71,13 @@ class MainActivity : ComponentActivity() {
 
 enum class Nav(val title: String) {
     HOME("Template"),
-    PAGER("Pager"),
-    NAVIGATION_PAGER("Navigation Pager"),
-    SWIPABLE("Swipable"),
     ANIMATED_GESTURE("Animated Gesture"),
     BOTTOM_SHEET("Bottom Sheet"),
+    NAVIGATION_PAGER("Navigation Pager"),
+    PAGER("Pager"),
+    PANNING_ZOOMING("Panning and Zooming"),
     SNACKBAR("Snackbar"),
-    PANNING_ZOOMING("Panning and Zooming");
+    SWIPABLE("Swipable");
 }
 
 @Composable
@@ -85,14 +85,14 @@ private fun Screen(nav: Nav, onNavigate: (Nav) -> Unit) {
     val onBack: () -> Unit = { onNavigate(Nav.HOME) }
     Surface(color = MaterialTheme.colors.background) {
         when (nav) {
-            Nav.HOME -> Home(nav, onNavigate)
-            Nav.PAGER -> Pager(nav, onBack)
-            Nav.NAVIGATION_PAGER -> NavigationPager(nav, onBack)
-            Nav.SWIPABLE -> Swipable(nav, onBack)
-            Nav.ANIMATED_GESTURE -> AnimatedGesture(nav, onBack)
-            Nav.BOTTOM_SHEET -> BottomSheet(nav, onBack)
-            Nav.SNACKBAR -> Snackbar(nav, onBack)
-            Nav.PANNING_ZOOMING-> PanningZooming(nav, onBack)
+            Nav.HOME -> HomeScreen(nav, onNavigate)
+            Nav.PAGER -> PagerScreen(nav, onBack)
+            Nav.NAVIGATION_PAGER -> NavigationPagerScreen(nav, onBack)
+            Nav.SWIPABLE -> SwipableScreen(nav, onBack)
+            Nav.ANIMATED_GESTURE -> AnimatedGestureScreen(nav, onBack)
+            Nav.BOTTOM_SHEET -> BottomSheetScreen(nav, onBack)
+            Nav.SNACKBAR -> SnackbarScreen(nav, onBack)
+            Nav.PANNING_ZOOMING-> PanningZoomingScreen(nav, onBack)
         }
     }
 }

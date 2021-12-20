@@ -1,5 +1,6 @@
 package com.example.template.ui.screen
 
+import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FractionalThreshold
 import androidx.compose.material.Icon
 import androidx.compose.material.ListItem
@@ -24,14 +24,15 @@ import androidx.compose.material.swipeable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import com.example.template.AppBar
 import com.example.template.Nav
+import com.example.template.ui.theme.AppTheme
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun Swipable(nav: Nav, onBack: () -> Unit) {
+fun SwipableScreen(nav: Nav, onBack: () -> Unit) {
     BackHandler(onBack = onBack)
     Scaffold(topBar = { AppBar(nav, onBack) }) {
         LazyColumn {
@@ -75,6 +76,13 @@ fun Swipable(nav: Nav, onBack: () -> Unit) {
             }
         }
     }
+}
+
+@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Composable
+private fun SwipeableScreenPreview() {
+    AppTheme { SwipableScreen(nav = Nav.SWIPABLE) {} }
 }
 
 private val testData: List<TestData>

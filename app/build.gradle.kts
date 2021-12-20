@@ -3,14 +3,6 @@ plugins {
     kotlin("android")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
-    kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.languageVersion = "1.4"
-    kotlinOptions.freeCompilerArgs += listOf(
-        "-Xopt-in=kotlin.RequiresOptIn" // Needed for @OptIn(ExperimentalMaterialApi::class)
-    )
-}
-
 android {
     compileSdk = 31
 
@@ -39,12 +31,18 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += listOf(
+            "-Xopt-in=androidx.compose.material.ExperimentalMaterialApi",
+            "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi",
+            "-Xopt-in=com.google.accompanist.pager.ExperimentalPagerApi",
+            "-Xopt-in=kotlin.ExperimentalStdlibApi",
+        )
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
         kotlinCompilerVersion = "1.5.21"
     }
     packagingOptions {

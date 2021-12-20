@@ -1,14 +1,15 @@
 [versions]
 agp = "7.1.0-beta03" # Android Studio Bumblebee | 2021.1.1 Beta 3
-kotlin = "1.6.0"
+kotlin = "1.6.10"
 coroutines = "1.5.1"
 
-accompanist = "0.21.4-beta"
+accompanist = "0.22.0-rc"
 androidxhilt = "1.0.0"
 androidxlifecycle = "2.4.0"
 androidxtest = "1.4.0"
 coil = "2.0.0-alpha05"
-compose = "1.1.0-beta04"
+compose = "1.1.0-rc01"
+compose-compiler = "1.1.0-rc02"
 dagger = "2.38.1"
 dbtools = "6.1.0"
 hilt = "2.38.1"

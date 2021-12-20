@@ -43,7 +43,7 @@ import com.example.template.ui.composable.PanAndZoom
 import com.example.template.ui.theme.AppTheme
 
 @Composable
-fun PanningZooming(nav: Nav, onBack: () -> Unit) {
+fun PanningZoomingScreen(nav: Nav, onBack: () -> Unit) {
     BackHandler(onBack = onBack)
     Scaffold(topBar = { AppBar(nav, onBack) }) {
 
@@ -54,7 +54,6 @@ fun PanningZooming(nav: Nav, onBack: () -> Unit) {
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun CanvasCard(pageImage: ImageBitmap) {
 

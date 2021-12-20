@@ -3,7 +3,6 @@ package com.example.template.ui.screen
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.VectorConverter
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
@@ -47,9 +46,8 @@ private enum class State {
     MOVE_LEFT
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun AnimatedGesture(nav: Nav, onBack: () -> Unit) {
+fun AnimatedGestureScreen(nav: Nav, onBack: () -> Unit) {
     BackHandler(onBack = onBack)
     Scaffold(topBar = { AppBar(nav, onBack) }) {
 //        UpdateTransitionExample()
@@ -57,7 +55,6 @@ fun AnimatedGesture(nav: Nav, onBack: () -> Unit) {
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun RememberInfiniteTransitionExample() {
     var isVisible by remember { mutableStateOf(true) }
@@ -152,8 +149,8 @@ private fun UpdateTransitionExample() {
 @Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
-private fun AnimatedGesturePreview() {
-    AppTheme { AnimatedGesture(nav = Nav.ANIMATED_GESTURE) { } }
+private fun AnimatedGestureScreenPreview() {
+    AppTheme { AnimatedGestureScreen(nav = Nav.ANIMATED_GESTURE) { } }
 }
 
 @Composable

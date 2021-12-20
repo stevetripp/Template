@@ -15,14 +15,12 @@ import androidx.compose.ui.unit.dp
 import com.example.template.AppBar
 import com.example.template.Nav
 import com.example.template.ui.theme.AppTheme
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun Pager(nav: Nav, onBack: () -> Unit) {
+fun PagerScreen(nav: Nav, onBack: () -> Unit) {
     BackHandler(onBack = onBack)
     Scaffold(topBar = { AppBar(nav, onBack) }) {
         val pagerState = rememberPagerState()
@@ -50,5 +48,5 @@ fun Pager(nav: Nav, onBack: () -> Unit) {
 @Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
 @Composable
 private fun PagerPreview() {
-    AppTheme { Pager(nav = Nav.PAGER, onBack = {}) }
+    AppTheme { PagerScreen(nav = Nav.PAGER, onBack = {}) }
 }
