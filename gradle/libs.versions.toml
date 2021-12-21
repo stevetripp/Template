@@ -1,5 +1,5 @@
 [versions]
-agp = "7.1.0-beta03" # Android Studio Bumblebee | 2021.1.1 Beta 3
+agp = "7.2.0-alpha06" # Android Studio Bumblebee | 2021.1.1 Beta 5
 kotlin = "1.6.10"
 coroutines = "1.5.1"
 
