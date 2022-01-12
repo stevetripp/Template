@@ -20,11 +20,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.template.ui.screen.AnimatedGestureScreen
+import com.example.template.ui.screen.BottomNavigationScreen
 import com.example.template.ui.screen.BottomSheetScreen
-import com.example.template.ui.screen.PanningZoomingScreen
 import com.example.template.ui.screen.HomeScreen
 import com.example.template.ui.screen.NavigationPagerScreen
 import com.example.template.ui.screen.PagerScreen
+import com.example.template.ui.screen.PanningZoomingScreen
 import com.example.template.ui.screen.SnackbarScreen
 import com.example.template.ui.screen.SwipableScreen
 import com.example.template.ui.theme.AppTheme
@@ -72,6 +73,7 @@ class MainActivity : ComponentActivity() {
 enum class Nav(val title: String) {
     HOME("Template"),
     ANIMATED_GESTURE("Animated Gesture"),
+    BOTTOM_NAVIGATION("Bottom Navigation"),
     BOTTOM_SHEET("Bottom Sheet"),
     NAVIGATION_PAGER("Navigation Pager"),
     PAGER("Pager"),
@@ -92,7 +94,8 @@ private fun Screen(nav: Nav, onNavigate: (Nav) -> Unit) {
             Nav.ANIMATED_GESTURE -> AnimatedGestureScreen(nav, onBack)
             Nav.BOTTOM_SHEET -> BottomSheetScreen(nav, onBack)
             Nav.SNACKBAR -> SnackbarScreen(nav, onBack)
-            Nav.PANNING_ZOOMING-> PanningZoomingScreen(nav, onBack)
+            Nav.PANNING_ZOOMING -> PanningZoomingScreen(nav, onBack)
+            Nav.BOTTOM_NAVIGATION -> BottomNavigationScreen(nav, onBack)
         }
     }
 }
