@@ -23,11 +23,13 @@ import com.example.template.ui.screen.AnimatedGestureScreen
 import com.example.template.ui.screen.BottomNavigationScreen
 import com.example.template.ui.screen.BottomSheetScreen
 import com.example.template.ui.screen.HomeScreen
+import com.example.template.ui.screen.InputExamplesScreen
 import com.example.template.ui.screen.NavigationPagerScreen
 import com.example.template.ui.screen.PagerScreen
 import com.example.template.ui.screen.PanningZoomingScreen
 import com.example.template.ui.screen.SnackbarScreen
 import com.example.template.ui.screen.SwipableScreen
+import com.example.template.ui.screen.TabsScreen
 import com.example.template.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -75,11 +77,13 @@ enum class Nav(val title: String) {
     ANIMATED_GESTURE("Animated Gesture"),
     BOTTOM_NAVIGATION("Bottom Navigation"),
     BOTTOM_SHEET("Bottom Sheet"),
+    INPUT_EXAMPLES("Input Examples"),
     NAVIGATION_PAGER("Navigation Pager"),
     PAGER("Pager"),
     PANNING_ZOOMING("Panning and Zooming"),
     SNACKBAR("Snackbar"),
-    SWIPABLE("Swipable");
+    SWIPABLE("Swipable"),
+    TABS("Tabs");
 }
 
 @Composable
@@ -96,6 +100,8 @@ private fun Screen(nav: Nav, onNavigate: (Nav) -> Unit) {
             Nav.SNACKBAR -> SnackbarScreen(nav, onBack)
             Nav.PANNING_ZOOMING -> PanningZoomingScreen(nav, onBack)
             Nav.BOTTOM_NAVIGATION -> BottomNavigationScreen(nav, onBack)
+            Nav.TABS -> TabsScreen(nav, onBack)
+            Nav.INPUT_EXAMPLES -> InputExamplesScreen(nav = nav, onBack)
         }
     }
 }
