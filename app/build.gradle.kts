@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 32
 
     defaultConfig {
         applicationId = "com.example.template"
         minSdk = 24
-        targetSdk = 31
+        targetSdk = 32
         versionCode = 1
         versionName = "1.0"
 
@@ -32,18 +32,17 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
         freeCompilerArgs += listOf(
-            "-Xopt-in=androidx.compose.material.ExperimentalMaterialApi",
-            "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi",
-            "-Xopt-in=com.google.accompanist.pager.ExperimentalPagerApi",
-            "-Xopt-in=kotlin.ExperimentalStdlibApi",
+            "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+            "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
+            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
+            "-opt-in=kotlin.ExperimentalStdlibApi",
         )
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-        kotlinCompilerVersion = "1.5.21"
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
     }
     packagingOptions {
         resources {
@@ -66,6 +65,7 @@ dependencies {
     implementation(libs.compose.material.material)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.reorderable.compose)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)

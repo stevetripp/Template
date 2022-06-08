@@ -27,6 +27,7 @@ import com.example.template.ui.screen.InputExamplesScreen
 import com.example.template.ui.screen.NavigationPagerScreen
 import com.example.template.ui.screen.PagerScreen
 import com.example.template.ui.screen.PanningZoomingScreen
+import com.example.template.ui.screen.ReorderableListScreen
 import com.example.template.ui.screen.SnackbarScreen
 import com.example.template.ui.screen.SwipableScreen
 import com.example.template.ui.screen.TabsScreen
@@ -83,7 +84,8 @@ enum class Nav(val title: String) {
     PANNING_ZOOMING("Panning and Zooming"),
     SNACKBAR("Snackbar"),
     SWIPABLE("Swipable"),
-    TABS("Tabs");
+    TABS("Tabs"),
+    REORDERABLE_LIST("Reorderable List");
 }
 
 @Composable
@@ -102,6 +104,7 @@ private fun Screen(nav: Nav, onNavigate: (Nav) -> Unit) {
             Nav.BOTTOM_NAVIGATION -> BottomNavigationScreen(nav, onBack)
             Nav.TABS -> TabsScreen(nav, onBack)
             Nav.INPUT_EXAMPLES -> InputExamplesScreen(nav = nav, onBack)
+            Nav.REORDERABLE_LIST -> ReorderableListScreen(nav = nav, onBack)
         }
     }
 }
