@@ -11,8 +11,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
@@ -29,19 +31,18 @@ import org.burnoutcrew.reorderable.reorderable
 fun ReorderableListScreen(nav: Nav, onBack: () -> Unit) {
     BackHandler(onBack = onBack)
     Scaffold(topBar = { AppBar(nav, onBack) }) { paddingValues ->
-        val data = remember { mutableStateOf(List(100) { "Item $it" }) }
+        val items = List(100) { "Item $it" }
+        var rememberedList by remember(items) { mutableStateOf(items) }
         val state = rememberReorderableLazyListState(onMove = { from, to ->
-            data.value = data.value.toMutableList().apply {
-                add(to.index, removeAt(from.index))
-            }
+            rememberedList = rememberedList.toMutableList().apply { add(to.index, removeAt(from.index)) }
         })
         LazyColumn(
             state = state.listState,
             modifier = Modifier
                 .reorderable(state)
-                .detectReorderAfterLongPress(state)
+                .detectReorderAfterLongPress(state) // remove to prevent selection
         ) {
-            items(data.value, { it }) { item ->
+            items(rememberedList, { it }) { item ->
                 ReorderableItem(state, key = item) { isDragging ->
                     val elevation = animateDpAsState(if (isDragging) 16.dp else 0.dp)
                     Column(
