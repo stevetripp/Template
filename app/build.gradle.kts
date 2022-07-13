@@ -42,7 +42,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+        kotlinCompilerExtensionVersion = "1.2.0"
     }
     packagingOptions {
         resources {
@@ -54,27 +54,22 @@ android {
 dependencies {
 
     implementation(libs.accompanist.pager)
-    implementation(libs.accompanist.pager.indicators)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.accompanist.pagerIndicators)
+    implementation(libs.accompanist.systemuicontroller)
+
     implementation(libs.androidx.splashscreen)
-    implementation(libs.google.play.core)
-    implementation(libs.google.material)
-    implementation(libs.coil.compose)
+
     implementation(libs.compose.activity)
-    implementation(libs.compose.material.material)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.ui.tooling)
+
+    implementation(libs.google.material)
+
     implementation(libs.reorderable.compose)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
 
-    androidTestImplementation(libs.androidx.test.espresso)
     androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.compose.ui.test)
-
-    debugImplementation(libs.compose.ui.tooling)
 }
 
 // create JUnit reports
