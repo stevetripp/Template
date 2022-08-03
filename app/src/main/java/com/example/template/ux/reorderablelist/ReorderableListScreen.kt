@@ -1,6 +1,5 @@
-package com.example.template.ui.screen
+package com.example.template.ux.reorderablelist
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -18,9 +17,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import com.example.template.AppBar
-import com.example.template.Nav
+import androidx.navigation.NavController
+import com.example.template.ux.main.Screen
 import com.example.template.ui.PreviewDefault
+import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import org.burnoutcrew.reorderable.ReorderableItem
 import org.burnoutcrew.reorderable.detectReorderAfterLongPress
@@ -28,9 +28,13 @@ import org.burnoutcrew.reorderable.rememberReorderableLazyListState
 import org.burnoutcrew.reorderable.reorderable
 
 @Composable
-fun ReorderableListScreen(nav: Nav, onBack: () -> Unit) {
-    BackHandler(onBack = onBack)
-    Scaffold(topBar = { AppBar(nav, onBack) }) { paddingValues ->
+fun ReorderableListScreen(navController: NavController) {
+    ReorderableListContent(navController::popBackStack)
+}
+
+@Composable
+fun ReorderableListContent(onBack: () -> Unit = {}) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.REORDERABLE_LIST.title, onBack = onBack) }) { paddingValues ->
         val items = List(100) { "Item $it" }
         var rememberedList by remember(items) { mutableStateOf(items) }
         val state = rememberReorderableLazyListState(onMove = { from, to ->
@@ -60,6 +64,6 @@ fun ReorderableListScreen(nav: Nav, onBack: () -> Unit) {
 
 @PreviewDefault
 @Composable
-private fun ReorderableListScreenPreview() {
-    AppTheme { ReorderableListScreen(Nav.REORDERABLE_LIST, {}) }
+private fun ReorderableListContentPreview() {
+    AppTheme { ReorderableListContent() }
 }

@@ -1,7 +1,5 @@
-package com.example.template.ui.screen
+package com.example.template.ux.bottomSheet
 
-import android.content.res.Configuration
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,21 +24,26 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.template.AppBar
-import com.example.template.Nav
+import androidx.navigation.NavController
+import com.example.template.ux.main.Screen
+import com.example.template.ui.PreviewDefault
+import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun BottomSheetScreen(nav: Nav, onBack: () -> Unit) {
-    BackHandler(onBack = onBack)
+fun BottomSheetScreen(navController: NavController) {
+    BottomSheetContent(navController::popBackStack)
+}
+
+@Composable
+fun BottomSheetContent(onBack: () -> Unit = {}) {
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberBottomSheetScaffoldState()
     var showSnackbar by remember { mutableStateOf(false) }
     BottomSheetScaffold(
-        topBar = { AppBar(nav, onBack) },
+        topBar = { AppTopAppBar(title = Screen.BOTTOM_SHEET.title, onBack = onBack) },
         sheetContent = {
             Box(
                 Modifier
@@ -91,9 +94,8 @@ fun BottomSheetScreen(nav: Nav, onBack: () -> Unit) {
     }
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
-private fun BottomSheetScreenPreview() {
-    AppTheme { BottomSheetScreen(nav = Nav.BOTTOM_SHEET, onBack = {}) }
+private fun BottomSheetContentPreview() {
+    AppTheme { BottomSheetContent() }
 }

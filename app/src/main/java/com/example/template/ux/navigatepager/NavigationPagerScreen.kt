@@ -1,8 +1,6 @@
-package com.example.template.ui.screen
+package com.example.template.ux.navigatepager
 
-import android.content.res.Configuration
 import android.util.Log
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -23,24 +21,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.template.AppBar
-import com.example.template.Nav
+import androidx.navigation.NavController
+import com.example.template.ux.main.Screen
 import com.example.template.R
+import com.example.template.ui.PreviewDefault
+import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.material.math.MathUtils
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 @Composable
-fun NavigationPagerScreen(nav: Nav, onBack: () -> Unit) {
-    BackHandler(onBack = onBack)
-    Scaffold(topBar = { AppBar(nav, onBack) }) {
+fun NavigationPagerScreen(navController: NavController) {
+    NavigationPagerContent(navController::popBackStack)
+}
+
+@Composable
+fun NavigationPagerContent(onBack: () -> Unit = {}) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.NAVIGATION_PAGER.title, onBack = onBack) }) {
         BoxWithConstraints(
             modifier = Modifier
                 .fillMaxSize(),
@@ -140,9 +142,8 @@ private fun BoxWithConstraintsScope.NavigationPager(
     }
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
-private fun NavigationPagerScreenPreview() {
-    AppTheme { NavigationPagerScreen(nav = Nav.PAGER, onBack = {}) }
+private fun NavigationPagerContentPreview() {
+    AppTheme { NavigationPagerContent() }
 }

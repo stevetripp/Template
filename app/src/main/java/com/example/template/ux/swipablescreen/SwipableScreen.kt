@@ -1,7 +1,5 @@
-package com.example.template.ui.screen
+package com.example.template.ux.swipablescreen
 
-import android.content.res.Configuration
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -24,17 +22,22 @@ import androidx.compose.material.swipeable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
-import com.example.template.AppBar
-import com.example.template.Nav
+import androidx.navigation.NavController
+import com.example.template.ux.main.Screen
+import com.example.template.ui.PreviewDefault
+import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import kotlin.math.roundToInt
 
 @Composable
-fun SwipableScreen(nav: Nav, onBack: () -> Unit) {
-    BackHandler(onBack = onBack)
-    Scaffold(topBar = { AppBar(nav, onBack) }) {
+fun SwipableScreen(navController: NavController) {
+    SwipableContent(navController::popBackStack)
+}
+
+@Composable
+fun SwipableContent(onBack: () -> Unit = {}) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.SWIPABLE.title, onBack = onBack) }) {
         LazyColumn {
             items(testData) { data ->
                 val swipeAnchors = mutableMapOf(0f to 0, -250F to 1)
@@ -78,11 +81,10 @@ fun SwipableScreen(nav: Nav, onBack: () -> Unit) {
     }
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
-private fun SwipeableScreenPreview() {
-    AppTheme { SwipableScreen(nav = Nav.SWIPABLE) {} }
+private fun SwipableContentPreview() {
+    AppTheme { SwipableContent() }
 }
 
 private val testData: List<TestData>

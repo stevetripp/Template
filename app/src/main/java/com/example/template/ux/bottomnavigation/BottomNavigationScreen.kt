@@ -1,7 +1,5 @@
-package com.example.template.ui.screen
+package com.example.template.ux.bottomnavigation
 
-import android.content.res.Configuration
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.BottomNavigation
@@ -18,18 +16,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.template.AppBar
-import com.example.template.Nav
+import androidx.navigation.NavController
+import com.example.template.ux.main.Screen
+import com.example.template.ui.PreviewDefault
+import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 
 @Composable
-fun BottomNavigationScreen(nav: Nav, onBack: () -> Unit) {
-    BackHandler(onBack = onBack)
+fun BottomNavigationScreen(navController: NavController) {
+    BottomNavigationContent(navController::popBackStack)
+}
+
+@Composable
+fun BottomNavigationContent(onBack: () -> Unit = {}) {
     var selectedItem by remember { mutableStateOf(0) }
     val items = listOf("Songs", "Artists", "Playlists")
 
-    Scaffold(topBar = { AppBar(nav = nav, onBack) }) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.BOTTOM_NAVIGATION.title, onBack = onBack) }) {
         Box(modifier = Modifier.fillMaxSize()) {
             BottomNavigation(modifier = Modifier.align(Alignment.BottomCenter)) {
                 items.forEachIndexed { index, item ->
@@ -45,9 +48,8 @@ fun BottomNavigationScreen(nav: Nav, onBack: () -> Unit) {
     }
 }
 
-@Preview(group = "light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
-private fun BottomNavigationScreenPreview() {
-    AppTheme() { BottomNavigationScreen(nav = Nav.BOTTOM_NAVIGATION, onBack = { }) }
+private fun BottomNavigationContentPreview() {
+    AppTheme { BottomNavigationContent() }
 }

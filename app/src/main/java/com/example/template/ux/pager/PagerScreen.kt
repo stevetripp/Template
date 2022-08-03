@@ -1,7 +1,5 @@
-package com.example.template.ui.screen
+package com.example.template.ux.pager
 
-import android.content.res.Configuration
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,19 +8,24 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.template.AppBar
-import com.example.template.Nav
+import androidx.navigation.NavController
+import com.example.template.ux.main.Screen
+import com.example.template.ui.PreviewDefault
+import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 
 @Composable
-fun PagerScreen(nav: Nav, onBack: () -> Unit) {
-    BackHandler(onBack = onBack)
-    Scaffold(topBar = { AppBar(nav, onBack) }) {
+fun PagerScreen(navController: NavController) {
+    PagerContent(navController::popBackStack)
+}
+
+@Composable
+fun PagerContent(onBack: () -> Unit = {}) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.PAGER.title, onBack = onBack) }) {
         val pagerState = rememberPagerState()
         Box {
             HorizontalPager(
@@ -44,9 +47,8 @@ fun PagerScreen(nav: Nav, onBack: () -> Unit) {
     }
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
 private fun PagerPreview() {
-    AppTheme { PagerScreen(nav = Nav.PAGER, onBack = {}) }
+    AppTheme { PagerContent() }
 }

@@ -1,9 +1,8 @@
-package com.example.template.ui.screen
+package com.example.template.ux.panningzooming
 
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -22,7 +21,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
@@ -36,24 +34,27 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.example.template.AppBar
-import com.example.template.Nav
+import androidx.navigation.NavController
+import com.example.template.ux.main.Screen
 import com.example.template.ext.findBestFit
+import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.composable.PanAndZoom
 import com.example.template.ui.theme.AppTheme
 
 @Composable
-fun PanningZoomingScreen(nav: Nav, onBack: () -> Unit) {
-    BackHandler(onBack = onBack)
-    Scaffold(topBar = { AppBar(nav, onBack) }) {
+fun PanningZoomingScreen(navController: NavController) {
+    PanningZoomingContent(navController::popBackStack)
+}
 
+@Composable
+fun PanningZoomingContent(onBack: () -> Unit = {}) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.PANNING_ZOOMING.title, onBack = onBack) }) {
         val outlineStream = LocalContext.current.assets.open("CP011-Outline-iPad.png")
         val pageImage = BitmapFactory.decodeStream(outlineStream).asImageBitmap()
 
         CanvasCard(pageImage = pageImage)
     }
 }
-
 @Composable
 fun CanvasCard(pageImage: ImageBitmap) {
 

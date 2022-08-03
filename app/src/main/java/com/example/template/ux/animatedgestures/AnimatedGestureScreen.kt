@@ -1,7 +1,5 @@
-package com.example.template.ui.screen
+package com.example.template.ux.animatedgestures
 
-import android.content.res.Configuration
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.VectorConverter
 import androidx.compose.animation.core.animateDp
@@ -36,8 +34,9 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.template.AppBar
-import com.example.template.Nav
+import androidx.navigation.NavController
+import com.example.template.ux.main.Screen
+import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 
 private enum class State {
@@ -47,9 +46,13 @@ private enum class State {
 }
 
 @Composable
-fun AnimatedGestureScreen(nav: Nav, onBack: () -> Unit) {
-    BackHandler(onBack = onBack)
-    Scaffold(topBar = { AppBar(nav, onBack) }) {
+fun AnimatedGestureScreen(navController: NavController) {
+    AnimatedGesturesContent(navController::popBackStack)
+}
+
+@Composable
+fun AnimatedGesturesContent(onBack: () -> Unit = {}) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.ANIMATED_GESTURE.title, onBack = onBack) }) {
 //        UpdateTransitionExample()
         RememberInfiniteTransitionExample()
     }
@@ -146,11 +149,10 @@ private fun UpdateTransitionExample() {
     }
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview
 @Composable
-private fun AnimatedGestureScreenPreview() {
-    AppTheme { AnimatedGestureScreen(nav = Nav.ANIMATED_GESTURE) { } }
+private fun AnimatedGestureContentPreview() {
+    AppTheme { AnimatedGesturesContent() }
 }
 
 @Composable
@@ -163,8 +165,7 @@ private fun GestureIndicator(modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(group = "Light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@Preview
 @Composable
 private fun GestureIndicatorPreview() {
     AppTheme { Surface() { GestureIndicator() } }

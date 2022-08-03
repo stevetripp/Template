@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
+    kotlin("kapt")
     kotlin("android")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -42,7 +44,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
@@ -57,10 +59,17 @@ dependencies {
     implementation(libs.accompanist.pagerIndicators)
     implementation(libs.accompanist.systemuicontroller)
 
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
+
     implementation(libs.androidx.splashscreen)
 
     implementation(libs.compose.activity)
     implementation(libs.compose.ui.tooling)
+
+    // Inject
+    implementation(libs.google.hilt)
+    kapt(libs.google.hilt.compiler)
 
     implementation(libs.google.material)
 
