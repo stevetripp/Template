@@ -1,13 +1,14 @@
 package com.example.template.ux.home
 
 import androidx.lifecycle.ViewModel
-import com.example.template.ux.main.Screen
 import com.example.template.ui.navigation.ViewModelNav
 import com.example.template.ui.navigation.ViewModelNavImpl
 import com.example.template.ux.animatedgestures.AnimatedGesturesRoute
 import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
+import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.inputexamples.InputExamplesRoute
+import com.example.template.ux.main.Screen
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.pager.PagerRoute
 import com.example.template.ux.panningzooming.PanningZoomingRoute
@@ -33,6 +34,7 @@ class HomeViewModel
             Screen.ANIMATED_GESTURE -> navigate(AnimatedGesturesRoute.routeDefinition)
             Screen.BOTTOM_NAVIGATION -> navigate(BottomNavigationRoute.routeDefinition)
             Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute.routeDefinition)
+            Screen.FLIPPABLE -> navigate(FlippableRoute.routeDefinition)
             Screen.INPUT_EXAMPLES -> navigate(InputExamplesRoute.routeDefinition)
             Screen.NAVIGATION_PAGER -> navigate(NavigationPagerRoute.routeDefinition)
             Screen.PAGER -> navigate(PagerRoute.routeDefinition)

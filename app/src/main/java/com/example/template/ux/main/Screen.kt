@@ -5,6 +5,7 @@ enum class Screen(val title: String) {
     ANIMATED_GESTURE("Animated Gesture"),
     BOTTOM_NAVIGATION("Bottom Navigation"),
     BOTTOM_SHEET("Bottom Sheet"),
+    FLIPPABLE("Flippable"),
     INPUT_EXAMPLES("Input Examples"),
     NAVIGATION_PAGER("Navigation Pager"),
     PAGER("Pager"),

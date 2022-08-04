@@ -9,6 +9,8 @@ import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomSheet.BottomSheetScreen
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
+import com.example.template.ux.flippable.FlippableRoute
+import com.example.template.ux.flippable.FlippableScreen
 import com.example.template.ux.home.HomeRoute
 import com.example.template.ux.home.HomeScreen
 import com.example.template.ux.inputexamples.InputExamplesRoute
@@ -45,6 +47,7 @@ fun NavGraph(
         AnimatedGesturesRoute.addNavigationRoute(this) { AnimatedGestureScreen(navController) }
         BottomNavigationRoute.addNavigationRoute(this) { BottomNavigationScreen(navController) }
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
+        FlippableRoute.addNavigationRoute(this) { FlippableScreen(navController) }
         InputExamplesRoute.addNavigationRoute(this) { InputExamplesScreen(navController) }
         NavigationPagerRoute.addNavigationRoute(this) { NavigationPagerScreen(navController) }
         PagerRoute.addNavigationRoute(this) { PagerScreen(navController) }

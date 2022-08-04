@@ -67,6 +67,8 @@ dependencies {
     implementation(libs.compose.activity)
     implementation(libs.compose.ui.tooling)
 
+    implementation(libs.flippable)
+
     // Inject
     implementation(libs.google.hilt)
     kapt(libs.google.hilt.compiler)
