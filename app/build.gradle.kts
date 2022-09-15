@@ -6,14 +6,14 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = AppInfo.AndroidSdk.COMPILE
 
     defaultConfig {
-        applicationId = "com.example.template"
-        minSdk = 24
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = AppInfo.APPLICATION_ID
+        minSdk = AppInfo.AndroidSdk.MIN
+        targetSdk = AppInfo.AndroidSdk.TARGET
+        versionCode = AppInfo.Version.CODE
+        versionName = AppInfo.Version.NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -70,8 +70,8 @@ dependencies {
     implementation(libs.flippable)
 
     // Inject
-    implementation(libs.google.hilt)
-    kapt(libs.google.hilt.compiler)
+    implementation(libs.google.hilt.android)
+    kapt(libs.google.hilt.android.compiler)
 
     implementation(libs.google.material)
 
