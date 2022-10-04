@@ -14,5 +14,6 @@ enum class Screen(val title: String) {
     SWIPABLE("Swipable"),
     SYSTEM_UI("System UI"),
     TABS("Tabs"),
-    REORDERABLE_LIST("Reorderable List");
+    REORDERABLE_LIST("Reorderable List"),
+    WEBVIEW("Webview");
 }

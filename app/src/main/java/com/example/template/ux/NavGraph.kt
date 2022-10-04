@@ -31,6 +31,7 @@ import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.systemui.SystemUiScreen
 import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
+import com.example.template.ux.webview.WebViewRoute
 
 @Composable
 fun NavGraph(
@@ -57,5 +58,6 @@ fun NavGraph(
         SwipableRoute.addNavigationRoute(this) { SwipableScreen(navController) }
         SystemUiRoute.addNavigationRoute(this) { SystemUiScreen(navController) }
         TabsRoute.addNavigationRoute(this) { TabsScreen(navController) }
+        WebViewRoute.addNavigationRoute(this) { WebViewScreen(navController) }
     }
 }

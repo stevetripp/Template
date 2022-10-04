@@ -17,6 +17,7 @@ import com.example.template.ux.snackbar.SnackbarRoute
 import com.example.template.ux.swipablescreen.SwipableRoute
 import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.tabs.TabsRoute
+import com.example.template.ux.webview.WebViewRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -44,6 +45,7 @@ class HomeViewModel
             Screen.SWIPABLE -> navigate(SwipableRoute.routeDefinition)
             Screen.SYSTEM_UI -> navigate(SystemUiRoute.routeDefinition)
             Screen.TABS -> navigate(TabsRoute.routeDefinition)
+            Screen.WEBVIEW -> navigate(WebViewRoute.routeDefinition)
         }
     }
 }
