@@ -56,7 +56,7 @@ android {
 dependencies {
 
     implementation(libs.accompanist.pager)
-    implementation(libs.accompanist.pagerIndicators)
+    implementation(libs.accompanist.pager.indicators)
     implementation(libs.accompanist.systemuicontroller)
 
     implementation(libs.androidx.hilt.navigation.compose)
