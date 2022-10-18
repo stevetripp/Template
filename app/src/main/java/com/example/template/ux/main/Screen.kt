@@ -10,6 +10,7 @@ enum class Screen(val title: String) {
     NAVIGATION_PAGER("Navigation Pager"),
     PAGER("Pager"),
     PANNING_ZOOMING("Panning and Zooming"),
+    SIDE_DRAWER("Side Drawer"),
     SNACKBAR("Snackbar"),
     SWIPABLE("Swipable"),
     SYSTEM_UI("System UI"),

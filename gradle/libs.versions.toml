@@ -22,7 +22,7 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.0.0" }
 
-androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version = "1.1.4-alpha07" }
+androidx-test-junit-ktx = { module = "androidx.test.ext:junit-ktx", version = "1.1.4-beta01" }
 
 compose-activity = { module = "androidx.activity:activity-compose", version = "1.6.0-rc02" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-ui" } # Tooling support (Previews, etc.)
@@ -33,7 +33,7 @@ google-hilt-android = { module = "com.google.dagger:hilt-android", version.ref =
 google-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 google-hilt-gradlePluginClasspath = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 google-material = { module = "com.google.android.material:material", version = "1.8.0-alpha01" } # https://github.com/material-components/material-components-android/releases
-gradleVersions-gradlePluginClasspath = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.42.0" }
+gradleVersions-gradlePluginClasspath = { module = "com.github.ben-manes:gradle-versions-plugin", version = "0.43.0" }
 
 junit-bom = { module = "org.junit:junit-bom", version = "5.9.1" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }

@@ -13,6 +13,7 @@ import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.pager.PagerRoute
 import com.example.template.ux.panningzooming.PanningZoomingRoute
 import com.example.template.ux.reorderablelist.ReorderableListRoute
+import com.example.template.ux.sidedrawer.SideDrawerRoute
 import com.example.template.ux.snackbar.SnackbarRoute
 import com.example.template.ux.swipablescreen.SwipableRoute
 import com.example.template.ux.systemui.SystemUiRoute
@@ -41,6 +42,7 @@ class HomeViewModel
             Screen.PAGER -> navigate(PagerRoute.routeDefinition)
             Screen.PANNING_ZOOMING -> navigate(PanningZoomingRoute.routeDefinition)
             Screen.REORDERABLE_LIST -> navigate(ReorderableListRoute.routeDefinition)
+            Screen.SIDE_DRAWER -> navigate(SideDrawerRoute.routeDefinition)
             Screen.SNACKBAR -> navigate(SnackbarRoute.routeDefinition)
             Screen.SWIPABLE -> navigate(SwipableRoute.routeDefinition)
             Screen.SYSTEM_UI -> navigate(SystemUiRoute.routeDefinition)

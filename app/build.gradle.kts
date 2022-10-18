@@ -80,7 +80,7 @@ dependencies {
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
 
-    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.test.junit.ktx)
 }
 
 // create JUnit reports

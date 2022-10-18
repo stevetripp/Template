@@ -23,6 +23,8 @@ import com.example.template.ux.panningzooming.PanningZoomingRoute
 import com.example.template.ux.panningzooming.PanningZoomingScreen
 import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.reorderablelist.ReorderableListScreen
+import com.example.template.ux.sidedrawer.SideDrawerRoute
+import com.example.template.ux.sidedrawer.SideDrawerScreen
 import com.example.template.ux.snackbar.SnackbarRoute
 import com.example.template.ux.snackbar.SnackbarScreen
 import com.example.template.ux.swipablescreen.SwipableRoute
@@ -54,6 +56,7 @@ fun NavGraph(
         PagerRoute.addNavigationRoute(this) { PagerScreen(navController) }
         PanningZoomingRoute.addNavigationRoute(this) { PanningZoomingScreen(navController) }
         ReorderableListRoute.addNavigationRoute(this) { ReorderableListScreen(navController) }
+        SideDrawerRoute.addNavigationRoute(this) { SideDrawerScreen(navController) }
         SnackbarRoute.addNavigationRoute(this) { SnackbarScreen(navController) }
         SwipableRoute.addNavigationRoute(this) { SwipableScreen(navController) }
         SystemUiRoute.addNavigationRoute(this) { SystemUiScreen(navController) }
