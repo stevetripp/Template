@@ -5,13 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.Button
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.rememberBottomSheetScaffoldState
@@ -26,10 +26,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.template.ux.main.Screen
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
+import com.example.template.ux.main.Screen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -47,18 +47,17 @@ fun BottomSheetContent(onBack: () -> Unit = {}) {
         sheetContent = {
             Box(
                 Modifier
-                    .fillMaxWidth()
-                    .height(128.dp),
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
                 Text("Swipe up to expand sheet")
             }
             Column(
                 Modifier
-                    .fillMaxWidth()
-                    .padding(64.dp),
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                TopAppBar(title = { Text(text = "Sheet content") })
                 Text("Sheet content")
                 Spacer(Modifier.height(20.dp))
                 Button(
