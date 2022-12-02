@@ -13,6 +13,7 @@ enum class Screen(val title: String) {
     SIDE_DRAWER("Side Drawer"),
     SNACKBAR("Snackbar"),
     SWIPABLE("Swipable"),
+    SWIPE_REFRESH("Swipe Refresh"),
     SYSTEM_UI("System UI"),
     TABS("Tabs"),
     REORDERABLE_LIST("Reorderable List"),

@@ -29,6 +29,8 @@ import com.example.template.ux.snackbar.SnackbarRoute
 import com.example.template.ux.snackbar.SnackbarScreen
 import com.example.template.ux.swipablescreen.SwipableRoute
 import com.example.template.ux.swipablescreen.SwipableScreen
+import com.example.template.ux.swiperefresh.SwipeRefreshRoute
+import com.example.template.ux.swiperefresh.SwipeRefreshScreen
 import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.systemui.SystemUiScreen
 import com.example.template.ux.tabs.TabsRoute
@@ -59,6 +61,7 @@ fun NavGraph(
         SideDrawerRoute.addNavigationRoute(this) { SideDrawerScreen(navController) }
         SnackbarRoute.addNavigationRoute(this) { SnackbarScreen(navController) }
         SwipableRoute.addNavigationRoute(this) { SwipableScreen(navController) }
+        SwipeRefreshRoute.addNavigationRoute(this) { SwipeRefreshScreen(navController) }
         SystemUiRoute.addNavigationRoute(this) { SystemUiScreen(navController) }
         TabsRoute.addNavigationRoute(this) { TabsScreen(navController) }
         WebViewRoute.addNavigationRoute(this) { WebViewScreen(navController) }

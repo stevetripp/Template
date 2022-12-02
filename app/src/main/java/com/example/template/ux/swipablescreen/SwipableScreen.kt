@@ -24,10 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
 import androidx.navigation.NavController
-import com.example.template.ux.main.Screen
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
+import com.example.template.ux.main.Screen
 import kotlin.math.roundToInt
 
 @Composable
@@ -38,7 +38,7 @@ fun SwipableScreen(navController: NavController) {
 @Composable
 fun SwipableContent(onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.SWIPABLE.title, onBack = onBack) }) {
-        LazyColumn {
+        LazyColumn(modifier = Modifier.padding(it)) {
             items(testData) { data ->
                 val swipeAnchors = mutableMapOf(0f to 0, -250F to 1)
                 val swipeableState: SwipeableState<Int> = rememberSwipeableState(0)

@@ -16,6 +16,7 @@ import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.sidedrawer.SideDrawerRoute
 import com.example.template.ux.snackbar.SnackbarRoute
 import com.example.template.ux.swipablescreen.SwipableRoute
+import com.example.template.ux.swiperefresh.SwipeRefreshRoute
 import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.webview.WebViewRoute
@@ -45,6 +46,7 @@ class HomeViewModel
             Screen.SIDE_DRAWER -> navigate(SideDrawerRoute.routeDefinition)
             Screen.SNACKBAR -> navigate(SnackbarRoute.routeDefinition)
             Screen.SWIPABLE -> navigate(SwipableRoute.routeDefinition)
+            Screen.SWIPE_REFRESH -> navigate(SwipeRefreshRoute.routeDefinition)
             Screen.SYSTEM_UI -> navigate(SystemUiRoute.routeDefinition)
             Screen.TABS -> navigate(TabsRoute.routeDefinition)
             Screen.WEBVIEW -> navigate(WebViewRoute.routeDefinition)
