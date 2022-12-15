@@ -1,6 +1,5 @@
 package com.example.template.ui.composable
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,14 +17,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.template.ui.PreviewDefault
 import com.example.template.ui.theme.AppTheme
 
 @Composable
-fun DropDownList(value: String, label: String, options: List<String>, modifier: Modifier = Modifier, onValueChanged: (String) -> Unit) {
+fun DropdownList(value: String, label: String, options: List<DropdownOption>, modifier: Modifier = Modifier, onValueChanged: (DropdownOption) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
-    // We want to react on tap/press on TextField to show menu
+
     ExposedDropdownMenuBox(
         modifier = modifier,
         expanded = expanded,
@@ -38,28 +37,26 @@ fun DropDownList(value: String, label: String, options: List<String>, modifier: 
                 modifier = Modifier.fillMaxWidth(),
                 readOnly = true,
                 value = value,
-                onValueChange = onValueChanged,
+                onValueChange = {},
                 label = { Text(label) },
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
                         expanded = expanded
                     )
                 },
-                colors = ExposedDropdownMenuDefaults.textFieldColors()
             )
         } else {
             TextField(
                 modifier = Modifier.fillMaxWidth(),
                 readOnly = true,
                 value = value,
-                onValueChange = onValueChanged,
+                onValueChange = {},
                 label = { Text(label) },
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
                         expanded = expanded
                     )
                 },
-                colors = ExposedDropdownMenuDefaults.textFieldColors()
             )
         }
         ExposedDropdownMenu(
@@ -75,27 +72,26 @@ fun DropDownList(value: String, label: String, options: List<String>, modifier: 
                         expanded = false
                     }
                 ) {
-                    Text(text = selectionOption)
+                    Text(text = selectionOption.listValue)
                 }
             }
         }
     }
 }
 
-@Preview(group = "light", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
-@Preview(group = "dark", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, showBackground = true)
+@PreviewDefault
 @Composable
 private fun DropDownListPreview() {
-    val options = mutableListOf<String>()
-    (1..5).forEach { options.add("Options $it") }
-    var selected by remember { mutableStateOf(options.first()) }
+    val options = mutableListOf<DropdownOption>()
+    (1..5).forEach { options.add(DropdownOption("Option $it*", "Option $it")) }
+    var selected by remember { mutableStateOf(DropdownOption("")) }
     AppTheme {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 16.dp)
         ) {
-            DropDownList(selected, "Option", options) {
+            DropdownList(selected.selectedValue, "Option", options) {
                 selected = it
             }
         }

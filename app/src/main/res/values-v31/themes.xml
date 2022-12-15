@@ -3,6 +3,6 @@
     <style name="Theme.AndroidTemplate.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/purple_700</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
-        <item name="postSplashScreenTheme">@style/Theme.Template.NoActionBar</item>
+        <item name="postSplashScreenTheme">@style/Theme.Template</item>
     </style>
 </resources>
