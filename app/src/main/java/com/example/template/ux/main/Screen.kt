@@ -10,12 +10,12 @@ enum class Screen(val title: String) {
     NAVIGATION_PAGER("Navigation Pager"),
     PAGER("Pager"),
     PANNING_ZOOMING("Panning and Zooming"),
+    REORDERABLE_LIST("Reorderable List"),
     SIDE_DRAWER("Side Drawer"),
     SNACKBAR("Snackbar"),
     SWIPABLE("Swipable"),
     SWIPE_REFRESH("Swipe Refresh"),
     SYSTEM_UI("System UI"),
     TABS("Tabs"),
-    REORDERABLE_LIST("Reorderable List"),
     WEBVIEW("Webview");
 }
