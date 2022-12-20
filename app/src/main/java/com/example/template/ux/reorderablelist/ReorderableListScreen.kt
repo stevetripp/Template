@@ -3,6 +3,8 @@ package com.example.template.ux.reorderablelist
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ListItem
@@ -35,22 +37,22 @@ fun ReorderableListScreen(navController: NavController, viewModel: ReorderableLi
 fun ReorderableListContent(uiState: ReorderableListUiState, onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.REORDERABLE_LIST.title, onBack = onBack) }) { paddingValues ->
         val list by uiState.listFlow.collectAsState()
-        val state = rememberReorderableLazyListState(
-            onMove = { from, to -> uiState.onMove(from, to) },
-            canDragOver = { draggedOver, dragging -> uiState.canDragOver(draggedOver, dragging) })
+        val state = rememberReorderableLazyListState(onMove = uiState.onMove, canDragOver = uiState.canDragOver)
         LazyColumn(
             state = state.listState,
             modifier = Modifier
+                .padding(paddingValues)
                 .reorderable(state)
-                .detectReorderAfterLongPress(state) // remove to prevent selection
+                .fillMaxSize()
         ) {
-            items(list, { it.id }) { item ->
-                ReorderableItem(state, key = item.id) { isDragging ->
-                    val elevation = animateDpAsState(if (isDragging) 16.dp else 0.dp)
+            items(items = list, key = { it.id }) { item ->
+                ReorderableItem(reorderableState = state, key = item.id) { isDragging ->
+                    val elevation by animateDpAsState(if (isDragging) 16.dp else 0.dp)
                     Box(
                         modifier = Modifier
-                            .shadow(elevation.value)
+                            .shadow(elevation)
                             .background(if (isDragging) MaterialTheme.colors.onPrimary else MaterialTheme.colors.background)
+                            .detectReorderAfterLongPress(state) // remove to prevent selection
                     ) {
                         ListItem(text = { Text(item.value) })
                     }
