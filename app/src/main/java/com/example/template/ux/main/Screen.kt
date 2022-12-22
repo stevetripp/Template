@@ -7,6 +7,7 @@ enum class Screen(val title: String) {
     BOTTOM_SHEET("Bottom Sheet"),
     FLIPPABLE("Flippable"),
     INPUT_EXAMPLES("Input Examples"),
+    MODAL_BOTTOM_SHEET("Modal Bottom Sheet"),
     NAVIGATION_PAGER("Navigation Pager"),
     PAGER("Pager"),
     PANNING_ZOOMING("Panning and Zooming"),

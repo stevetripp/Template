@@ -9,6 +9,7 @@ import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.main.Screen
+import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.pager.PagerRoute
 import com.example.template.ux.panningzooming.PanningZoomingRoute
@@ -39,6 +40,7 @@ class HomeViewModel
             Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute.routeDefinition)
             Screen.FLIPPABLE -> navigate(FlippableRoute.routeDefinition)
             Screen.INPUT_EXAMPLES -> navigate(InputExamplesRoute.routeDefinition)
+            Screen.MODAL_BOTTOM_SHEET -> navigate(ModalBottomSheetRoute.routeDefinition)
             Screen.NAVIGATION_PAGER -> navigate(NavigationPagerRoute.routeDefinition)
             Screen.PAGER -> navigate(PagerRoute.routeDefinition)
             Screen.PANNING_ZOOMING -> navigate(PanningZoomingRoute.routeDefinition)

@@ -15,6 +15,8 @@ import com.example.template.ux.home.HomeRoute
 import com.example.template.ux.home.HomeScreen
 import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.inputexamples.InputExamplesScreen
+import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
+import com.example.template.ux.modalbottomsheet.ModalBottomSheetScreen
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.navigatepager.NavigationPagerScreen
 import com.example.template.ux.pager.PagerRoute
@@ -36,6 +38,7 @@ import com.example.template.ux.systemui.SystemUiScreen
 import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
 import com.example.template.ux.webview.WebViewRoute
+import com.example.template.ux.webview.WebViewScreen
 
 @Composable
 fun NavGraph(
@@ -54,6 +57,7 @@ fun NavGraph(
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
         FlippableRoute.addNavigationRoute(this) { FlippableScreen(navController) }
         InputExamplesRoute.addNavigationRoute(this) { InputExamplesScreen(navController) }
+        ModalBottomSheetRoute.addNavigationRoute(this) { ModalBottomSheetScreen(navController) }
         NavigationPagerRoute.addNavigationRoute(this) { NavigationPagerScreen(navController) }
         PagerRoute.addNavigationRoute(this) { PagerScreen(navController) }
         PanningZoomingRoute.addNavigationRoute(this) { PanningZoomingScreen(navController) }

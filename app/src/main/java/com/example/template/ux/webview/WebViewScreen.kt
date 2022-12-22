@@ -1,4 +1,4 @@
-package com.example.template.ux
+package com.example.template.ux.webview
 
 import android.util.Base64
 import android.util.Log

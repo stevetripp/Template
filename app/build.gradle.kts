@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.splashscreen)
 
     implementation(libs.compose.activity)
+    implementation(libs.compose.material.iconsext)
     implementation(libs.compose.ui.tooling)
 
     implementation(libs.flippable)
