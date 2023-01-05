@@ -13,6 +13,8 @@ import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.flippable.FlippableScreen
 import com.example.template.ux.home.HomeRoute
 import com.example.template.ux.home.HomeScreen
+import com.example.template.ux.imagepicker.ImagePickerRoute
+import com.example.template.ux.imagepicker.ImagePickerScreen
 import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.inputexamples.InputExamplesScreen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
@@ -56,6 +58,7 @@ fun NavGraph(
         BottomNavigationRoute.addNavigationRoute(this) { BottomNavigationScreen(navController) }
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
         FlippableRoute.addNavigationRoute(this) { FlippableScreen(navController) }
+        ImagePickerRoute.addNavigationRoute(this) { ImagePickerScreen(navController) }
         InputExamplesRoute.addNavigationRoute(this) { InputExamplesScreen(navController) }
         ModalBottomSheetRoute.addNavigationRoute(this) { ModalBottomSheetScreen(navController) }
         NavigationPagerRoute.addNavigationRoute(this) { NavigationPagerScreen(navController) }

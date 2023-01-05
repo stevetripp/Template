@@ -39,6 +39,7 @@ class HomeViewModel
             Screen.BOTTOM_NAVIGATION -> navigate(BottomNavigationRoute.routeDefinition)
             Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute.routeDefinition)
             Screen.FLIPPABLE -> navigate(FlippableRoute.routeDefinition)
+            Screen.IMAGE_PICKER -> navigate(ImagePickerRoute.routeDefinition)
             Screen.INPUT_EXAMPLES -> navigate(InputExamplesRoute.routeDefinition)
             Screen.MODAL_BOTTOM_SHEET -> navigate(ModalBottomSheetRoute.routeDefinition)
             Screen.NAVIGATION_PAGER -> navigate(NavigationPagerRoute.routeDefinition)

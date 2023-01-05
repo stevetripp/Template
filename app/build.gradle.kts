@@ -22,9 +22,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            resValue("string", "file_provider", "com.tnt.template.dev.fileprovider")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            resValue("string", "file_provider", "tnt.com.template.fileprovider")
         }
     }
     compileOptions {

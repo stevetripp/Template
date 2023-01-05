@@ -26,7 +26,7 @@ fun DropdownList(value: String, label: String, options: List<DropdownOption>, mo
     var expanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = 16.dp, vertical = 8.dp),
         expanded = expanded,
         onExpandedChange = {
             expanded = !expanded
