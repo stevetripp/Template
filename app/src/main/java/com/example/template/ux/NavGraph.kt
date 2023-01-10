@@ -25,6 +25,8 @@ import com.example.template.ux.pager.PagerRoute
 import com.example.template.ux.pager.PagerScreen
 import com.example.template.ux.panningzooming.PanningZoomingRoute
 import com.example.template.ux.panningzooming.PanningZoomingScreen
+import com.example.template.ux.permissions.PermissionsRoute
+import com.example.template.ux.permissions.PermissionsScreen
 import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.reorderablelist.ReorderableListScreen
 import com.example.template.ux.sidedrawer.SideDrawerRoute
@@ -64,6 +66,7 @@ fun NavGraph(
         NavigationPagerRoute.addNavigationRoute(this) { NavigationPagerScreen(navController) }
         PagerRoute.addNavigationRoute(this) { PagerScreen(navController) }
         PanningZoomingRoute.addNavigationRoute(this) { PanningZoomingScreen(navController) }
+        PermissionsRoute.addNavigationRoute(this) { PermissionsScreen(navController) }
         ReorderableListRoute.addNavigationRoute(this) { ReorderableListScreen(navController) }
         SideDrawerRoute.addNavigationRoute(this) { SideDrawerScreen(navController) }
         SnackbarRoute.addNavigationRoute(this) { SnackbarScreen(navController) }

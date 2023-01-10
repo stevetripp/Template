@@ -13,6 +13,7 @@ import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.pager.PagerRoute
 import com.example.template.ux.panningzooming.PanningZoomingRoute
+import com.example.template.ux.permissions.PermissionsRoute
 import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.sidedrawer.SideDrawerRoute
 import com.example.template.ux.snackbar.SnackbarRoute
@@ -45,6 +46,7 @@ class HomeViewModel
             Screen.NAVIGATION_PAGER -> navigate(NavigationPagerRoute.routeDefinition)
             Screen.PAGER -> navigate(PagerRoute.routeDefinition)
             Screen.PANNING_ZOOMING -> navigate(PanningZoomingRoute.routeDefinition)
+            Screen.PERMISSIONS -> navigate(PermissionsRoute.routeDefinition)
             Screen.REORDERABLE_LIST -> navigate(ReorderableListRoute.routeDefinition)
             Screen.SIDE_DRAWER -> navigate(SideDrawerRoute.routeDefinition)
             Screen.SNACKBAR -> navigate(SnackbarRoute.routeDefinition)
