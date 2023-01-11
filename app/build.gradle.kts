@@ -41,6 +41,7 @@ android {
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
             "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
+            "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi",
             "-opt-in=kotlin.ExperimentalStdlibApi",
         )
     }
@@ -59,14 +60,19 @@ android {
 
 dependencies {
 
+    implementation(libs.accompanist.flowlayout)
     implementation(libs.accompanist.pager)
     implementation(libs.accompanist.pager.indicators)
+    implementation(libs.accompanist.permissions)
     implementation(libs.accompanist.systemuicontroller)
 
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.splashscreen)
+
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
 
     implementation(libs.compose.activity)
     implementation(libs.compose.material.iconsext)

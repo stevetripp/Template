@@ -12,6 +12,7 @@ androidxHilt = "1.0.0"
 androidxNavigation = "2.5.3"
 androidxSplashScreen = "1.0.0"
 androidxTestJunit = "1.1.4"
+coil = "2.2.2"
 flippable = "1.0.6"
 googleMaterial = "1.7.0"
 hilt = "2.44.2"
@@ -22,8 +23,10 @@ versionsGradlePlugin = "0.44.0"
 [plugins]
 
 [libraries]
+accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 
 android-gradlePluginClasspath = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -33,6 +36,9 @@ androidx-navigation-compose = { module = "androidx.navigation:navigation-compose
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidxSplashScreen" }
 
 androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version.ref = "androidxTestJunit" }
+
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 compose-material-iconsext = { module = "androidx.compose.material:material-icons-extended", version.ref = "androidxComposeMaterial" } # Material design icons (extended)

@@ -11,6 +11,8 @@ import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.flippable.FlippableScreen
+import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
+import com.example.template.ux.gmailaddressfield.GmailAddressFieldScreen
 import com.example.template.ux.home.HomeRoute
 import com.example.template.ux.home.HomeScreen
 import com.example.template.ux.imagepicker.ImagePickerRoute
@@ -60,6 +62,7 @@ fun NavGraph(
         BottomNavigationRoute.addNavigationRoute(this) { BottomNavigationScreen(navController) }
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
         FlippableRoute.addNavigationRoute(this) { FlippableScreen(navController) }
+        GmailAddressFieldRoute.addNavigationRoute(this) { GmailAddressFieldScreen(navController) }
         ImagePickerRoute.addNavigationRoute(this) { ImagePickerScreen(navController) }
         InputExamplesRoute.addNavigationRoute(this) { InputExamplesScreen(navController) }
         ModalBottomSheetRoute.addNavigationRoute(this) { ModalBottomSheetScreen(navController) }

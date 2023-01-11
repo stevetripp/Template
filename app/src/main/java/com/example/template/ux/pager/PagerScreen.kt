@@ -10,10 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.template.ux.main.Screen
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
+import com.example.template.ux.main.Screen
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
@@ -25,9 +25,9 @@ fun PagerScreen(navController: NavController) {
 
 @Composable
 fun PagerContent(onBack: () -> Unit = {}) {
-    Scaffold(topBar = { AppTopAppBar(title = Screen.PAGER.title, onBack = onBack) }) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.PAGER.title, onBack = onBack) }) { paddingValues ->
         val pagerState = rememberPagerState()
-        Box {
+        Box(modifier = Modifier.padding(paddingValues)) {
             HorizontalPager(
                 state = pagerState,
                 count = 10

@@ -6,6 +6,7 @@ enum class Screen(val title: String) {
     BOTTOM_NAVIGATION("Bottom Navigation"),
     BOTTOM_SHEET("Bottom Sheet"),
     FLIPPABLE("Flippable"),
+    GMAIL_ADDRESS_FIELD("Gmail Address Field"),
     IMAGE_PICKER("Image Picker"),
     INPUT_EXAMPLES("Input Examples"),
     MODAL_BOTTOM_SHEET("Modal Bottom Sheet"),

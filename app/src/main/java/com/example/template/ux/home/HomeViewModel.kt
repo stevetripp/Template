@@ -7,6 +7,8 @@ import com.example.template.ux.animatedgestures.AnimatedGesturesRoute
 import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.flippable.FlippableRoute
+import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
+import com.example.template.ux.imagepicker.ImagePickerRoute
 import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.main.Screen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
@@ -40,6 +42,7 @@ class HomeViewModel
             Screen.BOTTOM_NAVIGATION -> navigate(BottomNavigationRoute.routeDefinition)
             Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute.routeDefinition)
             Screen.FLIPPABLE -> navigate(FlippableRoute.routeDefinition)
+            Screen.GMAIL_ADDRESS_FIELD -> navigate(GmailAddressFieldRoute.routeDefinition)
             Screen.IMAGE_PICKER -> navigate(ImagePickerRoute.routeDefinition)
             Screen.INPUT_EXAMPLES -> navigate(InputExamplesRoute.routeDefinition)
             Screen.MODAL_BOTTOM_SHEET -> navigate(ModalBottomSheetRoute.routeDefinition)
