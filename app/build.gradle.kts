@@ -43,6 +43,7 @@ android {
             "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
             "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi",
             "-opt-in=kotlin.ExperimentalStdlibApi",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
         )
     }
     buildFeatures {
@@ -66,7 +67,9 @@ dependencies {
     implementation(libs.accompanist.permissions)
     implementation(libs.accompanist.systemuicontroller)
 
+    implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.splashscreen)

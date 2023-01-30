@@ -1,5 +1,9 @@
 package com.example.template.ux.permissions
 
+import android.Manifest
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
@@ -7,55 +11,50 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
+import com.example.template.ui.widget.PermissionBanner
 import com.example.template.ux.main.Screen
-import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.rememberPermissionState
-import com.google.accompanist.permissions.shouldShowRationale
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun PermissionsScreen(navController: NavController) {
-    PermissionsContent(navController::popBackStack)
+fun PermissionsScreen(navController: NavController, viewModel: PermissionsViewModel = hiltViewModel()) {
+    PermissionsContent(viewModel.uiState, navController::popBackStack)
 }
 
 @Composable
-private fun PermissionsContent(onBack: () -> Unit = {}) {
-    val readContactsPermissionState = rememberPermissionState(
-        android.Manifest.permission.READ_CONTACTS
-    )
+private fun PermissionsContent(uiState: PermissionsUiState, onBack: () -> Unit = {}) {
+    val inPreviewMode = LocalInspectionMode.current
+    val context = if (!inPreviewMode) LocalContext.current else null
 
-    Scaffold(
-        topBar = { AppTopAppBar(title = Screen.PERMISSIONS.title, onBack = onBack) }) {
-        Column(modifier = Modifier
-            .padding(it)
-            .padding(16.dp)
+    Scaffold(topBar = { AppTopAppBar(title = Screen.PERMISSIONS.title, onBack = onBack) }) {
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .padding(16.dp)
         ) {
-
-            if (readContactsPermissionState.status.isGranted) {
-                Text("Read contacts permission Granted")
-            } else {
-                val textToShow = if (readContactsPermissionState.status.shouldShowRationale) {
-                    // If the user has denied the permission but the rationale can be shown,
-                    // then gently explain why the app requires this permission
-                    "[Rationale] Reading contacts is important for this app. Please grant the permission."
-                } else {
-                    // If it's the first time the user lands on this feature, or the user
-                    // doesn't want to be asked again for this permission, explain that the
-                    // permission is required
-                    "[First Read] Read contact permission required for this feature to be available. " +
-                            "Please grant the permission"
+            PermissionBanner(
+                firstRead = "[First Read] Please grant the permission",
+                rational = "[Rationale] Please grant the permission.",
+                permission = Manifest.permission.ACCESS_COARSE_LOCATION,
+                permissionStateFlow = uiState.permissionStateFlow,
+                updatePermissionState = uiState.updatePermissionState
+            )
+            Button(onClick = {
+                if (!inPreviewMode) {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        data = Uri.fromParts("package", context?.packageName.orEmpty(), null)
+                    }
+                    context?.startActivity(intent)
                 }
-                Text(textToShow)
-                Button(onClick = { readContactsPermissionState.launchPermissionRequest() }) {
-                    Text("Request permission")
-                }
+            }) {
+                Text("App Settings")
             }
         }
     }
@@ -64,5 +63,5 @@ private fun PermissionsContent(onBack: () -> Unit = {}) {
 @PreviewDefault
 @Composable
 private fun PermissionsContentPreview() {
-    AppTheme { PermissionsContent() }
+    AppTheme { PermissionsContent(PermissionsUiState()) }
 }
