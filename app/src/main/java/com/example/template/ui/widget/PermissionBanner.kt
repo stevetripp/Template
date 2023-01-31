@@ -1,6 +1,5 @@
 package com.example.template.ui.widget
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,86 +8,82 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.template.ui.PreviewDefault
+import com.example.template.ui.Utils
 import com.example.template.ui.theme.AppTheme
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun PermissionBanner(
-    firstRead: String,
-    rational: String,
+    text: String,
     permission: String,
-    permissionStateFlow: StateFlow<PermissionState>,
-    updatePermissionState: (PermissionState) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val permissionState by permissionStateFlow.collectAsState()
-    val inPreviewMode = LocalInspectionMode.current
+    val permissionState = rememberPermissionState(permission)
+    val context = LocalContext.current
 
+    if (!permissionState.status.isGranted) {
+        // If permission denied previously (shouldShowRationale == true) AND !isGranted:  This permission is now in a "Blocked" or "Never ask again"
+        // state (prompt will no longer work)
+        val permissionBlocked = permissionState.status.shouldShowRationale
 
-    if (!inPreviewMode) {
-        val rememberedPermissionsState = rememberPermissionState(permission)
-        Log.i(
-            "SMT", """permissionState: $permissionState
-            |rememberedPermissionsState.status: ${rememberedPermissionsState.status}
-        """.trimMargin()
-        )
-        if (rememberedPermissionsState.status.isGranted) {
-            updatePermissionState(PermissionState.Permitted)
-            Banner(modifier = modifier, text = "Read contacts permission Granted")
-        } else if (rememberedPermissionsState.status.shouldShowRationale && permissionState == PermissionState.NotPermitted) {
-            Banner(
-                modifier = modifier,
-                text = rational,
-                onClick = { rememberedPermissionsState.launchPermissionRequest() }
-            ) { updatePermissionState(PermissionState.RejectedRationale) }
-        } else if (permissionState == PermissionState.NotPermitted) {
-            Banner(
-                modifier = modifier,
-                text = firstRead,
-                onClick = rememberedPermissionsState::launchPermissionRequest,
-            )
+        Banner(modifier = modifier, text = text) {
+            // "Allow" was clicked...
+            if (!permissionBlocked) {
+                // Prompt the user in context
+                permissionState.launchPermissionRequest()
+            } else {
+                // deep link intent right into the settings
+                Utils.showSystemSettings(context)
+            }
+        }
+
+        // check to see if we should prompt now
+        if (!permissionBlocked) {
+            SideEffect {
+                permissionState.launchPermissionRequest()
+            }
         }
     }
-}
-
-enum class PermissionState {
-    NotPermitted,
-    RejectedRequest,
-    RejectedRationale,
-    Permitted,
 }
 
 @Composable
 private fun Banner(
     text: String,
     modifier: Modifier = Modifier,
+    onAllowText: String = "Allow",
     onClick: () -> Unit = {},
-    onDismiss: (() -> Unit)? = null
+    onAllow: (() -> Unit)? = null
 ) {
     Surface {
         Row(
             modifier = modifier
                 .fillMaxWidth()
                 .clickable { onClick() },
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(vertical = 16.dp),
+                    .padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 8.dp),
                 text = text
             )
-            onDismiss?.let { TextButton(onClick = it) { Text(text = "Dismiss".uppercase(), color = AppTheme.colors.primary) } }
+            onAllow?.let {
+                TextButton(
+                    modifier = Modifier
+                        .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 16.dp),
+                    onClick = it
+                ) {
+                    Text(text = onAllowText.uppercase(), color = AppTheme.colors.primary)
+                }
+            }
         }
     }
 }
@@ -99,7 +94,7 @@ private fun BannerPreview() {
     AppTheme {
         Banner(
             text = "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.",
-            onDismiss = {},
+            onAllow = {},
         )
     }
 }
