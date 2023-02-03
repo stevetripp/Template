@@ -7,6 +7,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
@@ -19,16 +20,23 @@ import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ui.widget.PermissionBanner
 import com.example.template.ux.main.Screen
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 
 @Composable
 fun PermissionsScreen(navController: NavController, viewModel: PermissionsViewModel = hiltViewModel()) {
-    PermissionsContent(navController::popBackStack)
+    PermissionsContent(viewModel.uiState, navController::popBackStack)
 }
 
 @Composable
-private fun PermissionsContent(onBack: () -> Unit = {}) {
+private fun PermissionsContent(uiState: PermissionsUiState, onBack: () -> Unit = {}) {
     val inPreviewMode = LocalInspectionMode.current
     val context = if (!inPreviewMode) LocalContext.current else null
+
+    if (!inPreviewMode) {
+        val permissionState = rememberPermissionState(Manifest.permission.ACCESS_COARSE_LOCATION)
+        LaunchedEffect(permissionState.status) { uiState.setPermissionsGranted(permissionState.status.isGranted) }
+    }
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.PERMISSIONS.title, onBack = onBack) }) { paddingValues ->
         Column(
@@ -56,5 +64,5 @@ private fun PermissionsContent(onBack: () -> Unit = {}) {
 @PreviewDefault
 @Composable
 private fun PermissionsContentPreview() {
-    AppTheme { PermissionsContent() }
+    AppTheme { PermissionsContent(PermissionsUiState()) }
 }

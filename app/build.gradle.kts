@@ -28,7 +28,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            resValue("string", "file_provider", "tnt.com.template.fileprovider")
+            resValue("string", "file_provider", "com.tnt.template.fileprovider")
         }
     }
     compileOptions {

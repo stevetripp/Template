@@ -27,6 +27,10 @@ import com.example.template.ux.pager.PagerRoute
 import com.example.template.ux.pager.PagerScreen
 import com.example.template.ux.panningzooming.PanningZoomingRoute
 import com.example.template.ux.panningzooming.PanningZoomingScreen
+import com.example.template.ux.parameters.DestinationRoute
+import com.example.template.ux.parameters.DestinationScreen
+import com.example.template.ux.parameters.ParametersRoute
+import com.example.template.ux.parameters.ParametersScreen
 import com.example.template.ux.permissions.PermissionsRoute
 import com.example.template.ux.permissions.PermissionsScreen
 import com.example.template.ux.reorderablelist.ReorderableListRoute
@@ -61,6 +65,7 @@ fun NavGraph(
         AnimatedGesturesRoute.addNavigationRoute(this) { AnimatedGestureScreen(navController) }
         BottomNavigationRoute.addNavigationRoute(this) { BottomNavigationScreen(navController) }
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
+        DestinationRoute.addNavigationRoute(this) { DestinationScreen(navController) }
         FlippableRoute.addNavigationRoute(this) { FlippableScreen(navController) }
         GmailAddressFieldRoute.addNavigationRoute(this) { GmailAddressFieldScreen(navController) }
         ImagePickerRoute.addNavigationRoute(this) { ImagePickerScreen(navController) }
@@ -69,6 +74,7 @@ fun NavGraph(
         NavigationPagerRoute.addNavigationRoute(this) { NavigationPagerScreen(navController) }
         PagerRoute.addNavigationRoute(this) { PagerScreen(navController) }
         PanningZoomingRoute.addNavigationRoute(this) { PanningZoomingScreen(navController) }
+        ParametersRoute.addNavigationRoute(this) { ParametersScreen(navController) }
         PermissionsRoute.addNavigationRoute(this) { PermissionsScreen(navController) }
         ReorderableListRoute.addNavigationRoute(this) { ReorderableListScreen(navController) }
         SideDrawerRoute.addNavigationRoute(this) { SideDrawerScreen(navController) }

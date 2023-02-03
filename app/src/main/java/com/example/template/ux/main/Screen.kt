@@ -13,6 +13,7 @@ enum class Screen(val title: String) {
     NAVIGATION_PAGER("Navigation Pager"),
     PAGER("Pager"),
     PANNING_ZOOMING("Panning and Zooming"),
+    PARAMETERS("Parameters"),
     PERMISSIONS("Permissions"),
     REORDERABLE_LIST("Reorderable List"),
     SIDE_DRAWER("Side Drawer"),
