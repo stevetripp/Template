@@ -1,9 +1,9 @@
-package com.example.template.ux.swiperefresh
+package com.example.template.ux.pullrefresh
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-data class SwipeRefreshUiState(
+data class PullRefreshUiState(
     val listItemsFlow: StateFlow<List<String>> = MutableStateFlow(emptyList()),
     val isRefreshingFlow: StateFlow<Boolean> = MutableStateFlow(false),
     val onRefresh: () -> Unit = {}

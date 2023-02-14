@@ -1,4 +1,4 @@
-package com.example.template.ux.swiperefresh
+package com.example.template.ux.pullrefresh
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +15,7 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
-class SwipeRefreshViewModel
+class PullRefreshViewModel
 @Inject constructor() : ViewModel(), ViewModelNav by ViewModelNavImpl() {
     private val now = LocalDateTime.now()
     private val random = Random(LocalDateTime.now().nano)
@@ -32,7 +32,7 @@ class SwipeRefreshViewModel
 
     private val isRefreshingFlow = MutableStateFlow(false)
 
-    val uiState = SwipeRefreshUiState(
+    val uiState = PullRefreshUiState(
         listItemsFlow = listItemsFlow,
         isRefreshingFlow = isRefreshingFlow,
         onRefresh = ::onRefresh,

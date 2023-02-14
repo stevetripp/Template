@@ -1,4 +1,4 @@
-package com.example.template.ux.swiperefresh
+package com.example.template.ux.pullrefresh
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,17 +24,17 @@ import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 
 @Composable
-fun SwipeRefreshScreen(navController: NavHostController, viewModel: SwipeRefreshViewModel = hiltViewModel()) {
-    SwipeRefreshContent(viewModel.uiState, onBack = navController::popBackStack)
+fun PullRefreshScreen(navController: NavHostController, viewModel: PullRefreshViewModel = hiltViewModel()) {
+    PullRefreshContent(viewModel.uiState, onBack = navController::popBackStack)
 }
 
 @Composable
-fun SwipeRefreshContent(uiState: SwipeRefreshUiState, onBack: () -> Unit = {}) {
+fun PullRefreshContent(uiState: PullRefreshUiState, onBack: () -> Unit = {}) {
     val listItems by uiState.listItemsFlow.collectAsState()
     val isRefreshing by uiState.isRefreshingFlow.collectAsState()
     val pullRefreshState = rememberPullRefreshState(refreshing = isRefreshing, onRefresh = uiState.onRefresh)
     Scaffold(
-        topBar = { AppTopAppBar(title = Screen.SWIPE_REFRESH.title, onBack = onBack) }) {
+        topBar = { AppTopAppBar(title = Screen.PULL_REFRESH.title, onBack = onBack) }) {
         Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
             LazyColumn(modifier = Modifier
                 .padding(it)
@@ -51,5 +51,5 @@ fun SwipeRefreshContent(uiState: SwipeRefreshUiState, onBack: () -> Unit = {}) {
 @PreviewDefault
 @Composable
 private fun Preview() {
-    AppTheme { SwipeRefreshContent(SwipeRefreshUiState()) }
+    AppTheme { PullRefreshContent(PullRefreshUiState()) }
 }
