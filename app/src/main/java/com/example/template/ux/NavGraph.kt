@@ -33,6 +33,8 @@ import com.example.template.ux.parameters.ParametersRoute
 import com.example.template.ux.parameters.ParametersScreen
 import com.example.template.ux.permissions.PermissionsRoute
 import com.example.template.ux.permissions.PermissionsScreen
+import com.example.template.ux.pullrefresh.PullRefreshRoute
+import com.example.template.ux.pullrefresh.PullRefreshScreen
 import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.reorderablelist.ReorderableListScreen
 import com.example.template.ux.sidedrawer.SideDrawerRoute
@@ -41,8 +43,6 @@ import com.example.template.ux.snackbar.SnackbarRoute
 import com.example.template.ux.snackbar.SnackbarScreen
 import com.example.template.ux.swipablescreen.SwipableRoute
 import com.example.template.ux.swipablescreen.SwipableScreen
-import com.example.template.ux.swiperefresh.SwipeRefreshRoute
-import com.example.template.ux.swiperefresh.SwipeRefreshScreen
 import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.systemui.SystemUiScreen
 import com.example.template.ux.tabs.TabsRoute
@@ -61,11 +61,11 @@ fun NavGraph(
         navController = navController,
         startDestination = HomeRoute.routeDefinition
     ) {
+        DestinationRoute.addNavigationRoute(this) { DestinationScreen(navController) } // Putting first fixes crash
         HomeRoute.addNavigationRoute(this) { HomeScreen(navController) }
         AnimatedGesturesRoute.addNavigationRoute(this) { AnimatedGestureScreen(navController) }
         BottomNavigationRoute.addNavigationRoute(this) { BottomNavigationScreen(navController) }
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
-        DestinationRoute.addNavigationRoute(this) { DestinationScreen(navController) }
         FlippableRoute.addNavigationRoute(this) { FlippableScreen(navController) }
         GmailAddressFieldRoute.addNavigationRoute(this) { GmailAddressFieldScreen(navController) }
         ImagePickerRoute.addNavigationRoute(this) { ImagePickerScreen(navController) }
@@ -80,7 +80,7 @@ fun NavGraph(
         SideDrawerRoute.addNavigationRoute(this) { SideDrawerScreen(navController) }
         SnackbarRoute.addNavigationRoute(this) { SnackbarScreen(navController) }
         SwipableRoute.addNavigationRoute(this) { SwipableScreen(navController) }
-        SwipeRefreshRoute.addNavigationRoute(this) { SwipeRefreshScreen(navController) }
+        PullRefreshRoute.addNavigationRoute(this) { PullRefreshScreen(navController) }
         SystemUiRoute.addNavigationRoute(this) { SystemUiScreen(navController) }
         TabsRoute.addNavigationRoute(this) { TabsScreen(navController) }
         WebViewRoute.addNavigationRoute(this) { WebViewScreen(navController) }

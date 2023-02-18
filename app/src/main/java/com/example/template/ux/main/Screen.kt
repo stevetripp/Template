@@ -15,11 +15,11 @@ enum class Screen(val title: String) {
     PANNING_ZOOMING("Panning and Zooming"),
     PARAMETERS("Parameters"),
     PERMISSIONS("Permissions"),
+    PULL_REFRESH("Pull Refresh"),
     REORDERABLE_LIST("Reorderable List"),
     SIDE_DRAWER("Side Drawer"),
     SNACKBAR("Snackbar"),
     SWIPABLE("Swipable"),
-    SWIPE_REFRESH("Swipe Refresh"),
     SYSTEM_UI("System UI"),
     TABS("Tabs"),
     WEBVIEW("Webview");
