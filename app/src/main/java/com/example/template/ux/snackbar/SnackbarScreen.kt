@@ -1,20 +1,21 @@
 package com.example.template.ux.snackbar
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.example.template.ux.main.Screen
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun SnackbarScreen(navController: NavController) {
@@ -23,20 +24,19 @@ fun SnackbarScreen(navController: NavController) {
 
 @Composable
 fun SnackbarContent(onBack: () -> Unit = {}) {
-    val scaffoldState = rememberScaffoldState()
-    var showSnackbar by remember { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
     Scaffold(
         topBar = { AppTopAppBar(title = Screen.SNACKBAR.title, onBack = onBack) },
-        scaffoldState = scaffoldState
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) {
-        Button(onClick = { showSnackbar = true }) {
+        Button(modifier = Modifier.padding(it),
+            onClick = {
+                scope.launch {
+                    snackbarHostState.showSnackbar("This is the text of the snackbar")
+                }
+            }) {
             Text("Show Snackbar")
-        }
-    }
-    LaunchedEffect(key1 = showSnackbar) {
-        if (showSnackbar) {
-            scaffoldState.snackbarHostState.showSnackbar("This is the text of the snackbar")
-            showSnackbar = false
         }
     }
 }
