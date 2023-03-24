@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Tab
@@ -26,13 +28,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.template.ux.main.Screen
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
-import com.google.accompanist.pager.HorizontalPager
+import com.example.template.ux.main.Screen
 import com.google.accompanist.pager.pagerTabIndicatorOffset
-import com.google.accompanist.pager.rememberPagerState
 
 @Composable
 fun TabsScreen(navController: NavController) {
@@ -61,7 +61,7 @@ fun TabsContent(onBack: () -> Unit = {}) {
                 }
             }
             HorizontalPager(
-                count = tabTitles.size,
+                pageCount = tabTitles.size,
                 state = pagerState,
             ) { tabIndex ->
                 Text(

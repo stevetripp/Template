@@ -22,10 +22,10 @@ android {
     }
 
     buildTypes {
-        debug {
+        val debug by getting {
             resValue("string", "file_provider", "com.tnt.template.dev.fileprovider")
         }
-        release {
+        val release by getting {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             resValue("string", "file_provider", "com.tnt.template.fileprovider")
@@ -38,6 +38,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
         freeCompilerArgs += listOf(
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
             "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
