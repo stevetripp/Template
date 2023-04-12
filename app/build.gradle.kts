@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.accompanist.permissions)
     implementation(libs.accompanist.systemuicontroller)
 
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.process)
@@ -78,7 +79,6 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.compose)
 
-    implementation(libs.compose.activity)
     implementation(libs.compose.material.iconsext)
     implementation(libs.compose.ui.tooling)
 
