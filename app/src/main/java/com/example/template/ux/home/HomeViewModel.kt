@@ -13,6 +13,7 @@ import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.main.Screen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.navigatepager.NavigationPagerRoute
+import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
 import com.example.template.ux.pager.PagerRoute
 import com.example.template.ux.panningzooming.PanningZoomingRoute
 import com.example.template.ux.parameters.ParametersRoute
@@ -48,6 +49,7 @@ class HomeViewModel
             Screen.INPUT_EXAMPLES -> navigate(InputExamplesRoute.createRoute())
             Screen.MODAL_BOTTOM_SHEET -> navigate(ModalBottomSheetRoute.createRoute())
             Screen.NAVIGATION_PAGER -> navigate(NavigationPagerRoute.createRoute())
+            Screen.NOTIFICATION_PERMISSIONS -> navigate(NotificationPermissionsRoute.createRoute())
             Screen.PAGER -> navigate(PagerRoute.createRoute())
             Screen.PANNING_ZOOMING -> navigate(PanningZoomingRoute.createRoute())
             Screen.PARAMETERS -> navigate(ParametersRoute.createRoute())

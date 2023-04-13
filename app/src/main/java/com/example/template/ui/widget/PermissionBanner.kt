@@ -4,18 +4,21 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.template.ui.PreviewDefault
-import com.example.template.ui.Utils
 import com.example.template.ui.theme.AppTheme
+import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
@@ -25,25 +28,28 @@ fun PermissionBanner(
     text: String,
     permission: String,
     modifier: Modifier = Modifier,
+    showSystemSettings: () -> Unit,
+    onPermissionStatusChanged: ((PermissionStatus) -> Unit)? = null,
 ) {
     val permissionState = rememberPermissionState(permission)
-    val context = LocalContext.current
+
+    LaunchedEffect(permissionState.status) { onPermissionStatusChanged?.invoke(permissionState.status) }
 
     if (!permissionState.status.isGranted) {
         // If permission denied previously (shouldShowRationale == true) AND !isGranted:  This permission is now in a "Blocked" or "Never ask again"
         // state (prompt will no longer work)
         val permissionBlocked = permissionState.status.shouldShowRationale
 
-        Banner(modifier = modifier, text = text) {
+        Banner(modifier = modifier, text = text, onAllow = {
             // "Allow" was clicked...
             if (!permissionBlocked) {
                 // Prompt the user in context
                 permissionState.launchPermissionRequest()
             } else {
                 // deep link intent right into the settings
-                Utils.showSystemSettings(context)
+                showSystemSettings()
             }
-        }
+        })
 
         // check to see if we should prompt now
         if (!permissionBlocked) {
@@ -66,19 +72,22 @@ private fun Banner(
         Row(
             modifier = modifier
                 .fillMaxWidth()
+                .padding(16.dp)
                 .clickable { onClick() },
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            Icon(
+                imageVector = Icons.Outlined.Warning,
+                contentDescription = null,
+                modifier = Modifier.padding(end = 16.dp),
+            )
             Text(
                 modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 16.dp, top = 8.dp, end = 8.dp, bottom = 8.dp),
+                    .weight(1f),
                 text = text
             )
             onAllow?.let {
                 TextButton(
-                    modifier = Modifier
-                        .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 16.dp),
                     onClick = it
                 ) {
                     Text(text = onAllowText.uppercase(), color = AppTheme.colors.primary)

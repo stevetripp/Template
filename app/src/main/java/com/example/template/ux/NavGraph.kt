@@ -23,6 +23,8 @@ import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetScreen
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.navigatepager.NavigationPagerScreen
+import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
+import com.example.template.ux.notificationpermissions.NotificationPermissionsScreen
 import com.example.template.ux.pager.PagerRoute
 import com.example.template.ux.pager.PagerScreen
 import com.example.template.ux.panningzooming.PanningZoomingRoute
@@ -72,6 +74,7 @@ fun NavGraph(
         InputExamplesRoute.addNavigationRoute(this) { InputExamplesScreen(navController) }
         ModalBottomSheetRoute.addNavigationRoute(this) { ModalBottomSheetScreen(navController) }
         NavigationPagerRoute.addNavigationRoute(this) { NavigationPagerScreen(navController) }
+        NotificationPermissionsRoute.addNavigationRoute(this) { NotificationPermissionsScreen(navController) }
         PagerRoute.addNavigationRoute(this) { PagerScreen(navController) }
         PanningZoomingRoute.addNavigationRoute(this) { PanningZoomingScreen(navController) }
         ParametersRoute.addNavigationRoute(this) { ParametersScreen(navController) }

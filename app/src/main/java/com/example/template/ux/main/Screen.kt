@@ -11,6 +11,7 @@ enum class Screen(val title: String) {
     INPUT_EXAMPLES("Input Examples"),
     MODAL_BOTTOM_SHEET("Modal Bottom Sheet"),
     NAVIGATION_PAGER("Navigation Pager"),
+    NOTIFICATION_PERMISSIONS("Notification Permissions"),
     PAGER("Pager"),
     PANNING_ZOOMING("Panning and Zooming"),
     PARAMETERS("Parameters"),
