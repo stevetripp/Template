@@ -6,6 +6,8 @@ plugins {
 }
 
 android {
+    namespace = "com.example.template"
+
     compileSdk = AppInfo.AndroidSdk.COMPILE
 
     defaultConfig {
@@ -32,11 +34,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
         freeCompilerArgs += listOf(
             "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
@@ -48,6 +50,7 @@ android {
         )
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
