@@ -1,17 +1,11 @@
 package com.example.template.ux.bottomSheet
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.Button
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.rememberBottomSheetScaffoldState
@@ -22,8 +16,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
@@ -34,52 +26,27 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun BottomSheetScreen(navController: NavController) {
-    BottomSheetContent(navController::popBackStack)
+    BottomSheetScreenContent(navController::popBackStack)
 }
 
 @Composable
-fun BottomSheetContent(onBack: () -> Unit = {}) {
+fun BottomSheetScreenContent(onBack: () -> Unit = {}) {
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberBottomSheetScaffoldState()
     var showSnackbar by remember { mutableStateOf(false) }
+    val peekHeight = 56.dp
+
     BottomSheetScaffold(
         topBar = { AppTopAppBar(title = Screen.BOTTOM_SHEET.title, onBack = onBack) },
-        sheetContent = {
-            Box(
-                Modifier
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("Swipe up to expand sheet")
-            }
-            Column(
-                Modifier
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                TopAppBar(title = { Text(text = "Sheet content") })
-                Text("Sheet content")
-                Spacer(Modifier.height(20.dp))
-                Button(
-                    onClick = {
-                        scope.launch { scaffoldState.bottomSheetState.collapse() }
-                    }
-                ) {
-                    Text("Click to collapse sheet")
-                }
-            }
-        },
+        sheetContent = { BottomSheetContent(scaffoldState) },
         scaffoldState = scaffoldState,
+        sheetPeekHeight = peekHeight,
         floatingActionButton = {
-            var clickCount by remember { mutableStateOf(0) }
-            FloatingActionButton(
-                onClick = { showSnackbar = true }
-            ) {
+            FloatingActionButton(onClick = { showSnackbar = true }) {
                 Icon(Icons.Default.Favorite, contentDescription = "Localized description")
             }
         },
         floatingActionButtonPosition = FabPosition.End,
-        sheetPeekHeight = 0.dp,
     ) {
         Button(onClick = { scope.launch { scaffoldState.bottomSheetState.expand() } }) {
             Text("Show bottom sheet")
@@ -95,6 +62,6 @@ fun BottomSheetContent(onBack: () -> Unit = {}) {
 
 @PreviewDefault
 @Composable
-private fun BottomSheetContentPreview() {
-    AppTheme { BottomSheetContent() }
+private fun BottomSheetScreenContentPreview() {
+    AppTheme { BottomSheetScreenContent() }
 }
