@@ -17,7 +17,7 @@ import com.example.template.ui.PreviewDefault
 import com.example.template.ui.Utils
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
-import com.example.template.ui.widget.PermissionBanner
+import com.example.template.ui.widget.PermissionsBanner
 import com.example.template.ux.main.Screen
 
 @Composable
@@ -37,9 +37,9 @@ private fun PermissionsContent(uiState: PermissionsUiState, onBack: () -> Unit =
                 .padding(16.dp)
         ) {
             if (!inPreviewMode) {
-                PermissionBanner(
+                PermissionsBanner(
                     text = "This App requires location permission in order to determine where you are",
-                    permission = Manifest.permission.ACCESS_COARSE_LOCATION,
+                    permissions = listOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
                     showSystemSettings = { context?.let { Utils.showSystemSettings(it) } },
                     onPermissionStatusChanged = uiState.onPermissionStatusChanged
                 )
