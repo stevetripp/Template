@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,14 +26,11 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.template.ux.main.Screen
 import com.example.template.R
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.calculateCurrentOffsetForPage
-import com.google.accompanist.pager.rememberPagerState
+import com.example.template.ux.main.Screen
 import com.google.android.material.math.MathUtils
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
@@ -42,9 +42,10 @@ fun NavigationPagerScreen(navController: NavController) {
 
 @Composable
 fun NavigationPagerContent(onBack: () -> Unit = {}) {
-    Scaffold(topBar = { AppTopAppBar(title = Screen.NAVIGATION_PAGER.title, onBack = onBack) }) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.NAVIGATION_PAGER.title, onBack = onBack) }) { paddingValues ->
         BoxWithConstraints(
             modifier = Modifier
+                .padding(paddingValues)
                 .fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
         ) {
@@ -85,7 +86,7 @@ private fun BoxWithConstraintsScope.NavigationPager(
     onItemFocused: (index: Int) -> Unit,
     onItemSelected: (index: Int) -> Unit,
 ) {
-    val pagerState = rememberPagerState(initialItemInFocus)
+    val pagerState = rememberPagerState(initialPage = initialItemInFocus)
 
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }.collect() {
@@ -97,7 +98,7 @@ private fun BoxWithConstraintsScope.NavigationPager(
     HorizontalPager(
         modifier = modifier
             .height(120.dp),
-        count = items.size,
+        pageCount = items.size,
         state = pagerState,
         contentPadding = PaddingValues(horizontal = maxWidth / 3)
     ) { page ->
@@ -110,7 +111,7 @@ private fun BoxWithConstraintsScope.NavigationPager(
                     // Calculate the absolute offset for the current page from the
                     // scroll position. We use the absolute value which allows us to mirror
                     // any effects for both directions
-                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+                    val pageOffset = ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
                     val percentage = pageOffset.coerceIn(0f, 2f) / 2f
 
                     // We animate the scaleX + scaleY, between 85% and 100%

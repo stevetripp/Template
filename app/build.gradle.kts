@@ -66,8 +66,6 @@ android {
 dependencies {
 
     implementation(libs.accompanist.flowlayout)
-    implementation(libs.accompanist.pager)
-    implementation(libs.accompanist.pager.indicators)
     implementation(libs.accompanist.permissions)
     implementation(libs.accompanist.systemuicontroller)
 
@@ -82,6 +80,7 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.compose)
 
+    implementation(libs.compose.material)
     implementation(libs.compose.material.iconsext)
     implementation(libs.compose.ui.tooling)
 

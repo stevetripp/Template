@@ -1,9 +1,11 @@
 package com.example.template.ux.tabs
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,7 +17,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
-import androidx.compose.material.TabRowDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,7 +33,6 @@ import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
-import com.google.accompanist.pager.pagerTabIndicatorOffset
 
 @Composable
 fun TabsScreen(navController: NavController) {
@@ -46,18 +46,10 @@ fun TabsContent(onBack: () -> Unit = {}) {
         val tabTitles = listOf("Hello", "There", "World")
         val pagerState = rememberPagerState()
         Column {
-            TabRow(selectedTabIndex = tabIndex,
-                indicator = { tabPositions ->
-                    TabRowDefaults.Indicator(
-                        Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
-                    )
-                }) {
+            TabRow(selectedTabIndex = tabIndex) {
                 tabTitles.forEachIndexed { index, title ->
-                    Tab(selected = tabIndex == index,
-                        onClick = {
-                            tabIndex = index
-                        },
-                        text = { Text(text = title) })
+//                    CustomTab(title = title, selected = tabIndex == index, onClick = { tabIndex = index })
+                    Tab(selected = tabIndex == index, onClick = { tabIndex = index }, text = { Text(text = title) })
                 }
             }
             HorizontalPager(
@@ -72,6 +64,7 @@ fun TabsContent(onBack: () -> Unit = {}) {
             }
         }
         LaunchedEffect(key1 = tabIndex) { pagerState.animateScrollToPage(tabIndex) }
+        LaunchedEffect(key1 = pagerState.settledPage) { tabIndex = pagerState.settledPage }
     }
 }
 
@@ -79,6 +72,7 @@ fun TabsContent(onBack: () -> Unit = {}) {
 private fun CustomTab(title: String, selected: Boolean, onClick: () -> Unit) {
     Column(
         Modifier
+            .clickable { onClick() }
             .padding(10.dp)
             .height(50.dp)
             .fillMaxWidth(),
@@ -95,6 +89,18 @@ private fun CustomTab(title: String, selected: Boolean, onClick: () -> Unit) {
             style = MaterialTheme.typography.body1,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
+    }
+}
+
+@PreviewDefault
+@Composable
+private fun CustomTabPreview() {
+    AppTheme {
+        Row() {
+            CustomTab(title = "Title", selected = true, onClick = {})
+            CustomTab(title = "Title", selected = false, onClick = {})
+            CustomTab(title = "Title", selected = false, onClick = {})
+        }
     }
 }
 
