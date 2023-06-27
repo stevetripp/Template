@@ -30,7 +30,7 @@ fun InputExamplesScreen(navController: NavController) {
 @Composable
 fun InputExamplesContent(onBack: () -> Unit = {}) {
     val options = mutableListOf<DropdownOption>()
-    (1..10).forEach { options.add(DropdownOption("Option $it*", "Option $it")) }
+    (1..10).toList().forEach { options.add(DropdownOption("Option $it*", "Option $it")) }
     var selectedOption by remember { mutableStateOf(DropdownOption("")) }
     Scaffold(topBar = { AppTopAppBar(title = Screen.INPUT_EXAMPLES.title, onBack = onBack) }) { paddingValues ->
         Column(

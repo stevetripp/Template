@@ -45,7 +45,7 @@ fun TabsContent(onBack: () -> Unit = {}) {
         var tabIndex by remember { mutableStateOf(0) }
         val tabTitles = listOf("Hello", "There", "World")
         val pagerState = rememberPagerState()
-        Column {
+        Column(modifier = Modifier.padding(paddingValues)) {
             TabRow(selectedTabIndex = tabIndex) {
                 tabTitles.forEachIndexed { index, title ->
 //                    CustomTab(title = title, selected = tabIndex == index, onClick = { tabIndex = index })

@@ -20,7 +20,7 @@ abstract class NavComposeRoute {
      *
      * Each class that implements NavActivityRoute should implement this method with the needed args to fulfil the routeDefinition
      */
-    // fun createRoute(): String = routeDefinition
+    open fun createRoute(): String = routeDefinition
 
     abstract fun getArguments(): List<NamedNavArgument>
     open fun getDeepLinks(): List<NavDeepLink> = emptyList()
@@ -48,7 +48,7 @@ abstract class SimpleNavComposeRoute(override val routeDefinition: String) : Nav
     /**
      * Route used when navigating
      */
-    fun createRoute(): String = routeDefinition
+    override fun createRoute(): String = routeDefinition
 
     override fun getArguments(): List<NamedNavArgument> = emptyList()
 

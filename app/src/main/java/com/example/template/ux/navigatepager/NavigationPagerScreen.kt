@@ -71,7 +71,7 @@ private fun BoxWithConstraintsScope.NavigationItem(painter: Painter, modifier: M
         Image(
             painter = painter,
             contentDescription = null,
-            modifier = Modifier
+            modifier = modifier
                 .align(Alignment.Center)
                 .fillMaxSize()
         )

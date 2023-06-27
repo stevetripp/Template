@@ -33,21 +33,22 @@ fun PermissionsBanner(
     val permissionState = rememberMultiplePermissionsState(permissions)
 
     LaunchedEffect(permissionState.allPermissionsGranted) {
-        val permissions = StringBuilder()
+        val sb = StringBuilder()
         permissionState.permissions.forEach {
-            permissions.appendLine("${it.permission}: ${it.status}")
+            sb.appendLine("${it.permission}: ${it.status}")
         }
 
         Log.i(
             "SMT", """allPermissionsGranted: ${permissionState.allPermissionsGranted}
-            |$permissions
+            |$sb
         """.trimMargin()
         )
 //        onPermissionStatusChanged?.invoke(permissionState.allPermissionsGranted)
     }
 
     if (!permissionState.allPermissionsGranted) {
-        // If permission denied previously (shouldShowRationale == true) AND !isGranted:  This permission is now in a "Blocked" or "Never ask again"
+        // If permission denied previously (shouldShowRationale == true) AND !isGranted:  This
+        // permission is now in a "Blocked" or "Never ask again"
         // state (prompt will no longer work)
         val permissionBlocked = permissionState.shouldShowRationale
 

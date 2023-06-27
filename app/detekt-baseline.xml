@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>EmptyClassBlock:AppPreferenceDataSource.kt$AppPreferenceDataSource.Key${ }</ID>
+    <ID>FunctionOnlyReturningConstant:MainViewModel.kt$MainViewModel$fun isReady(): Boolean</ID>
+    <ID>FunctionOnlyReturningConstant:ReorderableListViewModel.kt$ReorderableListViewModel$private fun canDragOver(draggedOver: ItemPosition, dragging: ItemPosition): Boolean</ID>
+    <ID>LongParameterList:Theme.kt$AppColors$( primary: Color, primaryVariant: Color, secondary: Color, secondaryVariant: Color, background: Color, surface: Color, error: Color, onPrimary: Color, onSecondary: Color, onBackground: Color, onSurface: Color, onError: Color, isLight: Boolean, )</ID>
+    <ID>UnusedParameter:MainActivity.kt$MainActivity$savedInstanceState: Bundle?</ID>
+    <ID>UnusedParameter:PermissionsBanner.kt$onPermissionStatusChanged: ((PermissionStatus) -&gt; Unit)? = null</ID>
+    <ID>UnusedParameter:ReorderableListViewModel.kt$ReorderableListViewModel$draggedOver: ItemPosition</ID>
+    <ID>UnusedParameter:ReorderableListViewModel.kt$ReorderableListViewModel$dragging: ItemPosition</ID>
+    <ID>UnusedPrivateMember:AnimatedGestureScreen.kt$@Composable private fun UpdateTransitionExample()</ID>
+    <ID>UnusedPrivateProperty:AppPreferenceDataSource.kt$AppPreferenceDataSource$private val Context.dataStore by preferencesDataStore( name = "app", corruptionHandler = ReplaceFileCorruptionHandler { Log.e("Template", "Datastore Corrupted", it) emptyPreferences() }, // produceMigrations = { applicationContext -&gt; // listOf( // PreferenceMigrations.sharedPreferenceMigration(applicationContext, toVersion = 1, migrate = { sharedPrefs, currentData -&gt; // SharedPreferenceMigration.migrateSharedPreferences(sharedPrefs, currentData) // }) // ) // } )</ID>
+    <ID>UnusedPrivateProperty:AppPreferenceDataSource.kt$AppPreferenceDataSource$private val application: Application</ID>
+  </CurrentIssues>
+</SmellBaseline>

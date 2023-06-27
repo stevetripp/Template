@@ -3,6 +3,7 @@ package com.example.template.ux.flippable
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidthIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -28,8 +29,12 @@ fun FlippableScreen(navController: NavController) {
 
 @Composable
 fun FlippableContent(onBack: () -> Unit = {}) {
-    Scaffold(topBar = { AppTopAppBar(title = Screen.FLIPPABLE.title, onBack = onBack) }) {
-        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.FLIPPABLE.title, onBack = onBack) }) { paddingValues ->
+        BoxWithConstraints(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
             var width = maxWidth.times(.8F)
             var height = maxHeight.times(.8F)
 
@@ -57,15 +62,21 @@ fun FlippableContent(onBack: () -> Unit = {}) {
                         Text(
                             modifier = Modifier.verticalScroll(scrollState),
                             text =
-                            "Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus nibh. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.\n" +
-                                    "\n" +
-                                    "Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.\n" +
-                                    "\n" +
-                                    "Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Cras ultricies ligula sed magna dictum porta.\n" +
-                                    "\n" +
-                                    "Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.\n" +
-                                    "\n" +
-                                    "Curabitur aliquet quam id dui posuere blandit. Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus. Nulla quis lorem ut libero malesuada feugiat. Curabitur aliquet quam id dui posuere blandit."
+                            """Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus 
+                                |nibh. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. 
+                                |
+                                |Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. 
+                                |Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. 
+                                |
+                                |Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit
+                                |amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet 
+                                |aliquam vel, ullamcorper sit amet ligula. Cras ultricies ligula sed magna dictum porta.
+                                |
+                                |Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Lorem ipsum dolor sit amet, consectetur
+                                |adipiscing elit. Pellentesque in ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+                                |
+                                |Curabitur aliquet quam id dui posuere blandit. Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus. Nulla quis lorem ut libero malesuada 
+                                |feugiat. Curabitur aliquet quam id dui posuere blandit.""".trimMargin()
                         )
                     }
                 },

@@ -83,7 +83,7 @@ fun DropdownList(value: String, label: String, options: List<DropdownOption>, mo
 @Composable
 private fun DropDownListPreview() {
     val options = mutableListOf<DropdownOption>()
-    (1..5).forEach { options.add(DropdownOption("Option $it*", "Option $it")) }
+    (1..5).toList().forEach { options.add(DropdownOption("Option $it*", "Option $it")) }
     var selected by remember { mutableStateOf(DropdownOption("")) }
     AppTheme {
         Column(

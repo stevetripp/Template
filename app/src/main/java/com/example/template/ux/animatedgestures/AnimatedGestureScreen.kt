@@ -35,9 +35,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.template.ux.main.Screen
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
+import com.example.template.ux.main.Screen
 
 private enum class State {
     HIDDEN,
@@ -75,13 +75,15 @@ private fun RememberInfiniteTransitionExample() {
             val alphaAnimatable by transition.animateFloat(
                 initialValue = .5F,
                 targetValue = 0F,
-                animationSpec = infiniteRepeatable(tween(2000))
+                animationSpec = infiniteRepeatable(tween(2000)),
+                label = "alphaAnimatable",
             )
             val offsetAnimatable by transition.animateValue(
                 initialValue = 0.dp,
                 targetValue = -maxWidth,
                 animationSpec = infiniteRepeatable(tween(2000)),
-                typeConverter = Dp.VectorConverter
+                typeConverter = Dp.VectorConverter,
+                label = "offsetAnimatable",
             )
             GestureIndicator(
                 modifier = Modifier
