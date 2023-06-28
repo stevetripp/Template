@@ -13,10 +13,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.ListItem
-import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -122,15 +122,15 @@ private fun GmailAddressFieldContent(uiState: GmailAddressFieldUiState, onBack: 
                 items(contacts) { contact ->
                     ListItem(
                         modifier = Modifier.clickable { uiState.onContactClicked(contact) },
-                        icon = {
+                        leadingContent = {
                             AsyncImage(
                                 modifier = Modifier.clip(CircleShape),
                                 model = contact.imageUrl, contentDescription = null,
                                 contentScale = ContentScale.Crop,
                             )
                         },
-                        text = { Text(text = contact.name) },
-                        secondaryText = { Text(text = contact.emailAddress) }
+                        headlineContent = { Text(text = contact.name) },
+                        supportingContent = { Text(text = contact.emailAddress) }
                     )
                 }
             }

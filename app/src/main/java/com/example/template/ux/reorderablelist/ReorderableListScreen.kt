@@ -7,10 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ListItem
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -47,14 +46,14 @@ fun ReorderableListContent(uiState: ReorderableListUiState, onBack: () -> Unit =
         ) {
             items(items = list, key = { it.id }) { item ->
                 ReorderableItem(reorderableState = state, key = item.id) { isDragging ->
-                    val elevation by animateDpAsState(if (isDragging) 16.dp else 0.dp)
+                    val elevation by animateDpAsState(if (isDragging) 16.dp else 0.dp, label = "animateDpAsState")
                     Box(
                         modifier = Modifier
                             .shadow(elevation)
-                            .background(if (isDragging) MaterialTheme.colors.onPrimary else MaterialTheme.colors.background)
+                            .background(if (isDragging) AppTheme.colors.onPrimary else AppTheme.colors.background)
                             .detectReorderAfterLongPress(state) // remove to prevent selection
                     ) {
-                        ListItem(text = { Text(item.value) })
+                        ListItem(headlineContent = { Text(item.value) })
                     }
                 }
             }

@@ -1,12 +1,12 @@
 package com.example.template.ux.sidedrawer
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.DrawerValue
-import androidx.compose.material.ModalDrawer
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.rememberDrawerState
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.rememberCoroutineScope
@@ -30,7 +30,7 @@ private fun SideDrawerContent(onBack: () -> Unit) {
     val scope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     CompositionLocalProvider(LocalLayoutDirection provides reverseDirection) {
-        ModalDrawer(
+        ModalNavigationDrawer(
             drawerContent = {
                 CompositionLocalProvider(LocalLayoutDirection provides normalDirection) {
                     Scaffold(topBar = { AppTopAppBar(title = Screen.SIDE_DRAWER.title, navigationImage = null) }) {

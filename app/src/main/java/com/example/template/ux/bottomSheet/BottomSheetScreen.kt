@@ -1,14 +1,12 @@
 package com.example.template.ux.bottomSheet
 
-import androidx.compose.material.BottomSheetScaffold
-import androidx.compose.material.Button
-import androidx.compose.material.FabPosition
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.Button
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -16,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
@@ -32,7 +31,7 @@ fun BottomSheetScreen(navController: NavController) {
 @Composable
 fun BottomSheetScreenContent(onBack: () -> Unit = {}) {
     val scope = rememberCoroutineScope()
-    val scaffoldState = rememberBottomSheetScaffoldState()
+    val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = SheetState(skipPartiallyExpanded = false, skipHiddenState = false))
     var showSnackbar by remember { mutableStateOf(false) }
     val peekHeight = 56.dp
 
@@ -41,15 +40,11 @@ fun BottomSheetScreenContent(onBack: () -> Unit = {}) {
         sheetContent = { BottomSheetContent(scaffoldState) },
         scaffoldState = scaffoldState,
         sheetPeekHeight = peekHeight,
-        floatingActionButton = {
-            FloatingActionButton(onClick = { showSnackbar = true }) {
-                Icon(Icons.Default.Favorite, contentDescription = "Localized description")
-            }
-        },
-        floatingActionButtonPosition = FabPosition.End,
     ) {
-        Button(onClick = { scope.launch { scaffoldState.bottomSheetState.expand() } }) {
-            Text("Show bottom sheet")
+        Box(modifier = Modifier.fillMaxSize()) {
+            Button(onClick = { scope.launch { scaffoldState.bottomSheetState.expand() } }) {
+                Text("Show bottom sheet")
+            }
         }
     }
     LaunchedEffect(key1 = showSnackbar) {

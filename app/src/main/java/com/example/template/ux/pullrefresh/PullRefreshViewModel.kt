@@ -1,5 +1,6 @@
 package com.example.template.ux.pullrefresh
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.template.ui.navigation.ViewModelNav
@@ -24,6 +25,7 @@ class PullRefreshViewModel
 
     private val listItemsFlow = refreshFlow.mapLatest {
         isRefreshingFlow.value = true
+        Log.i("SMT", "Is refreshing ...")
         delay(3000)
         isRefreshingFlow.value = false
         (1..100).map { "$it: Item: ${random.nextInt()}" }

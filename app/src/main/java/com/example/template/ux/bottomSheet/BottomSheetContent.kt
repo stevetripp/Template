@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.BottomSheetScaffoldState
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.BottomSheetScaffoldState
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -19,8 +19,7 @@ import kotlinx.coroutines.launch
 fun BottomSheetContent(scaffoldState: BottomSheetScaffoldState) {
     val scope = rememberCoroutineScope()
     Column(
-        Modifier
-            .fillMaxWidth(),
+        Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TopAppBar(title = { Text(text = "Sheet content") })
@@ -28,7 +27,7 @@ fun BottomSheetContent(scaffoldState: BottomSheetScaffoldState) {
         Spacer(Modifier.height(20.dp))
         Button(
             onClick = {
-                scope.launch { scaffoldState.bottomSheetState.collapse() }
+                scope.launch { scaffoldState.bottomSheetState.hide() }
             }
         ) {
             Text("Click to collapse sheet")

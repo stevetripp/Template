@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -42,5 +43,15 @@ fun RefreshBox(
 @PreviewDefault
 @Composable
 private fun RefreshBoxPreview() {
-    AppTheme { RefreshBox(isRefreshingFlow = MutableStateFlow(true), onRefresh = {}) {} }
+    AppTheme {
+        RefreshBox(
+            modifier = Modifier.fillMaxSize(),
+            isRefreshingFlow = MutableStateFlow(true),
+            onRefresh = {}
+        ) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(text = "Content")
+            }
+        }
+    }
 }

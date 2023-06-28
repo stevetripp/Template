@@ -1,5 +1,6 @@
 package com.example.template.ux.modalbottomsheet
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -7,21 +8,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
-import androidx.compose.material.ListItem
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.Button
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,12 +41,15 @@ fun ModalBottomSheetScreen(navController: NavController) {
 
 @Composable
 private fun ModalBottomSheetContent(onBack: () -> Unit = {}) {
+    var showBottomSheet by rememberSaveable { mutableStateOf(false) }
+    val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     var text by remember { mutableStateOf("") }
-    val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
-    ModalBottomSheetLayout(
-        sheetState = state,
-        sheetContent = {
+
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            sheetState = bottomSheetState,
+            onDismissRequest = { showBottomSheet = false }) {
             // sheetContent MUST have at least one composable or an exception is thrown
             LazyColumn {
                 items(50) {
@@ -53,10 +57,13 @@ private fun ModalBottomSheetContent(onBack: () -> Unit = {}) {
                     ListItem(
                         modifier = Modifier.clickable {
                             text = listItemText
-                            scope.launch { state.hide() }
+                            scope.launch {
+                                bottomSheetState.hide()
+                                showBottomSheet = false
+                            }
                         },
-                        text = { Text(listItemText) },
-                        icon = {
+                        headlineContent = { Text(listItemText) },
+                        leadingContent = {
                             Icon(
                                 Icons.Default.Favorite,
                                 contentDescription = "Localized description"
@@ -66,21 +73,23 @@ private fun ModalBottomSheetContent(onBack: () -> Unit = {}) {
                 }
             }
         }
-    ) {
-        Scaffold(topBar = { AppTopAppBar(title = Screen.MODAL_BOTTOM_SHEET.title, onBack = onBack) }) { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text("Rest of the UI")
-                Text(text)
-                Spacer(Modifier.height(20.dp))
-                Button(onClick = { scope.launch { state.show() } }) {
-                    Text("Click to show sheet")
-                }
+    }
+    Scaffold(topBar = { AppTopAppBar(title = Screen.MODAL_BOTTOM_SHEET.title, onBack = onBack) }) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("Rest of the UI")
+            Text(text)
+            Spacer(Modifier.height(20.dp))
+            Button(onClick = {
+                Log.i("SMT", "clicked")
+                showBottomSheet = true
+            }) {
+                Text("Click to show sheet")
             }
         }
     }

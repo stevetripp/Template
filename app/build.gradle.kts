@@ -44,6 +44,7 @@ android {
         freeCompilerArgs += listOf(
             "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
             "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
             "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
             "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi",
@@ -83,6 +84,7 @@ dependencies {
     implementation(libs.coil.compose)
 
     implementation(libs.compose.material)
+    implementation(libs.compose.material3)
     implementation(libs.compose.material.iconsext)
     implementation(libs.compose.ui.tooling)
 

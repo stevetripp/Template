@@ -1,16 +1,16 @@
 package com.example.template.ui.composable
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.ExposedDropdownMenuBox
-import androidx.compose.material.ExposedDropdownMenuDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,7 +32,7 @@ fun DropdownList(value: String, label: String, options: List<DropdownOption>, mo
             expanded = !expanded
         }
     ) {
-        if (MaterialTheme.colors.isLight) {
+        if (!isSystemInDarkTheme()) {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 readOnly = true,
@@ -67,13 +67,12 @@ fun DropdownList(value: String, label: String, options: List<DropdownOption>, mo
         ) {
             options.forEach { selectionOption ->
                 DropdownMenuItem(
+                    text = { Text(text = selectionOption.listValue) },
                     onClick = {
                         onValueChanged(selectionOption)
                         expanded = false
                     }
-                ) {
-                    Text(text = selectionOption.listValue)
-                }
+                )
             }
         }
     }

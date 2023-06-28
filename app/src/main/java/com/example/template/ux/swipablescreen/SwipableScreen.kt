@@ -1,34 +1,37 @@
 package com.example.template.ux.swipablescreen
 
+import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.FractionalThreshold
 import androidx.compose.material.Icon
-import androidx.compose.material.ListItem
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.SwipeableState
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.rememberSwipeableState
-import androidx.compose.material.swipeable
+import androidx.compose.material3.DismissDirection
+import androidx.compose.material3.DismissValue
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SwipeToDismiss
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.IntOffset
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
-import kotlin.math.roundToInt
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun SwipableScreen(navController: NavController) {
@@ -37,45 +40,57 @@ fun SwipableScreen(navController: NavController) {
 
 @Composable
 fun SwipableContent(onBack: () -> Unit = {}) {
-    Scaffold(topBar = { AppTopAppBar(title = Screen.SWIPABLE.title, onBack = onBack) }) {
-        LazyColumn(modifier = Modifier.padding(it)) {
-            items(testData) { data ->
-                val swipeAnchors = mutableMapOf(0f to 0, -250F to 1)
-                val swipeableState: SwipeableState<Int> = rememberSwipeableState(0)
+    var items by remember { mutableStateOf(testItems) }
+    var scope = rememberCoroutineScope()
+    Scaffold(topBar = { AppTopAppBar(title = Screen.SWIPABLE.title, onBack = onBack) }) { paddingValues ->
+        LazyColumn(modifier = Modifier.padding(paddingValues)) {
+            items(items, key = { it.id }) { item ->
+                val dismissState = rememberDismissState(
+                    confirmValueChange = { dismissValue ->
+                        Log.i("SMT", "DismissValue: $dismissValue")
+                        when (dismissValue) {
+                            DismissValue.DismissedToStart -> {
+                                scope.launch {
+                                    delay(500)
+                                    items = items.toMutableList().apply { remove(item) }
+                                }
+                                true
+                            }
+                            else -> true
+                        }
+                    },
+                    positionalThreshold = { totalDistance -> totalDistance * .5F },
+                )
 
-                BoxWithConstraints(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .swipeable(
-                            state = swipeableState,
-                            anchors = swipeAnchors,
-                            thresholds = { _, _ -> FractionalThreshold(0.3f) },
-                            orientation = Orientation.Horizontal
-                        )
-                ) {
-                    BoxWithConstraints(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .background(MaterialTheme.colors.primary)
-                    ) {
-                        Icon(
+                SwipeToDismiss(
+                    state = dismissState,
+                    directions = setOf(DismissDirection.EndToStart),
+                    background = {
+                        BoxWithConstraints(
                             modifier = Modifier
-                                .align(Alignment.CenterEnd)
-                                .padding(end = maxHeight / 2 - (Icons.Default.Delete.defaultWidth / 2)),
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = null,
-                            tint = MaterialTheme.colors.onPrimary
+                                .fillMaxSize()
+                                .background(AppTheme.colors.primary)
+                        ) {
+                            Icon(
+                                modifier = Modifier
+                                    .align(Alignment.CenterEnd)
+                                    .padding(end = maxHeight / 2 - (Icons.Default.Delete.defaultWidth / 2)),
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = null,
+                                tint = AppTheme.colors.onPrimary
+                            )
+                        }
+                    },
+                    dismissContent = {
+                        ListItem(
+                            modifier = Modifier
+                                .background(AppTheme.colors.background),
+                            headlineContent = { Text(item.text) },
+                            supportingContent = { Text(item.secondaryText) },
+                            overlineContent = { Text(item.overlineText) },
                         )
                     }
-                    ListItem(
-                        modifier = Modifier
-                            .offset { IntOffset(swipeableState.offset.value.roundToInt(), 0) }
-                            .background(MaterialTheme.colors.background),
-                        text = { Text(data.text) },
-                        secondaryText = { Text(data.secondaryText) },
-                        overlineText = { Text(data.overlineText) },
-                    )
-                }
+                )
             }
         }
     }
@@ -87,13 +102,9 @@ private fun SwipableContentPreview() {
     AppTheme { SwipableContent() }
 }
 
-private val testData: List<TestData>
+private val testItems: List<TestItem>
     get() {
-        val data = mutableListOf<TestData>()
-        for (i in 1..10) {
-            data.add(TestData("Test$i", "Secondary Text$i", "Overline Text$i"))
-        }
-        return data
+        return (1..10).toList().map { TestItem(it, "Test$it", "Secondary Text$it", "Overline Text$it") }
     }
 
-private data class TestData(val text: String, val secondaryText: String, val overlineText: String)
+private data class TestItem(val id: Int, val text: String, val secondaryText: String, val overlineText: String)

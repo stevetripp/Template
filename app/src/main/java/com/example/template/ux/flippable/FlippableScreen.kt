@@ -8,9 +8,10 @@ import androidx.compose.foundation.layout.requiredWidthIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -58,7 +59,7 @@ fun FlippableContent(onBack: () -> Unit = {}) {
 
             Flippable(
                 frontSide = {
-                    Card(modifier = modifier, backgroundColor = Color.Yellow) {
+                    Card(modifier = modifier, colors = CardDefaults.cardColors(containerColor = Color.Yellow)) {
                         Text(
                             modifier = Modifier.verticalScroll(scrollState),
                             text =
@@ -82,7 +83,7 @@ fun FlippableContent(onBack: () -> Unit = {}) {
                 },
 
                 backSide = {
-                    Card(modifier = modifier, backgroundColor = Color.Cyan) {
+                    Card(modifier = modifier, colors = CardDefaults.cardColors(containerColor = Color.Yellow)) {
                         Text(text = "Side 2")
                     }
                 },

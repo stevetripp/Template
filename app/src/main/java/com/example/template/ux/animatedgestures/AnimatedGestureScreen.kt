@@ -18,11 +18,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -161,9 +160,9 @@ private fun AnimatedGestureContentPreview() {
 private fun GestureIndicator(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
-            .background(color = MaterialTheme.colors.primary.copy(alpha = .5f), shape = CircleShape)
+            .background(color = AppTheme.colors.primary.copy(alpha = .5f), shape = CircleShape)
             .size(64.dp)
-            .border(width = 2.dp, MaterialTheme.colors.onBackground.copy(alpha = .5f), shape = CircleShape)
+            .border(width = 2.dp, AppTheme.colors.onBackground.copy(alpha = .5f), shape = CircleShape)
     )
 }
 
