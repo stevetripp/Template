@@ -15,8 +15,8 @@ import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
-import com.example.template.ui.widget.ChipBottomSheet
 import com.example.template.ui.widget.ChipItem
+import com.example.template.ui.widget.ChipModalBottomSheet
 import com.example.template.ux.main.Screen
 
 @Composable
@@ -29,11 +29,11 @@ fun ChipBottomSheetContent(onBack: () -> Unit = {}) {
     var numberItems by remember {
         mutableStateOf(
             listOf(
-                ChipItem.SelectableChipItem("Numbers", "All", isDefault = true, isSelected = true),
-                ChipItem.DividerChipItem,
-                ChipItem.SelectableChipItem("One", "One"),
-                ChipItem.SelectableChipItem("Two", "Two"),
-                ChipItem.SelectableChipItem("Three", "Three"),
+                ChipItem.Category("Numbers", "All"),
+                ChipItem.Divider,
+                ChipItem.Selectable("One"),
+                ChipItem.Selectable("Two"),
+                ChipItem.Selectable("Three"),
             )
         )
     }
@@ -41,11 +41,11 @@ fun ChipBottomSheetContent(onBack: () -> Unit = {}) {
     var animalItems by remember {
         mutableStateOf(
             listOf(
-                ChipItem.SelectableChipItem("Animals", "All", isDefault = true, isSelected = true),
-                ChipItem.DividerChipItem,
-                ChipItem.SelectableChipItem("Dog", "Dog"),
-                ChipItem.SelectableChipItem("Cat", "Cat"),
-                ChipItem.SelectableChipItem("Bird", "Bird"),
+                ChipItem.Category("Animals", "All"),
+                ChipItem.Divider,
+                ChipItem.Selectable("Dog"),
+                ChipItem.Selectable("Cat"),
+                ChipItem.Selectable("Bird"),
             )
         )
     }
@@ -57,22 +57,8 @@ fun ChipBottomSheetContent(onBack: () -> Unit = {}) {
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            ChipBottomSheet(chipItems = numberItems) { chipItem ->
-                numberItems = numberItems.map {
-                    when (it) {
-                        is ChipItem.SelectableChipItem -> it.copy(isSelected = it.chipText == chipItem.chipText)
-                        else -> it
-                    }
-                }
-            }
-            ChipBottomSheet(chipItems = animalItems) { chipItem ->
-                animalItems = animalItems.map {
-                    when (it) {
-                        is ChipItem.SelectableChipItem -> it.copy(isSelected = it.chipText == chipItem.chipText)
-                        else -> it
-                    }
-                }
-            }
+            ChipModalBottomSheet(chipItems = numberItems, onItemsChanged = { numberItems = it })
+            ChipModalBottomSheet(chipItems = animalItems, onItemsChanged = { animalItems = it })
         }
     }
 }
