@@ -1,6 +1,5 @@
 package com.example.template.ui.widget
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.width
@@ -43,19 +42,11 @@ fun ChipDropDown(chipItems: List<ChipItem>, onSelected: (ChipItem.Selectable) ->
 private fun Preview(
     @PreviewParameter(ChipItemsPreviewParameterProvider::class) previewItems: List<ChipItem>
 ) {
-    var items by remember { mutableStateOf(previewItems) }
+    val items by remember { mutableStateOf(previewItems) }
 
     AppTheme {
         Surface {
-            ChipDropDown(chipItems = items, onSelected = { selected ->
-                Log.i("SMT", "OnChipItem Clicked")
-                items = items.map { chipItem ->
-                    when (chipItem) {
-                        ChipItem.Divider -> chipItem
-                        is ChipItem.Selectable -> chipItem.apply { checked = text == selected.text }
-                    }
-                }
-            })
+            ChipDropDown(chipItems = items, onSelected = { })
         }
     }
 }

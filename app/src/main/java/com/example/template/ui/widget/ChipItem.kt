@@ -22,7 +22,7 @@ sealed class ChipItem {
     open class Selectable(
         val text: String,
         val obj: Any? = null,
-        var checked: Boolean = false,
+        val checked: Boolean = false,
     ) : ChipItem() {
         @Composable
         override fun ShowListItem(onClicked: () -> Unit) {
@@ -41,13 +41,16 @@ sealed class ChipItem {
                 leadingIcon = { RadioButton(selected = checked, onClick = null) },
             )
         }
+
+        open fun copy(checked: Boolean) = Selectable(text, obj, checked)
     }
 
     class Category(
         text: String,
         private val bottomSheetText: String,
         obj: Any? = null,
-    ) : Selectable(text, obj, true) {
+        checked: Boolean = true,
+    ) : Selectable(text, obj, checked) {
         @Composable
         override fun ShowListItem(onClicked: () -> Unit) {
             ListItem(
@@ -65,6 +68,8 @@ sealed class ChipItem {
                 leadingIcon = { RadioButton(selected = checked, onClick = null) },
             )
         }
+
+        override fun copy(checked: Boolean): Selectable = Category(text, bottomSheetText, obj, checked)
     }
 
     object Divider : ChipItem() {
