@@ -9,8 +9,8 @@ import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomSheet.BottomSheetScreen
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
-import com.example.template.ux.chipbottomsheet.ChipBottomSheetRoute
-import com.example.template.ux.chipbottomsheet.ChipBottomSheetScreen
+import com.example.template.ux.chipsheet.ChipSheetRoute
+import com.example.template.ux.chipsheet.ChipSheetScreen
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.flippable.FlippableScreen
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
@@ -70,7 +70,7 @@ fun NavGraph(
         AnimatedGesturesRoute.addNavigationRoute(this) { AnimatedGestureScreen(navController) }
         BottomNavigationRoute.addNavigationRoute(this) { BottomNavigationScreen(navController) }
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
-        ChipBottomSheetRoute.addNavigationRoute(this) { ChipBottomSheetScreen(navController) }
+        ChipSheetRoute.addNavigationRoute(this) { ChipSheetScreen(navController) }
         FlippableRoute.addNavigationRoute(this) { FlippableScreen(navController) }
         GmailAddressFieldRoute.addNavigationRoute(this) { GmailAddressFieldScreen(navController) }
         ImagePickerRoute.addNavigationRoute(this) { ImagePickerScreen(navController) }

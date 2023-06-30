@@ -28,7 +28,7 @@ fun ChipModalBottomSheetContent(chipItems: List<ChipItem>, onHide: () -> Unit, o
                 when (chipItem) {
                     ChipItem.Divider -> Divider()
                     is ChipItem.Selectable -> {
-                        chipItem.Show {
+                        chipItem.ShowListItem {
                             scope.launch {
                                 onHide()
                                 val selectableChips = chipItems.filterIsInstance<ChipItem.Selectable>()
