@@ -1,6 +1,8 @@
 package com.example.template.ui.widget
 
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -8,7 +10,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.theme.AppTheme
 
@@ -25,14 +29,13 @@ fun ChipModalBottomSheet(chipItems: List<ChipItem>, onItemSelected: (ChipItem.Se
     }.orEmpty()
 
     FilterChipWrapper(
-        selected = showBottomSheet,
-        highlighted = firstSelectedChipItem !is ChipItem.Category,
-        title = chipText,
-        onClick = { showBottomSheet = !showBottomSheet })
+        selected = firstSelectedChipItem !is ChipItem.Category,
+        title = chipText
+    ) { showBottomSheet = !showBottomSheet }
 
     if (showBottomSheet) {
         ModalBottomSheet(
-            sheetState =  rememberModalBottomSheetState(skipPartiallyExpanded = false),
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false),
             onDismissRequest = { showBottomSheet = false }
         ) {
             ChipModalBottomSheetContent(
@@ -48,11 +51,21 @@ fun ChipModalBottomSheet(chipItems: List<ChipItem>, onItemSelected: (ChipItem.Se
 private fun ChipModalBottomSheetPreview(
     @PreviewParameter(ChipItemsPreviewParameterProvider::class) previewItems: List<ChipItem>
 ) {
-    var items by remember { mutableStateOf(previewItems) }
+    val items1 by remember { mutableStateOf(previewItems) }
+    val items2 by remember {
+        mutableStateOf(previewItems.map {
+            when (it) {
+                ChipItem.Divider -> it
+                is ChipItem.Category -> it.copy(false)
+                is ChipItem.Selectable -> it.copy(it.text == "Lion")
+            }
+        })
+    }
 
     AppTheme {
-        Surface {
-            ChipModalBottomSheet(chipItems = items) {}
+        Row(modifier = Modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            ChipModalBottomSheet(chipItems = items1) {}
+            ChipModalBottomSheet(chipItems = items2) {}
         }
     }
 }
