@@ -6,6 +6,7 @@ import com.example.template.ui.navigation.ViewModelNavImpl
 import com.example.template.ux.animatedgestures.AnimatedGesturesRoute
 import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
+import com.example.template.ux.carousel.CarouselRoute
 import com.example.template.ux.chipsheet.ChipSheetRoute
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
@@ -44,6 +45,7 @@ class HomeViewModel
             Screen.ANIMATED_GESTURE -> navigate(AnimatedGesturesRoute.createRoute())
             Screen.BOTTOM_NAVIGATION -> navigate(BottomNavigationRoute.createRoute())
             Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute.createRoute())
+            Screen.CAROUSEL -> navigate(CarouselRoute.createRoute())
             Screen.CHIP_SHEET -> navigate(ChipSheetRoute.createRoute())
             Screen.FLIPPABLE -> navigate(FlippableRoute.createRoute())
             Screen.GMAIL_ADDRESS_FIELD -> navigate(GmailAddressFieldRoute.createRoute())

@@ -28,42 +28,34 @@ fun DropdownList(value: String, label: String, options: List<DropdownOption>, mo
     ExposedDropdownMenuBox(
         modifier = modifier.padding(horizontal = 16.dp, vertical = 8.dp),
         expanded = expanded,
-        onExpandedChange = {
-            expanded = !expanded
-        }
+        onExpandedChange = { expanded = !expanded }
     ) {
         if (!isSystemInDarkTheme()) {
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .menuAnchor(),
                 readOnly = true,
                 value = value,
                 onValueChange = {},
                 label = { Text(label) },
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(
-                        expanded = expanded
-                    )
-                },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
             )
         } else {
             TextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .menuAnchor(),
                 readOnly = true,
                 value = value,
                 onValueChange = {},
                 label = { Text(label) },
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(
-                        expanded = expanded
-                    )
-                },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
             )
         }
         ExposedDropdownMenu(
             expanded = expanded,
-            onDismissRequest = {
-                expanded = false
-            }
+            onDismissRequest = { expanded = false }
         ) {
             options.forEach { selectionOption ->
                 DropdownMenuItem(

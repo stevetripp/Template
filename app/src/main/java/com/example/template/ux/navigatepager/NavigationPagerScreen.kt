@@ -86,7 +86,7 @@ private fun BoxWithConstraintsScope.NavigationPager(
     onItemFocused: (index: Int) -> Unit,
     onItemSelected: (index: Int) -> Unit,
 ) {
-    val pagerState = rememberPagerState(initialPage = initialItemInFocus)
+    val pagerState = rememberPagerState(initialPage = initialItemInFocus, pageCount = { items.size })
 
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }.collect() {
@@ -98,7 +98,6 @@ private fun BoxWithConstraintsScope.NavigationPager(
     HorizontalPager(
         modifier = modifier
             .height(120.dp),
-        pageCount = items.size,
         state = pagerState,
         contentPadding = PaddingValues(horizontal = maxWidth / 3)
     ) { page ->
