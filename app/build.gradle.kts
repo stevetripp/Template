@@ -30,8 +30,11 @@ android {
             resValue("string", "file_provider", "com.tnt.template.dev.fileprovider")
         }
         val release by getting {
-            isMinifyEnabled = false
+            // https://developer.android.com/build/shrink-code#enable
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
             resValue("string", "file_provider", "com.tnt.template.fileprovider")
         }
     }
