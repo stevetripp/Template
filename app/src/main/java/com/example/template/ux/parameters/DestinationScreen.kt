@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
 
@@ -19,8 +19,8 @@ fun DestinationScreen(navController: NavController, viewModel: DestinationViewMo
 
 @Composable
 fun DestinationContent(uiState: DestinationUiState, onBack: () -> Unit) {
-    val required by uiState.requiredFlow.collectAsState()
-    val optional by uiState.optionalFlow.collectAsState()
+    val required by uiState.requiredFlow.collectAsStateWithLifecycle()
+    val optional by uiState.optionalFlow.collectAsStateWithLifecycle()
 
     Scaffold(topBar = { AppTopAppBar(title = "Destination Screen", onBack = onBack) }) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {

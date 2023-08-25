@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.NavOptionsBuilder
@@ -151,7 +151,7 @@ fun HandleNavigation(
     navController: NavController?
 ) {
     navController ?: return
-    val navigator by viewModelNav.navigatorFlow.collectAsState()
+    val navigator by viewModelNav.navigatorFlow.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     LaunchedEffect(navigator) {

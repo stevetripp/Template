@@ -5,12 +5,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
@@ -29,9 +29,9 @@ fun ChipSheetScreen(navController: NavController, viewModel: ChipSheetViewModel 
 
 @Composable
 fun ChipSheetContent(uiState: ChipSheetUiState, onBack: () -> Unit = {}) {
-    val numberItems by uiState.numberItemsFlow.collectAsState()
-    val animalItems by uiState.animalItemsFlow.collectAsState()
-    val colorItems by uiState.colorItemsFlow.collectAsState()
+    val numberItems by uiState.numberItemsFlow.collectAsStateWithLifecycle()
+    val animalItems by uiState.animalItemsFlow.collectAsStateWithLifecycle()
+    val colorItems by uiState.colorItemsFlow.collectAsStateWithLifecycle()
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.CHIP_SHEET.title, onBack = onBack) }) { paddingValues ->
         Row(

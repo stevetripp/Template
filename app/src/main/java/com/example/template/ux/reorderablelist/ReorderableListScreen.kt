@@ -11,12 +11,12 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
@@ -35,7 +35,7 @@ fun ReorderableListScreen(navController: NavController, viewModel: ReorderableLi
 @Composable
 fun ReorderableListContent(uiState: ReorderableListUiState, onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.REORDERABLE_LIST.title, onBack = onBack) }) { paddingValues ->
-        val list by uiState.listFlow.collectAsState()
+        val list by uiState.listFlow.collectAsStateWithLifecycle()
         val state = rememberReorderableLazyListState(onMove = uiState.onMove, canDragOver = uiState.canDragOver)
         LazyColumn(
             state = state.listState,

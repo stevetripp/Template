@@ -8,10 +8,10 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
@@ -27,7 +27,7 @@ fun PullRefreshScreen(navController: NavHostController, viewModel: PullRefreshVi
 
 @Composable
 fun PullRefreshContent(uiState: PullRefreshUiState, onBack: () -> Unit = {}) {
-    val listItems by uiState.listItemsFlow.collectAsState()
+    val listItems by uiState.listItemsFlow.collectAsStateWithLifecycle()
     Scaffold(
         topBar = { AppTopAppBar(title = Screen.PULL_REFRESH.title, onBack = onBack) }
     ) { paddingValues ->

@@ -19,7 +19,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,6 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.template.ui.PreviewDefault
@@ -53,8 +53,8 @@ fun GmailAddressFieldScreen(navController: NavController, viewModel: GmailAddres
 
 @Composable
 private fun GmailAddressFieldContent(uiState: GmailAddressFieldUiState, onBack: () -> Unit = {}) {
-    val contacts by uiState.contactsFlow.collectAsState()
-    val chips by uiState.chipsFlow.collectAsState()
+    val contacts by uiState.contactsFlow.collectAsStateWithLifecycle()
+    val chips by uiState.chipsFlow.collectAsStateWithLifecycle()
 
     Log.i("SMT", "GmailAddressFieldContent")
     if (!LocalInspectionMode.current) {

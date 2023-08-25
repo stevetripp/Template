@@ -8,10 +8,10 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.theme.AppTheme
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +24,7 @@ fun RefreshBox(
     modifier: Modifier = Modifier,
     content: @Composable BoxScope.() -> Unit
 ) {
-    val isRefreshing by isRefreshingFlow.collectAsState()
+    val isRefreshing by isRefreshingFlow.collectAsStateWithLifecycle()
     val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh)
     Box(
         modifier

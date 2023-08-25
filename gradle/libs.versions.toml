@@ -1,18 +1,18 @@
 [versions]
-agp = "8.1.0" # see https://developer.android.com/studio/releases/gradle-plugin
+agp = "8.1.1" # see https://developer.android.com/studio/releases/gradle-plugin
 kotlin = "1.9.0" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
 kotlinxCoroutines = "1.7.3"
 
 accompanist = "0.32.0"
 androidxActivityCompose = "1.7.2"
-androidxComposeCompiler = "1.5.1" # Referenced in build gradle (https://developer.android.com/jetpack/androidx/releases/compose-compiler)
+androidxComposeCompiler = "1.5.2" # Referenced in build gradle (https://developer.android.com/jetpack/androidx/releases/compose-compiler)
 androidxComposeMaterial = "1.5.0"
 androidxComposeMaterial3 = "1.1.1"
 androidxComposeUi = "1.5.0"
 androidxDataStore = "1.1.0-alpha04"
 androidxHilt = "1.0.0"
 androidxLifecycle = "2.6.1"
-androidxNavigation = "2.7.0"
+androidxNavigation = "2.7.1"
 androidxSplashScreen = "1.0.1"
 androidxTestJunit = "1.1.5"
 coil = "2.4.0"
@@ -38,6 +38,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidxDataStore" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidxHilt" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidxLifecycle" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidxSplashScreen" }
 
