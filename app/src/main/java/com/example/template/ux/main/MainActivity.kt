@@ -36,9 +36,7 @@ class MainActivity : ComponentActivity() {
                     return if (viewModel.isReady()) {
                         // The content is ready... start drawing.
                         content.viewTreeObserver.removeOnPreDrawListener(this)
-
                         // finish regular onCreate() code
-                        finishCreate(savedInstanceState)
                         true
                     } else {
                         // The content is not ready... suspend.
@@ -47,10 +45,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         )
-    }
-
-    @Suppress("kotlin:S1172")
-    private fun finishCreate(savedInstanceState: Bundle?) {
-        // Intentionally left empty
     }
 }

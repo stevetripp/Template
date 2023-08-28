@@ -16,12 +16,8 @@ class ReorderableListViewModel
     val uiState = ReorderableListUiState(
         listFlow = listFlow,
         onMove = ::onMove,
-        canDragOver = ::canDragOver,
+        canDragOver = { _, _ -> true },
     )
-
-    private fun canDragOver(draggedOver: ItemPosition, dragging: ItemPosition): Boolean {
-        return true
-    }
 
     private fun onMove(from: ItemPosition, to: ItemPosition) {
         val list = listFlow.value.toMutableList()

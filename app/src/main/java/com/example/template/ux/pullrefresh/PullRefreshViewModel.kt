@@ -28,7 +28,7 @@ class PullRefreshViewModel
         Log.i("SMT", "Is refreshing ...")
         delay(3000)
         isRefreshingFlow.value = false
-        (1..100).map { "$it: Item: ${random.nextInt()}" }
+        (1..100).map { index -> "$index: Item: ${random.nextInt()}" }
 
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000L), initialValue = emptyList())
 

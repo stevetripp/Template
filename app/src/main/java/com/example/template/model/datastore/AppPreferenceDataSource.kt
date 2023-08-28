@@ -1,6 +1,5 @@
 package com.example.template.model.datastore
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
@@ -12,7 +11,6 @@ import javax.inject.Singleton
 @Singleton
 class AppPreferenceDataSource
 @Inject constructor(
-    private val application: Application,
 ) {
     private val Context.dataStore by preferencesDataStore(
         name = "app",
@@ -28,7 +26,4 @@ class AppPreferenceDataSource
 //            )
 //        }
     )
-
-    object Key {
-    }
 }

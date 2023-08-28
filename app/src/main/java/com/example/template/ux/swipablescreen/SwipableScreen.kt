@@ -41,7 +41,7 @@ fun SwipableScreen(navController: NavController) {
 @Composable
 fun SwipableContent(onBack: () -> Unit = {}) {
     var items by remember { mutableStateOf(testItems) }
-    var scope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
     Scaffold(topBar = { AppTopAppBar(title = Screen.SWIPABLE.title, onBack = onBack) }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
             items(items, key = { it.id }) { item ->

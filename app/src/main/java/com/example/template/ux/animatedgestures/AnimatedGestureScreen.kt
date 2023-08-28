@@ -2,13 +2,11 @@ package com.example.template.ux.animatedgestures
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.VectorConverter
-import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateValue
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -96,57 +94,6 @@ private fun RememberInfiniteTransitionExample() {
         onClick = { isVisible = !isVisible }
     ) {
         Text("isVisible: $isVisible")
-    }
-}
-
-
-@Composable
-private fun UpdateTransitionExample() {
-    BoxWithConstraints(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        var transitionState by remember { mutableStateOf(State.HIDDEN) }
-        val transition = updateTransition(targetState = transitionState, label = "SMT")
-        val alphaAnimatable by transition.animateFloat(
-            label = "SMT",
-            transitionSpec = { tween(2000) }
-        ) { state ->
-            when (state) {
-                State.HIDDEN -> 0F
-                State.FADE_IN -> .5F
-                State.MOVE_LEFT -> 0F
-            }
-        }
-        val offsetAnimatable by transition.animateDp(
-            label = "SMT",
-            transitionSpec = {
-                when (this.targetState) {
-                    State.HIDDEN,
-                    State.FADE_IN -> tween(0)
-                    State.MOVE_LEFT -> tween(2000)
-                }
-            }
-        ) { state ->
-            when (state) {
-                State.HIDDEN,
-                State.FADE_IN -> 0.dp
-                State.MOVE_LEFT -> -maxWidth
-            }
-        }
-        GestureIndicator(
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .offset(x = offsetAnimatable)
-                .alpha(alphaAnimatable)
-        )
-        Button(modifier = Modifier.align(Alignment.BottomCenter), onClick = {
-            var newOrdinal = transitionState.ordinal + 1
-            newOrdinal = if (newOrdinal == State.values().size) 0 else newOrdinal
-            transitionState = State.values()[newOrdinal]
-        }) {
-            Text(transitionState.name)
-        }
     }
 }
 
