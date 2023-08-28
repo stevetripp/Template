@@ -2,12 +2,12 @@ package com.example.template.ux.search
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -18,7 +18,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -27,18 +26,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ux.main.Screen
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun SearchScreen(navController: NavController, viewModel: SearchViewModel = hiltViewModel()) {
@@ -52,6 +50,24 @@ private fun SearchContent(uiState: SearchUiState, onBack: () -> Unit = {}) {
     val filteredList by uiState.filteredListFlow.collectAsStateWithLifecycle()
     val suggestionList by uiState.suggestionListFlow.collectAsStateWithLifecycle()
 
+    val density = LocalDensity.current
+    val scrollGroupHeightPx = remember { with(density) { 72.dp.roundToPx().toFloat() } }
+    var scrollGroupOffsetHeightPx by remember { mutableFloatStateOf(0F) }
+
+    val nestedScrollConnection = remember(query) {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                scrollGroupOffsetHeightPx = if (query.isBlank()) {
+                    val newOffset = scrollGroupOffsetHeightPx + available.y
+                    newOffset.coerceIn(-scrollGroupHeightPx, 0F)
+                } else {
+                    0F
+                }
+                return Offset.Zero
+            }
+        }
+    }
+
     Scaffold(
         topBar = if (active) {
             {}
@@ -59,13 +75,16 @@ private fun SearchContent(uiState: SearchUiState, onBack: () -> Unit = {}) {
             { AppTopAppBar(title = Screen.SEARCH.title, onBack = onBack) }
         }
     ) { paddingValues ->
-        Column(
-            Modifier
-                .fillMaxSize()
+        Box(
+            modifier = Modifier
                 .padding(paddingValues)
+                .nestedScroll(nestedScrollConnection)
         ) {
+            val lazyListState = rememberLazyListState()
+
             SearchBar(
                 modifier = Modifier
+                    .graphicsLayer { translationY = scrollGroupOffsetHeightPx }
                     .fillMaxWidth()
                     .then(if (!active) Modifier.padding(horizontal = 16.dp) else Modifier),
                 query = query,
@@ -99,8 +118,12 @@ private fun SearchContent(uiState: SearchUiState, onBack: () -> Unit = {}) {
                     )
                 }
             }
-
-            LazyColumn {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer { translationY = (scrollGroupHeightPx + scrollGroupOffsetHeightPx) },
+                state = lazyListState
+            ) {
                 items(filteredList) { item ->
                     ListItem(
                         headlineContent = { Text(text = item) },
