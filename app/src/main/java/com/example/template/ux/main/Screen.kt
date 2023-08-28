@@ -20,6 +20,7 @@ enum class Screen(val title: String) {
     NOTIFICATION_PERMISSIONS("Permissions (Notification)"),
     PULL_REFRESH("Pull Refresh"),
     REORDERABLE_LIST("Reorderable List"),
+    SEARCH("Search"),
     SIDE_DRAWER("Side Drawer"),
     SNACKBAR("Snackbar"),
     SWIPABLE("Swipable"),

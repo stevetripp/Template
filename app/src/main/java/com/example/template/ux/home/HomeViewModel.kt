@@ -22,6 +22,7 @@ import com.example.template.ux.parameters.ParametersRoute
 import com.example.template.ux.permissions.PermissionsRoute
 import com.example.template.ux.pullrefresh.PullRefreshRoute
 import com.example.template.ux.reorderablelist.ReorderableListRoute
+import com.example.template.ux.search.SearchRoute
 import com.example.template.ux.sidedrawer.SideDrawerRoute
 import com.example.template.ux.snackbar.SnackbarRoute
 import com.example.template.ux.swipablescreen.SwipableRoute
@@ -58,11 +59,12 @@ class HomeViewModel
             Screen.PANNING_ZOOMING -> navigate(PanningZoomingRoute.createRoute())
             Screen.PARAMETERS -> navigate(ParametersRoute.createRoute())
             Screen.PERMISSIONS -> navigate(PermissionsRoute.createRoute())
+            Screen.PULL_REFRESH -> navigate(PullRefreshRoute.createRoute())
             Screen.REORDERABLE_LIST -> navigate(ReorderableListRoute.createRoute())
+            Screen.SEARCH -> navigate(SearchRoute.createRoute())
             Screen.SIDE_DRAWER -> navigate(SideDrawerRoute.createRoute())
             Screen.SNACKBAR -> navigate(SnackbarRoute.createRoute())
             Screen.SWIPABLE -> navigate(SwipableRoute.createRoute())
-            Screen.PULL_REFRESH -> navigate(PullRefreshRoute.createRoute())
             Screen.SYSTEM_UI -> navigate(SystemUiRoute.createRoute())
             Screen.TABS -> navigate(TabsRoute.createRoute())
             Screen.WEBVIEW -> navigate(WebViewRoute.createRoute())
