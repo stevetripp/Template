@@ -34,7 +34,7 @@ class SearchViewModel
         filteredListFlow = filteredListFlow,
         queryTextFlow = queryTextFlow,
         suggestionListFlow = suggestedListFlow,
-        onQueryChanged = { queryTextFlow.value = it },
+        onQueryChange = { queryTextFlow.value = it },
         onSearch = {
             Log.i("SMT", "onSearch($it)")
             previousQueriesFlow.update { previousQueries ->

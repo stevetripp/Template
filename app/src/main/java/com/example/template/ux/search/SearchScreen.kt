@@ -1,7 +1,6 @@
 package com.example.template.ux.search
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,33 +8,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
+import com.example.template.ui.composable.SynchronizedSearchBar
 import com.example.template.ux.main.Screen
 
 @Composable
@@ -45,93 +34,54 @@ fun SearchScreen(navController: NavController, viewModel: SearchViewModel = hilt
 
 @Composable
 private fun SearchContent(uiState: SearchUiState, onBack: () -> Unit = {}) {
-    var active by rememberSaveable { mutableStateOf(false) }
+    var searchIsActive by rememberSaveable { mutableStateOf(false) }
     val query by uiState.queryTextFlow.collectAsStateWithLifecycle()
     val filteredList by uiState.filteredListFlow.collectAsStateWithLifecycle()
     val suggestionList by uiState.suggestionListFlow.collectAsStateWithLifecycle()
-
-    val density = LocalDensity.current
-    val scrollGroupHeightPx = remember { with(density) { 72.dp.roundToPx().toFloat() } }
-    var scrollGroupOffsetHeightPx by remember { mutableFloatStateOf(0F) }
-
-    val nestedScrollConnection = remember(query) {
-        object : NestedScrollConnection {
-            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-                scrollGroupOffsetHeightPx = if (query.isBlank()) {
-                    val newOffset = scrollGroupOffsetHeightPx + available.y
-                    newOffset.coerceIn(-scrollGroupHeightPx, 0F)
-                } else {
-                    0F
-                }
-                return Offset.Zero
-            }
-        }
-    }
+    val lazyListState = rememberLazyListState()
 
     Scaffold(
-        topBar = if (active) {
+        topBar = if (searchIsActive) {
             {}
         } else {
             { AppTopAppBar(title = Screen.SEARCH.title, onBack = onBack) }
         }
     ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .padding(paddingValues)
-                .nestedScroll(nestedScrollConnection)
-        ) {
-            val lazyListState = rememberLazyListState()
 
-            SearchBar(
-                modifier = Modifier
-                    .graphicsLayer { translationY = scrollGroupOffsetHeightPx }
-                    .fillMaxWidth()
-                    .then(if (!active) Modifier.padding(horizontal = 16.dp) else Modifier),
-                query = query,
-                onQueryChange = uiState.onQueryChanged,
-                onSearch = {
-                    uiState.onSearch(it)
-                    active = false
-                },
-                active = active,
-                onActiveChange = { active = it },
-                placeholder = { Text("Hinted search text") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                trailingIcon = {
-                    Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.clickable {
-                        if (query.isNotBlank()) {
-                            uiState.onQueryChanged("")
-                        } else {
-                            active = false
-                        }
-                    })
-                },
-            ) {
+        SynchronizedSearchBar(
+            modifier = Modifier.padding(paddingValues),
+            query = query,
+            scrollable = { modifier ->
+                LazyColumn(
+                    modifier = modifier
+                        .fillMaxSize(),
+                    state = lazyListState
+                ) {
+                    items(filteredList) { item ->
+                        ListItem(
+                            headlineContent = { Text(text = item) },
+                            Modifier
+                                .fillMaxWidth()
+                        )
+                    }
+                }
+            },
+            isActive = searchIsActive,
+            onQueryChange = uiState.onQueryChange,
+            onSearch = uiState.onSearch,
+            onActiveChange = { searchIsActive = it },
+            content = {
                 suggestionList.forEach {
                     ListItem(
                         headlineContent = { Text(text = it) },
                         leadingContent = { Icon(Icons.Filled.Star, contentDescription = null) },
                         modifier = Modifier
-                            .clickable { uiState.onQueryChanged(it) }
+                            .clickable { uiState.onQueryChange(it) }
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 4.dp)
                     )
                 }
             }
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .graphicsLayer { translationY = (scrollGroupHeightPx + scrollGroupOffsetHeightPx) },
-                state = lazyListState
-            ) {
-                items(filteredList) { item ->
-                    ListItem(
-                        headlineContent = { Text(text = item) },
-                        Modifier
-                            .fillMaxWidth()
-                    )
-                }
-            }
-        }
+        )
     }
 }
