@@ -4,18 +4,21 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.template.ext.stateInDefault
+import com.example.template.model.datastore.AppPreferenceDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel
 @Inject constructor(
+    private val prefs: AppPreferenceDataSource,
 ) : ViewModel() {
 
-    private val previousQueriesFlow = MutableStateFlow<List<String>>(emptyList())
+    private val previousQueriesFlow = prefs.previousQueriesFlow.stateInDefault(viewModelScope, emptyList())
     private val queryTextFlow = MutableStateFlow("")
     private val searchTextFlow = MutableStateFlow("")
 
@@ -24,10 +27,10 @@ class SearchViewModel
         randomNames.filter { it.contains(searchText) }
     }.stateInDefault(viewModelScope, emptyList())
 
-    private val suggestedListFlow = queryTextFlow.map { queryText ->
-        Log.i("SMT", "suggestedListFlow($queryText, ${previousQueriesFlow.value})")
-        if (queryText.isBlank()) return@map previousQueriesFlow.value
-        previousQueriesFlow.value.filter { it.contains(queryText) }
+    private val suggestedListFlow = combine(queryTextFlow, previousQueriesFlow) { queryText, previousQueries ->
+        Log.i("SMT", "suggestedListFlow($queryText, ${previousQueries})")
+        if (queryText.isBlank()) return@combine previousQueries
+        previousQueries.filter { it.contains(queryText) }
     }.stateInDefault(viewModelScope, emptyList())
 
     val uiState = SearchUiState(
@@ -35,15 +38,20 @@ class SearchViewModel
         queryTextFlow = queryTextFlow,
         suggestionListFlow = suggestedListFlow,
         onQueryChange = { queryTextFlow.value = it },
-        onSearch = {
-            Log.i("SMT", "onSearch($it)")
-            previousQueriesFlow.update { previousQueries ->
-                previousQueries.toMutableList().add(it)
-                previousQueries
-            }
-            searchTextFlow.value = it
-        }
+        onSearch = ::onSearch
     )
+
+    private fun onSearch(searchQuery: String) {
+        Log.i("SMT", "onSearch($searchQuery)")
+        viewModelScope.launch {
+            val mutableList = previousQueriesFlow.value.toMutableList()
+            if (searchQuery.isNotBlank() && !mutableList.contains(searchQuery)) {
+                mutableList.add(searchQuery)
+                prefs.setPreviousQueries(mutableList)
+            }
+        }
+        searchTextFlow.value = searchQuery
+    }
 
     companion object {
         private val randomNames = listOf(
