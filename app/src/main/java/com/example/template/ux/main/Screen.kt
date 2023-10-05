@@ -7,6 +7,7 @@ enum class Screen(val title: String) {
     BOTTOM_SHEET("Bottom Sheet"),
     CAROUSEL("Carousel"),
     CHIP_SHEET("Chip Sheet"),
+    DIALOG("Dialog"),
     FLIPPABLE("Flippable"),
     GMAIL_ADDRESS_FIELD("Gmail Address Field"),
     IMAGE_PICKER("Image Picker"),
