@@ -1,28 +1,29 @@
 [versions]
-agp = "8.1.1" # see https://developer.android.com/studio/releases/gradle-plugin
-kotlin = "1.9.0" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+agp = "8.1.2" # see https://developer.android.com/studio/releases/gradle-plugin
+kotlin = "1.9.10" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
 kotlinxCoroutines = "1.7.3"
 
 accompanist = "0.32.0"
-androidxActivityCompose = "1.7.2"
-androidxComposeCompiler = "1.5.2" # Referenced in build gradle (https://developer.android.com/jetpack/androidx/releases/compose-compiler)
-androidxComposeMaterial = "1.5.0"
-androidxComposeMaterial3 = "1.1.1"
-androidxComposeUi = "1.5.0"
-androidxDataStore = "1.1.0-alpha04"
+androidxActivityCompose = "1.8.0"
+androidxComposeCompiler = "1.5.3" # Referenced by app/build.gradle.kts (https://developer.android.com/jetpack/androidx/releases/compose-compiler)
+androidxComposeMaterial = "1.5.4"
+androidxComposeMaterial3 = "1.1.2"
+androidxComposeUi = "1.5.4"
+androidxDataStore = "1.1.0-alpha05"
 androidxHilt = "1.0.0"
-androidxLifecycle = "2.6.1"
-androidxNavigation = "2.7.1"
+androidxLifecycle = "2.6.2"
+androidxNavigation = "2.7.4"
 androidxSplashScreen = "1.0.1"
 androidxTestJunit = "1.1.5"
 coil = "2.4.0"
 detekt = "1.23.1"
 flippable = "1.0.6"
-googleMaterial = "1.9.0" # 1.10.0.alpha03 requires APK 34
+googleMaterial = "1.10.0"
 hilt = "2.46.1" # Do not update to 2.47
 junitBom = "5.10.0"
 reorderableCompose = "0.9.6"
-versionsGradlePlugin = "0.47.0"
+undercouchDownload = "5.5.0" # referenced by app/build.gradle.kts
+versionsGradlePlugin = "0.49.0"
 
 [plugins]
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

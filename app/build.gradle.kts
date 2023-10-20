@@ -3,7 +3,7 @@ plugins {
     kotlin("kapt")
     kotlin("android")
     id("dagger.hilt.android.plugin")
-    id("de.undercouch.download") version "5.4.0"
+    id("de.undercouch.download") version libs.versions.undercouchDownload
     alias(libs.plugins.detekt)
 }
 
@@ -49,10 +49,7 @@ android {
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
             "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
-            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
             "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi",
-            "-opt-in=kotlin.ExperimentalStdlibApi",
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
         )
     }
     buildFeatures {
