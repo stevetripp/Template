@@ -26,8 +26,10 @@ allprojects {
         mavenCentral()
     }
 
+    // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
     // Gradle Dependency Check
     apply(plugin = "com.github.ben-manes.versions") // ./gradlew dependencyUpdates -Drevision=release
+//    val excludeVersionContaining = emptyList<String>()
     val excludeVersionContaining = listOf("alpha", "eap", "M1", "dev") // example: "alpha", "beta"
     // some artifacts may be OK to check for "alpha"... add these exceptions here
     val ignoreArtifacts = emptyList<String>()
