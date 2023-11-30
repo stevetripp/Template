@@ -1,6 +1,5 @@
 package com.example.template.ux.stickyheaders
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import com.example.template.inject.ApplicationScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,31 +11,30 @@ import javax.inject.Inject
 @HiltViewModel
 class StickyHeaderViewModel
 @Inject constructor(
-    private val application: Application,
     @ApplicationScope
     private val applicationScope: CoroutineScope,
 ) : ViewModel() {
 
-    private val listItemsFlow = MutableStateFlow<Map<String, List<String>>>(emptyMap())
+    private val lazyColumnItemsFlow = MutableStateFlow<List<LazyColumnItem>>(emptyList())
 
     val uiState = StickyHeadersUiState(
-        listItemsFlow = listItemsFlow,
+        lazyColumnItemsFlow = lazyColumnItemsFlow,
     )
 
     init {
         applicationScope.launch {
             val orderedFruits = fruits.sorted().map { fruit -> fruit.replaceFirstChar { it.titlecase() } }
-            val fruits = mutableMapOf<String, MutableList<String>>()
-            var firstCharacter = ""
+            var previousHeader = ""
+            val lazyColumnItems = mutableListOf<LazyColumnItem>()
             orderedFruits.forEach {
-                val first = it.first().toString()
-                if (firstCharacter != first) {
-                    firstCharacter = first
-                    fruits[first] = mutableListOf()
+                val firstChar = it.first().toString()
+                if (firstChar != previousHeader) {
+                    previousHeader = firstChar
+                    lazyColumnItems.add(LazyColumnItem.Header(firstChar))
                 }
-                fruits[first]?.add(it)
+                lazyColumnItems.add(LazyColumnItem.Item(it))
             }
-            listItemsFlow.value = fruits
+            lazyColumnItemsFlow.value = lazyColumnItems
         }
     }
 

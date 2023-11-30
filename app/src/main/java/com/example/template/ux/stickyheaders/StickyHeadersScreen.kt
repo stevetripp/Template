@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,11 +19,6 @@ import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-
-data class StickyHeadersUiState(
-    val listItemsFlow: StateFlow<Map<String, List<String>>> = MutableStateFlow(emptyMap()),
-)
 
 @Composable
 fun StickyHeadersScreen(navController: NavController, viewModel: StickyHeaderViewModel = hiltViewModel()) {
@@ -33,24 +27,26 @@ fun StickyHeadersScreen(navController: NavController, viewModel: StickyHeaderVie
 
 @Composable
 fun StickyHeadersContent(uiState: StickyHeadersUiState, onBack: () -> Unit = {}) {
-    val listItems by uiState.listItemsFlow.collectAsStateWithLifecycle()
+    val lazyColumnItems by uiState.lazyColumnItemsFlow.collectAsStateWithLifecycle()
+
     Scaffold(topBar = { AppTopAppBar(title = Screen.STICKY_HEADERS.title, onBack = onBack) }) { paddingValues ->
         LazyColumn(
             modifier = Modifier
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
-            listItems.forEach { (header, list) ->
-                stickyHeader {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.Cyan), text = header
-                    )
+            lazyColumnItems.forEach {
+                when (it) {
+                    is LazyColumnItem.Header -> stickyHeader {
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(Color.Cyan), text = it.text
+                        )
+                    }
+                    is LazyColumnItem.Item -> item { Text(text = it.text) }
                 }
-                items(list) {
-                    Text(modifier = Modifier.fillMaxWidth(), text = it)
-                }
+
             }
         }
     }
@@ -59,5 +55,15 @@ fun StickyHeadersContent(uiState: StickyHeadersUiState, onBack: () -> Unit = {})
 @PreviewDefault
 @Composable
 private fun Preview() {
-    AppTheme { StickyHeadersContent(StickyHeadersUiState()) }
+    val items = listOf(
+        LazyColumnItem.Header("A"),
+        LazyColumnItem.Item("Apple"),
+        LazyColumnItem.Item("Apricot"),
+        LazyColumnItem.Item("Apple"),
+        LazyColumnItem.Header("B"),
+        LazyColumnItem.Item("Apple"),
+        LazyColumnItem.Item("Apricot"),
+        LazyColumnItem.Item("Apple"),
+    )
+    AppTheme { StickyHeadersContent(StickyHeadersUiState(MutableStateFlow(items))) }
 }
