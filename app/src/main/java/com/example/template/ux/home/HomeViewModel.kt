@@ -26,6 +26,7 @@ import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.search.SearchRoute
 import com.example.template.ux.sidedrawer.SideDrawerRoute
 import com.example.template.ux.snackbar.SnackbarRoute
+import com.example.template.ux.stickyheaders.StickyHeadersRoute
 import com.example.template.ux.swipablescreen.SwipableRoute
 import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.tabs.TabsRoute
@@ -66,6 +67,7 @@ class HomeViewModel
             Screen.SEARCH -> navigate(SearchRoute.createRoute())
             Screen.SIDE_DRAWER -> navigate(SideDrawerRoute.createRoute())
             Screen.SNACKBAR -> navigate(SnackbarRoute.createRoute())
+            Screen.STICKY_HEADERS -> navigate(StickyHeadersRoute.createRoute())
             Screen.SWIPABLE -> navigate(SwipableRoute.createRoute())
             Screen.SYSTEM_UI -> navigate(SystemUiRoute.createRoute())
             Screen.TABS -> navigate(TabsRoute.createRoute())

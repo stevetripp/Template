@@ -24,6 +24,7 @@ enum class Screen(val title: String) {
     SEARCH("Search"),
     SIDE_DRAWER("Side Drawer"),
     SNACKBAR("Snackbar"),
+    STICKY_HEADERS("Sticky Headers"),
     SWIPABLE("Swipable"),
     SYSTEM_UI("System UI"),
     TABS("Tabs"),
