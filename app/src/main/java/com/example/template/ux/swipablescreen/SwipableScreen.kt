@@ -10,13 +10,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.DismissDirection
-import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SwipeToDismiss
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDismissState
+import androidx.compose.material3.rememberSwipeToDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,27 +44,26 @@ fun SwipableContent(onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.SWIPABLE.title, onBack = onBack) }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
             items(items, key = { it.id }) { item ->
-                val dismissState = rememberDismissState(
+                val dismissState = rememberSwipeToDismissState(
                     confirmValueChange = { dismissValue ->
                         Log.i("SMT", "DismissValue: $dismissValue")
                         when (dismissValue) {
-                            DismissValue.DismissedToStart -> {
+                            SwipeToDismissValue.StartToEnd -> {
                                 scope.launch {
                                     delay(500)
                                     items = items.toMutableList().apply { remove(item) }
                                 }
                                 true
                             }
-                            else -> true
+                            else -> false
                         }
                     },
                     positionalThreshold = { totalDistance -> totalDistance * .5F },
                 )
 
-                SwipeToDismiss(
+                SwipeToDismissBox(
                     state = dismissState,
-                    directions = setOf(DismissDirection.EndToStart),
-                    background = {
+                    backgroundContent = {
                         BoxWithConstraints(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -81,7 +79,7 @@ fun SwipableContent(onBack: () -> Unit = {}) {
                             )
                         }
                     },
-                    dismissContent = {
+                    content = {
                         ListItem(
                             modifier = Modifier
                                 .background(AppTheme.colors.background),
