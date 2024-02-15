@@ -27,10 +27,10 @@ fun ParametersContent(uiState: ParametersUiState, onBack: () -> Unit) {
     val requiredValue by uiState.requiredValueFlow.collectAsStateWithLifecycle()
     val optionalValue by uiState.optionalValueFlow.collectAsStateWithLifecycle()
 
-    Scaffold(topBar = { AppTopAppBar(title = Screen.PERMISSIONS.title, onBack = onBack) }) { paddingValues ->
+    Scaffold(topBar = { AppTopAppBar(title = Screen.PARAMETERS.title, onBack = onBack) }) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             TextField(value = requiredValue, onValueChange = uiState.onRequiredValueChanged)
-            TextField(value = optionalValue, onValueChange = uiState.onOptionalValueChanged)
+            TextField(value = optionalValue.orEmpty(), onValueChange = uiState.onOptionalValueChanged)
             TextButton(onClick = uiState.onButtonClick) { Text(text = "Tap Me") }
         }
     }
