@@ -18,15 +18,15 @@ fun HandleSnackbarUiState(snackbarUiStateFlow: StateFlow<SnackbarUiState?>): Sna
     val snackbarUiState by snackbarUiStateFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(snackbarUiState) {
-        val (message, label, duration) = snackbarUiState ?: return@LaunchedEffect
+        val (message, label, duration, onAction, resetSnackbarUiState) = snackbarUiState ?: return@LaunchedEffect
         val result = snackbarHostState.showSnackbar(
             message = message,
             actionLabel = label,
             duration = duration,
         )
 
-        if (result == SnackbarResult.ActionPerformed) snackbarUiState?.onAction?.invoke()
-        snackbarUiState?.resetSnackbarUiState?.invoke()
+        if (result == SnackbarResult.ActionPerformed) onAction()
+        resetSnackbarUiState()
     }
 
     return snackbarHostState

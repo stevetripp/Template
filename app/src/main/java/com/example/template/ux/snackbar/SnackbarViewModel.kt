@@ -1,6 +1,7 @@
 package com.example.template.ux.snackbar
 
-import android.util.Log
+import android.app.Application
+import android.widget.Toast
 import androidx.compose.material3.SnackbarDuration
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -8,7 +9,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class SnackbarViewModel @Inject constructor() : ViewModel() {
+class SnackbarViewModel @Inject constructor(
+    private val application: Application,
+) : ViewModel() {
 
     private val snackbarHostUiStateFlow = MutableStateFlow<SnackbarUiState?>(null)
 
@@ -22,7 +25,7 @@ class SnackbarViewModel @Inject constructor() : ViewModel() {
             message = "The snackbar message",
             actionLabel = "Action",
             duration = SnackbarDuration.Short,
-            onAction = { Log.i("SMT", "Action clicked") },
+            onAction = { Toast.makeText(application, "Action clicked!", Toast.LENGTH_SHORT).show() },
             resetSnackbarUiState = { snackbarHostUiStateFlow.value = null }
         )
     }
