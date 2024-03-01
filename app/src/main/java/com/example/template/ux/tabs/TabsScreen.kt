@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.Surface
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -72,8 +73,7 @@ private fun CustomTab(title: String, selected: Boolean, onClick: () -> Unit) {
         Modifier
             .clickable { onClick() }
             .padding(10.dp)
-            .height(50.dp)
-            .fillMaxWidth(),
+            .height(50.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Box(
@@ -94,10 +94,12 @@ private fun CustomTab(title: String, selected: Boolean, onClick: () -> Unit) {
 @Composable
 private fun CustomTabPreview() {
     AppTheme {
-        Row() {
-            CustomTab(title = "Title", selected = true, onClick = {})
-            CustomTab(title = "Title", selected = false, onClick = {})
-            CustomTab(title = "Title", selected = false, onClick = {})
+        Surface {
+            Row(modifier = Modifier.fillMaxWidth()) {
+                CustomTab(title = "One", selected = true, onClick = {})
+                CustomTab(title = "Two", selected = false, onClick = {})
+                CustomTab(title = "Three", selected = false, onClick = {})
+            }
         }
     }
 }
