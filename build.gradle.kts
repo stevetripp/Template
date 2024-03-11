@@ -19,6 +19,10 @@ buildscript {
     }
 }
 
+plugins {
+    alias(libs.plugins.ksp)
+}
+
 allprojects {
     repositories {
         mavenLocal()

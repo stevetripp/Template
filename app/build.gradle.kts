@@ -1,10 +1,10 @@
 plugins {
     id("com.android.application")
-    kotlin("kapt")
     kotlin("android")
     id("dagger.hilt.android.plugin")
     id("de.undercouch.download") version libs.versions.undercouchDownload
     alias(libs.plugins.detekt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -93,7 +93,7 @@ dependencies {
 
     // Inject
     implementation(libs.google.hilt.android)
-    kapt(libs.google.hilt.android.compiler)
+    ksp(libs.google.hilt.android.compiler)
 
     implementation(libs.google.material)
 
