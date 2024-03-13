@@ -9,6 +9,7 @@ import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.carousel.CarouselRoute
 import com.example.template.ux.chipsheet.ChipSheetRoute
 import com.example.template.ux.dialog.DialogRoute
+import com.example.template.ux.download.DownloadRoute
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
 import com.example.template.ux.imagepicker.ImagePickerRoute
@@ -50,6 +51,7 @@ class HomeViewModel
             Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute.createRoute())
             Screen.CAROUSEL -> navigate(CarouselRoute.createRoute())
             Screen.CHIP_SHEET -> navigate(ChipSheetRoute.createRoute())
+            Screen.DOWNLOAD -> navigate(DownloadRoute.createRoute())
             Screen.DIALOG -> navigate(DialogRoute.createRoute())
             Screen.FLIPPABLE -> navigate(FlippableRoute.createRoute())
             Screen.GMAIL_ADDRESS_FIELD -> navigate(GmailAddressFieldRoute.createRoute())

@@ -49,6 +49,7 @@ android {
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
             "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
+            "-opt-in=androidx.media3.common.util.UnstableApi",
             "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi",
         )
     }
@@ -93,7 +94,12 @@ dependencies {
 
     // Inject
     implementation(libs.google.hilt.android)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.media3.exoplayer)
     ksp(libs.google.hilt.android.compiler)
+
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
 
     implementation(libs.google.material)
 

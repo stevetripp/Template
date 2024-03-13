@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Template</string>
+    <string name="channel_description_resource_id">Download Channel Description</string>
+    <string name="channel_name_resource_id">Download Channel Name</string>
 </resources>

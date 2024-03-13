@@ -15,6 +15,8 @@ import com.example.template.ux.chipsheet.ChipSheetRoute
 import com.example.template.ux.chipsheet.ChipSheetScreen
 import com.example.template.ux.dialog.DialogRoute
 import com.example.template.ux.dialog.DialogScreen
+import com.example.template.ux.download.DownloadRoute
+import com.example.template.ux.download.DownloadScreen
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.flippable.FlippableScreen
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
@@ -80,6 +82,7 @@ fun NavGraph(
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
         CarouselRoute.addNavigationRoute(this) { CarouselScreen(navController) }
         ChipSheetRoute.addNavigationRoute(this) { ChipSheetScreen(navController) }
+        DownloadRoute.addNavigationRoute(this) { DownloadScreen(navController) }
         DialogRoute.addNavigationRoute(this) { DialogScreen(navController) }
         FlippableRoute.addNavigationRoute(this) { FlippableScreen(navController) }
         GmailAddressFieldRoute.addNavigationRoute(this) { GmailAddressFieldScreen(navController) }
