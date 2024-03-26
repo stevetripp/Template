@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Scaffold
+import androidx.compose.material.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,7 +36,7 @@ fun PagerContent(onBack: () -> Unit = {}) {
     val pageCount = 10
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.PAGER.title, onBack = onBack) }) { paddingValues ->
-        val pagerState = rememberPagerState(pageCount = { pageCount })
+        val pagerState = rememberPagerState { pageCount }
         Box(modifier = Modifier.padding(paddingValues)) {
             HorizontalPager(
                 state = pagerState,

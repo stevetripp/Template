@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -44,7 +44,7 @@ fun TabsContent(onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.TABS.title, onBack = onBack) }) { paddingValues ->
         var tabIndex by remember { mutableStateOf(0) }
         val tabTitles = listOf("Hello", "There", "World")
-        val pagerState = rememberPagerState(pageCount = { tabTitles.size })
+        val pagerState = rememberPagerState { tabTitles.size }
         Column(modifier = Modifier.padding(paddingValues)) {
             TabRow(selectedTabIndex = tabIndex) {
                 tabTitles.forEachIndexed { index, title ->
