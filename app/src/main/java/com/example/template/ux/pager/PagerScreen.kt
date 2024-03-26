@@ -36,11 +36,10 @@ fun PagerContent(onBack: () -> Unit = {}) {
     val pageCount = 10
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.PAGER.title, onBack = onBack) }) { paddingValues ->
-        val pagerState = rememberPagerState()
+        val pagerState = rememberPagerState { pageCount }
         Box(modifier = Modifier.padding(paddingValues)) {
             HorizontalPager(
                 state = pagerState,
-                pageCount = pageCount
             ) { page ->
                 Box(modifier = Modifier.fillMaxSize()) {
                     Text("Page: $page", modifier = Modifier.align(Alignment.Center))

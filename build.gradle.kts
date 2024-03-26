@@ -1,30 +1,18 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath(libs.android.gradlePluginClasspath)
-        classpath(libs.kotlin.gradlePluginClasspath)
-        classpath(libs.gradleVersions.gradlePluginClasspath)
-        classpath(libs.google.hilt.gradlePluginClasspath)
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.download) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.versions)
 }
 
 allprojects {
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-    }
 
     // Gradle Dependency Check
     apply(plugin = "com.github.ben-manes.versions") // ./gradlew dependencyUpdates -Drevision=release

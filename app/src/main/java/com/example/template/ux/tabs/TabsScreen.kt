@@ -44,7 +44,7 @@ fun TabsContent(onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.TABS.title, onBack = onBack) }) { paddingValues ->
         var tabIndex by remember { mutableStateOf(0) }
         val tabTitles = listOf("Hello", "There", "World")
-        val pagerState = rememberPagerState()
+        val pagerState = rememberPagerState { tabTitles.size }
         Column(modifier = Modifier.padding(paddingValues)) {
             TabRow(selectedTabIndex = tabIndex) {
                 tabTitles.forEachIndexed { index, title ->
@@ -53,7 +53,6 @@ fun TabsContent(onBack: () -> Unit = {}) {
                 }
             }
             HorizontalPager(
-                pageCount = tabTitles.size,
                 state = pagerState,
             ) { tabIndex ->
                 Text(
