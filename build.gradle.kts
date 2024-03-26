@@ -12,10 +12,6 @@ plugins {
     alias(libs.plugins.versions)
 }
 
-plugins {
-    alias(libs.plugins.ksp)
-}
-
 allprojects {
 
     // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
