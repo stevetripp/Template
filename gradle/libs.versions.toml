@@ -1,15 +1,14 @@
 [versions]
-agp = "8.3.0" # see https://developer.android.com/studio/releases/gradle-plugin
-kotlin = "1.9.22" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-ksp = "1.9.22-1.0.17" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
-kotlinxCoroutines = "1.8.0"
+agp = "8.3.1" # see https://developer.android.com/studio/releases/gradle-plugin
+kotlin = "1.9.23" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+ksp = "1.9.23-1.0.19" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
 
 accompanist = "0.34.0"
 androidxActivityCompose = "1.8.2"
-androidxComposeCompiler = "1.5.10" # Referenced by app/build.gradle.kts (https://developer.android.com/jetpack/androidx/releases/compose-compiler)
-androidxComposeMaterial = "1.6.3"
+androidxComposeCompiler = "1.5.11" # Referenced by app/build.gradle.kts (https://developer.android.com/jetpack/androidx/releases/compose-compiler)
+androidxComposeMaterial = "1.6.4"
 androidxComposeMaterial3 = "1.2.1"
-androidxComposeUi = "1.6.3"
+androidxComposeUi = "1.6.4"
 androidxDataStore = "1.1.0-beta02"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.7.0"
@@ -19,25 +18,29 @@ androidxSplashScreen = "1.0.1"
 androidxTestJunit = "1.1.5"
 androidxWork = "2.9.0"
 coil = "2.6.0"
-detekt = "1.23.5"
+detekt = "1.23.6"
 flippable = "1.5.4"
 googleMaterial = "1.11.0"
-hilt = "2.51" # add alias(libs.plugins.ksp) in root gradle pluggins for https://github.com/google/dagger/issues/3965
+hilt = "2.51"
 junitBom = "5.10.2"
 reorderableCompose = "0.9.6"
-undercouchDownload = "5.6.0" # referenced by app/build.gradle.kts
-versionsGradlePlugin = "0.51.0"
+undercouchDownload = "5.6.0"
+versions = "0.51.0"
 
 [plugins]
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" } # referenced by project/build.gradle.kts and app/build.gradle.kts
+android-application = { id = "com.android.application", version.ref = "agp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+download = { id = "de.undercouch.download", version.ref = "undercouchDownload" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
 
 [libraries]
 accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 
-android-gradlePluginClasspath = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidxDataStore" }
@@ -67,13 +70,10 @@ flippable = { module = "com.wajahatkarim:flippable", version.ref = "flippable" }
 
 google-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 google-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-google-hilt-gradlePluginClasspath = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 google-material = { module = "com.google.android.material:material", version.ref = "googleMaterial" } # https://github.com/material-components/material-components-android/releases
-gradleVersions-gradlePluginClasspath = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versionsGradlePlugin" }
 
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junitBom" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 
-kotlin-gradlePluginClasspath = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 reorderable-compose = { module = "org.burnoutcrew.composereorderable:reorderable", version.ref = "reorderableCompose" }
