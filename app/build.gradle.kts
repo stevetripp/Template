@@ -91,6 +91,8 @@ dependencies {
 
     implementation(libs.flippable)
 
+    implementation(libs.kermit)
+
     // Inject
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.android.compiler)

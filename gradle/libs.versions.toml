@@ -21,6 +21,7 @@ flippable = "1.5.4"
 googleMaterial = "1.11.0"
 hilt = "2.51"
 junitBom = "5.10.2"
+kermit = "2.0.3"
 reorderableCompose = "0.9.6"
 undercouchDownload = "5.6.0"
 versions = "0.51.0"
@@ -67,5 +68,6 @@ google-material = { module = "com.google.android.material:material", version.ref
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junitBom" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 
+kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 
 reorderable-compose = { module = "org.burnoutcrew.composereorderable:reorderable", version.ref = "reorderableCompose" }
