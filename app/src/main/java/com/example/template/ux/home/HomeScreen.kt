@@ -17,9 +17,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
-import com.example.template.ui.navigation.HandleNavigation
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
@@ -38,7 +38,7 @@ fun HomeContent(uiState: HomeScreenUiState) {
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Screen.values().filterNot { it == Screen.HOME }.forEach { destination ->
+            Screen.entries.filterNot { it == Screen.HOME }.forEach { destination ->
                 TextButton(
                     onClick = { uiState.onItemClicked(destination) },
                     modifier = Modifier.padding(top = 8.dp),

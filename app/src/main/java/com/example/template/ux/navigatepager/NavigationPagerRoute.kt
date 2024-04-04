@@ -1,5 +1,5 @@
 package com.example.template.ux.navigatepager
 
-import com.example.template.ui.navigation.SimpleNavComposeRoute
+import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
 
 object NavigationPagerRoute : SimpleNavComposeRoute("NavigationPagerRoute")

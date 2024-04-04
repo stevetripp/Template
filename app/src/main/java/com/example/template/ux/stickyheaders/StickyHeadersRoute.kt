@@ -1,5 +1,5 @@
 package com.example.template.ux.stickyheaders
 
-import com.example.template.ui.navigation.SimpleNavComposeRoute
+import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
 
 object StickyHeadersRoute : SimpleNavComposeRoute("StickyHeadersRoute")

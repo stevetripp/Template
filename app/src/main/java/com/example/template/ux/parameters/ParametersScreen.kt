@@ -13,7 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
-import com.example.template.ui.navigation.HandleNavigation
+import org.lds.mobile.ui.compose.navigation.HandleNavigation
 import com.example.template.ux.main.Screen
 
 @Composable

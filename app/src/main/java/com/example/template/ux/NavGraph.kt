@@ -71,7 +71,7 @@ fun NavGraph(
 
     NavHost(
         navController = navController,
-        startDestination = HomeRoute.routeDefinition
+        startDestination = HomeRoute.routeDefinition.value
     ) {
         DestinationRoute.addNavigationRoute(this) { DestinationScreen(navController) } // Putting first fixes crash
         HomeRoute.addNavigationRoute(this) { HomeScreen(navController) }

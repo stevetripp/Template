@@ -1,5 +1,5 @@
 package com.example.template.ux.swipablescreen
 
-import com.example.template.ui.navigation.SimpleNavComposeRoute
+import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
 
 object SwipableRoute : SimpleNavComposeRoute("SwipableRoute")

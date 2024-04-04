@@ -5,13 +5,15 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.example.template.ui.RouteUtil
-import com.example.template.ui.navigation.NavComposeRoute
+import org.lds.mobile.navigation.NavRoute
+import org.lds.mobile.navigation.NavRouteDefinition
+import org.lds.mobile.ui.compose.navigation.NavComposeRoute
 
 object DestinationRoute : NavComposeRoute() {
 
     private const val ROUTE = "DestinationRoute"
 
-    override val routeDefinition = "$ROUTE/${RouteUtil.defineArg(Arg.REQUIRED)}?${RouteUtil.defineOptionalArgs(Arg.OPTIONAL)}"
+    override val routeDefinition = NavRouteDefinition("$ROUTE/${RouteUtil.defineArg(Arg.REQUIRED)}?${RouteUtil.defineOptionalArgs(Arg.OPTIONAL)}")
 
     override fun getArguments(): List<NamedNavArgument> = listOf(
         navArgument(Arg.REQUIRED) { type = NavType.StringType },
@@ -22,7 +24,7 @@ object DestinationRoute : NavComposeRoute() {
         }
     )
 
-    fun createRoute(param1: Parameter1, param2: Parameter2? = null) = "$ROUTE/$param1?${RouteUtil.optionalArgs(Arg.OPTIONAL to param2)}"
+    fun createRoute(param1: Parameter1, param2: Parameter2? = null) = NavRoute("$ROUTE/$param1?${RouteUtil.optionalArgs(Arg.OPTIONAL to param2)}")
 
     private object Arg {
         const val REQUIRED = "REQUIRED"

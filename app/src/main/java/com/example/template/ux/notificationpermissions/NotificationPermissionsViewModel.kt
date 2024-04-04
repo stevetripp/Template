@@ -4,11 +4,11 @@ import android.Manifest
 import android.app.Application
 import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModel
-import com.example.template.ui.navigation.ViewModelNav
-import com.example.template.ui.navigation.ViewModelNavImpl
 import com.google.accompanist.permissions.PermissionStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.lds.mobile.navigation.ViewModelNav
+import org.lds.mobile.navigation.ViewModelNavImpl
 import javax.inject.Inject
 
 @HiltViewModel

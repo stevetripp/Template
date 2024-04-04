@@ -3,8 +3,8 @@ package com.example.template.ux.pullrefresh
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.template.ui.navigation.ViewModelNav
-import com.example.template.ui.navigation.ViewModelNavImpl
+import org.lds.mobile.navigation.ViewModelNav
+import org.lds.mobile.navigation.ViewModelNavImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

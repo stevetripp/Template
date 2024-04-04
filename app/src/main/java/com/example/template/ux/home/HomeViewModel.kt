@@ -1,8 +1,6 @@
 package com.example.template.ux.home
 
 import androidx.lifecycle.ViewModel
-import com.example.template.ui.navigation.ViewModelNav
-import com.example.template.ui.navigation.ViewModelNavImpl
 import com.example.template.ux.animatedgestures.AnimatedGesturesRoute
 import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
@@ -32,6 +30,8 @@ import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.webview.WebViewRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import org.lds.mobile.navigation.ViewModelNav
+import org.lds.mobile.navigation.ViewModelNavImpl
 import javax.inject.Inject
 
 @HiltViewModel
