@@ -41,6 +41,10 @@ import com.example.template.ux.parameters.ParametersRoute
 import com.example.template.ux.parameters.ParametersScreen
 import com.example.template.ux.permissions.PermissionsRoute
 import com.example.template.ux.permissions.PermissionsScreen
+import com.example.template.ux.popwithresult.PopWithResultChildRoute
+import com.example.template.ux.popwithresult.PopWithResultChildScreen
+import com.example.template.ux.popwithresult.PopWithResultParentRoute
+import com.example.template.ux.popwithresult.PopWithResultParentScreen
 import com.example.template.ux.pullrefresh.PullRefreshRoute
 import com.example.template.ux.pullrefresh.PullRefreshScreen
 import com.example.template.ux.reorderablelist.ReorderableListRoute
@@ -92,6 +96,8 @@ fun NavGraph(
         PanningZoomingRoute.addNavigationRoute(this) { PanningZoomingScreen(navController) }
         ParametersRoute.addNavigationRoute(this) { ParametersScreen(navController) }
         PermissionsRoute.addNavigationRoute(this) { PermissionsScreen(navController) }
+        PopWithResultParentRoute.addNavigationRoute(this) { PopWithResultParentScreen(navController) }
+        PopWithResultChildRoute.addNavigationRoute(this) { PopWithResultChildScreen(navController) }
         ReorderableListRoute.addNavigationRoute(this) { ReorderableListScreen(navController) }
         SearchRoute.addNavigationRoute(this) { SearchScreen(navController) }
         SideDrawerRoute.addNavigationRoute(this) { SideDrawerScreen(navController) }

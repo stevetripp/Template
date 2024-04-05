@@ -18,6 +18,7 @@ enum class Screen(val title: String) {
     PANNING_ZOOMING("Panning and Zooming"),
     PARAMETERS("Parameters"),
     PERMISSIONS("Permissions (Location)"),
+    POP_WITH_RESULT("Pop With Result"),
     NOTIFICATION_PERMISSIONS("Permissions (Notification)"),
     PULL_REFRESH("Pull Refresh"),
     REORDERABLE_LIST("Reorderable List"),

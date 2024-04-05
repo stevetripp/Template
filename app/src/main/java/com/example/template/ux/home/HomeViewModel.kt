@@ -19,6 +19,7 @@ import com.example.template.ux.pager.PagerRoute
 import com.example.template.ux.panningzooming.PanningZoomingRoute
 import com.example.template.ux.parameters.ParametersRoute
 import com.example.template.ux.permissions.PermissionsRoute
+import com.example.template.ux.popwithresult.PopWithResultParentRoute
 import com.example.template.ux.pullrefresh.PullRefreshRoute
 import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.search.SearchRoute
@@ -62,6 +63,7 @@ class HomeViewModel
             Screen.PANNING_ZOOMING -> navigate(PanningZoomingRoute.createRoute())
             Screen.PARAMETERS -> navigate(ParametersRoute.createRoute())
             Screen.PERMISSIONS -> navigate(PermissionsRoute.createRoute())
+            Screen.POP_WITH_RESULT -> navigate(PopWithResultParentRoute.createRoute())
             Screen.PULL_REFRESH -> navigate(PullRefreshRoute.createRoute())
             Screen.REORDERABLE_LIST -> navigate(ReorderableListRoute.createRoute())
             Screen.SEARCH -> navigate(SearchRoute.createRoute())
