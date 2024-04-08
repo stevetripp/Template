@@ -1,5 +1,7 @@
 package com.example.template.ux.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
@@ -8,6 +10,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.template.ui.theme.AppTheme
+import com.example.template.util.SmtLogger
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +27,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme { MainScreen() }
         }
+        // ATTENTION: This was auto-generated to handle app links.
+        val appLinkIntent: Intent = intent
+        val appLinkAction: String? = appLinkIntent.action
+        val appLinkData: Uri? = appLinkIntent.data
+
+        SmtLogger.i(
+            """$appLinkIntent
+            |$appLinkAction
+            |$appLinkData
+        """.trimMargin()
+        )
+
+        viewModel.navigate(appLinkData)
     }
 
     private fun startup(savedInstanceState: Bundle?) {
