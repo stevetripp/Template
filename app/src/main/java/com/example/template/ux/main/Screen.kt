@@ -1,6 +1,6 @@
 package com.example.template.ux.main
 
-enum class Screen(val title: String) {
+enum class Screen(val title: String, val excludeFromHome: Boolean = false) {
     HOME("Template"),
     ANIMATED_GESTURE("Animated Gesture"),
     BOTTOM_NAVIGATION("Bottom Navigation"),
@@ -12,6 +12,9 @@ enum class Screen(val title: String) {
     GMAIL_ADDRESS_FIELD("Gmail Address Field"),
     IMAGE_PICKER("Image Picker"),
     INPUT_EXAMPLES("Input Examples"),
+    LEVEL_ONE("Level 1", true),
+    LEVEL_TWO("Level 2", true),
+    LEVEL_THREE("Level 3", true),
     MODAL_BOTTOM_SHEET("Modal Bottom Sheet"),
     NAVIGATION_PAGER("Navigation Pager"),
     PAGER("Pager"),

@@ -29,6 +29,12 @@ import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetScreen
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.navigatepager.NavigationPagerScreen
+import com.example.template.ux.nesteddeeplink.Level1Route
+import com.example.template.ux.nesteddeeplink.Level1Screen
+import com.example.template.ux.nesteddeeplink.Level2Route
+import com.example.template.ux.nesteddeeplink.Level2Screen
+import com.example.template.ux.nesteddeeplink.Level3Route
+import com.example.template.ux.nesteddeeplink.Level3Screen
 import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
 import com.example.template.ux.notificationpermissions.NotificationPermissionsScreen
 import com.example.template.ux.pager.PagerRoute
@@ -65,13 +71,14 @@ import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
 import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
+import org.lds.mobile.navigation.NavUriLogger
 
 @Composable
 fun NavGraph(
     navController: NavHostController
 ) {
     // Debug navigation
-//    navController.addOnDestinationChangedListener(NavUriLogger())
+    navController.addOnDestinationChangedListener(NavUriLogger())
 
     NavHost(
         navController = navController,
@@ -89,6 +96,9 @@ fun NavGraph(
         GmailAddressFieldRoute.addNavigationRoute(this) { GmailAddressFieldScreen(navController) }
         ImagePickerRoute.addNavigationRoute(this) { ImagePickerScreen(navController) }
         InputExamplesRoute.addNavigationRoute(this) { InputExamplesScreen(navController) }
+        Level1Route.addNavigationRoute(this) { Level1Screen(navController) }
+        Level2Route.addNavigationRoute(this) { Level2Screen(navController) }
+        Level3Route.addNavigationRoute(this) { Level3Screen(navController) }
         ModalBottomSheetRoute.addNavigationRoute(this) { ModalBottomSheetScreen(navController) }
         NavigationPagerRoute.addNavigationRoute(this) { NavigationPagerScreen(navController) }
         NotificationPermissionsRoute.addNavigationRoute(this) { NotificationPermissionsScreen(navController) }

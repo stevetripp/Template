@@ -38,7 +38,7 @@ fun HomeContent(uiState: HomeScreenUiState) {
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Screen.entries.filterNot { it == Screen.HOME }.forEach { destination ->
+            Screen.entries.filterNot { it == Screen.HOME || it.excludeFromHome }.forEach { destination ->
                 TextButton(
                     onClick = { uiState.onItemClicked(destination) },
                     modifier = Modifier.padding(top = 8.dp),

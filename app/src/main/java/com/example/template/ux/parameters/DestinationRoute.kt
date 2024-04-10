@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.example.template.ui.RouteUtil
 import org.lds.mobile.navigation.NavRoute
 import org.lds.mobile.navigation.NavRouteDefinition
+import org.lds.mobile.navigation.RouteUtil
 import org.lds.mobile.ui.compose.navigation.NavComposeRoute
 
 object DestinationRoute : NavComposeRoute() {
