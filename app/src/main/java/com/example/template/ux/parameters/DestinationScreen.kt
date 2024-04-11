@@ -1,12 +1,14 @@
 package com.example.template.ux.parameters
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -23,9 +25,17 @@ fun DestinationContent(uiState: DestinationUiState, onBack: () -> Unit) {
     val optional by uiState.optionalFlow.collectAsStateWithLifecycle()
 
     Scaffold(topBar = { AppTopAppBar(title = "Destination Screen", onBack = onBack) }) { paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues)) {
-            Text(text = required)
-            optional?.let { Text(text = it) }
+        Column(modifier = Modifier
+            .padding(paddingValues)
+            .padding(16.dp)) {
+            Row {
+                Text(text = "Required: ")
+                Text(text = required)
+            }
+            Row {
+                Text(text = "Optional: ")
+                optional?.let { Text(text = it) }
+            }
         }
     }
 }

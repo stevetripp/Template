@@ -1,8 +1,12 @@
 package com.example.template.ux
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavDeepLink
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.example.template.ux.DeepLink.HOST
+import com.example.template.ux.DeepLink.PATH_PREFIX
+import com.example.template.ux.DeepLink.SCHEME
 import com.example.template.ux.animatedgestures.AnimatedGestureScreen
 import com.example.template.ux.animatedgestures.AnimatedGesturesRoute
 import com.example.template.ux.bottomSheet.BottomSheetRoute
@@ -65,13 +69,15 @@ import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
 import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
+import org.lds.mobile.navigation.NavUriLogger
+import org.lds.mobile.ui.compose.navigation.NavComposeRoute
 
 @Composable
 fun NavGraph(
     navController: NavHostController
 ) {
     // Debug navigation
-//    navController.addOnDestinationChangedListener(NavUriLogger())
+    navController.addOnDestinationChangedListener(NavUriLogger())
 
     NavHost(
         navController = navController,
@@ -109,4 +115,18 @@ fun NavGraph(
         TabsRoute.addNavigationRoute(this) { TabsScreen(navController) }
         WebViewRoute.addNavigationRoute(this) { WebViewScreen(navController) }
     }
+}
+
+/**
+ * Constants for the [NavDeepLink] URIs returned by the [NavComposeRoute]
+ *
+ * The [SCHEME], [HOST], and [PATH_PREFIX] should match the manifest intent-filter data elements respectively
+ */
+object DeepLink {
+    private const val SCHEME = "https"
+    private const val HOST = "my.website.org"
+    private const val PATH_PREFIX = "/deeplink"
+
+    const val ROOT = "$SCHEME://$HOST$PATH_PREFIX"
+//    const val ROOT = "$SCHEME://$HOST"
 }

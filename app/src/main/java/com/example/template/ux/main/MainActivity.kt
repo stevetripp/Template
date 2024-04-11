@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme { MainScreen() }
         }
+
         // ATTENTION: This was auto-generated to handle app links.
         val appLinkIntent: Intent = intent
         val appLinkAction: String? = appLinkIntent.action
@@ -38,8 +39,6 @@ class MainActivity : ComponentActivity() {
             |$appLinkData
         """.trimMargin()
         )
-
-        viewModel.navigate(appLinkData)
     }
 
     private fun startup(savedInstanceState: Bundle?) {

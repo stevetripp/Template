@@ -2,9 +2,13 @@ package com.example.template.ux.parameters
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavDeepLink
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.example.template.ui.RouteUtil
+import com.example.template.ux.DeepLink
+import com.example.template.ux.main.Screen
 import org.lds.mobile.navigation.NavRoute
 import org.lds.mobile.navigation.NavRouteDefinition
 import org.lds.mobile.ui.compose.navigation.NavComposeRoute
@@ -23,6 +27,12 @@ object DestinationRoute : NavComposeRoute() {
             nullable = true
         }
     )
+
+    override fun getDeepLinks(): List<NavDeepLink> {
+        return listOf(
+            navDeepLink { uriPattern = "${DeepLink.ROOT}/${Screen.PARAMETERS.name}/$ROUTE/${RouteUtil.defineArg(Arg.REQUIRED)}?${RouteUtil.defineOptionalArgs(Arg.OPTIONAL)}" }
+        )
+    }
 
     fun createRoute(param1: Parameter1, param2: Parameter2? = null) = NavRoute("$ROUTE/$param1?${RouteUtil.optionalArgs(Arg.OPTIONAL to param2)}")
 
