@@ -57,7 +57,6 @@ fun NavigationPagerContent(onBack: () -> Unit = {}) {
                     NavigationItem(painterResource(id = R.drawable.coloring_book)),
                     NavigationItem(painterResource(id = R.drawable.coloring_book)),
                 ),
-                initialItemInFocus = 1,
                 onItemFocused = { Log.i("SMT", "onItemFocused: $it") },
                 onItemSelected = { Log.i("SMT", "onItemSelected: $it") },
             )
@@ -81,7 +80,6 @@ private fun BoxWithConstraintsScope.NavigationItem(painter: Painter, modifier: M
 @Composable
 private fun BoxWithConstraintsScope.NavigationPager(
     items: List<@Composable () -> Unit>,
-    initialItemInFocus: Int,
     modifier: Modifier = Modifier,
     onItemFocused: (index: Int) -> Unit,
     onItemSelected: (index: Int) -> Unit,

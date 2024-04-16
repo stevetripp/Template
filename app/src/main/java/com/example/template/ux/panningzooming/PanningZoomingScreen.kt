@@ -11,6 +11,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
@@ -35,11 +36,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.template.ux.main.Screen
 import com.example.template.ext.findBestFit
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.composable.PanAndZoom
 import com.example.template.ui.theme.AppTheme
+import com.example.template.ux.main.Screen
 
 @Composable
 fun PanningZoomingScreen(navController: NavController) {
@@ -52,16 +53,16 @@ fun PanningZoomingContent(onBack: () -> Unit = {}) {
         val outlineStream = LocalContext.current.assets.open("CP011-Outline-iPad.png")
         val pageImage = BitmapFactory.decodeStream(outlineStream).asImageBitmap()
 
-        CanvasCard(pageImage = pageImage)
+        CanvasCard(modifier = Modifier.padding(it), pageImage = pageImage)
     }
 }
 @Composable
-fun CanvasCard(pageImage: ImageBitmap) {
+fun CanvasCard(pageImage: ImageBitmap, modifier: Modifier = Modifier) {
 
     var tapOffset by remember { mutableStateOf(Offset(0F, 0F)) }
 
     PanAndZoom(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
