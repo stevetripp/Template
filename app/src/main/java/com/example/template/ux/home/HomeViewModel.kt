@@ -29,6 +29,7 @@ import com.example.template.ux.stickyheaders.StickyHeadersRoute
 import com.example.template.ux.swipablescreen.SwipableRoute
 import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.tabs.TabsRoute
+import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.webview.WebViewRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.lds.mobile.navigation.ViewModelNav
@@ -73,6 +74,7 @@ class HomeViewModel
             Screen.SWIPABLE -> navigate(SwipableRoute.createRoute())
             Screen.SYSTEM_UI -> navigate(SystemUiRoute.createRoute())
             Screen.TABS -> navigate(TabsRoute.createRoute())
+            Screen.URI_NAVIGATION -> navigate(UriNavigationRoute.createRoute())
             Screen.WEBVIEW -> navigate(WebViewRoute.createRoute())
         }
     }

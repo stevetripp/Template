@@ -3,6 +3,7 @@
 package org.lds.mobile.navigation
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.NavOptions
 import androidx.navigation.NavOptionsBuilder
@@ -22,6 +23,7 @@ interface ViewModelNav {
     fun navigate(route: NavRoute, navOptions: NavOptions)
     fun navigate(route: NavRoute, optionsBuilder: NavOptionsBuilder.() -> Unit)
     fun navigate(intent: Intent, options: Bundle? = null, popBackStack: Boolean = false)
+    fun navigate(uri: Uri)
     fun popBackStack(popToRouteDefinition: NavRouteDefinition? = null, inclusive: Boolean = false)
     fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, popToRouteDefinition: NavRouteDefinition? = null, inclusive: Boolean = false)
 
@@ -51,6 +53,10 @@ class ViewModelNavImpl : ViewModelNav {
 
     override fun navigate(intent: Intent, options: Bundle?, popBackStack: Boolean) {
         _navigatorFlow.compareAndSet(null, if (popBackStack) NavigationAction.PopAndNavigateIntent(intent, options) else NavigationAction.NavigateIntent(intent, options))
+    }
+
+    override fun navigate(uri: Uri) {
+        _navigatorFlow.compareAndSet(null, NavigationAction.NavigateUri(uri))
     }
 
     override fun popBackStack(popToRouteDefinition: NavRouteDefinition?, inclusive: Boolean) {

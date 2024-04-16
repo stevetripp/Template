@@ -30,7 +30,7 @@ object DestinationRoute : NavComposeRoute() {
 
     override fun getDeepLinks(): List<NavDeepLink> {
         return listOf(
-            navDeepLink { uriPattern = "${DeepLink.ROOT}/${Screen.PARAMETERS.name}/$ROUTE/${RouteUtil.defineArg(Arg.REQUIRED)}?${RouteUtil.defineOptionalArgs(Arg.OPTIONAL)}" }
+            navDeepLink { uriPattern = "${DeepLink.ROOT}/${Screen.PARAMETERS.name}/${RouteUtil.defineArg(Arg.REQUIRED)}?${RouteUtil.defineOptionalArgs(Arg.OPTIONAL)}" }
         )
     }
 

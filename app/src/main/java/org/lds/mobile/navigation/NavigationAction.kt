@@ -4,6 +4,7 @@ package org.lds.mobile.navigation
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -30,6 +31,12 @@ sealed interface NavigationActionFull : NavigationAction {
     fun navigate(context: Context, navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean
 }
 
+sealed interface NavigationActionUri : NavigationAction {
+    /**
+     * @return true if navController.popBackStack() called AND was successful
+     */
+    fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean
+}
 
 sealed interface NavigationAction {
     data class Navigate(private val route: NavRoute) : NavigationActionRoute {
@@ -68,6 +75,15 @@ sealed interface NavigationAction {
             } catch (ignore: Exception) {
                 Logger.e(ignore) { "Failed to startActivity for intent (${intent.data})" }
             }
+            resetNavigate(this)
+            return false
+        }
+    }
+
+    data class NavigateUri(private val uri: Uri) : NavigationActionRoute {
+        override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
+            navController.navigate(uri)
+
             resetNavigate(this)
             return false
         }
@@ -140,5 +156,6 @@ fun NavigationAction.navigate(context: Context, navController: NavController, re
         is NavigationActionIntent -> navigate(context, resetNavigate)
         is NavigationActionRoute -> navigate(navController, resetNavigate)
         is NavigationActionFull -> navigate(context, navController, resetNavigate)
+        is NavigationActionUri -> navigate(context, navController, resetNavigate)
     }
 }

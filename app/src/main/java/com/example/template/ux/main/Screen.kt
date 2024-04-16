@@ -29,5 +29,6 @@ enum class Screen(val title: String) {
     SWIPABLE("Swipable"),
     SYSTEM_UI("System UI"),
     TABS("Tabs"),
+    URI_NAVIGATION("Uri Navigation"),
     WEBVIEW("Webview");
 }

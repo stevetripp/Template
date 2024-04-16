@@ -67,6 +67,8 @@ import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.systemui.SystemUiScreen
 import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
+import com.example.template.ux.urinavigation.UriNavigationRoute
+import com.example.template.ux.urinavigation.UriNavigationScreen
 import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
 import org.lds.mobile.navigation.NavUriLogger
@@ -113,6 +115,7 @@ fun NavGraph(
         PullRefreshRoute.addNavigationRoute(this) { PullRefreshScreen(navController) }
         SystemUiRoute.addNavigationRoute(this) { SystemUiScreen(navController) }
         TabsRoute.addNavigationRoute(this) { TabsScreen(navController) }
+        UriNavigationRoute.addNavigationRoute(this) { UriNavigationScreen(navController) }
         WebViewRoute.addNavigationRoute(this) { WebViewScreen(navController) }
     }
 }
