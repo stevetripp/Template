@@ -93,6 +93,7 @@ dependencies {
     implementation(libs.flippable)
 
     implementation(libs.kermit)
+    implementation(libs.kotlin.date.time)
 
     // Inject
     implementation(libs.google.hilt.android)

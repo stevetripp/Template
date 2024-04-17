@@ -2,6 +2,7 @@
 agp = "8.3.1" # see https://developer.android.com/studio/releases/gradle-plugin
 kotlin = "1.9.23" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
 ksp = "1.9.23-1.0.19" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
+kotlinxDateTime = "0.4.1"
 
 accompanist = "0.34.0"
 androidxActivityCompose = "1.8.2"
@@ -69,5 +70,7 @@ junit-bom = { module = "org.junit:junit-bom", version.ref = "junitBom" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+
+kotlin-date-time = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
 
 reorderable-compose = { module = "org.burnoutcrew.composereorderable:reorderable", version.ref = "reorderableCompose" }

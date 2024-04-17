@@ -3,23 +3,22 @@ package com.example.template.ux.pullrefresh
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import org.lds.mobile.navigation.ViewModelNav
-import org.lds.mobile.navigation.ViewModelNavImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
-import java.time.LocalDateTime
+import kotlinx.datetime.Clock
+import org.lds.mobile.navigation.ViewModelNav
+import org.lds.mobile.navigation.ViewModelNavImpl
 import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
 class PullRefreshViewModel
 @Inject constructor() : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-    private val now = LocalDateTime.now()
-    private val random = Random(LocalDateTime.now().nano)
+    private val random = Random(Clock.System.now().nanosecondsOfSecond)
 
     private val refreshFlow = MutableStateFlow<Int>(0)
 

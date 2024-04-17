@@ -6,6 +6,7 @@ import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.carousel.CarouselRoute
 import com.example.template.ux.chipsheet.ChipSheetRoute
+import com.example.template.ux.datetimeformat.DateTimeFormatRoute
 import com.example.template.ux.dialog.DialogRoute
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
@@ -52,6 +53,7 @@ class HomeViewModel
             Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute.createRoute())
             Screen.CAROUSEL -> navigate(CarouselRoute.createRoute())
             Screen.CHIP_SHEET -> navigate(ChipSheetRoute.createRoute())
+            Screen.DATE_TIME_FORMAT -> navigate(DateTimeFormatRoute.createRoute())
             Screen.DIALOG -> navigate(DialogRoute.createRoute())
             Screen.FLIPPABLE -> navigate(FlippableRoute.createRoute())
             Screen.GMAIL_ADDRESS_FIELD -> navigate(GmailAddressFieldRoute.createRoute())
