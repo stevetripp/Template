@@ -1,9 +1,13 @@
 package com.example.template.ux.main
 
 import androidx.lifecycle.ViewModel
-import org.lds.mobile.navigation.ViewModelNav
-import org.lds.mobile.navigation.ViewModelNavImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
+import org.lds.mobile.navigation.DefaultNavBarConfig
+import org.lds.mobile.navigation.ViewModelNavBar
+import org.lds.mobile.navigation.ViewModelNavBarImpl
+import javax.inject.Inject
 
-class MainViewModel : ViewModel(), ViewModelNav by ViewModelNavImpl() {
-    fun isReady(): Boolean = true
-}
+@HiltViewModel
+class MainViewModel
+@Inject constructor(
+) : ViewModel(), ViewModelNavBar<NavBarItem> by ViewModelNavBarImpl(NavBarItem.EXAMPLES, DefaultNavBarConfig(NavBarItem.getNavBarItemRouteMap()))

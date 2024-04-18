@@ -42,8 +42,8 @@ fun ImagePickerScreen(navController: NavController) {
 fun ImagePickerContent(onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.IMAGE_PICKER.title, onBack = onBack) }) {
         val context = LocalContext.current
-        var photoUri by remember { mutableStateOf<Uri?>(null) }
-        var imageUri by remember { mutableStateOf<Uri?>(null) }
+        var photoUri: Uri? by remember { mutableStateOf(null) }
+        var imageUri: Uri? by remember { mutableStateOf(null) }
         val bitmap = remember { mutableStateOf<Bitmap?>(null) }
 
         val photoCaptureLauncher = rememberLauncherForActivityResult(
@@ -70,7 +70,7 @@ fun ImagePickerContent(onBack: () -> Unit = {}) {
 
                 Button(onClick = {
                     photoUri = TntFileProvider.getImageUri(context)
-                    photoCaptureLauncher.launch(photoUri)
+                    photoUri?.let { url -> photoCaptureLauncher.launch(url) }
                 }) {
                     Text(text = "Take picture")
                 }

@@ -6,11 +6,11 @@ import androidx.navigation.NavDeepLink
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.example.template.ui.RouteUtil
 import com.example.template.ux.DeepLink
 import com.example.template.ux.main.Screen
 import org.lds.mobile.navigation.NavRoute
 import org.lds.mobile.navigation.NavRouteDefinition
+import org.lds.mobile.navigation.RouteUtil
 import org.lds.mobile.ui.compose.navigation.NavComposeRoute
 
 object DestinationRoute : NavComposeRoute() {

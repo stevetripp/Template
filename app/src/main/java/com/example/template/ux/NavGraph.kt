@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import com.example.template.ux.DeepLink.HOST
 import com.example.template.ux.DeepLink.PATH_PREFIX
 import com.example.template.ux.DeepLink.SCHEME
+import com.example.template.ux.about.AboutRoute
+import com.example.template.ux.about.AboutScreen
 import com.example.template.ux.animatedgestures.AnimatedGestureScreen
 import com.example.template.ux.animatedgestures.AnimatedGesturesRoute
 import com.example.template.ux.bottomSheet.BottomSheetRoute
@@ -87,6 +89,7 @@ fun NavGraph(
         navController = navController,
         startDestination = HomeRoute.routeDefinition.value
     ) {
+        AboutRoute.addNavigationRoute(this) { AboutScreen(navController) }
         DestinationRoute.addNavigationRoute(this) { DestinationScreen(navController) } // Putting first fixes crash
         HomeRoute.addNavigationRoute(this) { HomeScreen(navController) }
         AnimatedGesturesRoute.addNavigationRoute(this) { AnimatedGestureScreen(navController) }

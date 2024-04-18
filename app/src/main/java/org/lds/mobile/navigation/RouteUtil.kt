@@ -1,4 +1,6 @@
-package com.example.template.ui
+@file:Suppress("unused")
+
+package org.lds.mobile.navigation
 
 import java.net.URLEncoder
 

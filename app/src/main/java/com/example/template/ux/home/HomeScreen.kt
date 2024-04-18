@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -16,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
-import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
+import com.example.template.ux.MainAppScaffoldWithNavBar
 import com.example.template.ux.main.Screen
 import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
@@ -30,11 +29,10 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
 @Composable
 fun HomeContent(uiState: HomeScreenUiState) {
     val scrollState = rememberScrollState()
-    Scaffold(topBar = { AppTopAppBar(title = Screen.HOME.title, navigationImage = null/*, onBack = onBack*/) }) { paddingValues ->
+    MainAppScaffoldWithNavBar(title = Screen.HOME.title, navigationIconVisible = false) {
         Column(
             Modifier
                 .fillMaxWidth()
-                .padding(paddingValues)
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
