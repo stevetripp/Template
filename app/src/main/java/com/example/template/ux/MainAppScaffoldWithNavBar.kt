@@ -96,7 +96,8 @@ fun MainAppScaffoldWithNavBar(
                 {}
             } else {
                 {
-                    IconButton(onClick = { onNavigationClick?.invoke() }) {
+                    IconButton(
+                        onClick = { onNavigationClick?.invoke() }) {
                         Icon(
                             imageVector = navigationIcon,
                             contentDescription = "Back",
@@ -122,7 +123,6 @@ fun MainAppScaffoldWithNavBar(
                 content = content
             )
         }
-
         else -> {
             NavigationSuiteScaffold(
                 layoutType = getNavigationSuiteType(windowSize.toDpSize()),

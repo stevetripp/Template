@@ -17,6 +17,8 @@ import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
 import com.example.template.ux.carousel.CarouselRoute
 import com.example.template.ux.carousel.CarouselScreen
+import com.example.template.ux.childwithnavigation.ChildWithNavigationRoute
+import com.example.template.ux.childwithnavigation.ChildWithNavigationScreen
 import com.example.template.ux.chipsheet.ChipSheetRoute
 import com.example.template.ux.chipsheet.ChipSheetScreen
 import com.example.template.ux.datetimeformat.DateTimeFormatRoute
@@ -96,6 +98,7 @@ fun NavGraph(
         BottomNavigationRoute.addNavigationRoute(this) { BottomNavigationScreen(navController) }
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
         CarouselRoute.addNavigationRoute(this) { CarouselScreen(navController) }
+        ChildWithNavigationRoute.addNavigationRoute(this) { ChildWithNavigationScreen(navController) }
         ChipSheetRoute.addNavigationRoute(this) { ChipSheetScreen(navController) }
         DateTimeFormatRoute.addNavigationRoute(this) { DateTimeFormatScreen(navController) }
         DialogRoute.addNavigationRoute(this) { DialogScreen(navController) }

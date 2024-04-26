@@ -6,6 +6,7 @@ enum class Screen(val title: String) {
     BOTTOM_NAVIGATION("Bottom Navigation"),
     BOTTOM_SHEET("Bottom Sheet"),
     CAROUSEL("Carousel"),
+    CHILD_WITH_NAVIGATION("Child with Navigation"),
     CHIP_SHEET("Chip Sheet"),
     DATE_TIME_FORMAT("Date/Time Format"),
     DIALOG("Dialog"),
