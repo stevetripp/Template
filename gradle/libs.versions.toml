@@ -19,6 +19,7 @@ androidxNavigation = "2.7.7"
 androidxSplashScreen = "1.0.1"
 androidxTestJunit = "1.1.5"
 coil = "2.6.0"
+dependencyAnalysis = "1.31.0"
 detekt = "1.23.6"
 flippable = "1.5.4"
 googleMaterial = "1.11.0"
@@ -31,6 +32,7 @@ versions = "0.51.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 download = { id = "de.undercouch.download", version.ref = "undercouchDownload" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
@@ -53,7 +55,6 @@ androidx-splashscreen = { module = "androidx.core:core-splashscreen", version.re
 
 androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version.ref = "androidxTestJunit" }
 
-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 compose-material = { module = "androidx.compose.material:material", version.ref = "androidxComposeMaterial" }

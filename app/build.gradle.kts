@@ -85,7 +85,6 @@ dependencies {
 
     implementation(libs.androidx.splashscreen)
 
-    implementation(libs.coil)
     implementation(libs.coil.compose)
 
     implementation(libs.compose.material)
