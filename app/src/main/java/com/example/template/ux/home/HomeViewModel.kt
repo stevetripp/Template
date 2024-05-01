@@ -9,6 +9,7 @@ import com.example.template.ux.childwithnavigation.ChildWithNavigationRoute
 import com.example.template.ux.chipsheet.ChipSheetRoute
 import com.example.template.ux.datetimeformat.DateTimeFormatRoute
 import com.example.template.ux.dialog.DialogRoute
+import com.example.template.ux.download.DownloadRoute
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
 import com.example.template.ux.imagepicker.ImagePickerRoute
@@ -57,6 +58,7 @@ class HomeViewModel
             Screen.CHIP_SHEET -> navigate(ChipSheetRoute.createRoute())
             Screen.DATE_TIME_FORMAT -> navigate(DateTimeFormatRoute.createRoute())
             Screen.DIALOG -> navigate(DialogRoute.createRoute())
+            Screen.DOWNLOAD -> navigate(DownloadRoute.createRoute())
             Screen.FLIPPABLE -> navigate(FlippableRoute.createRoute())
             Screen.GMAIL_ADDRESS_FIELD -> navigate(GmailAddressFieldRoute.createRoute())
             Screen.IMAGE_PICKER -> navigate(ImagePickerRoute.createRoute())
