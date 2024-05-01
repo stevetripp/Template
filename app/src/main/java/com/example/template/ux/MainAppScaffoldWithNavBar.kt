@@ -111,46 +111,31 @@ fun MainAppScaffoldWithNavBar(
         )
     }
 
-    when {
-        hideNavigation -> {
-            AppScaffold(
-                topAppBar = topAppBar,
-                floatingActionButton = floatingActionButton,
-                floatingActionButtonPosition = floatingActionButtonPosition,
-                contentWindowInsets = contentWindowInsets,
-                modifier = modifier,
-                scrollBehavior = scrollBehavior,
-                content = content
-            )
-        }
-        else -> {
-            NavigationSuiteScaffold(
-                layoutType = getNavigationSuiteType(windowSize.toDpSize()),
-                navigationSuiteItems = {
-                    NavBarItem.entries.forEach { navBarItem ->
-                        val selected = selectedBarItem == navBarItem
-                        val imageVector = if (selected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector
+    NavigationSuiteScaffold(
+        layoutType = if (hideNavigation) NavigationSuiteType.None else getNavigationSuiteType(windowSize.toDpSize()),
+        navigationSuiteItems = {
+            NavBarItem.entries.forEach { navBarItem ->
+                val selected = selectedBarItem == navBarItem
+                val imageVector = if (selected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector
 
-                        item(
-                            selected = selected,
-                            icon = { Icon(imageVector = imageVector, contentDescription = null) },
-                            label = { navBarItem.text?.let { Text(text = it, maxLines = 1) } },
-                            onClick = { viewModel.onNavBarItemSelected(navBarItem) }
-                        )
-                    }
-                },
-            ) {
-                AppScaffold(
-                    topAppBar = topAppBar,
-                    floatingActionButton = floatingActionButton,
-                    floatingActionButtonPosition = floatingActionButtonPosition,
-                    contentWindowInsets = contentWindowInsets,
-                    modifier = modifier,
-                    scrollBehavior = scrollBehavior,
-                    content = content
+                item(
+                    selected = selected,
+                    icon = { Icon(imageVector = imageVector, contentDescription = null) },
+                    label = { navBarItem.text?.let { Text(text = it, maxLines = 1) } },
+                    onClick = { viewModel.onNavBarItemSelected(navBarItem) }
                 )
             }
-        }
+        },
+    ) {
+        AppScaffold(
+            topAppBar = topAppBar,
+            floatingActionButton = floatingActionButton,
+            floatingActionButtonPosition = floatingActionButtonPosition,
+            contentWindowInsets = contentWindowInsets,
+            modifier = modifier,
+            scrollBehavior = scrollBehavior,
+            content = content
+        )
     }
 }
 
