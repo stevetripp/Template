@@ -72,7 +72,6 @@ dependencies {
 
     implementation(libs.accompanist.flowlayout)
     implementation(libs.accompanist.permissions)
-    implementation(libs.accompanist.systemuicontroller)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.datastore.preferences)
