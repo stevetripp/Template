@@ -12,11 +12,10 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.adaptive.currentWindowSize
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
@@ -86,11 +85,11 @@ fun MainAppScaffoldWithNavBar(
     val viewModel: MainViewModel = hiltViewModel(activity)
     val selectedBarItem by viewModel.selectedNavBarFlow.collectAsStateWithLifecycle()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val windowSize = currentWindowSize()
+    val windowDpSize = currentWindowSize()
 
     // TopAppBar
     val topAppBar: @Composable (() -> Unit) = {
-        TopAppBar(
+        MediumTopAppBar(
             title = title,
             navigationIcon = if (!navigationIconVisible) {
                 {}
@@ -112,7 +111,7 @@ fun MainAppScaffoldWithNavBar(
     }
 
     NavigationSuiteScaffold(
-        layoutType = if (hideNavigation) NavigationSuiteType.None else getNavigationSuiteType(windowSize.toDpSize()),
+        layoutType = if (hideNavigation) NavigationSuiteType.None else getNavigationSuiteType(windowDpSize.toDpSize()),
         navigationSuiteItems = {
             NavBarItem.entries.forEach { navBarItem ->
                 val selected = selectedBarItem == navBarItem
@@ -127,51 +126,30 @@ fun MainAppScaffoldWithNavBar(
             }
         },
     ) {
-        AppScaffold(
-            topAppBar = topAppBar,
+        val windowSize = LocalContext.current.requireActivity().rememberWindowSize()
+        val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+        val appScaffoldModifier = if (isLandscape && windowSize == WindowSize.COMPACT) {
+            modifier
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .navigationBarsPadding() // prevent FAB and top app bar from being covered by OS nav bar in landscape
+                .imePadding()
+        } else {
+            modifier
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .imePadding()
+        }
+
+        Scaffold(
+            topBar = topAppBar,
             floatingActionButton = floatingActionButton,
             floatingActionButtonPosition = floatingActionButtonPosition,
             contentWindowInsets = contentWindowInsets,
-            modifier = modifier,
-            scrollBehavior = scrollBehavior,
-            content = content
-        )
-    }
-}
-
-@Composable
-private fun AppScaffold(
-    topAppBar: @Composable () -> Unit,
-    floatingActionButton: @Composable () -> Unit,
-    floatingActionButtonPosition: FabPosition,
-    contentWindowInsets: WindowInsets,
-    modifier: Modifier,
-    scrollBehavior: TopAppBarScrollBehavior,
-    content: @Composable () -> Unit,
-) {
-    val windowSize = LocalContext.current.requireActivity().rememberWindowSize()
-    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
-
-    val appScaffoldModifier = if (isLandscape && windowSize == WindowSize.COMPACT) {
-        modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .navigationBarsPadding() // prevent FAB and top app bar from being covered by OS nav bar in landscape
-            .imePadding()
-    } else {
-        modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .imePadding()
-    }
-
-    Scaffold(
-        topBar = topAppBar,
-        floatingActionButton = floatingActionButton,
-        floatingActionButtonPosition = floatingActionButtonPosition,
-        contentWindowInsets = contentWindowInsets,
-        modifier = appScaffoldModifier,
-    ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-            content()
+            modifier = appScaffoldModifier,
+        ) { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                content()
+            }
         }
     }
 }
