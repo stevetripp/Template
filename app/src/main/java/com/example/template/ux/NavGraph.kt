@@ -1,6 +1,7 @@
 package com.example.template.ux
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -77,6 +78,8 @@ import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
 import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.urinavigation.UriNavigationScreen
+import com.example.template.ux.video.VideoActivity
+import com.example.template.ux.video.VideoActivityRoute
 import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
 import org.lds.mobile.navigation.NavUriLogger
@@ -89,6 +92,7 @@ fun NavGraph(
     // Debug navigation
     navController.addOnDestinationChangedListener(NavUriLogger())
 
+    val context = LocalContext.current
     NavHost(
         navController = navController,
         startDestination = HomeRoute.routeDefinition.value
@@ -128,6 +132,7 @@ fun NavGraph(
         SystemUiRoute.addNavigationRoute(this) { SystemUiScreen(navController) }
         TabsRoute.addNavigationRoute(this) { TabsScreen(navController) }
         UriNavigationRoute.addNavigationRoute(this) { UriNavigationScreen(navController) }
+        VideoActivityRoute.addNavigationRoute<VideoActivity>(this, context)
         WebViewRoute.addNavigationRoute(this) { WebViewScreen(navController) }
     }
 }

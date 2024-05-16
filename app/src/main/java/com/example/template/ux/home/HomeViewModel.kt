@@ -32,6 +32,8 @@ import com.example.template.ux.swipablescreen.SwipableRoute
 import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.urinavigation.UriNavigationRoute
+import com.example.template.ux.video.VideoActivityRoute
+import com.example.template.ux.video.VideoId
 import com.example.template.ux.webview.WebViewRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.lds.mobile.navigation.ViewModelNav
@@ -79,6 +81,7 @@ class HomeViewModel
             Screen.SYSTEM_UI -> navigate(SystemUiRoute.createRoute())
             Screen.TABS -> navigate(TabsRoute.createRoute())
             Screen.URI_NAVIGATION -> navigate(UriNavigationRoute.createRoute())
+            Screen.VIDEO -> navigate(VideoActivityRoute.createRoute(VideoId("1"), null))
             Screen.WEBVIEW -> navigate(WebViewRoute.createRoute())
         }
     }

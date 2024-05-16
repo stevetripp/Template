@@ -48,6 +48,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ux.video.VideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:supportsPictureInPicture="true"
+            />
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

@@ -32,5 +32,6 @@ enum class Screen(val title: String) {
     SYSTEM_UI("System UI"),
     TABS("Tabs"),
     URI_NAVIGATION("Uri Navigation"),
+    VIDEO("Video"),
     WEBVIEW("Webview");
 }
