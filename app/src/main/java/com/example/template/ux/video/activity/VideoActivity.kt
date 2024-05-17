@@ -1,4 +1,4 @@
-package com.example.template.ux.video
+package com.example.template.ux.video.activity
 
 import android.app.PictureInPictureParams
 import android.content.Intent
@@ -18,6 +18,9 @@ import androidx.media3.ui.PlayerView
 import com.example.template.R
 import com.example.template.databinding.ActivityVideoBinding
 import com.example.template.util.SmtLogger
+import com.example.template.ux.video.NextTrack
+import com.example.template.ux.video.PlayerManager
+import com.example.template.ux.video.VideoId
 import com.google.android.gms.cast.framework.CastButtonFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,7 +39,7 @@ open class VideoActivity : AppCompatActivity() {
     lateinit var downloadCache: Cache
 
     private var playerManager: PlayerManager? = null
-    val viewModel by viewModels<VideoViewModel>()
+    val viewModel by viewModels<VideoActivityViewModel>()
     private var currentPlaybackPosition: Long = PlayerManager.INITIAL_PLAYBACK_POSITION
     private val viewBinding by lazy(LazyThreadSafetyMode.NONE) { ActivityVideoBinding.inflate(layoutInflater) }
     private val nextTrack = MutableStateFlow<NextTrack?>(null)

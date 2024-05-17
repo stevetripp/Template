@@ -1,6 +1,9 @@
 package com.example.template.ux.video
 
+import kotlinx.serialization.Serializable
+
 @JvmInline
+@Serializable
 value class VideoId(val value: String) {
     init {
         require(value.isNotBlank())
@@ -8,6 +11,7 @@ value class VideoId(val value: String) {
 }
 
 @JvmInline
+@Serializable
 value class VideoUrl(val value: String) {
     init {
         require(value.isNotBlank())
@@ -15,6 +19,7 @@ value class VideoUrl(val value: String) {
 }
 
 @JvmInline
+@Serializable
 value class VideoRenditionType(val value: String) {
     init {
         require(value.isNotBlank())

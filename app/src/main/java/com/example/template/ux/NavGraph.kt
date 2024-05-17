@@ -78,8 +78,10 @@ import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
 import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.urinavigation.UriNavigationScreen
-import com.example.template.ux.video.VideoActivity
-import com.example.template.ux.video.VideoActivityRoute
+import com.example.template.ux.video.activity.VideoActivity
+import com.example.template.ux.video.activity.VideoActivityRoute
+import com.example.template.ux.video.screen.VideoScreen
+import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
 import org.lds.mobile.navigation.NavUriLogger
@@ -133,6 +135,7 @@ fun NavGraph(
         TabsRoute.addNavigationRoute(this) { TabsScreen(navController) }
         UriNavigationRoute.addNavigationRoute(this) { UriNavigationScreen(navController) }
         VideoActivityRoute.addNavigationRoute<VideoActivity>(this, context)
+        VideoScreenRoute.addNavigationRoute(this) { VideoScreen(navController) }
         WebViewRoute.addNavigationRoute(this) { WebViewScreen(navController) }
     }
 }

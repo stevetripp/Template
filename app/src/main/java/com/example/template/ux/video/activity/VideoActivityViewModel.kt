@@ -1,9 +1,14 @@
-package com.example.template.ux.video
+package com.example.template.ux.video.activity
 
-import android.view.View
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.template.ux.video.CastPlayerManager
+import com.example.template.ux.video.Iso3Locale
+import com.example.template.ux.video.MediaPlayerItem
+import com.example.template.ux.video.MimeTypeUtil
+import com.example.template.ux.video.TestData
+import com.example.template.ux.video.VideoId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +17,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import org.lds.mobile.ext.stateInDefault
 import org.lds.mobile.navigation.ViewModelNav
@@ -22,7 +26,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
-class VideoViewModel @Inject constructor(
+class VideoActivityViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val mimeTypeUtil: MimeTypeUtil,
     val castPlayerManager: CastPlayerManager,
@@ -42,19 +46,7 @@ class VideoViewModel @Inject constructor(
     val videoId = args.videoId
     val playList = args.playList
 
-    val nextTrack = MutableStateFlow<NextTrack?>(null)
-    private val showUpcomingLabel = MutableStateFlow(true)
-    private val upcomingTrackFocusState = MutableStateFlow(false)
-    val isUpcomingTrackVisible = upcomingTrackFocusState.mapLatest {
-        if (it) View.VISIBLE else View.INVISIBLE
-    }.stateInDefault(viewModelScope, View.INVISIBLE)
-    val shouldShowUpcomingLabel = combine(nextTrack, showUpcomingLabel) { next, show ->
-        next?.let {
-            if (next.secondsUntil <= 10 && show) View.VISIBLE else View.GONE
-        } ?: View.GONE
-    }.stateInDefault(viewModelScope, View.GONE)
-
-//    val closedCaptionsStatePreferenceStateFlow: Flow<Boolean> = settingsRepository.closedCaptionsStatePreferenceFlow.flowOn(Dispatchers.IO)
+    //    val closedCaptionsStatePreferenceStateFlow: Flow<Boolean> = settingsRepository.closedCaptionsStatePreferenceFlow.flowOn(Dispatchers.IO)
 
     val mediaPlayerItemsFlow: Flow<List<MediaPlayerItem>?> = flow {
         emit(
@@ -91,25 +83,16 @@ class VideoViewModel @Inject constructor(
 //        }
     }
 
-    @Suppress("MaxLineLength")
-    private suspend fun getVodMediaPlayerItem(id: VideoId): MediaPlayerItem? {
+    private fun getVodMediaPlayerItem(id: VideoId): MediaPlayerItem? {
+        val videoItem = TestData.getVideos().videos.find { it.id == id } ?: return null
         return MediaPlayerItem(
-            id = VideoId("40be9732f8dc11ee9d4eeeeeac1ea7e4ccac256f"),
-            imageRenditions = "60x34,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/60%2C/0/default 100x56,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/100%2C/0/default 200x113,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/200%2C/0/default 250x141,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/250%2C/0/default 320x180,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/320%2C/0/default 500x281,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/500%2C/0/default 640x360,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/640%2C/0/default 800x450,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/800%2C/0/default 1280x720,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/1280%2C/0/default 1600x900,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/1600%2C/0/default 1920x1080,https://www.churchofjesuschrist.org/imgs/d94f51d1bd9bbf9954dfe0645e6a67c923c1430c/full/1920%2C/0/default",
-            hlsUrl = VideoUrl("https://mediasrv.churchofjesuschrist.org/media-services/GA/type/6350783709112/hls.m3u8"),
-//                videoRenditions = it.videoRenditions,
-//                mimeTypeUtil = mimeTypeUtil,
-            title = "The Influence of Women",
+            id = videoItem.id,
+            imageRenditions = videoItem.imageRenditions,
+            hlsUrl = videoItem.hlsUrl,
+            videoRenditions = videoItem.videoRenditions,
+            mimeTypeUtil = mimeTypeUtil,
+            title = videoItem.title,
         )
-    }
-
-
-    fun updateNextTrack(value: NextTrack?) {
-        nextTrack.value = value
-    }
-
-    fun updateShowUpcomingLabel(value: Boolean) {
-        showUpcomingLabel.value = value
     }
 
     private suspend fun getEventMediaPlayerItem(id: VideoId): MediaPlayerItem? {
@@ -144,10 +127,6 @@ class VideoViewModel @Inject constructor(
 //        return runBlocking {
 //            vodRepository.getVideoPositionById(videoId)
 //        }
-    }
-
-    fun updateUpcomingTrackFocusState(focused: Boolean) {
-        upcomingTrackFocusState.value = focused
     }
 
     fun setPipState(enteredToPip: Boolean) {

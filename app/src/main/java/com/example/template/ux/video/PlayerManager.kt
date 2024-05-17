@@ -20,6 +20,8 @@ import androidx.media3.ui.PlayerControlView
 import androidx.media3.ui.PlayerView
 import com.example.template.R
 import com.example.template.ux.video.MediaPlayerItem.Companion.IMAGE_RENDITIONS_BUNDLE_EXTRA_KEY
+import com.example.template.ux.video.activity.VideoActivity
+import com.example.template.ux.video.activity.VideoActivityViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -30,7 +32,7 @@ internal class PlayerManager(
     private val downloadCache: Cache,
     private val playbackPosition: (Long?, Boolean, VideoId?) -> Long,
     private val isPlayingChanged: (Boolean) -> Unit,
-    private val viewModel: VideoViewModel
+    private val viewModel: VideoActivityViewModel
 ) : Player.Listener, PlayerManagerCastListeners {
     private var isClosedCaptionsOnEventSent = false
     private val castPlayerManager: CastPlayerManager

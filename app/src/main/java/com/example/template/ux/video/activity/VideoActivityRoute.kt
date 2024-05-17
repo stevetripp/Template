@@ -1,10 +1,11 @@
-package com.example.template.ux.video
+package com.example.template.ux.video.activity
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestinationBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.example.template.ux.video.VideoId
 import org.lds.mobile.navigation.NavActivityRoute
 import org.lds.mobile.navigation.NavRoute
 import org.lds.mobile.navigation.NavRouteDefinition
