@@ -20,13 +20,13 @@ import androidx.compose.material3.adaptive.currentWindowSize
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -81,11 +81,11 @@ fun MainAppScaffoldWithNavBar(
     contentWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0), // required when using enableEdgeToEdge
     content: @Composable () -> Unit,
 ) {
-    val activity = LocalContext.current.requireActivity()
-    val viewModel: MainViewModel = hiltViewModel(activity)
-    val selectedBarItem by viewModel.selectedNavBarFlow.collectAsStateWithLifecycle()
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val windowDpSize = currentWindowSize()
+    val isPreview = LocalInspectionMode.current
+    val viewModel: MainViewModel? = if (isPreview) null else hiltViewModel(LocalContext.current.requireActivity())
+    val selectedNavBarItem = viewModel?.selectedNavBarFlow?.collectAsStateWithLifecycle()?.value
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior() // Set to TopAppBarDefaults.pinnedScrollBehavior() when not MediumTopAppBar
+    val windowDpSize = if (isPreview) IntSize(0, 0) else currentWindowSize()
 
     // TopAppBar
     val topAppBar: @Composable (() -> Unit) = {
@@ -114,20 +114,20 @@ fun MainAppScaffoldWithNavBar(
         layoutType = if (hideNavigation) NavigationSuiteType.None else getNavigationSuiteType(windowDpSize.toDpSize()),
         navigationSuiteItems = {
             NavBarItem.entries.forEach { navBarItem ->
-                val selected = selectedBarItem == navBarItem
+                val selected = selectedNavBarItem == navBarItem
                 val imageVector = if (selected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector
 
                 item(
                     selected = selected,
                     icon = { Icon(imageVector = imageVector, contentDescription = null) },
                     label = { navBarItem.text?.let { Text(text = it, maxLines = 1) } },
-                    onClick = { viewModel.onNavBarItemSelected(navBarItem) }
+                    onClick = { viewModel?.onNavBarItemSelected(navBarItem) }
                 )
             }
         },
     ) {
-        val windowSize = LocalContext.current.requireActivity().rememberWindowSize()
-        val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+        val windowSize = if (isPreview) WindowSize.COMPACT else LocalContext.current.requireActivity().rememberWindowSize()
+        val isLandscape = if (isPreview) false else LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
 
         val appScaffoldModifier = if (isLandscape && windowSize == WindowSize.COMPACT) {
             modifier
