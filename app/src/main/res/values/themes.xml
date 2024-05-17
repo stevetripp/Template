@@ -1,29 +1,12 @@
 <resources>
-    <!--    <style name="Theme.Template.Splash" parent="Theme.SplashScreen">-->
-    <!--        <item name="windowSplashScreenBackground">@color/purple_700</item>-->
-    <!--        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>-->
-    <!--        <item name="postSplashScreenTheme">@style/Theme.Template.NoActionBar</item>-->
-    <!--    </style>-->
     <!-- Workaround for issue for large splash images on SDK > 31 (use above and remove v31/themes.xml when fixed https://issuetracker.google.com/issues/201724091) -->
-    <style name="Theme.Template.Splash" parent="Theme.SplashScreen.IconBackground">
-        <item name="windowSplashScreenBackground">@color/purple_700</item>
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">@android:color/white</item>
         <item name="windowSplashScreenIconBackgroundColor">@color/purple_500</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
-        <item name="postSplashScreenTheme">@style/Theme.Template</item>
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 
     <!-- Base application theme. -->
-    <style name="Theme.Template" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-    </style>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 </resources>
