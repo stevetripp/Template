@@ -30,7 +30,9 @@ fun HomeContent(uiState: HomeScreenUiState) {
             items(Screen.entries.filterNot { it == Screen.HOME }) { destination ->
                 TextButton(
                     onClick = { uiState.onItemClicked(destination) },
-                    modifier = Modifier.padding(top = 8.dp),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .fillParentMaxWidth(),
                     colors = ButtonDefaults.textButtonColors(containerColor = AppTheme.colors.surface)
                 ) {
                     Text(destination.title)
