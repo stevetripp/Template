@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -106,6 +107,7 @@ dependencies {
 
     implementation(libs.kermit)
     implementation(libs.kotlin.date.time)
+    implementation(libs.kotlin.serialization.json)
 
     // Inject
     implementation(libs.google.hilt.android)
