@@ -1,4 +1,4 @@
-package com.example.template.ux.video.activity
+package com.example.template.ux.video.player
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavDestination
@@ -11,9 +11,9 @@ import org.lds.mobile.navigation.NavRoute
 import org.lds.mobile.navigation.NavRouteDefinition
 import org.lds.mobile.navigation.RouteUtil
 
-object VideoActivityRoute : NavActivityRoute() {
+object PlayerRoute : NavActivityRoute() {
 
-    private const val ROUTE = "video"
+    private const val ROUTE = "PlayerRoute"
 
     override val routeDefinition = NavRouteDefinition("$ROUTE/${RouteUtil.defineArg(Arg.VIDEO_ID)}?${RouteUtil.defineOptionalArgs(Arg.PLAY_LIST)}")
 

@@ -3,7 +3,7 @@ package com.example.template.ux.video.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.template.ux.video.TestData
-import com.example.template.ux.video.activity.VideoActivityRoute
+import com.example.template.ux.video.player.PlayerRoute
 import com.example.template.ux.video.VideoItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +26,7 @@ class VideoScreenViewModel @Inject constructor() : ViewModel(), ViewModelNav by 
     )
 
     private fun onHlsStreamTapped(videoItem: VideoItem) {
-        navigate(VideoActivityRoute.createRoute(videoItem.id, null))
+        navigate(PlayerRoute.createRoute(videoItem.id, null))
     }
 
     private fun onVideoRenditionTapped(videoItem: VideoItem) {

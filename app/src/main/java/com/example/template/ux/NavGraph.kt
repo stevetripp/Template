@@ -78,8 +78,8 @@ import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
 import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.urinavigation.UriNavigationScreen
-import com.example.template.ux.video.activity.VideoActivity
-import com.example.template.ux.video.activity.VideoActivityRoute
+import com.example.template.ux.video.player.PlayerActivity
+import com.example.template.ux.video.player.PlayerRoute
 import com.example.template.ux.video.screen.VideoScreen
 import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
@@ -134,7 +134,7 @@ fun NavGraph(
         SystemUiRoute.addNavigationRoute(this) { SystemUiScreen(navController) }
         TabsRoute.addNavigationRoute(this) { TabsScreen(navController) }
         UriNavigationRoute.addNavigationRoute(this) { UriNavigationScreen(navController) }
-        VideoActivityRoute.addNavigationRoute<VideoActivity>(this, context)
+        PlayerRoute.addNavigationRoute<PlayerActivity>(this, context)
         VideoScreenRoute.addNavigationRoute(this) { VideoScreen(navController) }
         WebViewRoute.addNavigationRoute(this) { WebViewScreen(navController) }
     }
