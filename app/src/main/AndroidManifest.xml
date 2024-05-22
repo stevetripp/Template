@@ -55,6 +55,24 @@
             android:supportsPictureInPicture="true"
             />
 
+        <!--
+            Chromecast receiver
+            There are two options, the default "androidx.media3.cast.DefaultCastOptionsProvider" and the
+            church's customer receiver,"org.lds.media.cast.CastDefaultOptionsProvider". HLS can be tested
+            using many of the streams found at https://github.com/bengarney/list-of-streams?tab=readme-ov-file#hls or
+            this url.
+
+            https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
+         -->
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="org.lds.media.cast.CastDefaultOptionsProvider"
+            />
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"-->
+<!--            android:value="androidx.media3.cast.DefaultCastOptionsProvider"-->
+<!--            />-->
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

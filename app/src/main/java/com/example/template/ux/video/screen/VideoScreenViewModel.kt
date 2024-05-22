@@ -26,7 +26,7 @@ class VideoScreenViewModel @Inject constructor() : ViewModel(), ViewModelNav by 
     )
 
     private fun onHlsStreamTapped(videoItem: VideoItem) {
-        navigate(PlayerRoute.createRoute(videoItem.id, null))
+        navigate(PlayerRoute.createRoute(videoItem.id))
     }
 
     private fun onVideoRenditionTapped(videoItem: VideoItem) {

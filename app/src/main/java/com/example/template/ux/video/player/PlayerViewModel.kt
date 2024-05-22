@@ -5,8 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
-import com.example.template.ux.video.CastPlayerManager
-import com.example.template.ux.video.MediaPlayerItem
+import androidx.media3.common.MimeTypes
 import com.example.template.ux.video.TestData
 import com.example.template.ux.video.VideoId
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,15 +19,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
-//    private val mimeTypeUtil: MimeTypeUtil,
-    val castPlayerManager: CastPlayerManager,
+    savedStateHandle: SavedStateHandle,
     deviceUtil: LdsDeviceUtil,
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
 
     private val args = PlayerRoute.getArgs(savedStateHandle)
     private val videoId = args.videoId
-    private val playList = args.playList
 
     val mediaItemsFlow: Flow<PlayList> = flow {
         val playlist = PlayList(videoId, getMediaItems())
@@ -36,40 +32,6 @@ class PlayerViewModel @Inject constructor(
     }
 
     val supportsPip = deviceUtil.supportsPictureInPicture() && !deviceUtil.isARC()
-//    val isInPip = MutableStateFlow(false)
-
-    private suspend fun getDownloadedMediaPlayerItem(id: VideoId): MediaPlayerItem? {
-        return null
-//        return downloadRepository.getLocalVideo(id)?.let {
-//            val downloadRequest = mediaDownloadUtil.getDownload(it.id.value)?.request ?: return@let null
-//            val extras = Bundle().apply {
-//                putString(IMAGE_RENDITIONS_BUNDLE_EXTRA_KEY, it.imageRenditions)
-//            }
-//            MediaPlayerItem(
-//                id = it.id,
-//                title = it.title.orEmpty(),
-//                downloadedMediaPlayerItem = MediaItem.Builder()
-//                    .setMediaMetadata(MediaMetadata.Builder().setTitle(it.title).setExtras(extras).build())
-//                    .setMediaId(downloadRequest.id)
-//                    .setUri(downloadRequest.uri)
-//                    .setCustomCacheKey(downloadRequest.customCacheKey)
-//                    .setMimeType(mimeTypeUtil.getMimeType(downloadRequest.uri.toString()))
-//                    .setStreamKeys(downloadRequest.streamKeys)
-//                    .build()
-//            )
-//        }
-    }
-
-    private fun getVodMediaPlayerItem(id: VideoId): MediaPlayerItem? {
-        val videoItem = TestData.getVideos().videos.find { it.id == id } ?: return null
-        return MediaPlayerItem(
-            id = videoItem.id,
-            imageRenditions = videoItem.imageRenditions,
-            hlsUrl = videoItem.hlsUrl,
-            videoRenditions = videoItem.videoRenditions,
-            title = videoItem.title,
-        )
-    }
 
     private fun getMediaItems(): List<MediaItem> {
         val videoItems = TestData.getVideos().videos
@@ -86,34 +48,10 @@ class PlayerViewModel @Inject constructor(
                         .setExtras(extras) // May be need for casting
                         .build()
                 )
+                .setMimeType(MimeTypes.APPLICATION_M3U8)
                 .setUri(it.hlsUrl.value)
                 .build()
         }
-    }
-
-    private suspend fun getEventMediaPlayerItem(id: VideoId): MediaPlayerItem? {
-        return null
-//        return streamRepository.getEvent(id)?.let {
-//            it.url ?: return@let null
-//            val treatAsLiveEvent = it.isLive() || it.url.value.contains("psdcdn.churchofjesuschrist.org")
-//            if (it.isLive()) cancelUpcomingEventNotificationWorkers()
-//            MediaPlayerItem(
-//                id = it.id,
-//                imageRenditions = it.imageRenditions,
-//                hlsUrl = it.url,
-//                mimeTypeUtil = mimeTypeUtil,
-//                title = it.title.orEmpty(),
-//                treatAsLiveEvent = treatAsLiveEvent,
-//            )
-//        }
-    }
-
-    fun setVideoId(videoId: String?) {
-        savedStateHandle[PlayerRoute.Arg.VIDEO_ID] = videoId
-    }
-
-    fun setPipState(enteredToPip: Boolean) {
-//        isInPip.value = enteredToPip
     }
 }
 

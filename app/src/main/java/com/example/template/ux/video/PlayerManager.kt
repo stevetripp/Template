@@ -1,297 +1,258 @@
+/*
+ * Copyright (C) 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.template.ux.video
 
-import android.media.session.PlaybackState
-import androidx.core.content.ContextCompat
+import android.content.Context
+import android.view.KeyEvent
+import androidx.core.content.res.ResourcesCompat
 import androidx.media3.cast.CastPlayer
+import androidx.media3.cast.SessionAvailabilityListener
+import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import androidx.media3.common.text.CueGroup
-import androidx.media3.datasource.DataSource
-import androidx.media3.datasource.DefaultDataSource
-import androidx.media3.datasource.DefaultHttpDataSource
-import androidx.media3.datasource.cache.Cache
-import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.common.Player.DiscontinuityReason
+import androidx.media3.common.Player.TimelineChangeReason
+import androidx.media3.common.Timeline
+import androidx.media3.common.Tracks
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.dash.DashMediaSource
-import androidx.media3.exoplayer.hls.HlsMediaSource
-import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
-import androidx.media3.session.MediaSession
 import androidx.media3.ui.PlayerControlView
 import androidx.media3.ui.PlayerView
 import com.example.template.R
-import com.example.template.ux.video.MediaPlayerItem.Companion.IMAGE_RENDITIONS_BUNDLE_EXTRA_KEY
-import com.example.template.ux.video.activity.VideoActivity
-import com.example.template.ux.video.activity.VideoActivityViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import com.example.template.util.SmtLogger
+import com.google.android.gms.cast.framework.CastContext
 
+/**
+ * Copied from https://github.com/androidx/media/blob/release/demos/cast/src/main/java/androidx/media3/demo/cast/PlayerManager.java
+ *
+ * Creates a new manager for [ExoPlayer] and [CastPlayer].
+ *
+ * @param context A [Context].
+ * @param listener A [Listener] for queue position changes.
+ * @param playerView The [PlayerView] for playback.
+ * @param castContext The [CastContext].
+ */
 internal class PlayerManager(
-    private val activity: VideoActivity,
+    private val context: Context,
+    private val listener: Listener,
     private val playerView: PlayerView,
-    private val downloadCache: Cache,
-    private val playbackPosition: (Long?, Boolean, VideoId?) -> Long,
-    private val isPlayingChanged: (Boolean) -> Unit,
-    private val viewModel: VideoActivityViewModel
-) : Player.Listener, PlayerManagerCastListeners {
-    private var isClosedCaptionsOnEventSent = false
-    private val castPlayerManager: CastPlayerManager
-        get() = viewModel.castPlayerManager
-    val currentLanguage: Iso3Locale
-        get() = activity.viewModel.currentLanguage.value
+    castContext: CastContext?
+) : Player.Listener, SessionAvailabilityListener {
+    /** Listener for events.  */
+    internal interface Listener {
+        /** Called when the currently played item of the media queue changes.  */
+        fun onQueuePositionChanged(previousIndex: Int, newIndex: Int)
 
-    private val context = activity.applicationContext
-    private var mediaSession: MediaSession? = null
-    private val localPlayer: ExoPlayer = ExoPlayer.Builder(context)
-        .setSeekBackIncrementMs(DEFAULT_SEEK_INCREMENT)
-        .setSeekForwardIncrementMs(DEFAULT_SEEK_INCREMENT)
-        .build()
-        .apply {
-            trackSelectionParameters = trackSelectionParameters.buildUpon().setMaxVideoSizeSd().setPreferredAudioLanguage(currentLanguage.value).build()
-            addListener(this@PlayerManager)
-            mediaSession = MediaSession.Builder(context, this).setId(SESSION_ID).build()
-        }
-    private val castPlayer: CastPlayer?
-        get() = castPlayerManager.castPlayer
+        /**
+         * Called when a track of type `trackType` is not supported by the player.
+         *
+         * @param trackType One of the [C]`.TRACK_TYPE_*` constants.
+         */
+        fun onUnsupportedTrack(trackType: Int)
+    }
 
-    var currentPlayer: Player? = null
+    private val localPlayer: Player
+    private val castPlayer: CastPlayer
+    private val mediaQueue = ArrayList<MediaItem>()
 
-    private var currentMediaPlayerItemId: String? = null
-    private var currentMediaPlayerPlayList: List<MediaPlayerItem>? = null
-
-    val isPlaying: Boolean
-        get() = currentPlayer?.isPlaying ?: false
-
-    val isCasting: Boolean
-        get() = currentPlayer == castPlayer && currentPlayer?.isPlaying == true
-
-    private val isCastSessionAvailable: Boolean
-        get() = castPlayer?.isCastSessionAvailable == true
+    private var lastSeenTracks: Tracks? = null
+    /** Returns the index of the currently played item.  */
+    private var currentItemIndex: Int
+    private var currentPlayer: Player? = null
 
     init {
-        castPlayerManager.setCastOwnerAndListeners(CastOwner.PlayerManager, this@PlayerManager)
-        if (isCastSessionAvailable) {
-            if (castPlayerManager.lastCastSessionOpenedBy == CastOwner.PlayerManager) {
-                castPlayer?.let { setCurrentPlayer(it, true) }
-            } else {
-                castPlayerManager.tearDownCastPlayer()
-                setCurrentPlayer(localPlayer)
-            }
-        } else {
-            setCurrentPlayer(localPlayer)
+        SmtLogger.i("""init""")
+        currentItemIndex = C.INDEX_UNSET
+
+        localPlayer = ExoPlayer.Builder(context).build()
+        localPlayer.addListener(this)
+
+        castPlayer = CastPlayer(castContext!!)
+        castPlayer.addListener(this)
+        castPlayer.setSessionAvailabilityListener(this)
+
+        setCurrentPlayer(if (castPlayer.isCastSessionAvailable) castPlayer else localPlayer)
+    }
+
+    fun isPlaying(): Boolean = currentPlayer?.isPlaying == true
+    fun isCasting(): Boolean = currentPlayer == castPlayer && isPlaying()
+
+    // Queue manipulation methods.
+
+    /**
+     * Appends `item` to the media queue.
+     *
+     * @param item The [MediaItem] to append.
+     */
+    fun addItem(item: MediaItem) {
+        mediaQueue.add(item)
+        currentPlayer!!.addMediaItem(item)
+    }
+
+    /**
+     * Dispatches a given [KeyEvent] to the corresponding view of the current player.
+     *
+     * @param event The [KeyEvent].
+     * @return Whether the event was handled by the target view.
+     */
+    fun dispatchKeyEvent(event: KeyEvent?): Boolean {
+        return playerView.dispatchKeyEvent(event!!)
+    }
+
+    /** Releases the manager and the players that it holds.  */
+    fun release() {
+        currentItemIndex = C.INDEX_UNSET
+        mediaQueue.clear()
+        playerView.player = null
+        localPlayer.release()
+    }
+
+    // Player.Listener implementation.
+    override fun onPlaybackStateChanged(playbackState: @Player.State Int) {
+        updateCurrentItemIndex()
+    }
+
+    override fun onPositionDiscontinuity(
+        oldPosition: Player.PositionInfo,
+        newPosition: Player.PositionInfo,
+        reason: @DiscontinuityReason Int
+    ) {
+        updateCurrentItemIndex()
+    }
+
+    override fun onTimelineChanged(timeline: Timeline, reason: @TimelineChangeReason Int) {
+        updateCurrentItemIndex()
+    }
+
+    override fun onTracksChanged(tracks: Tracks) {
+        if (currentPlayer !== localPlayer || tracks === lastSeenTracks) {
+            return
         }
-    }
-
-    fun skipToNextTrack() {
-        currentPlayer?.seekToNext()
-    }
-
-    override fun onVideoCastSkippedToNewTrack(newTrack: MediaItem) {
-        currentMediaPlayerItemId = newTrack.mediaId
-    }
-
-    override fun onIsPlayingChanged(isPlaying: Boolean) = isPlayingChanged(isPlaying)
-
-    override fun onEvents(player: Player, events: Player.Events) {
-        super.onEvents(player, events)
-        onPlayerManagerEvents(player, events)
-    }
-
-    override fun onVideoCastEvents(player: Player, events: Player.Events) {
-        onPlayerManagerEvents(player, events)
-    }
-
-    private fun onPlayerManagerEvents(player: Player, events: Player.Events) {
-        if (events.contains(Player.EVENT_TRACK_SELECTION_PARAMETERS_CHANGED)) {
-            val trackSelectionParameters = player.trackSelectionParameters.preferredAudioLanguages
-//            (activity).logTrackSelectionParameters(trackSelectionParameters.first())
+        if (tracks.containsType(C.TRACK_TYPE_VIDEO)
+            && !tracks.isTypeSupported(C.TRACK_TYPE_VIDEO,  /* allowExceedsCapabilities= */true)
+        ) {
+            listener.onUnsupportedTrack(C.TRACK_TYPE_VIDEO)
         }
-    }
-
-    override fun onCues(cueGroup: CueGroup) {
-        super.onCues(cueGroup)
-        onPlayerManagerCues()
-    }
-
-    override fun onVideoCastCues(cueGroup: CueGroup) {
-        onPlayerManagerCues()
-    }
-
-    private fun onPlayerManagerCues() {
-        if (!isClosedCaptionsOnEventSent) {
-            isClosedCaptionsOnEventSent = true
+        if (tracks.containsType(C.TRACK_TYPE_AUDIO)
+            && !tracks.isTypeSupported(C.TRACK_TYPE_AUDIO,  /* allowExceedsCapabilities= */true)
+        ) {
+            listener.onUnsupportedTrack(C.TRACK_TYPE_AUDIO)
         }
+        lastSeenTracks = tracks
     }
 
-    override fun onPlaybackStateChanged(playbackState: Int) {
-        super.onPlaybackStateChanged(playbackState)
-        onPlayerMangerPlaybackStateChanged(playbackState)
-    }
-
-    override fun onVideoCastPlaybackStateChanged(playbackState: Int) {
-        onPlayerMangerPlaybackStateChanged(playbackState)
-    }
-
-    private fun onPlayerMangerPlaybackStateChanged(playbackState: Int) {
-        if (playbackState == PlaybackState.STATE_FAST_FORWARDING) {
-            release()
-            activity.finish()
-        }
-    }
-
-    override fun onVideoCastSessionAvailable() {
+    // CastPlayer.SessionAvailabilityListener implementation.
+    override fun onCastSessionAvailable() {
+        SmtLogger.i("""onCastSessionAvailable()""")
         setCurrentPlayer(castPlayer)
     }
 
-    override fun onVideoCastSessionUnavailable() {
+    override fun onCastSessionUnavailable() {
+        SmtLogger.i("""onCastSessionUnavailable()""")
         setCurrentPlayer(localPlayer)
     }
 
-    private fun setCurrentPlayer(newPlayer: Player?, grabCurrentCastSession: Boolean = false) {
-        if (currentPlayer == newPlayer) return
-
-        newPlayer?.let { setupPlayerView(it) }
-        if (!grabCurrentCastSession) tearDownPreviousPlayer(currentPlayer)
-
-        currentPlayer = newPlayer
-        currentMediaPlayerItemId?.let { playerItemId ->
-            if (!grabCurrentCastSession) {
-                currentMediaPlayerPlayList?.let { playList ->
-                    playMediaItem(VideoId(playerItemId), playList.mapNotNull { it.toMediaItem() })
-                }
-            }
-        }
+    // Internal methods.
+    private fun updateCurrentItemIndex() {
+        val playbackState = currentPlayer!!.playbackState
+        maybeSetCurrentItemAndNotify(
+            if (playbackState != Player.STATE_IDLE && playbackState != Player.STATE_ENDED
+            ) currentPlayer!!.currentMediaItemIndex
+            else C.INDEX_UNSET
+        )
     }
 
-    private fun setupPlayerView(newPlayer: Player) {
-        playerView.player = newPlayer
-        playerView.controllerHideOnTouch = newPlayer === localPlayer
+    private fun setCurrentPlayer(currentPlayer: Player) {
+        if (this.currentPlayer === currentPlayer) {
+            return
+        }
 
-        if (newPlayer === castPlayer) {
+        SmtLogger.i("""setCurrentPlayer($currentPlayer)""")
+        playerView.player = currentPlayer
+        playerView.controllerHideOnTouch = currentPlayer === localPlayer
+        if (currentPlayer === castPlayer) {
             playerView.controllerShowTimeoutMs = 0
             playerView.showController()
-            playerView.defaultArtwork = ContextCompat.getDrawable(context, R.drawable.quantum_ic_cast_connected_white_24)
-        } else {
+            playerView.defaultArtwork = ResourcesCompat.getDrawable(
+                context.resources,
+                R.drawable.ic_baseline_cast_connected_400,  /* theme= */
+                null
+            )
+        } else { // currentPlayer == localPlayer
             playerView.controllerShowTimeoutMs = PlayerControlView.DEFAULT_SHOW_TIMEOUT_MS
             playerView.defaultArtwork = null
         }
-    }
 
-    private fun tearDownPreviousPlayer(previousPlayer: Player?) {
-        previousPlayer?.let { player ->
-            if (player.playbackState != Player.STATE_ENDED) {
-                playbackPosition(player.currentPosition, false, null)
+        // Player state management.
+        var playbackPositionMs = C.TIME_UNSET
+        var currentItemIndex = C.INDEX_UNSET
+        var playWhenReady = false
+
+        val previousPlayer = this.currentPlayer
+        if (previousPlayer != null) {
+            // Save state from the previous player.
+            val playbackState = previousPlayer.playbackState
+            if (playbackState != Player.STATE_ENDED) {
+                playbackPositionMs = previousPlayer.currentPosition
+                playWhenReady = previousPlayer.playWhenReady
+                currentItemIndex = previousPlayer.currentMediaItemIndex
+                if (currentItemIndex != this.currentItemIndex) {
+                    playbackPositionMs = C.TIME_UNSET
+                    currentItemIndex = this.currentItemIndex
+                }
             }
-            if (player == castPlayer) {
-                castPlayerManager.tearDownCastPlayer()
-            } else {
-                player.stop()
-                player.clearMediaItems()
-            }
+            previousPlayer.stop()
+            previousPlayer.clearMediaItems()
         }
+
+        this.currentPlayer = currentPlayer
+
+        SmtLogger.i(
+            """currentItemIndex: $currentItemIndex
+            |playbackPositionMs: $playbackPositionMs
+        """.trimMargin()
+        )
+        // Media queue management.
+        currentPlayer.setMediaItems(mediaQueue, currentItemIndex, playbackPositionMs)
+        currentPlayer.playWhenReady = playWhenReady
+        currentPlayer.prepare()
     }
 
-    fun setMediaItems(mediaPlayerItemPlayList: List<MediaPlayerItem>, videoId: VideoId) {
-        val toPlayItem = mediaPlayerItemPlayList.find { it.id.value == videoId.value }?.toMediaItem()
-        if (toPlayItem?.mediaId == currentMediaPlayerItemId) return
-
-        playbackPosition(0, false, null)
-        currentMediaPlayerItemId = toPlayItem?.mediaId
-        currentMediaPlayerPlayList = mediaPlayerItemPlayList
-        if (isCastSessionAvailable && castPlayerManager.lastCastSessionOpenedBy == CastOwner.PlayerManager && castPlayerManager.currentCastedItemId == toPlayItem?.mediaId) return
-        playMediaItem(videoId, mediaPlayerItemPlayList.mapNotNull { it.toMediaItem() })
-    }
-
-    private fun playMediaItem(videoId: VideoId, mediaItemPlayList: List<MediaItem>) {
-        if (currentPlayer == localPlayer) {
-            playOnLocalPlayer(videoId, mediaItemPlayList)
+    /**
+     * Starts playback of the item at the given index.
+     *
+     * @param itemIndex The index of the item to play.
+     */
+    fun setCurrentItem(itemIndex: Int) {
+        SmtLogger.i("""setCurrentItem($itemIndex)""")
+        maybeSetCurrentItemAndNotify(itemIndex)
+        if (currentPlayer!!.currentTimeline.windowCount != mediaQueue.size) {
+            // This only happens with the cast player. The receiver app in the cast device clears the
+            // timeline when the last item of the timeline has been played to end.
+            currentPlayer!!.setMediaItems(mediaQueue, itemIndex, C.TIME_UNSET)
         } else {
-            playOnCastPlayer(videoId, mediaItemPlayList)
+            currentPlayer!!.seekTo(itemIndex, C.TIME_UNSET)
         }
+        currentPlayer!!.playWhenReady = true
     }
 
-    private fun playOnLocalPlayer(videoId: VideoId, mediaItemPlayList: List<MediaItem>) {
-        val toPlayItem = mediaItemPlayList.find { it.mediaId == videoId.value }
-        val dataSourceFactory = DefaultDataSource.Factory(context)
-        val mediaSourceFactories = mediaItemPlayList.map {
-            when (it.localConfiguration?.mimeType) {
-                MimeTypeUtil.MediaType.DASH.mimeType -> DashMediaSource.Factory(dataSourceFactory)
-                MimeTypeUtil.MediaType.HLS.mimeType -> HlsMediaSource.Factory(dataSourceFactory)
-                else -> {
-                    // Add support for downloaded content
-                    val httpDataSourceFactory = DefaultHttpDataSource.Factory()
-                    val cacheDataSourceFactory: DataSource.Factory = CacheDataSource.Factory()
-                        .setCache(downloadCache)
-                        .setUpstreamDataSourceFactory(httpDataSourceFactory)
-                        .setCacheWriteDataSinkFactory(null) // Disable writing.
-
-                    DefaultMediaSourceFactory(cacheDataSourceFactory)
-                }
-            }.createMediaSource(it)
+    private fun maybeSetCurrentItemAndNotify(currentItemIndex: Int) {
+        if (this.currentItemIndex != currentItemIndex) {
+            val oldIndex = this.currentItemIndex
+            this.currentItemIndex = currentItemIndex
+            listener.onQueuePositionChanged(oldIndex, currentItemIndex)
         }
-        localPlayer.setMediaSources(mediaSourceFactories)
-        val startingIndex = mediaItemPlayList.indexOf(toPlayItem)
-        currentPlayer?.apply {
-            seekTo(startingIndex, playbackPosition(null, false, null))
-            playWhenReady = true
-            prepare()
-        }
-    }
-
-    fun getSecondsToNextTrackFlow(pollInterval: Long = DEFAULT_POLL_INTERVAL_MS): Flow<NextTrack?> {
-        return flow {
-            emit(getProgressState())
-            while (true) {
-                delay(pollInterval)
-                emit(getProgressState())
-            }
-        }
-    }
-
-    private fun getProgressState(): NextTrack? {
-        val currentMediaItemId = currentPlayer?.currentMediaItem?.mediaId
-        playbackPosition(currentPlayer?.currentPosition ?: 0L, true, currentMediaItemId?.let { VideoId(it) })
-        return currentPlayer?.let { player ->
-            if (player.hasNextMediaItem() && player.duration > 0) {
-                val nextMediaItem = currentPlayer?.getMediaItemAt(player.nextMediaItemIndex)
-                nextMediaItem?.let { next ->
-                    NextTrack(
-                        secondsUntil = (player.duration.div(1000) - player.currentPosition.div(1000)).toInt(),
-                        nextTrackTitle = next.mediaMetadata.title.toString(),
-                        nextTrackImageRenditions = next.mediaMetadata.extras?.getString(IMAGE_RENDITIONS_BUNDLE_EXTRA_KEY).orEmpty()
-                    )
-                }
-            } else null
-        }
-    }
-
-    private fun playOnCastPlayer(videoId: VideoId, mediaItemPlayList: List<MediaItem>) {
-        castPlayerManager.playOnCast(videoId, mediaItemPlayList, playbackPosition(null, false, null), CastOwner.PlayerManager)
-    }
-
-    override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
-        super.onMediaItemTransition(mediaItem, reason)
-        mediaItem?.mediaId?.let {
-            currentMediaPlayerItemId = it
-            currentPlayer?.seekTo(viewModel.getVideoInitialPosition(VideoId(it)))
-        }
-    }
-
-    fun release() {
-        val currentMediaItemId = currentPlayer?.currentMediaItem?.mediaId
-        playbackPosition(currentPlayer?.currentPosition ?: 0L, true, currentMediaItemId?.let { VideoId(it) })
-        playerView.player = null
-        localPlayer.release()
-        mediaSession?.apply {
-            release()
-            mediaSession = null
-        }
-    }
-
-    companion object {
-        const val INITIAL_PLAYBACK_POSITION = 0L
-        private const val DEFAULT_SEEK_INCREMENT = 10000L
-        private const val DEFAULT_POLL_INTERVAL_MS: Long = 1000
-        private const val SESSION_ID = "gs_video_session"
     }
 }

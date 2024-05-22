@@ -10,5 +10,6 @@
         android:title="Cast"
         app:actionProviderClass="androidx.mediarouter.app.MediaRouteActionProvider"
         app:showAsAction="always"
+        tools:ignore="HardcodedText"
         />
 </menu>
