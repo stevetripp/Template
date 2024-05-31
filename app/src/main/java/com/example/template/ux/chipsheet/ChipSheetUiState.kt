@@ -11,4 +11,5 @@ data class ChipSheetUiState(
     val onNumberItemSelected: (ChipItem.Selectable) -> Unit = {},
     val onAnimalItemSelected: (ChipItem.Selectable) -> Unit = {},
     val onColorSelected: (ChipItem.Selectable) -> Unit = {},
+    val onExecute: () -> Unit = {}
 )

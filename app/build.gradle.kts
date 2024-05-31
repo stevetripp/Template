@@ -72,29 +72,25 @@ android {
 
 dependencies {
 
+    androidTestImplementation(libs.androidx.test.junit)
+
     implementation(libs.accompanist.flowlayout)
     implementation(libs.accompanist.permissions)
-
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.biometrics)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime.compose)
-
     implementation(libs.androidx.media3.cast)
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.exoplayer.dash)
     implementation(libs.androidx.media3.exoplayer.hls)
     implementation(libs.androidx.media3.session)
     implementation(libs.androidx.media3.ui)
-
     implementation(libs.androidx.navigation.compose)
-
     implementation(libs.androidx.splashscreen)
-
     implementation(libs.coil.compose)
-
     implementation(libs.compose.material)
     implementation(libs.compose.material.iconsext)
     implementation(libs.compose.material3)
@@ -102,25 +98,24 @@ dependencies {
     implementation(libs.compose.material3.adaptive.navigation)
     implementation(libs.compose.material3.windowsize)
     implementation(libs.compose.ui.tooling)
-
     implementation(libs.flippable)
-
+    implementation(libs.google.hilt.android)
+    implementation(libs.google.material)
     implementation(libs.kermit)
     implementation(libs.kotlin.date.time)
     implementation(libs.kotlin.serialization.json)
-
-    // Inject
-    implementation(libs.google.hilt.android)
-    ksp(libs.google.hilt.android.compiler)
-
-    implementation(libs.google.material)
-
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.resources)
+    implementation(libs.ktor.client.serialization)
     implementation(libs.reorderable.compose)
 
-    testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit.jupiter)
+    ksp(libs.google.hilt.android.compiler)
 
-    androidTestImplementation(libs.androidx.test.junit)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(platform(libs.junit.bom))
 }
 
 // ===== Detekt =====

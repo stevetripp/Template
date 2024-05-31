@@ -1,9 +1,12 @@
 package com.example.template.ux.chipsheet
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -34,15 +37,20 @@ fun ChipSheetContent(uiState: ChipSheetUiState, onBack: () -> Unit = {}) {
     val colorItems by uiState.colorItemsFlow.collectAsStateWithLifecycle()
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.CHIP_SHEET.title, onBack = onBack) }) { paddingValues ->
-        Row(
+        Column(
             modifier = Modifier
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            ChipModalBottomSheet(chipItems = numberItems, onItemSelected = uiState.onNumberItemSelected)
-            ChipModalBottomSheet(chipItems = animalItems, onItemSelected = uiState.onAnimalItemSelected)
-            ChipDropDown(chipItems = colorItems, onSelected = uiState.onColorSelected)
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                ChipModalBottomSheet(chipItems = numberItems, onItemSelected = uiState.onNumberItemSelected)
+                ChipModalBottomSheet(chipItems = animalItems, onItemSelected = uiState.onAnimalItemSelected)
+                ChipDropDown(chipItems = colorItems, onSelected = uiState.onColorSelected)
+            }
+
+            Button(onClick = uiState.onExecute) { Text(text = "Execute") }
         }
     }
 }
