@@ -16,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
+import com.example.template.ui.dialog.HandleDialogUiState
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import org.lds.mobile.ui.compose.navigation.HandleNavigation
@@ -24,6 +25,7 @@ import org.lds.mobile.ui.compose.navigation.HandleNavigation
 fun VideoScreen(navController: NavController, viewModel: VideoScreenViewModel = hiltViewModel()) {
     VideoContent(viewModel.uiState, navController::popBackStack)
     HandleNavigation(viewModel, navController)
+    HandleDialogUiState(viewModel.uiState.dialogUiStateFlow)
 }
 
 @Composable

@@ -26,13 +26,6 @@ value class VideoRenditionType(val value: String) {
     }
 }
 
-@JvmInline
-value class Iso3Locale(val value: String) {
-    init {
-        require(value.isNotBlank())
-    }
-}
-
 
 
 
