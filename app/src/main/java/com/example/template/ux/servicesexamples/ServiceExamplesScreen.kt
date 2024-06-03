@@ -1,4 +1,4 @@
-package com.example.template.ux.home
+package com.example.template.ux.servicesexamples
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,15 +20,15 @@ import com.example.template.ux.main.Screen
 import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
 @Composable
-fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
-    HomeContent(viewModel.uiState)
+fun ServicesExamplesScreen(navController: NavController, viewModel: ServicesExamplesViewModel = hiltViewModel()) {
+    ServicesExamplesContent(viewModel.uiState)
     HandleNavigation(viewModelNav = viewModel, navController = navController)
 }
 
 @Composable
-fun HomeContent(uiState: HomeScreenUiState) {
+fun ServicesExamplesContent(uiState: ServicesExamplesScreenUiState) {
     val screens by uiState.screensFlow.collectAsStateWithLifecycle()
-    MainAppScaffoldWithNavBar(title = Screen.HOME.title, navigationIconVisible = false) {
+    MainAppScaffoldWithNavBar(title = Screen.SERVICE_EXAMPLES.title, navigationIconVisible = false) {
         LazyColumn {
             items(screens) { destination ->
                 TextButton(
@@ -47,6 +47,6 @@ fun HomeContent(uiState: HomeScreenUiState) {
 
 @PreviewDefault
 @Composable
-private fun HomeContentPreview() {
-    AppTheme { HomeContent(HomeScreenUiState()) }
+private fun Preview() {
+    AppTheme { ServicesExamplesContent(ServicesExamplesScreenUiState()) }
 }

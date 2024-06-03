@@ -66,6 +66,8 @@ import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.reorderablelist.ReorderableListScreen
 import com.example.template.ux.search.SearchRoute
 import com.example.template.ux.search.SearchScreen
+import com.example.template.ux.servicesexamples.ServicesExamplesRoute
+import com.example.template.ux.servicesexamples.ServicesExamplesScreen
 import com.example.template.ux.sidedrawer.SideDrawerRoute
 import com.example.template.ux.sidedrawer.SideDrawerScreen
 import com.example.template.ux.snackbar.SnackbarRoute
@@ -131,6 +133,7 @@ fun NavGraph(
         PullRefreshRoute.addNavigationRoute(this) { PullRefreshScreen(navController) }
         ReorderableListRoute.addNavigationRoute(this) { ReorderableListScreen(navController) }
         SearchRoute.addNavigationRoute(this) { SearchScreen(navController) }
+        ServicesExamplesRoute.addNavigationRoute(this) { ServicesExamplesScreen(navController) }
         SideDrawerRoute.addNavigationRoute(this) { SideDrawerScreen(navController) }
         SnackbarRoute.addNavigationRoute(this) { SnackbarScreen(navController) }
         StickyHeadersRoute.addNavigationRoute(this) { StickyHeadersScreen(navController) }

@@ -15,6 +15,7 @@ import com.example.template.ux.imagepicker.ImagePickerRoute
 import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.ktor.KtorRoute
 import com.example.template.ux.main.Screen
+import com.example.template.ux.main.ScreenType
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
@@ -36,6 +37,7 @@ import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.lds.mobile.navigation.ViewModelNav
 import org.lds.mobile.navigation.ViewModelNavImpl
 import javax.inject.Inject
@@ -44,7 +46,12 @@ import javax.inject.Inject
 class HomeViewModel
 @Inject constructor(
 ) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
+
+    private val screens = Screen.entries.filter { it.type == ScreenType.UI }
+    private val screensFlow = MutableStateFlow(screens)
+
     val uiState = HomeScreenUiState(
+        screensFlow = screensFlow,
         onItemClicked = ::onItemClicked
     )
 
@@ -60,10 +67,8 @@ class HomeViewModel
             Screen.DIALOG -> navigate(DialogRoute.createRoute())
             Screen.FLIPPABLE -> navigate(FlippableRoute.createRoute())
             Screen.GMAIL_ADDRESS_FIELD -> navigate(GmailAddressFieldRoute.createRoute())
-            Screen.HOME -> TODO()
             Screen.IMAGE_PICKER -> navigate(ImagePickerRoute.createRoute())
             Screen.INPUT_EXAMPLES -> navigate(InputExamplesRoute.createRoute())
-            Screen.KTOR -> navigate(KtorRoute.createRoute())
             Screen.MODAL_BOTTOM_SHEET -> navigate(ModalBottomSheetRoute.createRoute())
             Screen.NAVIGATION_PAGER -> navigate(NavigationPagerRoute.createRoute())
             Screen.NOTIFICATION_PERMISSIONS -> navigate(NotificationPermissionsRoute.createRoute())
@@ -84,6 +89,7 @@ class HomeViewModel
             Screen.URI_NAVIGATION -> navigate(UriNavigationRoute.createRoute())
             Screen.VIDEO -> navigate(VideoScreenRoute.createRoute())
             Screen.WEBVIEW -> navigate(WebViewRoute.createRoute())
+            else -> Unit
         }
     }
 }

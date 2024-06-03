@@ -7,9 +7,6 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun AboutScreen(navController: NavController) {
-    MainAppScaffoldWithNavBar(
-        title = Screen.HOME.title,
-        navigationIconVisible = false,
-    ) {
+    MainAppScaffoldWithNavBar(title = Screen.ABOUT.title, navigationIconVisible = false) {
     }
 }

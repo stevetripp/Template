@@ -10,4 +10,4 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel
 @Inject constructor(
-) : ViewModel(), ViewModelNavBar<NavBarItem> by ViewModelNavBarImpl(NavBarItem.EXAMPLES, DefaultNavBarConfig(NavBarItem.getNavBarItemRouteMap()))
+) : ViewModel(), ViewModelNavBar<NavBarItem> by ViewModelNavBarImpl(NavBarItem.UI_EXAMPLES, DefaultNavBarConfig(NavBarItem.getNavBarItemRouteMap()))
