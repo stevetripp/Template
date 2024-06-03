@@ -10,6 +10,5 @@ data class ChipSheetUiState(
     val colorItemsFlow: StateFlow<List<ChipItem>> = MutableStateFlow(emptyList()),
     val onNumberItemSelected: (ChipItem.Selectable) -> Unit = {},
     val onAnimalItemSelected: (ChipItem.Selectable) -> Unit = {},
-    val onColorSelected: (ChipItem.Selectable) -> Unit = {},
-    val onExecute: () -> Unit = {}
+    val onColorSelected: (ChipItem.Selectable) -> Unit = {}
 )

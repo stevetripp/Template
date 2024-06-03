@@ -1,23 +1,15 @@
 package com.example.template.ux.chipsheet
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import co.touchlab.kermit.Logger
-import com.example.template.model.webservice.GoogleBooksService
 import com.example.template.ui.widget.ChipItem
-import com.example.template.util.SmtLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import org.lds.mobile.network.onException
-import org.lds.mobile.network.onSuccess
 import javax.inject.Inject
 
 @HiltViewModel
 class ChipSheetViewModel
 @Inject constructor(
-    private val googleBooksService: GoogleBooksService,
 ) : ViewModel() {
 
     private val numberItemsFlow = MutableStateFlow(
@@ -72,26 +64,10 @@ class ChipSheetViewModel
         numberItemsFlow = numberItemsFlow,
         animalItemsFlow = animalItemsFlow,
         colorItemsFlow = colorItemsFlow,
-        onColorSelected = ::onColorSelected,
         onNumberItemSelected = { onChipSelected(it, numberItemsFlow) },
         onAnimalItemSelected = { onChipSelected(it, animalItemsFlow) },
-        onExecute = ::onExecute
+        onColorSelected = ::onColorSelected
     )
-
-    private fun onExecute() = viewModelScope.launch {
-        SmtLogger.i("""onExecute()""")
-        googleBooksService.getVolumes("intitle", 2)
-            .onSuccess {
-                SmtLogger.i(
-                    """Success:
-                    |${this.data}
-                """.trimMargin()
-                )
-            }
-            .onException {
-                Logger.e(this.throwable) { "Failed to getVolumes" }
-            }
-    }
 
     private fun MutableList<ChipItem>.replace(old: ChipItem, new: ChipItem) {
         set(indexOf(old), new)

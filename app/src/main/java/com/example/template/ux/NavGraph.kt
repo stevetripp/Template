@@ -38,6 +38,8 @@ import com.example.template.ux.imagepicker.ImagePickerRoute
 import com.example.template.ux.imagepicker.ImagePickerScreen
 import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.inputexamples.InputExamplesScreen
+import com.example.template.ux.ktor.KtorRoute
+import com.example.template.ux.ktor.KtorScreen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetScreen
 import com.example.template.ux.navigatepager.NavigationPagerRoute
@@ -100,8 +102,6 @@ fun NavGraph(
         startDestination = HomeRoute.routeDefinition.value
     ) {
         AboutRoute.addNavigationRoute(this) { AboutScreen(navController) }
-        DestinationRoute.addNavigationRoute(this) { DestinationScreen(navController) } // Putting first fixes crash
-        HomeRoute.addNavigationRoute(this) { HomeScreen(navController) }
         AnimatedGesturesRoute.addNavigationRoute(this) { AnimatedGestureScreen(navController) }
         BottomNavigationRoute.addNavigationRoute(this) { BottomNavigationScreen(navController) }
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
@@ -110,11 +110,14 @@ fun NavGraph(
         ChildWithoutNavigationRoute.addNavigationRoute(this) { ChildWithoutNavigationScreen(navController) }
         ChipSheetRoute.addNavigationRoute(this) { ChipSheetScreen(navController) }
         DateTimeFormatRoute.addNavigationRoute(this) { DateTimeFormatScreen(navController) }
+        DestinationRoute.addNavigationRoute(this) { DestinationScreen(navController) } // Putting first fixes crash
         DialogRoute.addNavigationRoute(this) { DialogScreen(navController) }
         FlippableRoute.addNavigationRoute(this) { FlippableScreen(navController) }
         GmailAddressFieldRoute.addNavigationRoute(this) { GmailAddressFieldScreen(navController) }
+        HomeRoute.addNavigationRoute(this) { HomeScreen(navController) }
         ImagePickerRoute.addNavigationRoute(this) { ImagePickerScreen(navController) }
         InputExamplesRoute.addNavigationRoute(this) { InputExamplesScreen(navController) }
+        KtorRoute.addNavigationRoute(this) { KtorScreen(navController) }
         ModalBottomSheetRoute.addNavigationRoute(this) { ModalBottomSheetScreen(navController) }
         NavigationPagerRoute.addNavigationRoute(this) { NavigationPagerScreen(navController) }
         NotificationPermissionsRoute.addNavigationRoute(this) { NotificationPermissionsScreen(navController) }
@@ -122,19 +125,19 @@ fun NavGraph(
         PanningZoomingRoute.addNavigationRoute(this) { PanningZoomingScreen(navController) }
         ParametersRoute.addNavigationRoute(this) { ParametersScreen(navController) }
         PermissionsRoute.addNavigationRoute(this) { PermissionsScreen(navController) }
-        PopWithResultParentRoute.addNavigationRoute(this) { PopWithResultParentScreen(navController) }
+        PlayerRoute.addNavigationRoute<PlayerActivity>(this, context)
         PopWithResultChildRoute.addNavigationRoute(this) { PopWithResultChildScreen(navController) }
+        PopWithResultParentRoute.addNavigationRoute(this) { PopWithResultParentScreen(navController) }
+        PullRefreshRoute.addNavigationRoute(this) { PullRefreshScreen(navController) }
         ReorderableListRoute.addNavigationRoute(this) { ReorderableListScreen(navController) }
         SearchRoute.addNavigationRoute(this) { SearchScreen(navController) }
         SideDrawerRoute.addNavigationRoute(this) { SideDrawerScreen(navController) }
         SnackbarRoute.addNavigationRoute(this) { SnackbarScreen(navController) }
         StickyHeadersRoute.addNavigationRoute(this) { StickyHeadersScreen(navController) }
         SwipableRoute.addNavigationRoute(this) { SwipableScreen(navController) }
-        PullRefreshRoute.addNavigationRoute(this) { PullRefreshScreen(navController) }
         SystemUiRoute.addNavigationRoute(this) { SystemUiScreen(navController) }
         TabsRoute.addNavigationRoute(this) { TabsScreen(navController) }
         UriNavigationRoute.addNavigationRoute(this) { UriNavigationScreen(navController) }
-        PlayerRoute.addNavigationRoute<PlayerActivity>(this, context)
         VideoScreenRoute.addNavigationRoute(this) { VideoScreen(navController) }
         WebViewRoute.addNavigationRoute(this) { WebViewScreen(navController) }
     }

@@ -13,6 +13,7 @@ import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
 import com.example.template.ux.imagepicker.ImagePickerRoute
 import com.example.template.ux.inputexamples.InputExamplesRoute
+import com.example.template.ux.ktor.KtorRoute
 import com.example.template.ux.main.Screen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.navigatepager.NavigationPagerRoute
@@ -49,7 +50,6 @@ class HomeViewModel
 
     private fun onItemClicked(screen: Screen) {
         when (screen) {
-            Screen.HOME -> TODO()
             Screen.ANIMATED_GESTURE -> navigate(AnimatedGesturesRoute.createRoute())
             Screen.BOTTOM_NAVIGATION -> navigate(BottomNavigationRoute.createRoute())
             Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute.createRoute())
@@ -60,8 +60,10 @@ class HomeViewModel
             Screen.DIALOG -> navigate(DialogRoute.createRoute())
             Screen.FLIPPABLE -> navigate(FlippableRoute.createRoute())
             Screen.GMAIL_ADDRESS_FIELD -> navigate(GmailAddressFieldRoute.createRoute())
+            Screen.HOME -> TODO()
             Screen.IMAGE_PICKER -> navigate(ImagePickerRoute.createRoute())
             Screen.INPUT_EXAMPLES -> navigate(InputExamplesRoute.createRoute())
+            Screen.KTOR -> navigate(KtorRoute.createRoute())
             Screen.MODAL_BOTTOM_SHEET -> navigate(ModalBottomSheetRoute.createRoute())
             Screen.NAVIGATION_PAGER -> navigate(NavigationPagerRoute.createRoute())
             Screen.NOTIFICATION_PERMISSIONS -> navigate(NotificationPermissionsRoute.createRoute())
