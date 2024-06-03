@@ -1,265 +1,297 @@
 package com.example.template.ui.theme
 
+import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
-import androidx.compose.material3.Typography
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.runtime.structuralEqualityPolicy
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
-import com.example.template.ui.composable.HandleSystemBarColors
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
+import com.example.template.util.SmtLogger
 
-class AppColors(
-    primary: Color,
-    onPrimary: Color,
-    primaryContainer: Color,
-    onPrimaryContainer: Color,
-    inversePrimary: Color,
-    secondary: Color,
-    onSecondary: Color,
-    secondaryContainer: Color,
-    onSecondaryContainer: Color,
-    tertiary: Color,
-    onTertiary: Color,
-    tertiaryContainer: Color,
-    onTertiaryContainer: Color,
-    background: Color,
-    onBackground: Color,
-    surface: Color,
-    onSurface: Color,
-    surfaceVariant: Color,
-    surfaceTint: Color,
-    onSurfaceVariant: Color,
-    inverseSurface: Color,
-    inverseOnSurface: Color,
-    error: Color,
-    onError: Color,
-    errorContainer: Color,
-    onErrorContainer: Color,
-    outline: Color,
-    outlineVariant: Color,
-    scrim: Color,
-) {
-    var primary by mutableStateOf(primary, structuralEqualityPolicy())
-        internal set
-    var onPrimary by mutableStateOf(onPrimary, structuralEqualityPolicy())
-        internal set
-    var primaryContainer by mutableStateOf(primaryContainer, structuralEqualityPolicy())
-        internal set
-    var onPrimaryContainer by mutableStateOf(onPrimaryContainer, structuralEqualityPolicy())
-        internal set
-    var inversePrimary by mutableStateOf(inversePrimary, structuralEqualityPolicy())
-        internal set
-    var secondary by mutableStateOf(secondary, structuralEqualityPolicy())
-        internal set
-    var onSecondary by mutableStateOf(onSecondary, structuralEqualityPolicy())
-        internal set
-    var secondaryContainer by mutableStateOf(secondaryContainer, structuralEqualityPolicy())
-        internal set
-    var onSecondaryContainer by mutableStateOf(onSecondaryContainer, structuralEqualityPolicy())
-        internal set
-    var tertiary by mutableStateOf(tertiary, structuralEqualityPolicy())
-        internal set
-    var onTertiary by mutableStateOf(onTertiary, structuralEqualityPolicy())
-        internal set
-    var tertiaryContainer by mutableStateOf(tertiaryContainer, structuralEqualityPolicy())
-        internal set
-    var onTertiaryContainer by mutableStateOf(onTertiaryContainer, structuralEqualityPolicy())
-        internal set
-    var background by mutableStateOf(background, structuralEqualityPolicy())
-        internal set
-    var onBackground by mutableStateOf(onBackground, structuralEqualityPolicy())
-        internal set
-    var surface by mutableStateOf(surface, structuralEqualityPolicy())
-        internal set
-    var onSurface by mutableStateOf(onSurface, structuralEqualityPolicy())
-        internal set
-    var surfaceVariant by mutableStateOf(surfaceVariant, structuralEqualityPolicy())
-        internal set
-    var onSurfaceVariant by mutableStateOf(onSurfaceVariant, structuralEqualityPolicy())
-        internal set
-    var surfaceTint by mutableStateOf(surfaceTint, structuralEqualityPolicy())
-        internal set
-    var inverseSurface by mutableStateOf(inverseSurface, structuralEqualityPolicy())
-        internal set
-    var inverseOnSurface by mutableStateOf(inverseOnSurface, structuralEqualityPolicy())
-        internal set
-    var error by mutableStateOf(error, structuralEqualityPolicy())
-        internal set
-    var onError by mutableStateOf(onError, structuralEqualityPolicy())
-        internal set
-    var errorContainer by mutableStateOf(errorContainer, structuralEqualityPolicy())
-        internal set
-    var onErrorContainer by mutableStateOf(onErrorContainer, structuralEqualityPolicy())
-        internal set
-    var outline by mutableStateOf(outline, structuralEqualityPolicy())
-        internal set
-    var outlineVariant by mutableStateOf(outlineVariant, structuralEqualityPolicy())
-        internal set
-    var scrim by mutableStateOf(scrim, structuralEqualityPolicy())
-        internal set
+private val lightScheme = lightColorScheme(
+    primary = primaryLight,
+    onPrimary = onPrimaryLight,
+    primaryContainer = primaryContainerLight,
+    onPrimaryContainer = onPrimaryContainerLight,
+    secondary = secondaryLight,
+    onSecondary = onSecondaryLight,
+    secondaryContainer = secondaryContainerLight,
+    onSecondaryContainer = onSecondaryContainerLight,
+    tertiary = tertiaryLight,
+    onTertiary = onTertiaryLight,
+    tertiaryContainer = tertiaryContainerLight,
+    onTertiaryContainer = onTertiaryContainerLight,
+    error = errorLight,
+    onError = onErrorLight,
+    errorContainer = errorContainerLight,
+    onErrorContainer = onErrorContainerLight,
+    background = backgroundLight,
+    onBackground = onBackgroundLight,
+    surface = surfaceLight,
+    onSurface = onSurfaceLight,
+    surfaceVariant = surfaceVariantLight,
+    onSurfaceVariant = onSurfaceVariantLight,
+    outline = outlineLight,
+    outlineVariant = outlineVariantLight,
+    scrim = scrimLight,
+    inverseSurface = inverseSurfaceLight,
+    inverseOnSurface = inverseOnSurfaceLight,
+    inversePrimary = inversePrimaryLight,
+    surfaceDim = surfaceDimLight,
+    surfaceBright = surfaceBrightLight,
+    surfaceContainerLowest = surfaceContainerLowestLight,
+    surfaceContainerLow = surfaceContainerLowLight,
+    surfaceContainer = surfaceContainerLight,
+    surfaceContainerHigh = surfaceContainerHighLight,
+    surfaceContainerHighest = surfaceContainerHighestLight,
+)
 
-    fun toMaterialColors(): ColorScheme {
-        return ColorScheme(
-            primary = primary,
-            onPrimary = onPrimary,
-            primaryContainer = primaryContainer,
-            onPrimaryContainer = onPrimaryContainer,
-            inversePrimary = inversePrimary,
-            secondary = secondary,
-            onSecondary = onSecondary,
-            secondaryContainer = secondaryContainer,
-            onSecondaryContainer = onSecondaryContainer,
-            tertiary = tertiary,
-            onTertiary = onTertiary,
-            tertiaryContainer = tertiaryContainer,
-            onTertiaryContainer = onTertiaryContainer,
-            background = background,
-            onBackground = onBackground,
-            surface = surface,
-            onSurface = onSurface,
-            surfaceVariant = surfaceVariant,
-            onSurfaceVariant = onSurfaceVariant,
-            surfaceTint = surfaceTint,
-            inverseSurface = inverseSurface,
-            inverseOnSurface = inverseOnSurface,
-            error = error,
-            onError = onError,
-            errorContainer = errorContainer,
-            onErrorContainer = onErrorContainer,
-            outline = outline,
-            outlineVariant = outlineVariant,
-            scrim = scrim
-        )
-    }
+private val darkScheme = darkColorScheme(
+    primary = primaryDark,
+    onPrimary = onPrimaryDark,
+    primaryContainer = primaryContainerDark,
+    onPrimaryContainer = onPrimaryContainerDark,
+    secondary = secondaryDark,
+    onSecondary = onSecondaryDark,
+    secondaryContainer = secondaryContainerDark,
+    onSecondaryContainer = onSecondaryContainerDark,
+    tertiary = tertiaryDark,
+    onTertiary = onTertiaryDark,
+    tertiaryContainer = tertiaryContainerDark,
+    onTertiaryContainer = onTertiaryContainerDark,
+    error = errorDark,
+    onError = onErrorDark,
+    errorContainer = errorContainerDark,
+    onErrorContainer = onErrorContainerDark,
+    background = backgroundDark,
+    onBackground = onBackgroundDark,
+    surface = surfaceDark,
+    onSurface = onSurfaceDark,
+    surfaceVariant = surfaceVariantDark,
+    onSurfaceVariant = onSurfaceVariantDark,
+    outline = outlineDark,
+    outlineVariant = outlineVariantDark,
+    scrim = scrimDark,
+    inverseSurface = inverseSurfaceDark,
+    inverseOnSurface = inverseOnSurfaceDark,
+    inversePrimary = inversePrimaryDark,
+    surfaceDim = surfaceDimDark,
+    surfaceBright = surfaceBrightDark,
+    surfaceContainerLowest = surfaceContainerLowestDark,
+    surfaceContainerLow = surfaceContainerLowDark,
+    surfaceContainer = surfaceContainerDark,
+    surfaceContainerHigh = surfaceContainerHighDark,
+    surfaceContainerHighest = surfaceContainerHighestDark,
+)
 
-    fun updateColorsFrom(colors: AppColors) {
-        primary = colors.primary
-        onPrimary = colors.onPrimary
-        primaryContainer = colors.primaryContainer
-        onPrimaryContainer = colors.onPrimaryContainer
-        inversePrimary = colors.inversePrimary
-        secondary = colors.secondary
-        onSecondary = colors.onSecondary
-        secondaryContainer = colors.secondaryContainer
-        onSecondaryContainer = colors.onSecondaryContainer
-        tertiary = colors.tertiary
-        onTertiary = colors.onTertiary
-        tertiaryContainer = colors.tertiaryContainer
-        onTertiaryContainer = colors.onTertiaryContainer
-        background = colors.background
-        onBackground = colors.onBackground
-        surface = colors.surface
-        onSurface = colors.onSurface
-        surfaceVariant = colors.surfaceVariant
-        onSurfaceVariant = colors.onSurfaceVariant
-        surfaceTint = colors.surfaceTint
-        inverseSurface = colors.inverseSurface
-        inverseOnSurface = colors.inverseOnSurface
-        error = colors.error
-        onError = colors.onError
-        errorContainer = colors.errorContainer
-        onErrorContainer = colors.onErrorContainer
-        outline = colors.outline
-        outlineVariant = colors.outlineVariant
-        scrim = colors.scrim
-    }
-}
+private val mediumContrastLightColorScheme = lightColorScheme(
+    primary = primaryLightMediumContrast,
+    onPrimary = onPrimaryLightMediumContrast,
+    primaryContainer = primaryContainerLightMediumContrast,
+    onPrimaryContainer = onPrimaryContainerLightMediumContrast,
+    secondary = secondaryLightMediumContrast,
+    onSecondary = onSecondaryLightMediumContrast,
+    secondaryContainer = secondaryContainerLightMediumContrast,
+    onSecondaryContainer = onSecondaryContainerLightMediumContrast,
+    tertiary = tertiaryLightMediumContrast,
+    onTertiary = onTertiaryLightMediumContrast,
+    tertiaryContainer = tertiaryContainerLightMediumContrast,
+    onTertiaryContainer = onTertiaryContainerLightMediumContrast,
+    error = errorLightMediumContrast,
+    onError = onErrorLightMediumContrast,
+    errorContainer = errorContainerLightMediumContrast,
+    onErrorContainer = onErrorContainerLightMediumContrast,
+    background = backgroundLightMediumContrast,
+    onBackground = onBackgroundLightMediumContrast,
+    surface = surfaceLightMediumContrast,
+    onSurface = onSurfaceLightMediumContrast,
+    surfaceVariant = surfaceVariantLightMediumContrast,
+    onSurfaceVariant = onSurfaceVariantLightMediumContrast,
+    outline = outlineLightMediumContrast,
+    outlineVariant = outlineVariantLightMediumContrast,
+    scrim = scrimLightMediumContrast,
+    inverseSurface = inverseSurfaceLightMediumContrast,
+    inverseOnSurface = inverseOnSurfaceLightMediumContrast,
+    inversePrimary = inversePrimaryLightMediumContrast,
+    surfaceDim = surfaceDimLightMediumContrast,
+    surfaceBright = surfaceBrightLightMediumContrast,
+    surfaceContainerLowest = surfaceContainerLowestLightMediumContrast,
+    surfaceContainerLow = surfaceContainerLowLightMediumContrast,
+    surfaceContainer = surfaceContainerLightMediumContrast,
+    surfaceContainerHigh = surfaceContainerHighLightMediumContrast,
+    surfaceContainerHighest = surfaceContainerHighestLightMediumContrast,
+)
 
-private val LocalAppColors = staticCompositionLocalOf<AppColors> {
-    error("No AppColorPalette provided")
-}
+private val highContrastLightColorScheme = lightColorScheme(
+    primary = primaryLightHighContrast,
+    onPrimary = onPrimaryLightHighContrast,
+    primaryContainer = primaryContainerLightHighContrast,
+    onPrimaryContainer = onPrimaryContainerLightHighContrast,
+    secondary = secondaryLightHighContrast,
+    onSecondary = onSecondaryLightHighContrast,
+    secondaryContainer = secondaryContainerLightHighContrast,
+    onSecondaryContainer = onSecondaryContainerLightHighContrast,
+    tertiary = tertiaryLightHighContrast,
+    onTertiary = onTertiaryLightHighContrast,
+    tertiaryContainer = tertiaryContainerLightHighContrast,
+    onTertiaryContainer = onTertiaryContainerLightHighContrast,
+    error = errorLightHighContrast,
+    onError = onErrorLightHighContrast,
+    errorContainer = errorContainerLightHighContrast,
+    onErrorContainer = onErrorContainerLightHighContrast,
+    background = backgroundLightHighContrast,
+    onBackground = onBackgroundLightHighContrast,
+    surface = surfaceLightHighContrast,
+    onSurface = onSurfaceLightHighContrast,
+    surfaceVariant = surfaceVariantLightHighContrast,
+    onSurfaceVariant = onSurfaceVariantLightHighContrast,
+    outline = outlineLightHighContrast,
+    outlineVariant = outlineVariantLightHighContrast,
+    scrim = scrimLightHighContrast,
+    inverseSurface = inverseSurfaceLightHighContrast,
+    inverseOnSurface = inverseOnSurfaceLightHighContrast,
+    inversePrimary = inversePrimaryLightHighContrast,
+    surfaceDim = surfaceDimLightHighContrast,
+    surfaceBright = surfaceBrightLightHighContrast,
+    surfaceContainerLowest = surfaceContainerLowestLightHighContrast,
+    surfaceContainerLow = surfaceContainerLowLightHighContrast,
+    surfaceContainer = surfaceContainerLightHighContrast,
+    surfaceContainerHigh = surfaceContainerHighLightHighContrast,
+    surfaceContainerHighest = surfaceContainerHighestLightHighContrast,
+)
 
-object AppTheme {
-    val colors: AppColors
-        @Composable get() = LocalAppColors.current
+private val mediumContrastDarkColorScheme = darkColorScheme(
+    primary = primaryDarkMediumContrast,
+    onPrimary = onPrimaryDarkMediumContrast,
+    primaryContainer = primaryContainerDarkMediumContrast,
+    onPrimaryContainer = onPrimaryContainerDarkMediumContrast,
+    secondary = secondaryDarkMediumContrast,
+    onSecondary = onSecondaryDarkMediumContrast,
+    secondaryContainer = secondaryContainerDarkMediumContrast,
+    onSecondaryContainer = onSecondaryContainerDarkMediumContrast,
+    tertiary = tertiaryDarkMediumContrast,
+    onTertiary = onTertiaryDarkMediumContrast,
+    tertiaryContainer = tertiaryContainerDarkMediumContrast,
+    onTertiaryContainer = onTertiaryContainerDarkMediumContrast,
+    error = errorDarkMediumContrast,
+    onError = onErrorDarkMediumContrast,
+    errorContainer = errorContainerDarkMediumContrast,
+    onErrorContainer = onErrorContainerDarkMediumContrast,
+    background = backgroundDarkMediumContrast,
+    onBackground = onBackgroundDarkMediumContrast,
+    surface = surfaceDarkMediumContrast,
+    onSurface = onSurfaceDarkMediumContrast,
+    surfaceVariant = surfaceVariantDarkMediumContrast,
+    onSurfaceVariant = onSurfaceVariantDarkMediumContrast,
+    outline = outlineDarkMediumContrast,
+    outlineVariant = outlineVariantDarkMediumContrast,
+    scrim = scrimDarkMediumContrast,
+    inverseSurface = inverseSurfaceDarkMediumContrast,
+    inverseOnSurface = inverseOnSurfaceDarkMediumContrast,
+    inversePrimary = inversePrimaryDarkMediumContrast,
+    surfaceDim = surfaceDimDarkMediumContrast,
+    surfaceBright = surfaceBrightDarkMediumContrast,
+    surfaceContainerLowest = surfaceContainerLowestDarkMediumContrast,
+    surfaceContainerLow = surfaceContainerLowDarkMediumContrast,
+    surfaceContainer = surfaceContainerDarkMediumContrast,
+    surfaceContainerHigh = surfaceContainerHighDarkMediumContrast,
+    surfaceContainerHighest = surfaceContainerHighestDarkMediumContrast,
+)
 
-    val typography: Typography
-        @Composable
-        @ReadOnlyComposable
-        get() = MaterialTheme.typography
+private val highContrastDarkColorScheme = darkColorScheme(
+    primary = primaryDarkHighContrast,
+    onPrimary = onPrimaryDarkHighContrast,
+    primaryContainer = primaryContainerDarkHighContrast,
+    onPrimaryContainer = onPrimaryContainerDarkHighContrast,
+    secondary = secondaryDarkHighContrast,
+    onSecondary = onSecondaryDarkHighContrast,
+    secondaryContainer = secondaryContainerDarkHighContrast,
+    onSecondaryContainer = onSecondaryContainerDarkHighContrast,
+    tertiary = tertiaryDarkHighContrast,
+    onTertiary = onTertiaryDarkHighContrast,
+    tertiaryContainer = tertiaryContainerDarkHighContrast,
+    onTertiaryContainer = onTertiaryContainerDarkHighContrast,
+    error = errorDarkHighContrast,
+    onError = onErrorDarkHighContrast,
+    errorContainer = errorContainerDarkHighContrast,
+    onErrorContainer = onErrorContainerDarkHighContrast,
+    background = backgroundDarkHighContrast,
+    onBackground = onBackgroundDarkHighContrast,
+    surface = surfaceDarkHighContrast,
+    onSurface = onSurfaceDarkHighContrast,
+    surfaceVariant = surfaceVariantDarkHighContrast,
+    onSurfaceVariant = onSurfaceVariantDarkHighContrast,
+    outline = outlineDarkHighContrast,
+    outlineVariant = outlineVariantDarkHighContrast,
+    scrim = scrimDarkHighContrast,
+    inverseSurface = inverseSurfaceDarkHighContrast,
+    inverseOnSurface = inverseOnSurfaceDarkHighContrast,
+    inversePrimary = inversePrimaryDarkHighContrast,
+    surfaceDim = surfaceDimDarkHighContrast,
+    surfaceBright = surfaceBrightDarkHighContrast,
+    surfaceContainerLowest = surfaceContainerLowestDarkHighContrast,
+    surfaceContainerLow = surfaceContainerLowDarkHighContrast,
+    surfaceContainer = surfaceContainerDarkHighContrast,
+    surfaceContainerHigh = surfaceContainerHighDarkHighContrast,
+    surfaceContainerHighest = surfaceContainerHighestDarkHighContrast,
+)
 
-    val shapes: Shapes
-        @Composable
-        @ReadOnlyComposable
-        get() = MaterialTheme.shapes
+@Immutable
+data class ColorFamily(
+    val color: Color,
+    val onColor: Color,
+    val colorContainer: Color,
+    val onColorContainer: Color
+)
 
-    // other customizations
-//    val switchColors: SwitchColors
-//        @Composable get() = SwitchDefaults.colors(
-//            checkedThumbColor = colors.primary,
-//            uncheckedThumbColor = colors.uncheckedSwitchThumb,
-//        )
-}
+val unspecified_scheme = ColorFamily(
+    Color.Unspecified, Color.Unspecified, Color.Unspecified, Color.Unspecified
+)
 
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicTheme: Boolean = false,
-    content: @Composable () -> Unit,
+    // Dynamic color is available on Android 12+
+    dynamicColor: Boolean = false,
+    content: @Composable() () -> Unit
 ) {
-    HandleSystemBarColors(darkTheme)
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
 
-    val colors: AppColors = when {
-        dynamicTheme && Build.VERSION.SDK_INT >= 31 -> if (darkTheme) dynamicDarkColorScheme(LocalContext.current).toAppColors() else dynamicLightColorScheme(LocalContext.current).toAppColors()
-        else -> if (darkTheme) AppPalette.darkColors() else AppPalette.lightColors()
+        darkTheme -> darkScheme
+        else -> lightScheme
     }
 
-    val colorPalette = remember { colors }
-    colorPalette.updateColorsFrom(colors)
-
-    CompositionLocalProvider(
-        LocalAppColors provides colorPalette,
-    ) {
-        MaterialTheme(
-            colorScheme = colors.toMaterialColors(),
-            content = content,
-        )
+    SmtLogger.i(
+        """Primary Color:${colorScheme.primary}
+        | Hex: ${Integer.toHexString(colorScheme.primary.toArgb())}""".trimMargin()
+    )
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.statusBarColor = colorScheme.primary.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+        }
     }
-}
 
-private fun ColorScheme.toAppColors(): AppColors {
-    return AppColors(
-        primary = this.primary,
-        onPrimary = this.onPrimary,
-        primaryContainer = this.primaryContainer,
-        onPrimaryContainer = this.onPrimaryContainer,
-        inversePrimary = this.inversePrimary,
-        secondary = this.secondary,
-        onSecondary = this.onSecondary,
-        secondaryContainer = this.secondaryContainer,
-        onSecondaryContainer = this.onSecondaryContainer,
-        tertiary = this.tertiary,
-        onTertiary = this.onTertiary,
-        tertiaryContainer = this.tertiaryContainer,
-        onTertiaryContainer = this.onTertiaryContainer,
-        background = this.background,
-        onBackground = this.onBackground,
-        surface = this.surface,
-        onSurface = this.onSurface,
-        surfaceVariant = this.surfaceVariant,
-        onSurfaceVariant = this.onSurfaceVariant,
-        surfaceTint = this.surfaceTint,
-        inverseSurface = this.inverseSurface,
-        inverseOnSurface = this.inverseOnSurface,
-        error = this.error,
-        onError = this.onError,
-        errorContainer = this.errorContainer,
-        onErrorContainer = this.onErrorContainer,
-        outline = this.outline,
-        outlineVariant = this.outlineVariant,
-        scrim = this.scrim,
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = AppTypography,
+        content = content
     )
 }
+

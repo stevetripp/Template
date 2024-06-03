@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -67,22 +68,20 @@ fun SwipableContent(onBack: () -> Unit = {}) {
                         BoxWithConstraints(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .background(AppTheme.colors.primary)
+                                .background(MaterialTheme.colorScheme.primary)
                         ) {
                             Icon(
                                 modifier = Modifier
-                                    .align(Alignment.CenterEnd)
+                                    .align(Alignment.CenterStart)
                                     .padding(end = maxHeight / 2 - (Icons.Default.Delete.defaultWidth / 2)),
                                 imageVector = Icons.Default.Delete,
                                 contentDescription = null,
-                                tint = AppTheme.colors.onPrimary
+                                tint = MaterialTheme.colorScheme.onPrimary
                             )
                         }
                     },
                     content = {
                         ListItem(
-                            modifier = Modifier
-                                .background(AppTheme.colors.background),
                             headlineContent = { Text(item.text) },
                             supportingContent = { Text(item.secondaryText) },
                             overlineContent = { Text(item.overlineText) },

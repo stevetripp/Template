@@ -1,7 +1,6 @@
 package com.example.template.ux.reorderablelist
 
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -50,7 +49,6 @@ fun ReorderableListContent(uiState: ReorderableListUiState, onBack: () -> Unit =
                     Box(
                         modifier = Modifier
                             .shadow(elevation)
-                            .background(if (isDragging) AppTheme.colors.onPrimary else AppTheme.colors.background)
                             .detectReorderAfterLongPress(state) // remove to prevent selection
                     ) {
                         ListItem(headlineContent = { Text(item.value) })

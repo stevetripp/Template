@@ -3,8 +3,10 @@ package com.example.template.ux.gmailaddressfield
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,7 +16,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,7 +40,6 @@ import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ui.widget.InputChip
 import com.example.template.ux.main.Screen
-import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -75,7 +75,7 @@ private fun GmailAddressFieldContent(uiState: GmailAddressFieldUiState, onBack: 
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.GMAIL_ADDRESS_FIELD.title, onBack = onBack) }) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            FlowRow(modifier = Modifier.padding(16.dp), mainAxisSpacing = 4.dp, crossAxisSpacing = 4.dp) {
+            FlowRow(modifier = Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 chips.forEach { contact ->
                     InputChip(
                         label = contact.name,
@@ -94,20 +94,16 @@ private fun GmailAddressFieldContent(uiState: GmailAddressFieldUiState, onBack: 
                     )
                 }
                 BasicTextField(
-                    modifier = Modifier
-                        .height(30.dp),
-                    value = value, onValueChange = { value = it }, singleLine = true,
+                    modifier = Modifier.height(30.dp),
+                    value = value,
+                    onValueChange = { value = it },
+                    singleLine = true,
                     decorationBox = { innerTextField ->
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Box {
-                                if (value.isEmpty()) Text(
-                                    text = "Placeholder Text",
-                                    style = LocalTextStyle.current.copy(
-                                        color = AppTheme.colors.onSurface.copy(alpha = 0.3f),
-                                    )
-                                )
+                                if (value.isEmpty()) Text(text = "Placeholder Text")
                                 innerTextField()
                             }
                         }

@@ -10,11 +10,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.RemoveCircle
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,7 +33,7 @@ import com.example.template.ui.theme.AppTheme
 fun InputChip(
     label: String,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = AppTheme.colors.primary,
+    backgroundColor: Color = MaterialTheme.colorScheme.primary,
     leadingIcon: @Composable (() -> Unit)? = null,
     onRemove: (() -> Unit)? = null,
 ) {
@@ -50,13 +51,13 @@ fun InputChip(
                 modifier = Modifier
                     .size(16.dp)
                     .clip(CircleShape)
-                    .background(AppTheme.colors.onBackground)
+                    .background(MaterialTheme.colorScheme.onBackground)
                     .clickable { onRemove() }
             ) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = null,
-                    tint = AppTheme.colors.background,
+                    tint = MaterialTheme.colorScheme.background,
                 )
             }
         }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Handshake
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -36,15 +37,14 @@ fun EmptyStateDialog(uiState: EmptyStateDialogUiState) {
                     modifier = Modifier.size(148.dp),
                     imageVector = uiState.imageVector,
                     contentDescription = uiState.text,
-                    tint = AppTheme.colors.outline,
                 )
 
-                Text(modifier = Modifier.padding(bottom = 16.dp), text = uiState.text, style = AppTheme.typography.headlineSmall, textAlign = TextAlign.Center)
+                Text(modifier = Modifier.padding(bottom = 16.dp), text = uiState.text, style = MaterialTheme.typography.headlineSmall, textAlign = TextAlign.Center)
 
                 uiState.subtext?.let {
                     Text(
                         modifier = Modifier.padding(bottom = 16.dp),
-                        text = it, textAlign = TextAlign.Center, style = AppTheme.typography.bodySmall
+                        text = it, textAlign = TextAlign.Center, style = MaterialTheme.typography.bodySmall
                     )
                 }
 

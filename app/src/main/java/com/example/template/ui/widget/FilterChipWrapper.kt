@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,11 +25,6 @@ fun FilterChipWrapper(
         onClick = onClick,
         label = { Text(title) },
         trailingIcon = { Icon(Icons.Outlined.ArrowDropDown, title) },
-        colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = AppTheme.colors.secondary,
-            selectedLabelColor = AppTheme.colors.onSecondary,
-            selectedTrailingIconColor = AppTheme.colors.onSecondary
-        ),
     )
 }
 
