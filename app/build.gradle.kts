@@ -27,19 +27,6 @@ android {
         }
     }
 
-    buildTypes {
-        val debug by getting {
-            resValue("string", "file_provider", "com.tnt.template.dev.fileprovider")
-        }
-        val release by getting {
-            // https://developer.android.com/build/shrink-code#enable
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-
-            resValue("string", "file_provider", "com.tnt.template.fileprovider")
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -66,6 +53,73 @@ android {
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+
+    // set dummy signing values if not defined in ~/.gradle/gradle.properties
+    if (!project.hasProperty("tntKeystore")) {
+        println("Using dummy signing values")
+        project.extra.set("tntKeystore", "dummy")
+        project.extra.set("tntKeystorePassword", "dummy")
+        project.extra.set("tntKeyAlias", "dummy")
+        project.extra.set("tntKeyPassword", "dummy")
+    }
+    // set dummy signing values if not defined in ~/.gradle/gradle.properties
+    if (!project.hasProperty("tntUploadKeystore")) {
+        println("Using dummy signing values")
+        project.extra.set("tntUploadKeystore", "dummy")
+        project.extra.set("tntUploadKeystorePassword", "dummy")
+        project.extra.set("tntUploadKeyAlias", "dummy")
+        project.extra.set("tntUploadKeyPassword", "dummy")
+    }
+
+    // defined values my* in ~/.gradle/gradle.properties
+    signingConfigs {
+        create("uploadConfig") {
+            val tntUploadKeystore: String? by project.extra
+            val tntUploadKeystorePassword: String by project.extra
+            val tntUploadKeyAlias: String by project.extra
+            val tntUploadKeyPassword: String by project.extra
+
+            tntUploadKeystore?.let {
+                storeFile = File(it)
+                storePassword = tntUploadKeystorePassword
+                keyAlias = tntUploadKeyAlias
+                keyPassword = tntUploadKeyPassword
+            }
+        }
+
+        create("prodConfig") {
+            val tntKeystore: String? by project.extra
+            val tntKeystorePassword: String by project.extra
+            val tntKeyAlias: String by project.extra
+            val tntKeyPassword: String by project.extra
+
+            tntKeystore?.let {
+                storeFile = File(it)
+                storePassword = tntKeystorePassword
+                keyAlias = tntKeyAlias
+                keyPassword = tntKeyPassword
+            }
+        }
+    }
+
+    buildTypes {
+        val debug by getting {
+            versionNameSuffix = "-DEV"
+            applicationIdSuffix = ".dev"
+            signingConfig = signingConfigs.getByName("uploadConfig")
+            resValue("string", "file_provider", "com.tnt.template.dev.fileprovider")
+        }
+        val release by getting {
+            signingConfig = signingConfigs.getByName("uploadConfig")
+
+            // https://developer.android.com/build/shrink-code#enable
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+            resValue("string", "file_provider", "com.tnt.template.fileprovider")
         }
     }
 }
