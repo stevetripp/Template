@@ -109,7 +109,11 @@ fun NavGraph(
         BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
         CarouselRoute.addNavigationRoute(this) { CarouselScreen(navController) }
         ChildWithNavigationRoute.addNavigationRoute(this) { ChildWithNavigationScreen(navController) }
-        ChildWithoutNavigationRoute.addNavigationRoute(this) { ChildWithoutNavigationScreen(navController) }
+        ChildWithoutNavigationRoute.addNavigationRoute(this) {
+            ChildWithoutNavigationScreen(
+                navController
+            )
+        }
         ChipSheetRoute.addNavigationRoute(this) { ChipSheetScreen(navController) }
         DateTimeFormatRoute.addNavigationRoute(this) { DateTimeFormatScreen(navController) }
         DestinationRoute.addNavigationRoute(this) { DestinationScreen(navController) } // Putting first fixes crash
@@ -122,7 +126,11 @@ fun NavGraph(
         KtorRoute.addNavigationRoute(this) { KtorScreen(navController) }
         ModalBottomSheetRoute.addNavigationRoute(this) { ModalBottomSheetScreen(navController) }
         NavigationPagerRoute.addNavigationRoute(this) { NavigationPagerScreen(navController) }
-        NotificationPermissionsRoute.addNavigationRoute(this) { NotificationPermissionsScreen(navController) }
+        NotificationPermissionsRoute.addNavigationRoute(this) {
+            NotificationPermissionsScreen(
+                navController
+            )
+        }
         PagerRoute.addNavigationRoute(this) { PagerScreen(navController) }
         PanningZoomingRoute.addNavigationRoute(this) { PanningZoomingScreen(navController) }
         ParametersRoute.addNavigationRoute(this) { ParametersScreen(navController) }
@@ -153,9 +161,8 @@ fun NavGraph(
  */
 object DeepLink {
     private const val SCHEME = "https"
-    private const val HOST = "my.website.org"
-    private const val PATH_PREFIX = "/deeplink"
+    private const val HOST = "trippntechnology.com"
+    private const val PATH_PREFIX = "/template"
 
     const val ROOT = "$SCHEME://$HOST$PATH_PREFIX"
-//    const val ROOT = "$SCHEME://$HOST"
 }
