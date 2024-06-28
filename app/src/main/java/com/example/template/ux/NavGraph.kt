@@ -101,7 +101,7 @@ fun NavGraph(
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = HomeRoute.routeDefinition.value
+        startDestination = HomeRoute.createRoute().value
     ) {
         AboutRoute.addNavigationRoute(this) { AboutScreen(navController) }
         AnimatedGesturesRoute.addNavigationRoute(this) { AnimatedGestureScreen(navController) }
