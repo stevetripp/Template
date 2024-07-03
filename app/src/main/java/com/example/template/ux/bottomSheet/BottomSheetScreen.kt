@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
@@ -31,7 +32,8 @@ fun BottomSheetScreen(navController: NavController) {
 @Composable
 fun BottomSheetScreenContent(onBack: () -> Unit = {}) {
     val scope = rememberCoroutineScope()
-    val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = SheetState(skipPartiallyExpanded = false, skipHiddenState = false))
+    val density = LocalDensity.current
+    val scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = SheetState(skipPartiallyExpanded = false, density = density, skipHiddenState = false))
     var showSnackbar by remember { mutableStateOf(false) }
     val peekHeight = 56.dp
 
