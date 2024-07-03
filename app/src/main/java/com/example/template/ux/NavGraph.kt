@@ -1,7 +1,6 @@
 package com.example.template.ux
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavHostController
 import androidx.navigation.activity
@@ -96,7 +95,6 @@ import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
 import org.lds.mobile.navigation.NavUriLogger
 import org.lds.mobile.navigation.RouteUtil
-import org.lds.mobile.ui.compose.navigation.NavComposeRoute
 
 @Composable
 fun NavGraph(
@@ -105,7 +103,6 @@ fun NavGraph(
     // Debug navigation
     navController.addOnDestinationChangedListener(NavUriLogger())
 
-    val context = LocalContext.current
     NavHost(
         navController = navController,
         startDestination = HomeRoute
@@ -176,7 +173,7 @@ fun NavGraph(
 }
 
 /**
- * Constants for the [NavDeepLink] URIs returned by the [NavComposeRoute]
+ * Constants for the [NavDeepLink] URIs
  *
  * The [SCHEME], [HOST], and [PATH_PREFIX] should match the manifest intent-filter data elements respectively
  */
