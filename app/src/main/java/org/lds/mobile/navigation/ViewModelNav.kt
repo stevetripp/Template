@@ -3,7 +3,6 @@
 package org.lds.mobile.navigation
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.NavOptions
 import androidx.navigation.NavOptionsBuilder
@@ -16,62 +15,57 @@ import kotlinx.coroutines.flow.asStateFlow
  * Used for typical ViewModels that have navigation
  */
 interface ViewModelNav {
-    val navigationActionFlow: StateFlow<NavigationAction?>
+    val navigationActionFlow: StateFlow<NavAction?>
 
     fun navigate(route: NavRoute, popBackStack: Boolean = false)
     fun navigate(routes: List<NavRoute>)
     fun navigate(route: NavRoute, navOptions: NavOptions)
     fun navigate(route: NavRoute, optionsBuilder: NavOptionsBuilder.() -> Unit)
     fun navigate(intent: Intent, options: Bundle? = null, popBackStack: Boolean = false)
-    fun navigate(uri: Uri)
     fun popBackStack(popToRouteDefinition: NavRouteDefinition? = null, inclusive: Boolean = false)
     fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, popToRouteDefinition: NavRouteDefinition? = null, inclusive: Boolean = false)
 
-    fun navigate(navigationAction: NavigationAction)
-    fun resetNavigate(navigationAction: NavigationAction)
+    fun navigate(navAction: NavAction)
+    fun resetNavigate(navAction: NavAction)
 }
 
 class ViewModelNavImpl : ViewModelNav {
-    private val _navigatorFlow = MutableStateFlow<NavigationAction?>(null)
-    override val navigationActionFlow: StateFlow<NavigationAction?> = _navigatorFlow.asStateFlow()
+    private val _navigatorFlow = MutableStateFlow<NavAction?>(null)
+    override val navigationActionFlow: StateFlow<NavAction?> = _navigatorFlow.asStateFlow()
 
     override fun navigate(route: NavRoute, popBackStack: Boolean) {
-        _navigatorFlow.compareAndSet(null, if (popBackStack) NavigationAction.PopAndNavigate(route) else NavigationAction.Navigate(route))
+        _navigatorFlow.compareAndSet(null, if (popBackStack) NavAction.PopAndNavigate(route) else NavAction.Navigate(route))
     }
 
     override fun navigate(routes: List<NavRoute>) {
-        _navigatorFlow.compareAndSet(null, NavigationAction.NavigateMultiple(routes))
+        _navigatorFlow.compareAndSet(null, NavAction.NavigateMultiple(routes))
     }
 
     override fun navigate(route: NavRoute, navOptions: NavOptions) {
-        _navigatorFlow.compareAndSet(null, NavigationAction.NavigateWithOptions(route, navOptions))
+        _navigatorFlow.compareAndSet(null, NavAction.NavigateWithOptions(route, navOptions))
     }
 
     override fun navigate(route: NavRoute, optionsBuilder: NavOptionsBuilder.() -> Unit) {
-        _navigatorFlow.compareAndSet(null, NavigationAction.NavigateWithOptions(route, navOptions(optionsBuilder)))
+        _navigatorFlow.compareAndSet(null, NavAction.NavigateWithOptions(route, navOptions(optionsBuilder)))
     }
 
     override fun navigate(intent: Intent, options: Bundle?, popBackStack: Boolean) {
-        _navigatorFlow.compareAndSet(null, if (popBackStack) NavigationAction.PopAndNavigateIntent(intent, options) else NavigationAction.NavigateIntent(intent, options))
-    }
-
-    override fun navigate(uri: Uri) {
-        _navigatorFlow.compareAndSet(null, NavigationAction.NavigateUri(uri))
+        _navigatorFlow.compareAndSet(null, if (popBackStack) NavAction.PopAndNavigateIntent(intent, options) else NavAction.NavigateIntent(intent, options))
     }
 
     override fun popBackStack(popToRouteDefinition: NavRouteDefinition?, inclusive: Boolean) {
-        _navigatorFlow.compareAndSet(null, NavigationAction.Pop(popToRouteDefinition, inclusive))
+        _navigatorFlow.compareAndSet(null, NavAction.Pop(popToRouteDefinition, inclusive))
     }
 
     override fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, popToRouteDefinition: NavRouteDefinition?, inclusive: Boolean) {
-        _navigatorFlow.compareAndSet(null, NavigationAction.PopWithResult(resultValues, popToRouteDefinition, inclusive))
+        _navigatorFlow.compareAndSet(null, NavAction.PopWithResult(resultValues, popToRouteDefinition, inclusive))
     }
 
-    override fun navigate(navigationAction: NavigationAction) {
-        _navigatorFlow.compareAndSet(null, navigationAction)
+    override fun navigate(navAction: NavAction) {
+        _navigatorFlow.compareAndSet(null, navAction)
     }
 
-    override fun resetNavigate(navigationAction: NavigationAction) {
-        _navigatorFlow.compareAndSet(navigationAction, null)
+    override fun resetNavigate(navAction: NavAction) {
+        _navigatorFlow.compareAndSet(navAction, null)
     }
 }

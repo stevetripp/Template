@@ -1,6 +1,7 @@
 package com.example.template.ux.stickyheaders
 
-import com.example.template.ux.main.Screen
-import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.lds.mobile.navigation.NavigationRoute
 
-object StickyHeadersRoute : SimpleNavComposeRoute(Screen.STICKY_HEADERS.name)
+@Serializable
+object StickyHeadersRoute : NavigationRoute

@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.template.ui.theme.AppTheme
 import com.example.template.util.SmtLogger
 import dagger.hilt.android.AndroidEntryPoint

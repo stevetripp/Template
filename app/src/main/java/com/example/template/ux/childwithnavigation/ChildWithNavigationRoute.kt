@@ -1,5 +1,7 @@
 package com.example.template.ux.childwithnavigation
 
-import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.lds.mobile.navigation.NavigationRoute
 
-object ChildWithNavigationRoute : SimpleNavComposeRoute("ChildWithNavigationRoute")
+@Serializable
+object ChildWithNavigationRoute : NavigationRoute

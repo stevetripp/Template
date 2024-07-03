@@ -5,14 +5,14 @@ import com.example.template.util.SmtLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.lds.mobile.navigation.PopResultKeyValue
-import org.lds.mobile.navigation.ViewModelNav
-import org.lds.mobile.navigation.ViewModelNavImpl
+import org.lds.mobile.navigation.ViewModelNavigation
+import org.lds.mobile.navigation.ViewModelNavigationImpl
 import javax.inject.Inject
 
 @HiltViewModel
 class PopWithResultChildViewModel
 @Inject
-constructor() : ViewModel(), ViewModelNav by ViewModelNavImpl() {
+constructor() : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
     private val valueFlow = MutableStateFlow("")
 

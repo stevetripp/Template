@@ -7,15 +7,15 @@ import androidx.lifecycle.ViewModel
 import com.google.accompanist.permissions.PermissionStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.lds.mobile.navigation.ViewModelNav
-import org.lds.mobile.navigation.ViewModelNavImpl
+import org.lds.mobile.navigation.ViewModelNavigation
+import org.lds.mobile.navigation.ViewModelNavigationImpl
 import javax.inject.Inject
 
 @HiltViewModel
 class NotificationPermissionsViewModel
 @Inject constructor(
     application: Application
-) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
+) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
     // Allows view model to get notified when permission changes thru system settings.
     private val hasPermissionGranted = MutableStateFlow(application.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED)

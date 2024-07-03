@@ -1,5 +1,7 @@
 package com.example.template.ux.datetimeformat
 
-import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.lds.mobile.navigation.NavigationRoute
 
-object DateTimeFormatRoute : SimpleNavComposeRoute("DateTimeFormatRoute")
+@Serializable
+object DateTimeFormatRoute : NavigationRoute

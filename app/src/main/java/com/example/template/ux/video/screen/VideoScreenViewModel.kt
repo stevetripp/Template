@@ -12,12 +12,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import org.lds.mobile.ext.stateInDefault
-import org.lds.mobile.navigation.ViewModelNav
-import org.lds.mobile.navigation.ViewModelNavImpl
+import org.lds.mobile.navigation.ViewModelNavigation
+import org.lds.mobile.navigation.ViewModelNavigationImpl
 import javax.inject.Inject
 
 @HiltViewModel
-class VideoScreenViewModel @Inject constructor() : ViewModel(), ViewModelNav by ViewModelNavImpl() {
+class VideoScreenViewModel @Inject constructor() : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
     private val testDataFlow = MutableStateFlow(TestData.getVideos())
     private val videoItemsFlow = testDataFlow.map { it.videos }.stateInDefault(viewModelScope, emptyList())
@@ -31,7 +31,7 @@ class VideoScreenViewModel @Inject constructor() : ViewModel(), ViewModelNav by 
     )
 
     private fun onHlsStreamTapped(videoItem: VideoItem) {
-        navigate(PlayerRoute.createRoute(videoItem.id))
+        navigate(PlayerRoute(videoItem.id))
     }
 
     private fun onVideoRenditionTapped(videoItem: VideoItem) {

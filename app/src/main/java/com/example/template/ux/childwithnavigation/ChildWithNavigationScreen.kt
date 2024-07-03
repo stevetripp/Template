@@ -12,14 +12,14 @@ import com.example.template.ux.main.Screen
 fun ChildWithNavigationScreen(navController: NavController) {
 
     val fab = @Composable {
-        FloatingActionButton(onClick = { navController.navigate(ChildWithoutNavigationRoute.createRoute().value) }) {
+        FloatingActionButton(onClick = { navController.navigate(ChildWithoutNavigationRoute) }) {
             Text(text = "Click Me")
         }
     }
     MainAppScaffoldWithNavBar(
         title = Screen.CHILD_WITH_NAVIGATION.title, onNavigationClick = navController::popBackStack, floatingActionButton = fab
     ) {
-        TextButton(onClick = { navController.navigate(ChildWithoutNavigationRoute.createRoute().value) }) {
+        TextButton(onClick = { navController.navigate(ChildWithoutNavigationRoute) }) {
             Text(text = "Click Me")
         }
     }

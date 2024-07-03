@@ -1,5 +1,7 @@
 package com.example.template.ux.ktor
 
-import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.lds.mobile.navigation.NavigationRoute
 
-object KtorRoute : SimpleNavComposeRoute("KtorRoute")
+@Serializable
+object KtorRoute : NavigationRoute

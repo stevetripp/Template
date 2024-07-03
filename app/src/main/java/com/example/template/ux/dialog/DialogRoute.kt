@@ -1,6 +1,7 @@
 package com.example.template.ux.dialog
 
-import com.example.template.ux.main.Screen
-import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.lds.mobile.navigation.NavigationRoute
 
-object DialogRoute : SimpleNavComposeRoute(Screen.DIALOG.name)
+@Serializable
+object DialogRoute : NavigationRoute

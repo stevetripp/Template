@@ -1,6 +1,7 @@
 package com.example.template.ux.parameters
 
-import com.example.template.ux.main.Screen
-import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.lds.mobile.navigation.NavigationRoute
 
-object ParametersRoute : SimpleNavComposeRoute(Screen.PARAMETERS.name)
+@Serializable
+object ParametersRoute : NavigationRoute

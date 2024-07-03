@@ -1,6 +1,7 @@
 package com.example.template.ux.panningzooming
 
-import com.example.template.ux.main.Screen
-import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.lds.mobile.navigation.NavigationRoute
 
-object PanningZoomingRoute : SimpleNavComposeRoute(Screen.PANNING_ZOOMING.name)
+@Serializable
+object PanningZoomingRoute : NavigationRoute

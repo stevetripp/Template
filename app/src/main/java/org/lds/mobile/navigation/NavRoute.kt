@@ -1,8 +1,5 @@
 package org.lds.mobile.navigation
 
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
-
 @JvmInline
 value class NavRoute(val value: String)
 
@@ -14,23 +11,3 @@ value class NavRouteDefinition(val value: String) {
 fun String.asNavRoute(): NavRoute = NavRoute(this)
 
 fun String.asNavRouteDefinition(): NavRouteDefinition = NavRouteDefinition(this)
-
-fun NavController.navigate(route: NavRoute) {
-    navigate(route.value)
-}
-
-fun NavController.popBackStack(route: NavRoute, inclusive: Boolean, saveState: Boolean = false) {
-    popBackStack(route.value, inclusive, saveState)
-}
-
-fun NavController.popBackStack(route: NavRouteDefinition, inclusive: Boolean, saveState: Boolean = false) {
-    popBackStack(route.value, inclusive, saveState)
-}
-
-fun NavController.getBackStackEntry(route: NavRoute): NavBackStackEntry {
-    return getBackStackEntry(route.value)
-}
-
-fun NavController.getBackStackEntry(route: NavRouteDefinition): NavBackStackEntry {
-    return getBackStackEntry(route.value)
-}

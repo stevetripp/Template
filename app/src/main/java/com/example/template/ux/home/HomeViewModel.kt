@@ -13,7 +13,6 @@ import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
 import com.example.template.ux.imagepicker.ImagePickerRoute
 import com.example.template.ux.inputexamples.InputExamplesRoute
-import com.example.template.ux.ktor.KtorRoute
 import com.example.template.ux.main.Screen
 import com.example.template.ux.main.ScreenType
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
@@ -38,14 +37,14 @@ import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.lds.mobile.navigation.ViewModelNav
-import org.lds.mobile.navigation.ViewModelNavImpl
+import org.lds.mobile.navigation.ViewModelNavigation
+import org.lds.mobile.navigation.ViewModelNavigationImpl
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel
 @Inject constructor(
-) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
+) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
     private val screens = Screen.entries.filter { it.type == ScreenType.UI }
     private val screensFlow = MutableStateFlow(screens)
@@ -57,38 +56,38 @@ class HomeViewModel
 
     private fun onItemClicked(screen: Screen) {
         when (screen) {
-            Screen.ANIMATED_GESTURE -> navigate(AnimatedGesturesRoute.createRoute())
-            Screen.BOTTOM_NAVIGATION -> navigate(BottomNavigationRoute.createRoute())
-            Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute.createRoute())
-            Screen.CAROUSEL -> navigate(CarouselRoute.createRoute())
-            Screen.CHILD_WITH_NAVIGATION -> navigate(ChildWithNavigationRoute.createRoute())
-            Screen.CHIP_SHEET -> navigate(ChipSheetRoute.createRoute())
-            Screen.DATE_TIME_FORMAT -> navigate(DateTimeFormatRoute.createRoute())
-            Screen.DIALOG -> navigate(DialogRoute.createRoute())
-            Screen.FLIPPABLE -> navigate(FlippableRoute.createRoute())
-            Screen.GMAIL_ADDRESS_FIELD -> navigate(GmailAddressFieldRoute.createRoute())
-            Screen.IMAGE_PICKER -> navigate(ImagePickerRoute.createRoute())
-            Screen.INPUT_EXAMPLES -> navigate(InputExamplesRoute.createRoute())
-            Screen.MODAL_BOTTOM_SHEET -> navigate(ModalBottomSheetRoute.createRoute())
-            Screen.NAVIGATION_PAGER -> navigate(NavigationPagerRoute.createRoute())
-            Screen.NOTIFICATION_PERMISSIONS -> navigate(NotificationPermissionsRoute.createRoute())
-            Screen.PAGER -> navigate(PagerRoute.createRoute())
-            Screen.PANNING_ZOOMING -> navigate(PanningZoomingRoute.createRoute())
-            Screen.PARAMETERS -> navigate(ParametersRoute.createRoute())
-            Screen.PERMISSIONS -> navigate(PermissionsRoute.createRoute())
-            Screen.POP_WITH_RESULT -> navigate(PopWithResultParentRoute.createRoute())
-            Screen.PULL_REFRESH -> navigate(PullRefreshRoute.createRoute())
-            Screen.REORDERABLE_LIST -> navigate(ReorderableListRoute.createRoute())
-            Screen.SEARCH -> navigate(SearchRoute.createRoute())
-            Screen.SIDE_DRAWER -> navigate(SideDrawerRoute.createRoute())
-            Screen.SNACKBAR -> navigate(SnackbarRoute.createRoute())
-            Screen.STICKY_HEADERS -> navigate(StickyHeadersRoute.createRoute())
-            Screen.SWIPABLE -> navigate(SwipableRoute.createRoute())
-            Screen.SYSTEM_UI -> navigate(SystemUiRoute.createRoute())
-            Screen.TABS -> navigate(TabsRoute.createRoute())
-            Screen.URI_NAVIGATION -> navigate(UriNavigationRoute.createRoute())
-            Screen.VIDEO -> navigate(VideoScreenRoute.createRoute())
-            Screen.WEBVIEW -> navigate(WebViewRoute.createRoute())
+            Screen.ANIMATED_GESTURE -> navigate(AnimatedGesturesRoute)
+            Screen.BOTTOM_NAVIGATION -> navigate(BottomNavigationRoute)
+            Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute)
+            Screen.CAROUSEL -> navigate(CarouselRoute)
+            Screen.CHILD_WITH_NAVIGATION -> navigate(ChildWithNavigationRoute)
+            Screen.CHIP_SHEET -> navigate(ChipSheetRoute)
+            Screen.DATE_TIME_FORMAT -> navigate(DateTimeFormatRoute)
+            Screen.DIALOG -> navigate(DialogRoute)
+            Screen.FLIPPABLE -> navigate(FlippableRoute)
+            Screen.GMAIL_ADDRESS_FIELD -> navigate(GmailAddressFieldRoute)
+            Screen.IMAGE_PICKER -> navigate(ImagePickerRoute)
+            Screen.INPUT_EXAMPLES -> navigate(InputExamplesRoute)
+            Screen.MODAL_BOTTOM_SHEET -> navigate(ModalBottomSheetRoute)
+            Screen.NAVIGATION_PAGER -> navigate(NavigationPagerRoute)
+            Screen.NOTIFICATION_PERMISSIONS -> navigate(NotificationPermissionsRoute)
+            Screen.PAGER -> navigate(PagerRoute)
+            Screen.PANNING_ZOOMING -> navigate(PanningZoomingRoute)
+            Screen.PARAMETERS -> navigate(ParametersRoute)
+            Screen.PERMISSIONS -> navigate(PermissionsRoute)
+            Screen.POP_WITH_RESULT -> navigate(PopWithResultParentRoute)
+            Screen.PULL_REFRESH -> navigate(PullRefreshRoute)
+            Screen.REORDERABLE_LIST -> navigate(ReorderableListRoute)
+            Screen.SEARCH -> navigate(SearchRoute)
+            Screen.SIDE_DRAWER -> navigate(SideDrawerRoute)
+            Screen.SNACKBAR -> navigate(SnackbarRoute)
+            Screen.STICKY_HEADERS -> navigate(StickyHeadersRoute)
+            Screen.SWIPABLE -> navigate(SwipableRoute)
+            Screen.SYSTEM_UI -> navigate(SystemUiRoute)
+            Screen.TABS -> navigate(TabsRoute)
+            Screen.URI_NAVIGATION -> navigate(UriNavigationRoute)
+            Screen.VIDEO -> navigate(VideoScreenRoute)
+            Screen.WEBVIEW -> navigate(WebViewRoute)
             else -> Unit
         }
     }

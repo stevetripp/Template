@@ -1,6 +1,7 @@
 package com.example.template.ux.gmailaddressfield
 
-import com.example.template.ux.main.Screen
-import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.lds.mobile.navigation.NavigationRoute
 
-object GmailAddressFieldRoute : SimpleNavComposeRoute(Screen.GMAIL_ADDRESS_FIELD.name)
+@Serializable
+object GmailAddressFieldRoute : NavigationRoute

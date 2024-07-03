@@ -6,14 +6,14 @@ import com.example.template.ux.main.Screen
 import com.example.template.ux.main.ScreenType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.lds.mobile.navigation.ViewModelNav
-import org.lds.mobile.navigation.ViewModelNavImpl
+import org.lds.mobile.navigation.ViewModelNavigation
+import org.lds.mobile.navigation.ViewModelNavigationImpl
 import javax.inject.Inject
 
 @HiltViewModel
 class ServicesExamplesViewModel
 @Inject constructor(
-) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
+) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
     private val screens = Screen.entries.filter { it.type == ScreenType.SERVICES }
     private val screensFlow = MutableStateFlow(screens)
@@ -25,7 +25,7 @@ class ServicesExamplesViewModel
 
     private fun onItemClicked(screen: Screen) {
         when (screen) {
-            Screen.KTOR -> navigate(KtorRoute.createRoute())
+            Screen.KTOR -> navigate(KtorRoute)
             else -> Unit
         }
     }

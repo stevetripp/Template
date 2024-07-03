@@ -1,6 +1,7 @@
 package com.example.template.ux.systemui
 
-import com.example.template.ux.main.Screen
-import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.lds.mobile.navigation.NavigationRoute
 
-object SystemUiRoute : SimpleNavComposeRoute(Screen.SYSTEM_UI.name)
+@Serializable
+object SystemUiRoute : NavigationRoute

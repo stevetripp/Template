@@ -4,7 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavHostController
+import androidx.navigation.activity
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import com.example.template.ux.DeepLink.HOST
 import com.example.template.ux.DeepLink.PATH_PREFIX
 import com.example.template.ux.DeepLink.SCHEME
@@ -40,6 +43,7 @@ import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.inputexamples.InputExamplesScreen
 import com.example.template.ux.ktor.KtorRoute
 import com.example.template.ux.ktor.KtorScreen
+import com.example.template.ux.main.Screen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetScreen
 import com.example.template.ux.navigatepager.NavigationPagerRoute
@@ -54,6 +58,7 @@ import com.example.template.ux.parameters.DestinationRoute
 import com.example.template.ux.parameters.DestinationScreen
 import com.example.template.ux.parameters.ParametersRoute
 import com.example.template.ux.parameters.ParametersScreen
+import com.example.template.ux.parameters.typeMap
 import com.example.template.ux.permissions.PermissionsRoute
 import com.example.template.ux.permissions.PermissionsScreen
 import com.example.template.ux.popwithresult.PopWithResultChildRoute
@@ -84,11 +89,13 @@ import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.urinavigation.UriNavigationScreen
 import com.example.template.ux.video.player.PlayerActivity
 import com.example.template.ux.video.player.PlayerRoute
+import com.example.template.ux.video.player.typeMap
 import com.example.template.ux.video.screen.VideoScreen
 import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
 import org.lds.mobile.navigation.NavUriLogger
+import org.lds.mobile.navigation.RouteUtil
 import org.lds.mobile.ui.compose.navigation.NavComposeRoute
 
 @Composable
@@ -101,56 +108,70 @@ fun NavGraph(
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = HomeRoute.createRoute().value
+        startDestination = HomeRoute
     ) {
-        AboutRoute.addNavigationRoute(this) { AboutScreen(navController) }
-        AnimatedGesturesRoute.addNavigationRoute(this) { AnimatedGestureScreen(navController) }
-        BottomNavigationRoute.addNavigationRoute(this) { BottomNavigationScreen(navController) }
-        BottomSheetRoute.addNavigationRoute(this) { BottomSheetScreen(navController) }
-        CarouselRoute.addNavigationRoute(this) { CarouselScreen(navController) }
-        ChildWithNavigationRoute.addNavigationRoute(this) { ChildWithNavigationScreen(navController) }
-        ChildWithoutNavigationRoute.addNavigationRoute(this) {
-            ChildWithoutNavigationScreen(
-                navController
+        composable<AboutRoute> { AboutScreen(navController) }
+        composable<AnimatedGesturesRoute> { AnimatedGestureScreen(navController) }
+        composable<BottomNavigationRoute> { BottomNavigationScreen(navController) }
+        composable<BottomSheetRoute> { BottomSheetScreen(navController) }
+        composable<CarouselRoute> { CarouselScreen(navController) }
+        composable<ChildWithNavigationRoute> { ChildWithNavigationScreen(navController) }
+        composable<ChildWithoutNavigationRoute> { ChildWithoutNavigationScreen(navController) }
+        composable<ChipSheetRoute> { ChipSheetScreen(navController) }
+        composable<DateTimeFormatRoute> { DateTimeFormatScreen(navController) }
+        composable<DestinationRoute>(
+            typeMap = DestinationRoute.typeMap(),
+            deepLinks = listOf(
+                navDeepLink<DestinationRoute>(
+                    basePath = "${DeepLink.ROOT}/${Screen.PARAMETERS.name}/${
+                        RouteUtil.defineArg(DestinationRoute.REQUIRED_PARAMETER)
+                    }?${
+                        RouteUtil.defineOptionalArgs(DestinationRoute.OPTIONAL_PARAMETER)
+                    }",
+                    typeMap = DestinationRoute.typeMap()
+                )
             )
-        }
-        ChipSheetRoute.addNavigationRoute(this) { ChipSheetScreen(navController) }
-        DateTimeFormatRoute.addNavigationRoute(this) { DateTimeFormatScreen(navController) }
-        DestinationRoute.addNavigationRoute(this) { DestinationScreen(navController) } // Putting first fixes crash
-        DialogRoute.addNavigationRoute(this) { DialogScreen(navController) }
-        FlippableRoute.addNavigationRoute(this) { FlippableScreen(navController) }
-        GmailAddressFieldRoute.addNavigationRoute(this) { GmailAddressFieldScreen(navController) }
-        HomeRoute.addNavigationRoute(this) { HomeScreen(navController) }
-        ImagePickerRoute.addNavigationRoute(this) { ImagePickerScreen(navController) }
-        InputExamplesRoute.addNavigationRoute(this) { InputExamplesScreen(navController) }
-        KtorRoute.addNavigationRoute(this) { KtorScreen(navController) }
-        ModalBottomSheetRoute.addNavigationRoute(this) { ModalBottomSheetScreen(navController) }
-        NavigationPagerRoute.addNavigationRoute(this) { NavigationPagerScreen(navController) }
-        NotificationPermissionsRoute.addNavigationRoute(this) {
-            NotificationPermissionsScreen(
-                navController
+        ) { DestinationScreen(navController) }
+        composable<DialogRoute> { DialogScreen(navController) }
+        composable<FlippableRoute>(
+            deepLinks = listOf(
+                navDeepLink<FlippableRoute>(basePath = "${DeepLink.ROOT}/${Screen.FLIPPABLE.name}")
             )
+        ) { FlippableScreen(navController) }
+        composable<GmailAddressFieldRoute> { GmailAddressFieldScreen(navController) }
+        composable<HomeRoute> { HomeScreen(navController) }
+        composable<ImagePickerRoute> { ImagePickerScreen(navController) }
+        composable<InputExamplesRoute> { InputExamplesScreen(navController) }
+        composable<KtorRoute> { KtorScreen(navController) }
+        composable<ModalBottomSheetRoute> { ModalBottomSheetScreen(navController) }
+        composable<NavigationPagerRoute> { NavigationPagerScreen(navController) }
+        composable<NotificationPermissionsRoute> { NotificationPermissionsScreen(navController) }
+        composable<PagerRoute> { PagerScreen(navController) }
+        composable<PanningZoomingRoute> { PanningZoomingScreen(navController) }
+        composable<ParametersRoute> { ParametersScreen(navController) }
+        composable<PermissionsRoute> { PermissionsScreen(navController) }
+        activity<PlayerRoute>(PlayerRoute.typeMap()) {
+            this.activityClass = PlayerActivity::class
         }
-        PagerRoute.addNavigationRoute(this) { PagerScreen(navController) }
-        PanningZoomingRoute.addNavigationRoute(this) { PanningZoomingScreen(navController) }
-        ParametersRoute.addNavigationRoute(this) { ParametersScreen(navController) }
-        PermissionsRoute.addNavigationRoute(this) { PermissionsScreen(navController) }
-        PlayerRoute.addNavigationRoute<PlayerActivity>(this, context)
-        PopWithResultChildRoute.addNavigationRoute(this) { PopWithResultChildScreen(navController) }
-        PopWithResultParentRoute.addNavigationRoute(this) { PopWithResultParentScreen(navController) }
-        PullRefreshRoute.addNavigationRoute(this) { PullRefreshScreen(navController) }
-        ReorderableListRoute.addNavigationRoute(this) { ReorderableListScreen(navController) }
-        SearchRoute.addNavigationRoute(this) { SearchScreen(navController) }
-        ServicesExamplesRoute.addNavigationRoute(this) { ServicesExamplesScreen(navController) }
-        SideDrawerRoute.addNavigationRoute(this) { SideDrawerScreen(navController) }
-        SnackbarRoute.addNavigationRoute(this) { SnackbarScreen(navController) }
-        StickyHeadersRoute.addNavigationRoute(this) { StickyHeadersScreen(navController) }
-        SwipableRoute.addNavigationRoute(this) { SwipableScreen(navController) }
-        SystemUiRoute.addNavigationRoute(this) { SystemUiScreen(navController) }
-        TabsRoute.addNavigationRoute(this) { TabsScreen(navController) }
-        UriNavigationRoute.addNavigationRoute(this) { UriNavigationScreen(navController) }
-        VideoScreenRoute.addNavigationRoute(this) { VideoScreen(navController) }
-        WebViewRoute.addNavigationRoute(this) { WebViewScreen(navController) }
+        composable<PopWithResultChildRoute> { PopWithResultChildScreen(navController) }
+        composable<PopWithResultParentRoute> { PopWithResultParentScreen(navController) }
+        composable<PullRefreshRoute>(
+            deepLinks = listOf(
+                navDeepLink<PullRefreshRoute>(basePath = "${DeepLink.ROOT}/${Screen.PULL_REFRESH.name}")
+            )
+        ) { PullRefreshScreen(navController) }
+        composable<ReorderableListRoute> { ReorderableListScreen(navController) }
+        composable<SearchRoute> { SearchScreen(navController) }
+        composable<ServicesExamplesRoute> { ServicesExamplesScreen(navController) }
+        composable<SideDrawerRoute> { SideDrawerScreen(navController) }
+        composable<SnackbarRoute> { SnackbarScreen(navController) }
+        composable<StickyHeadersRoute> { StickyHeadersScreen(navController) }
+        composable<SwipableRoute> { SwipableScreen(navController) }
+        composable<SystemUiRoute> { SystemUiScreen(navController) }
+        composable<TabsRoute> { TabsScreen(navController) }
+        composable<UriNavigationRoute> { UriNavigationScreen(navController) }
+        composable<VideoScreenRoute> { VideoScreen(navController) }
+        composable<WebViewRoute> { WebViewScreen(navController) }
     }
 }
 

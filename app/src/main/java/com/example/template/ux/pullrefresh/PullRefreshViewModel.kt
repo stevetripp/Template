@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.Clock
-import org.lds.mobile.navigation.ViewModelNav
-import org.lds.mobile.navigation.ViewModelNavImpl
+import org.lds.mobile.navigation.ViewModelNavigation
+import org.lds.mobile.navigation.ViewModelNavigationImpl
 import javax.inject.Inject
 import kotlin.random.Random
 
 @HiltViewModel
 class PullRefreshViewModel
-@Inject constructor() : ViewModel(), ViewModelNav by ViewModelNavImpl() {
+@Inject constructor() : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
     private val random = Random(Clock.System.now().nanosecondsOfSecond)
 
     private val refreshFlow = MutableStateFlow<Int>(0)

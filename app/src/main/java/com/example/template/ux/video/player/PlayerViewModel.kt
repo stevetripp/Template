@@ -6,14 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.MimeTypes
+import androidx.navigation.toRoute
 import com.example.template.ux.video.TestData
 import com.example.template.ux.video.VideoId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.lds.media.cast.CastManager
-import org.lds.mobile.navigation.ViewModelNav
-import org.lds.mobile.navigation.ViewModelNavImpl
+import org.lds.mobile.navigation.ViewModelNavigation
+import org.lds.mobile.navigation.ViewModelNavigationImpl
 import org.lds.mobile.util.LdsDeviceUtil
 import javax.inject.Inject
 
@@ -21,10 +22,10 @@ import javax.inject.Inject
 class PlayerViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     deviceUtil: LdsDeviceUtil,
-) : ViewModel(), ViewModelNav by ViewModelNavImpl() {
+) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
-    private val args = PlayerRoute.getArgs(savedStateHandle)
-    private val videoId = args.videoId
+    private val playerRoute = savedStateHandle.toRoute<PlayerRoute>(PlayerRoute.typeMap())
+    private val videoId = playerRoute.videoId
 
     val mediaItemsFlow: Flow<PlayList> = flow {
         val playlist = PlayList(videoId, getMediaItems())

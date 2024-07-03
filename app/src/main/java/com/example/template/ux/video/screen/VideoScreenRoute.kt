@@ -1,5 +1,7 @@
 package com.example.template.ux.video.screen
 
-import org.lds.mobile.ui.compose.navigation.SimpleNavComposeRoute
+import kotlinx.serialization.Serializable
+import org.lds.mobile.navigation.NavigationRoute
 
-object VideoScreenRoute : SimpleNavComposeRoute("VideoScreenRoute")
+@Serializable
+object VideoScreenRoute : NavigationRoute
