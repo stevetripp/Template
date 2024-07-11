@@ -27,7 +27,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun CarouselScreen(navController: NavController) {
-    CarouselContent(navController::popBackStack)
+    CarouselContent(navController::navigateUp)
 }
 
 @Composable

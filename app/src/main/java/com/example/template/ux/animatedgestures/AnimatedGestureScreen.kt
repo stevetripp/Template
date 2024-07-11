@@ -47,7 +47,7 @@ private enum class State {
 
 @Composable
 fun AnimatedGestureScreen(navController: NavController) {
-    AnimatedGesturesContent(navController::popBackStack)
+    AnimatedGesturesContent(navController::navigateUp)
 }
 
 @Composable

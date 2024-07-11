@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,7 +36,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun ImagePickerScreen(navController: NavController) {
-    ImagePickerContent(navController::popBackStack)
+    ImagePickerContent(navController::navigateUp)
 }
 
 @Composable
@@ -60,8 +61,10 @@ fun ImagePickerContent(onBack: () -> Unit = {}) {
             imageUri = uri.first()
         }
 
-        Column(modifier = Modifier.padding(it)) {
-            Row {
+        Column(modifier = Modifier
+            .padding(it)
+            .padding(16.dp)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 Button(onClick = {
                     photoGalleryLauncher.launch("image/*")
                 }) {

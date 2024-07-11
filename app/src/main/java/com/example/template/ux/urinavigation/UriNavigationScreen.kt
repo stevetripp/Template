@@ -16,7 +16,7 @@ import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
 @Composable
 fun UriNavigationScreen(navController: NavController, viewModel: UriNavigationViewModel = hiltViewModel()) {
-    UriNavigationContent(viewModel.uiState, navController::popBackStack)
+    UriNavigationContent(viewModel.uiState, navController::navigateUp)
     HandleNavigation(viewModel, navController)
 }
 

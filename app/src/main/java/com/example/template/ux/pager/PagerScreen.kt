@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,7 +28,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun PagerScreen(navController: NavController) {
-    PagerContent(navController::popBackStack)
+    PagerContent(navController::navigateUp)
 }
 
 @Composable

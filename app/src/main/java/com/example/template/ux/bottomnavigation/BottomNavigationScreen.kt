@@ -3,16 +3,16 @@ package com.example.template.ux.bottomnavigation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -25,12 +25,12 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun BottomNavigationScreen(navController: NavController) {
-    BottomNavigationContent(navController::popBackStack)
+    BottomNavigationContent(navController::navigateUp)
 }
 
 @Composable
 fun BottomNavigationContent(onBack: () -> Unit = {}) {
-    var selectedItem by remember { mutableStateOf(0) }
+    var selectedItem by remember { mutableIntStateOf(0) }
     val items = listOf("Songs", "Artists", "Playlists")
 
     Scaffold(

@@ -22,7 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,13 +37,13 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun TabsScreen(navController: NavController) {
-    TabsContent(navController::popBackStack)
+    TabsContent(navController::navigateUp)
 }
 
 @Composable
 fun TabsContent(onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.TABS.title, onBack = onBack) }) { paddingValues ->
-        var tabIndex by remember { mutableStateOf(0) }
+        var tabIndex by remember { mutableIntStateOf(0) }
         val tabTitles = listOf("Hello", "There", "World")
         val pagerState = rememberPagerState { tabTitles.size }
         Column(modifier = Modifier.padding(paddingValues)) {

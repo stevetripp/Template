@@ -1,6 +1,7 @@
 package com.example.template.ux.notificationpermissions
 
 import android.Manifest
+import android.os.Build
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -16,7 +17,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun NotificationPermissionsScreen(navController: NavController, viewModel: NotificationPermissionsViewModel = hiltViewModel()) {
-    NotificationPermissionsContent(viewModel.uiState, navController::popBackStack)
+    NotificationPermissionsContent(viewModel.uiState, navController::navigateUp)
 }
 
 @Composable
@@ -26,13 +27,15 @@ fun NotificationPermissionsContent(uiState: NotificationPermissionsUiState, onBa
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.NOTIFICATION_PERMISSIONS.title, onBack = onBack) }) { paddingValues ->
         if (!inPreviewMode) {
-            PermissionBanner(
-                modifier = Modifier.padding(paddingValues),
-                text = "The App needs extra permissions to show notifications",
-                permission = Manifest.permission.POST_NOTIFICATIONS,
-                showSystemSettings = { context?.let { Utils.showAppNotificationsPermissions(it) } },
-                onPermissionStatusChanged = uiState.onPermissionStatusChanged
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                PermissionBanner(
+                    modifier = Modifier.padding(paddingValues),
+                    text = "The App needs extra permissions to show notifications",
+                    permission = Manifest.permission.POST_NOTIFICATIONS,
+                    showSystemSettings = { context?.let { Utils.showAppNotificationsPermissions(it) } },
+                    onPermissionStatusChanged = uiState.onPermissionStatusChanged
+                )
+            }
         }
     }
 }

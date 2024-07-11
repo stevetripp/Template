@@ -16,7 +16,7 @@ import com.example.template.ui.composable.AppTopAppBar
 
 @Composable
 fun DestinationScreen(navController: NavController, viewModel: DestinationViewModel = hiltViewModel()) {
-    DestinationContent(viewModel.uiState, navController::popBackStack)
+    DestinationContent(viewModel.uiState, navController::navigateUp)
 }
 
 @Composable
@@ -25,9 +25,11 @@ fun DestinationContent(uiState: DestinationUiState, onBack: () -> Unit) {
     val optional by uiState.optionalFlow.collectAsStateWithLifecycle()
 
     Scaffold(topBar = { AppTopAppBar(title = "Destination Screen", onBack = onBack) }) { paddingValues ->
-        Column(modifier = Modifier
-            .padding(paddingValues)
-            .padding(16.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(16.dp)
+        ) {
             Row {
                 Text(text = "Required: ")
                 Text(text = required)

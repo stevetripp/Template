@@ -22,7 +22,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun PermissionsScreen(navController: NavController, viewModel: PermissionsViewModel = hiltViewModel()) {
-    PermissionsContent(viewModel.uiState, navController::popBackStack)
+    PermissionsContent(viewModel.uiState, navController::navigateUp)
 }
 
 @Composable

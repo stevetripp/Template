@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun PullRefreshScreen(navController: NavHostController, viewModel: PullRefreshViewModel = hiltViewModel()) {
-    PullRefreshContent(viewModel.uiState, onBack = navController::popBackStack)
+    PullRefreshContent(viewModel.uiState, onBack = navController::navigateUp)
 }
 
 @Composable

@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun StickyHeadersScreen(navController: NavController, viewModel: StickyHeaderViewModel = hiltViewModel()) {
-    StickyHeadersContent(viewModel.uiState, navController::popBackStack)
+    StickyHeadersContent(viewModel.uiState, navController::navigateUp)
 }
 
 @Composable
@@ -44,6 +44,7 @@ fun StickyHeadersContent(uiState: StickyHeadersUiState, onBack: () -> Unit = {})
                                 .background(Color.Cyan), text = it.text
                         )
                     }
+
                     is LazyColumnItem.Item -> item { Text(text = it.text) }
                 }
 

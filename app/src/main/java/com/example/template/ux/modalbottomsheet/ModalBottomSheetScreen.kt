@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ModalBottomSheetScreen(navController: NavController) {
-    ModalBottomSheetContent(navController::popBackStack)
+    ModalBottomSheetContent(navController::navigateUp)
 }
 
 @Composable

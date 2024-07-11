@@ -29,7 +29,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun SearchScreen(navController: NavController, viewModel: SearchViewModel = hiltViewModel()) {
-    SearchContent(viewModel.uiState, navController::popBackStack)
+    SearchContent(viewModel.uiState, navController::navigateUp)
 }
 
 @Composable

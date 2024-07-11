@@ -48,7 +48,7 @@ import kotlin.random.Random
 @Composable
 fun GmailAddressFieldScreen(navController: NavController, viewModel: GmailAddressFieldViewModel = hiltViewModel()) {
     val uiState = viewModel.uiState
-    GmailAddressFieldContent(uiState, navController::popBackStack)
+    GmailAddressFieldContent(uiState, navController::navigateUp)
 }
 
 @Composable

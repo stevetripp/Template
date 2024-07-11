@@ -1,5 +1,6 @@
 package com.example.template.ux.webview
 
+import android.annotation.SuppressLint
 import android.util.Base64
 import android.util.Log
 import android.view.ViewGroup
@@ -21,9 +22,10 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun WebViewScreen(navController: NavController) {
-    WebViewContent(navController::popBackStack)
+    WebViewContent(navController::navigateUp)
 }
 
+@SuppressLint("SetJavaScriptEnabled")
 @Composable
 private fun WebViewContent(onBack: () -> Unit) {
     val backgroundColor = Color.White

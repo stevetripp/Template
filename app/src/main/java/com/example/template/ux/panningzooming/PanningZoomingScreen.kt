@@ -44,7 +44,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun PanningZoomingScreen(navController: NavController) {
-    PanningZoomingContent(navController::popBackStack)
+    PanningZoomingContent(navController::navigateUp)
 }
 
 @Composable
@@ -56,6 +56,7 @@ fun PanningZoomingContent(onBack: () -> Unit = {}) {
         CanvasCard(modifier = Modifier.padding(it), pageImage = pageImage)
     }
 }
+
 @Composable
 fun CanvasCard(pageImage: ImageBitmap, modifier: Modifier = Modifier) {
 

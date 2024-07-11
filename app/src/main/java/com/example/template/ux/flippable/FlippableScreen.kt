@@ -25,7 +25,7 @@ import com.wajahatkarim.flippable.rememberFlipController
 
 @Composable
 fun FlippableScreen(navController: NavController) {
-    FlippableContent(navController::popBackStack)
+    FlippableContent(navController::navigateUp)
 }
 
 @Composable

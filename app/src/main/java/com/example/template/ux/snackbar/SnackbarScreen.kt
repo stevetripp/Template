@@ -19,7 +19,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun SnackbarScreen(navController: NavController, viewModel: SnackbarViewModel = hiltViewModel()) {
-    SnackbarContent(viewModel.uiState, navController::popBackStack)
+    SnackbarContent(viewModel.uiState, navController::navigateUp)
 }
 
 

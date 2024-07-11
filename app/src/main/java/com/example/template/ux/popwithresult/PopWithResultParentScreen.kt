@@ -20,7 +20,7 @@ import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
 @Composable
 fun PopWithResultParentScreen(navController: NavController, viewModel: PopWithResultParentViewModel = hiltViewModel()) {
-    PopWithResultParentContent(viewModel.uiState, navController::popBackStack)
+    PopWithResultParentContent(viewModel.uiState, navController::navigateUp)
     HandleNavigation(viewModelNav = viewModel, navController = navController)
     viewModel.uiState.onSetNavController(navController)
 }

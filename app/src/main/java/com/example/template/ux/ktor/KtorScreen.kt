@@ -15,13 +15,16 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun KtorScreen(navController: NavController, viewModel: KtorViewModel = hiltViewModel()) {
-    KtorContent(viewModel.uiState, navController::popBackStack)
+    KtorContent(viewModel.uiState, navController::navigateUp)
 }
 
 @Composable
 fun KtorContent(uiState: KtorUiState, onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.KTOR.title, onBack = onBack) }) { paddingValues ->
-        Column(Modifier.padding(paddingValues).padding(horizontal = 16.dp)) {
+        Column(
+            Modifier
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp)) {
             Button(onClick = uiState.onExecute) { Text(text = "Execute") }
         }
     }

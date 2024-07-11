@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun BottomSheetScreen(navController: NavController) {
-    BottomSheetScreenContent(navController::popBackStack)
+    BottomSheetScreenContent(navController::navigateUp)
 }
 
 @Composable
