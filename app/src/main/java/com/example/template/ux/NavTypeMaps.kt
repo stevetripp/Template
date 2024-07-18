@@ -27,10 +27,7 @@ object NavTypeMaps {
     val Parameter2NullableNavType = object : NavType<Parameter2?>(isNullableAllowed = true) {
         override fun get(bundle: Bundle, key: String): Parameter2? = bundle.getString(key)?.let { parseValue(it) }
         override fun parseValue(value: String): Parameter2? = if (value.isBlank()) null else Parameter2(value)
-        override fun put(bundle: Bundle, key: String, value: Parameter2?) {
-            value?.let { bundle.putString(key, serializeAsValue(value)) }
-        }
-
+        override fun put(bundle: Bundle, key: String, value: Parameter2?) = bundle.putString(key, serializeAsValue(value))
         override fun serializeAsValue(value: Parameter2?): String = value?.value.orEmpty()
     }
 
