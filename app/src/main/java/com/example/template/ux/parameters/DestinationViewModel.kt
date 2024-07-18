@@ -14,11 +14,13 @@ class DestinationViewModel
 ) : ViewModel() {
 
     private val destinationRoute = savedStateHandle.toRoute<DestinationRoute>(DestinationRoute.typeMap())
-    private val requiredFlow = MutableStateFlow(destinationRoute.param1.value)
-    private val optionalFlow = MutableStateFlow(destinationRoute.param2?.value)
+    private val requiredFlow = MutableStateFlow(destinationRoute.param1)
+    private val enumParameterFlow = MutableStateFlow(destinationRoute.enumParam)
+    private val optionalFlow = MutableStateFlow(destinationRoute.param2)
 
     val uiState = DestinationUiState(
         requiredFlow = requiredFlow,
+        enumParameter = enumParameterFlow,
         optionalFlow = optionalFlow,
     )
 }

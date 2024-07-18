@@ -8,6 +8,7 @@ import kotlin.reflect.typeOf
 @Serializable
 data class DestinationRoute(
     val param1: Parameter1,
+    val enumParam: EnumParameter,
     val param2: Parameter2? = null
 ) : NavigationRoute {
     companion object {
@@ -19,25 +20,22 @@ data class DestinationRoute(
 fun DestinationRoute.Companion.typeMap() = mapOf(
     typeOf<Parameter1>() to NavTypeMaps.Parameter1NavType,
     typeOf<Parameter2?>() to NavTypeMaps.Parameter2NullableNavType,
+    typeOf<EnumParameter>() to NavTypeMaps.EnumParameterNavType,
 )
 
 
 @JvmInline
 @Serializable
-value class Parameter1(val value: String) {
-    init {
-        require(value.isNotBlank())
-    }
-
-    override fun toString() = value
-}
+value class Parameter1(val value: String)
 
 @JvmInline
 @Serializable
-value class Parameter2(val value: String) {
-    init {
-        require(value.isNotBlank())
-    }
+value class Parameter2(val value: String)
 
-    override fun toString() = value
+enum class EnumParameter(val value: String) {
+    ONE("One"),
+    TWO("Two"),
+    THREE("Three");
+
+    override fun toString(): String = "$name, $value"
 }

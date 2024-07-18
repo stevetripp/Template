@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 data class DestinationUiState(
-    val requiredFlow: StateFlow<String> = MutableStateFlow(""),
-    val optionalFlow: StateFlow<String?> = MutableStateFlow(null),
+    val requiredFlow: StateFlow<Parameter1> = MutableStateFlow(Parameter1("")),
+    val enumParameter: StateFlow<EnumParameter> = MutableStateFlow(EnumParameter.ONE),
+    val optionalFlow: StateFlow<Parameter2?> = MutableStateFlow(null),
 )

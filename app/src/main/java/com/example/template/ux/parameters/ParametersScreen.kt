@@ -15,7 +15,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
+import com.example.template.ui.composable.DropdownList
+import com.example.template.ui.composable.DropdownOption
 import com.example.template.ui.theme.AppTheme
+import com.example.template.util.SmtLogger
 import com.example.template.ux.main.Screen
 import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
@@ -28,7 +31,10 @@ fun ParametersScreen(navController: NavController, viewModel: ParametersViewMode
 @Composable
 fun ParametersContent(uiState: ParametersUiState, onBack: () -> Unit) {
     val requiredValue by uiState.requiredValueFlow.collectAsStateWithLifecycle()
+    val enumParameter by uiState.enumParameterFlow.collectAsStateWithLifecycle()
     val optionalValue by uiState.optionalValueFlow.collectAsStateWithLifecycle()
+    val options = mutableListOf<DropdownOption>()
+    EnumParameter.entries.forEach { options.add(DropdownOption(it.value, it.name)) }
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.PARAMETERS.title, onBack = onBack) }) { paddingValues ->
         Column(
@@ -37,6 +43,16 @@ fun ParametersContent(uiState: ParametersUiState, onBack: () -> Unit) {
                 .padding(16.dp)
         ) {
             TextField(value = requiredValue, onValueChange = uiState.onRequiredValueChanged)
+            DropdownList(
+                value = enumParameter.value,
+                label = "Options",
+                options = options,
+                onValueChanged = {
+                    val param = EnumParameter.valueOf(it.selectedValue)
+                    SmtLogger.i("""${it.selectedValue}, $param""")
+                    uiState.onEnumParameterChanged(param)
+                }
+            )
             TextField(value = optionalValue.orEmpty(), onValueChange = uiState.onOptionalValueChanged)
             Button(onClick = uiState.onButtonClick) { Text(text = "Tap Me") }
         }

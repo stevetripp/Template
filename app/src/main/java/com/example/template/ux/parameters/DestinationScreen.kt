@@ -22,6 +22,7 @@ fun DestinationScreen(navController: NavController, viewModel: DestinationViewMo
 @Composable
 fun DestinationContent(uiState: DestinationUiState, onBack: () -> Unit) {
     val required by uiState.requiredFlow.collectAsStateWithLifecycle()
+    val enumParameter by uiState.enumParameter.collectAsStateWithLifecycle()
     val optional by uiState.optionalFlow.collectAsStateWithLifecycle()
 
     Scaffold(topBar = { AppTopAppBar(title = "Destination Screen", onBack = onBack) }) { paddingValues ->
@@ -32,11 +33,15 @@ fun DestinationContent(uiState: DestinationUiState, onBack: () -> Unit) {
         ) {
             Row {
                 Text(text = "Required: ")
-                Text(text = required)
+                Text(text = required.value)
+            }
+            Row {
+                Text(text = "Enum Parameter: ")
+                Text(text = enumParameter.toString())
             }
             Row {
                 Text(text = "Optional: ")
-                optional?.let { Text(text = it) }
+                optional?.value?.let { Text(text = it) }
             }
         }
     }

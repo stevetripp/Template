@@ -2,9 +2,12 @@ package com.example.template.ux
 
 import android.os.Bundle
 import androidx.navigation.NavType
+import com.example.template.ux.parameters.EnumParameter
 import com.example.template.ux.parameters.Parameter1
 import com.example.template.ux.parameters.Parameter2
 import com.example.template.ux.video.VideoId
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 /**
  * Mappings for type safe navigation
@@ -36,5 +39,13 @@ object NavTypeMaps {
         override fun parseValue(value: String): VideoId = VideoId(value)
         override fun put(bundle: Bundle, key: String, value: VideoId) = bundle.putString(key, serializeAsValue(value))
         override fun serializeAsValue(value: VideoId): String = value.value
+    }
+
+    @Deprecated("Remove (shouldn't be needed for enums https://issuetracker.google.com/issues/346475493")
+    val EnumParameterNavType = object : NavType<EnumParameter>(isNullableAllowed = false) {
+        override fun get(bundle: Bundle, key: String): EnumParameter? = bundle.getString(key)?.let { parseValue(it) }
+        override fun put(bundle: Bundle, key: String, value: EnumParameter) = bundle.putString(key, serializeAsValue(value))
+        override fun parseValue(value: String) = Json.decodeFromString<EnumParameter>(value)
+        override fun serializeAsValue(value: EnumParameter): String = Json.encodeToString(value)
     }
 }

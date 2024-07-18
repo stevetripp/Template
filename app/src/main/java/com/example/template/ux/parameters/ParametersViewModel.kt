@@ -12,18 +12,21 @@ class ParametersViewModel
 @Inject constructor() : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
     private val requiredValueFlow = MutableStateFlow("")
+    private val enumParameterFlow = MutableStateFlow<EnumParameter>(EnumParameter.ONE)
     private val optionalValueFlow = MutableStateFlow<String?>(null)
 
     val uiState = ParametersUiState(
         requiredValueFlow = requiredValueFlow,
+        enumParameterFlow = enumParameterFlow,
         optionalValueFlow = optionalValueFlow,
         onRequiredValueChanged = { requiredValueFlow.value = it },
+        onEnumParameterChanged = { enumParameterFlow.value = it },
         onOptionalValueChanged = { optionalValueFlow.value = it },
         onButtonClick = ::onButtonClick
     )
 
     private fun onButtonClick() {
         if (requiredValueFlow.value.isBlank()) return
-        navigate(DestinationRoute(Parameter1(requiredValueFlow.value), optionalValueFlow.value?.let { Parameter2(it) }))
+        navigate(DestinationRoute(Parameter1(requiredValueFlow.value), enumParameterFlow.value, optionalValueFlow.value?.let { Parameter2(it) }))
     }
 }
