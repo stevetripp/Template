@@ -1,13 +1,20 @@
 package com.example.template.ux.home
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -29,15 +36,17 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
 fun HomeContent(uiState: HomeScreenUiState) {
     val screens by uiState.screensFlow.collectAsStateWithLifecycle()
     MainAppScaffoldWithNavBar(title = Screen.HOME.title, navigationIconVisible = false) {
-        LazyColumn {
-            items(screens) { destination ->
-                TextButton(
-                    onClick = { uiState.onItemClicked(destination) },
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillParentMaxWidth(),
-                ) {
-                    Text(destination.title)
+        LazyVerticalGrid(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            columns = GridCells.Fixed(2),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(screens) { screen ->
+                Card(modifier = Modifier.height(60.dp), onClick = { uiState.onItemClicked(screen) }) {
+                    Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+                        Text(modifier = Modifier.fillMaxWidth(), text = screen.title, textAlign = TextAlign.Center)
+                    }
                 }
             }
         }
