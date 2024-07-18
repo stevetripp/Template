@@ -14,19 +14,29 @@ class ParametersViewModel
     private val requiredValueFlow = MutableStateFlow("")
     private val enumParameterFlow = MutableStateFlow<EnumParameter>(EnumParameter.ONE)
     private val optionalValueFlow = MutableStateFlow<String?>(null)
+    private val optionalEnumParameterFlow = MutableStateFlow<EnumParameter?>(null)
 
     val uiState = ParametersUiState(
         requiredValueFlow = requiredValueFlow,
         enumParameterFlow = enumParameterFlow,
         optionalValueFlow = optionalValueFlow,
+        optionalEnumParameterFlow = optionalEnumParameterFlow,
         onRequiredValueChanged = { requiredValueFlow.value = it },
         onEnumParameterChanged = { enumParameterFlow.value = it },
         onOptionalValueChanged = { optionalValueFlow.value = it },
+        onOptionalEnumParameterChanged = { optionalEnumParameterFlow.value = it },
         onButtonClick = ::onButtonClick
     )
 
     private fun onButtonClick() {
         if (requiredValueFlow.value.isBlank()) return
-        navigate(DestinationRoute(Parameter1(requiredValueFlow.value), enumParameterFlow.value, optionalValueFlow.value?.let { Parameter2(it) }))
+        navigate(
+            DestinationRoute(
+                param1 = Parameter1(requiredValueFlow.value),
+                enumParam = enumParameterFlow.value,
+                param2 = optionalValueFlow.value?.let { Parameter2(it) },
+                optionalEnumParam = optionalEnumParameterFlow.value
+            )
+        )
     }
 }

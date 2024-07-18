@@ -18,7 +18,6 @@ import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.composable.DropdownList
 import com.example.template.ui.composable.DropdownOption
 import com.example.template.ui.theme.AppTheme
-import com.example.template.util.SmtLogger
 import com.example.template.ux.main.Screen
 import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
@@ -33,6 +32,7 @@ fun ParametersContent(uiState: ParametersUiState, onBack: () -> Unit) {
     val requiredValue by uiState.requiredValueFlow.collectAsStateWithLifecycle()
     val enumParameter by uiState.enumParameterFlow.collectAsStateWithLifecycle()
     val optionalValue by uiState.optionalValueFlow.collectAsStateWithLifecycle()
+    val optionalEnumParameter by uiState.optionalEnumParameterFlow.collectAsStateWithLifecycle()
     val options = mutableListOf<DropdownOption>()
     EnumParameter.entries.forEach { options.add(DropdownOption(it.value, it.name)) }
 
@@ -45,15 +45,23 @@ fun ParametersContent(uiState: ParametersUiState, onBack: () -> Unit) {
             TextField(value = requiredValue, onValueChange = uiState.onRequiredValueChanged)
             DropdownList(
                 value = enumParameter.value,
-                label = "Options",
+                label = "Required Enum",
                 options = options,
                 onValueChanged = {
                     val param = EnumParameter.valueOf(it.selectedValue)
-                    SmtLogger.i("""${it.selectedValue}, $param""")
                     uiState.onEnumParameterChanged(param)
                 }
             )
             TextField(value = optionalValue.orEmpty(), onValueChange = uiState.onOptionalValueChanged)
+            DropdownList(
+                value = optionalEnumParameter?.value.orEmpty(),
+                label = "Optional Enum",
+                options = options,
+                onValueChanged = {
+                    val param = EnumParameter.valueOf(it.selectedValue)
+                    uiState.onOptionalEnumParameterChanged(param)
+                }
+            )
             Button(onClick = uiState.onButtonClick) { Text(text = "Tap Me") }
         }
     }

@@ -17,10 +17,12 @@ class DestinationViewModel
     private val requiredFlow = MutableStateFlow(destinationRoute.param1)
     private val enumParameterFlow = MutableStateFlow(destinationRoute.enumParam)
     private val optionalFlow = MutableStateFlow(destinationRoute.param2)
+    private val optionEnumParameterFlow = MutableStateFlow(destinationRoute.optionalEnumParam)
 
     val uiState = DestinationUiState(
         requiredFlow = requiredFlow,
-        enumParameter = enumParameterFlow,
+        enumParameterFlow = enumParameterFlow,
         optionalFlow = optionalFlow,
+        optionalEnumParameterFlow = optionEnumParameterFlow,
     )
 }

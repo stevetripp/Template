@@ -9,7 +9,8 @@ import kotlin.reflect.typeOf
 data class DestinationRoute(
     val param1: Parameter1,
     val enumParam: EnumParameter,
-    val param2: Parameter2? = null
+    val param2: Parameter2? = null,
+    val optionalEnumParam: EnumParameter? = null,
 ) : NavigationRoute {
     companion object {
         const val REQUIRED_PARAMETER = "param1"
@@ -21,6 +22,7 @@ fun DestinationRoute.Companion.typeMap() = mapOf(
     typeOf<Parameter1>() to NavTypeMaps.Parameter1NavType,
     typeOf<Parameter2?>() to NavTypeMaps.Parameter2NullableNavType,
     typeOf<EnumParameter>() to NavTypeMaps.EnumParameterNavType,
+    typeOf<EnumParameter?>() to NavTypeMaps.EnumParameterNullableNavType,
 )
 
 

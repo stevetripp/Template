@@ -44,8 +44,16 @@ object NavTypeMaps {
     @Deprecated("Remove (shouldn't be needed for enums https://issuetracker.google.com/issues/346475493")
     val EnumParameterNavType = object : NavType<EnumParameter>(isNullableAllowed = false) {
         override fun get(bundle: Bundle, key: String): EnumParameter? = bundle.getString(key)?.let { parseValue(it) }
+        override fun parseValue(value: String): EnumParameter = Json.decodeFromString<EnumParameter>(value)
         override fun put(bundle: Bundle, key: String, value: EnumParameter) = bundle.putString(key, serializeAsValue(value))
-        override fun parseValue(value: String) = Json.decodeFromString<EnumParameter>(value)
         override fun serializeAsValue(value: EnumParameter): String = Json.encodeToString(value)
+    }
+
+    @Deprecated("Remove (shouldn't be needed for enums https://issuetracker.google.com/issues/346475493")
+    val EnumParameterNullableNavType = object : NavType<EnumParameter?>(isNullableAllowed = true) {
+        override fun get(bundle: Bundle, key: String): EnumParameter? = bundle.getString(key)?.let { parseValue(it) }
+        override fun parseValue(value: String): EnumParameter = Json.decodeFromString<EnumParameter>(value)
+        override fun put(bundle: Bundle, key: String, value: EnumParameter?) = bundle.putString(key, serializeAsValue(value))
+        override fun serializeAsValue(value: EnumParameter?): String = Json.encodeToString(value)
     }
 }
