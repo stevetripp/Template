@@ -17,6 +17,7 @@ enum class Screen(val title: String, val type: ScreenType = ScreenType.NAVIGATIO
     INPUT_EXAMPLES("Input Examples", ScreenType.UI),
     KTOR("Ktor Test", ScreenType.SERVICES),
     MODAL_BOTTOM_SHEET("Modal Bottom Sheet", ScreenType.UI),
+    MODAL_SIDE_SHEET("Modal Side Sheet", ScreenType.UI),
     NAVIGATION_PAGER("Navigation Pager", ScreenType.UI),
     NOTIFICATION_PERMISSIONS("Permissions (Notification)", ScreenType.UI),
     PAGER("Pager", ScreenType.UI),

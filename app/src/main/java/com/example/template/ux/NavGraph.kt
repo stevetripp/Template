@@ -45,6 +45,8 @@ import com.example.template.ux.ktor.KtorScreen
 import com.example.template.ux.main.Screen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetScreen
+import com.example.template.ux.modalsidesheet.ModalSideSheetRoute
+import com.example.template.ux.modalsidesheet.ModalSideSheetScreen
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.navigatepager.NavigationPagerScreen
 import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
@@ -141,6 +143,7 @@ fun NavGraph(
         composable<InputExamplesRoute> { InputExamplesScreen(navController) }
         composable<KtorRoute> { KtorScreen(navController) }
         composable<ModalBottomSheetRoute> { ModalBottomSheetScreen(navController) }
+        composable<ModalSideSheetRoute> { ModalSideSheetScreen(navController) }
         composable<NavigationPagerRoute> { NavigationPagerScreen(navController) }
         composable<NotificationPermissionsRoute> { NotificationPermissionsScreen(navController) }
         composable<PagerRoute> { PagerScreen(navController) }

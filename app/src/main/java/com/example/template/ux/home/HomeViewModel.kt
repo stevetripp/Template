@@ -16,6 +16,7 @@ import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.main.Screen
 import com.example.template.ux.main.ScreenType
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
+import com.example.template.ux.modalsidesheet.ModalSideSheetRoute
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
 import com.example.template.ux.pager.PagerRoute
@@ -69,6 +70,7 @@ class HomeViewModel
             Screen.IMAGE_PICKER -> navigate(ImagePickerRoute)
             Screen.INPUT_EXAMPLES -> navigate(InputExamplesRoute)
             Screen.MODAL_BOTTOM_SHEET -> navigate(ModalBottomSheetRoute)
+            Screen.MODAL_SIDE_SHEET -> navigate(ModalSideSheetRoute)
             Screen.NAVIGATION_PAGER -> navigate(NavigationPagerRoute)
             Screen.NOTIFICATION_PERMISSIONS -> navigate(NotificationPermissionsRoute)
             Screen.PAGER -> navigate(PagerRoute)
