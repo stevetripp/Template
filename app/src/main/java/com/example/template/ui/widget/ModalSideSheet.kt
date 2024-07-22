@@ -31,6 +31,9 @@ import androidx.compose.ui.unit.dp
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.theme.AppTheme
 
+/**
+ * [ModalSideSheet] mimics a ModalBottomSheet.
+ */
 @Composable
 fun ModalSideSheet(
     onDismissRequest: () -> Unit,
@@ -40,9 +43,12 @@ fun ModalSideSheet(
     scrimColor: Color = BottomSheetDefaults.ScrimColor,
     content: @Composable () -> Unit,
 ) {
+    // This variable is used to force the ModelSideSheet to show when it is initially composed so that the surfaceWidth can be calculated
     var showOnInitialComposition by remember { mutableStateOf(true) }
+    // This is set by the Surface when it is initially displayed and is used to animate the side sheet visibility
     var surfaceWidth by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
+    // Animated offset to slide in/out the side sheet
     val offset by animateDpAsState(targetValue = if (isExpanded) 0.dp else surfaceWidth, label = "")
 
     if (showOnInitialComposition || isExpanded || offset != surfaceWidth) {
