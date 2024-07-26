@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
@@ -28,6 +29,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.theme.AppTheme
 
@@ -41,7 +43,7 @@ fun ModalSideSheet(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(topStart = 16.dp, bottomStart = 16.dp),
     scrimColor: Color = BottomSheetDefaults.ScrimColor,
-    content: @Composable () -> Unit,
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     // This variable is used to force the ModelSideSheet to show when it is initially composed so that the surfaceWidth can be calculated
     var showOnInitialComposition by remember { mutableStateOf(true) }
@@ -55,6 +57,7 @@ fun ModalSideSheet(
         showOnInitialComposition = false
         Box(modifier = modifier
             .fillMaxSize()
+            .zIndex(1f)
             .background(scrimColor)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
@@ -78,7 +81,7 @@ fun ModalSideSheet(
                                 .toInt(), 0
                         )
                     },
-                content = content
+                content = { Column(content = content) }
             )
         }
     }
@@ -90,16 +93,17 @@ private fun Preview() {
     var isExpanded by remember { mutableStateOf(false) }
 
     AppTheme {
-        Column(modifier = Modifier.fillMaxSize()) {
-            TextButton(onClick = { isExpanded = true }) { Text(text = "Expand") }
-        }
-
         ModalSideSheet(
             onDismissRequest = { isExpanded = false },
             isExpanded = isExpanded,
             content = {
                 Text(text = "Side Sheet Content")
+                Text(text = "Side Sheet Content")
+                Text(text = "Side Sheet Content")
             }
         )
+        Column(modifier = Modifier.fillMaxSize()) {
+            TextButton(onClick = { isExpanded = true }) { Text(text = "Expand") }
+        }
     }
 }

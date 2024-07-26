@@ -18,6 +18,8 @@ import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomSheet.BottomSheetScreen
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
+import com.example.template.ux.buttongroups.ButtonGroupsRoute
+import com.example.template.ux.buttongroups.ButtonGroupsScreen
 import com.example.template.ux.carousel.CarouselRoute
 import com.example.template.ux.carousel.CarouselScreen
 import com.example.template.ux.childwithnavigation.ChildWithNavigationRoute
@@ -113,6 +115,7 @@ fun NavGraph(
         composable<AnimatedGesturesRoute> { AnimatedGestureScreen(navController) }
         composable<BottomNavigationRoute> { BottomNavigationScreen(navController) }
         composable<BottomSheetRoute> { BottomSheetScreen(navController) }
+        composable<ButtonGroupsRoute> { ButtonGroupsScreen(navController) }
         composable<CarouselRoute> { CarouselScreen(navController) }
         composable<ChildWithNavigationRoute> { ChildWithNavigationScreen(navController) }
         composable<ChildWithoutNavigationRoute> { ChildWithoutNavigationScreen(navController) }

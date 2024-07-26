@@ -5,6 +5,7 @@ enum class Screen(val title: String, val type: ScreenType = ScreenType.NAVIGATIO
     ANIMATED_GESTURE("Animated Gesture", ScreenType.UI),
     BOTTOM_NAVIGATION("Bottom Navigation", ScreenType.UI),
     BOTTOM_SHEET("Bottom Sheet", ScreenType.UI),
+    BUTTON_GROUPS("Button Groups", ScreenType.UI),
     CAROUSEL("Carousel", ScreenType.UI),
     CHILD_WITH_NAVIGATION("Child with Navigation", ScreenType.UI),
     CHIP_SHEET("Chip Sheet", ScreenType.UI),

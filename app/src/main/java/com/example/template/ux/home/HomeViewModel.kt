@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.template.ux.animatedgestures.AnimatedGesturesRoute
 import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
+import com.example.template.ux.buttongroups.ButtonGroupsRoute
 import com.example.template.ux.carousel.CarouselRoute
 import com.example.template.ux.childwithnavigation.ChildWithNavigationRoute
 import com.example.template.ux.chipsheet.ChipSheetRoute
@@ -60,6 +61,7 @@ class HomeViewModel
             Screen.ANIMATED_GESTURE -> navigate(AnimatedGesturesRoute)
             Screen.BOTTOM_NAVIGATION -> navigate(BottomNavigationRoute)
             Screen.BOTTOM_SHEET -> navigate(BottomSheetRoute)
+            Screen.BUTTON_GROUPS -> navigate(ButtonGroupsRoute)
             Screen.CAROUSEL -> navigate(CarouselRoute)
             Screen.CHILD_WITH_NAVIGATION -> navigate(ChildWithNavigationRoute)
             Screen.CHIP_SHEET -> navigate(ChipSheetRoute)
