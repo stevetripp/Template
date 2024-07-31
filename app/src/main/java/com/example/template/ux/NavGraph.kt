@@ -45,6 +45,8 @@ import com.example.template.ux.inputexamples.InputExamplesScreen
 import com.example.template.ux.ktor.KtorRoute
 import com.example.template.ux.ktor.KtorScreen
 import com.example.template.ux.main.Screen
+import com.example.template.ux.memorize.MemorizeRoute
+import com.example.template.ux.memorize.MemorizeScreen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetScreen
 import com.example.template.ux.modalsidesheet.ModalSideSheetRoute
@@ -145,6 +147,7 @@ fun NavGraph(
         composable<ImagePickerRoute> { ImagePickerScreen(navController) }
         composable<InputExamplesRoute> { InputExamplesScreen(navController) }
         composable<KtorRoute> { KtorScreen(navController) }
+        composable<MemorizeRoute> { MemorizeScreen(navController) }
         composable<ModalBottomSheetRoute> { ModalBottomSheetScreen(navController) }
         composable<ModalSideSheetRoute> { ModalSideSheetScreen(navController) }
         composable<NavigationPagerRoute> { NavigationPagerScreen(navController) }
