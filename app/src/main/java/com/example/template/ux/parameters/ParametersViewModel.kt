@@ -11,31 +11,31 @@ import javax.inject.Inject
 class ParametersViewModel
 @Inject constructor() : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
-    private val requiredValueFlow = MutableStateFlow("")
-    private val enumParameterFlow = MutableStateFlow<EnumParameter>(EnumParameter.ONE)
-    private val optionalValueFlow = MutableStateFlow<String?>(null)
-    private val optionalEnumParameterFlow = MutableStateFlow<EnumParameter?>(null)
+    private val reqParam1Flow = MutableStateFlow("")
+    private val reqParam2Flow = MutableStateFlow(EnumParameter.ONE)
+    private val optParam1Flow = MutableStateFlow<String?>(null)
+    private val optParam2Flow = MutableStateFlow<EnumParameter?>(null)
 
     val uiState = ParametersUiState(
-        requiredValueFlow = requiredValueFlow,
-        enumParameterFlow = enumParameterFlow,
-        optionalValueFlow = optionalValueFlow,
-        optionalEnumParameterFlow = optionalEnumParameterFlow,
-        onRequiredValueChanged = { requiredValueFlow.value = it },
-        onEnumParameterChanged = { enumParameterFlow.value = it },
-        onOptionalValueChanged = { optionalValueFlow.value = it },
-        onOptionalEnumParameterChanged = { optionalEnumParameterFlow.value = it },
+        reqParam1Flow = reqParam1Flow,
+        reqParam2Flow = reqParam2Flow,
+        optParam1Flow = optParam1Flow,
+        optParam2Flow = optParam2Flow,
+        onReqParam1Changed = { reqParam1Flow.value = it },
+        onReqParam2Changed = { reqParam2Flow.value = it },
+        onOptParam1Changed = { optParam1Flow.value = it },
+        onOptParam2Changed = { optParam2Flow.value = it },
         onButtonClick = ::onButtonClick
     )
 
     private fun onButtonClick() {
-        if (requiredValueFlow.value.isBlank()) return
+        if (reqParam1Flow.value.isBlank()) return
         navigate(
             DestinationRoute(
-                param1 = Parameter1(requiredValueFlow.value),
-                enumParam = enumParameterFlow.value,
-                param2 = optionalValueFlow.value?.let { Parameter2(it) },
-                optionalEnumParam = optionalEnumParameterFlow.value
+                reqParam1 = Parameter1(reqParam1Flow.value),
+                reqParam2 = reqParam2Flow.value,
+                optParam1 = optParam1Flow.value?.let { Parameter1(it) },
+                optParam2 = optParam2Flow.value
             )
         )
     }

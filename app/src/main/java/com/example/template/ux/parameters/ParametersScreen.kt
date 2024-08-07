@@ -1,6 +1,7 @@
 package com.example.template.ux.parameters
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
@@ -29,40 +30,43 @@ fun ParametersScreen(navController: NavController, viewModel: ParametersViewMode
 
 @Composable
 fun ParametersContent(uiState: ParametersUiState, onBack: () -> Unit) {
-    val requiredValue by uiState.requiredValueFlow.collectAsStateWithLifecycle()
-    val enumParameter by uiState.enumParameterFlow.collectAsStateWithLifecycle()
-    val optionalValue by uiState.optionalValueFlow.collectAsStateWithLifecycle()
-    val optionalEnumParameter by uiState.optionalEnumParameterFlow.collectAsStateWithLifecycle()
+    val requiredValue by uiState.reqParam1Flow.collectAsStateWithLifecycle()
+    val enumParameter by uiState.reqParam2Flow.collectAsStateWithLifecycle()
+    val optionalValue by uiState.optParam1Flow.collectAsStateWithLifecycle()
+    val optionalEnumParameter by uiState.optParam2Flow.collectAsStateWithLifecycle()
     val options = mutableListOf<DropdownOption>()
-    EnumParameter.entries.forEach { options.add(DropdownOption(it.value, it.name)) }
+    EnumParameter.entries.forEach { options.add(DropdownOption(it.name, it.name)) }
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.PARAMETERS.title, onBack = onBack) }) { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues)
-                .padding(16.dp)
         ) {
-            TextField(value = requiredValue, onValueChange = uiState.onRequiredValueChanged)
+            TextField(modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth(), value = requiredValue, onValueChange = uiState.onReqParam1Changed)
             DropdownList(
-                value = enumParameter.value,
+                value = enumParameter.name,
                 label = "Required Enum",
                 options = options,
                 onValueChanged = {
                     val param = EnumParameter.valueOf(it.selectedValue)
-                    uiState.onEnumParameterChanged(param)
+                    uiState.onReqParam2Changed(param)
                 }
             )
-            TextField(value = optionalValue.orEmpty(), onValueChange = uiState.onOptionalValueChanged)
+            TextField(modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth(), value = optionalValue.orEmpty(), onValueChange = uiState.onOptParam1Changed)
             DropdownList(
-                value = optionalEnumParameter?.value.orEmpty(),
+                value = optionalEnumParameter?.name.orEmpty(),
                 label = "Optional Enum",
                 options = options,
                 onValueChanged = {
                     val param = EnumParameter.valueOf(it.selectedValue)
-                    uiState.onOptionalEnumParameterChanged(param)
+                    uiState.onOptParam2Changed(param)
                 }
             )
-            Button(onClick = uiState.onButtonClick) { Text(text = "Tap Me") }
+            Button(modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth(),onClick = uiState.onButtonClick) { Text(text = "Tap Me") }
         }
     }
 }

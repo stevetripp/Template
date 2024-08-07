@@ -10,9 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import com.example.template.ext.popBackStackOrFinishActivity
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
@@ -22,7 +24,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun PullRefreshScreen(navController: NavHostController, viewModel: PullRefreshViewModel = hiltViewModel()) {
-    PullRefreshContent(viewModel.uiState, onBack = navController::navigateUp)
+    val context = LocalContext.current
+    PullRefreshContent(viewModel.uiState) {
+        // This is needed for deep linking to close the app when tapping back
+        navController.popBackStackOrFinishActivity(context)
+    }
 }
 
 @Composable

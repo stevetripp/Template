@@ -6,7 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.activity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navDeepLink
 import com.example.template.ux.DeepLink.HOST
 import com.example.template.ux.DeepLink.PATH_PREFIX
 import com.example.template.ux.DeepLink.SCHEME
@@ -34,6 +33,7 @@ import com.example.template.ux.dialog.DialogRoute
 import com.example.template.ux.dialog.DialogScreen
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.flippable.FlippableScreen
+import com.example.template.ux.flippable.deepLinks
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldScreen
 import com.example.template.ux.home.HomeRoute
@@ -44,7 +44,6 @@ import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.inputexamples.InputExamplesScreen
 import com.example.template.ux.ktor.KtorRoute
 import com.example.template.ux.ktor.KtorScreen
-import com.example.template.ux.main.Screen
 import com.example.template.ux.memorize.MemorizeRoute
 import com.example.template.ux.memorize.MemorizeScreen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
@@ -63,6 +62,7 @@ import com.example.template.ux.parameters.DestinationRoute
 import com.example.template.ux.parameters.DestinationScreen
 import com.example.template.ux.parameters.ParametersRoute
 import com.example.template.ux.parameters.ParametersScreen
+import com.example.template.ux.parameters.deepLinks
 import com.example.template.ux.parameters.typeMap
 import com.example.template.ux.permissions.PermissionsRoute
 import com.example.template.ux.permissions.PermissionsScreen
@@ -72,6 +72,7 @@ import com.example.template.ux.popwithresult.PopWithResultParentRoute
 import com.example.template.ux.popwithresult.PopWithResultParentScreen
 import com.example.template.ux.pullrefresh.PullRefreshRoute
 import com.example.template.ux.pullrefresh.PullRefreshScreen
+import com.example.template.ux.pullrefresh.deepLinks
 import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.reorderablelist.ReorderableListScreen
 import com.example.template.ux.search.SearchRoute
@@ -100,7 +101,6 @@ import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
 import org.lds.mobile.navigation.NavUriLogger
-import org.lds.mobile.navigation.RouteUtil
 
 @Composable
 fun NavGraph(
@@ -123,25 +123,9 @@ fun NavGraph(
         composable<ChildWithoutNavigationRoute> { ChildWithoutNavigationScreen(navController) }
         composable<ChipSheetRoute> { ChipSheetScreen(navController) }
         composable<DateTimeFormatRoute> { DateTimeFormatScreen(navController) }
-        composable<DestinationRoute>(
-            typeMap = DestinationRoute.typeMap(),
-            deepLinks = listOf(
-                navDeepLink<DestinationRoute>(
-                    basePath = "${DeepLink.ROOT}/${Screen.PARAMETERS.name}/${
-                        RouteUtil.defineArg(DestinationRoute.REQUIRED_PARAMETER)
-                    }?${
-                        RouteUtil.defineOptionalArgs(DestinationRoute.OPTIONAL_PARAMETER)
-                    }",
-                    typeMap = DestinationRoute.typeMap()
-                )
-            )
-        ) { DestinationScreen(navController) }
+        composable<DestinationRoute>(typeMap = DestinationRoute.typeMap(), deepLinks = DestinationRoute.deepLinks()) { DestinationScreen(navController) }
         composable<DialogRoute> { DialogScreen(navController) }
-        composable<FlippableRoute>(
-            deepLinks = listOf(
-                navDeepLink<FlippableRoute>(basePath = "${DeepLink.ROOT}/${Screen.FLIPPABLE.name}")
-            )
-        ) { FlippableScreen(navController) }
+        composable<FlippableRoute>(deepLinks = FlippableRoute.deepLinks()) { FlippableScreen(navController) }
         composable<GmailAddressFieldRoute> { GmailAddressFieldScreen(navController) }
         composable<HomeRoute> { HomeScreen(navController) }
         composable<ImagePickerRoute> { ImagePickerScreen(navController) }
@@ -156,16 +140,10 @@ fun NavGraph(
         composable<PanningZoomingRoute> { PanningZoomingScreen(navController) }
         composable<ParametersRoute> { ParametersScreen(navController) }
         composable<PermissionsRoute> { PermissionsScreen(navController) }
-        activity<PlayerRoute>(PlayerRoute.typeMap()) {
-            this.activityClass = PlayerActivity::class
-        }
+        activity<PlayerRoute>(PlayerRoute.typeMap()) { this.activityClass = PlayerActivity::class }
         composable<PopWithResultChildRoute> { PopWithResultChildScreen(navController) }
         composable<PopWithResultParentRoute> { PopWithResultParentScreen(navController) }
-        composable<PullRefreshRoute>(
-            deepLinks = listOf(
-                navDeepLink<PullRefreshRoute>(basePath = "${DeepLink.ROOT}/${Screen.PULL_REFRESH.name}")
-            )
-        ) { PullRefreshScreen(navController) }
+        composable<PullRefreshRoute>(deepLinks = PullRefreshRoute.deepLinks()) { PullRefreshScreen(navController) }
         composable<ReorderableListRoute> { ReorderableListScreen(navController) }
         composable<SearchRoute> { SearchScreen(navController) }
         composable<ServicesExamplesRoute> { ServicesExamplesScreen(navController) }

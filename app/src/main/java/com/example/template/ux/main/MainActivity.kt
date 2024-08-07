@@ -28,9 +28,9 @@ class MainActivity : ComponentActivity() {
         val appLinkData: Uri? = appLinkIntent.data
 
         SmtLogger.i(
-            """$appLinkIntent
-            |$appLinkAction
-            |$appLinkData
+            """appLinkIntent: $appLinkIntent
+            |appLinkAction: $appLinkAction
+            |appLinkData: $appLinkData
         """.trimMargin()
         )
     }

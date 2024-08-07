@@ -4,13 +4,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 data class ParametersUiState(
-    val requiredValueFlow: MutableStateFlow<String> = MutableStateFlow(""),
-    val enumParameterFlow: StateFlow<EnumParameter> = MutableStateFlow(EnumParameter.ONE),
-    val optionalValueFlow: MutableStateFlow<String?> = MutableStateFlow(null),
-    val optionalEnumParameterFlow: StateFlow<EnumParameter?> = MutableStateFlow(null),
-    val onRequiredValueChanged: (String) -> Unit = {},
-    val onEnumParameterChanged: (EnumParameter) -> Unit = {},
-    val onOptionalValueChanged: (String) -> Unit = {},
-    val onOptionalEnumParameterChanged: (EnumParameter) -> Unit = {},
+    val reqParam1Flow: MutableStateFlow<String> = MutableStateFlow(""),
+    val reqParam2Flow: StateFlow<EnumParameter> = MutableStateFlow(EnumParameter.ONE),
+    val optParam1Flow: MutableStateFlow<String?> = MutableStateFlow(null),
+    val optParam2Flow: StateFlow<EnumParameter?> = MutableStateFlow(null),
+    val onReqParam1Changed: (String) -> Unit = {},
+    val onReqParam2Changed: (EnumParameter) -> Unit = {},
+    val onOptParam1Changed: (String) -> Unit = {},
+    val onOptParam2Changed: (EnumParameter) -> Unit = {},
     val onButtonClick: () -> Unit = {},
 )

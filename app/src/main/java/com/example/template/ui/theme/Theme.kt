@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.example.template.util.SmtLogger
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -275,10 +274,6 @@ fun AppTheme(
         else -> lightScheme
     }
 
-    SmtLogger.i(
-        """Primary Color:${colorScheme.primary}
-        | Hex: ${Integer.toHexString(colorScheme.primary.toArgb())}""".trimMargin()
-    )
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
