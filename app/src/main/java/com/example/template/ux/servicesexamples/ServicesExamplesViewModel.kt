@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.template.ux.ktor.KtorRoute
 import com.example.template.ux.main.Screen
 import com.example.template.ux.main.ScreenType
+import com.example.template.ux.regex.RegexRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.lds.mobile.navigation.ViewModelNavigation
@@ -26,6 +27,7 @@ class ServicesExamplesViewModel
     private fun onItemClicked(screen: Screen) {
         when (screen) {
             Screen.KTOR -> navigate(KtorRoute)
+            Screen.REGEX -> navigate(RegexRoute)
             else -> Unit
         }
     }

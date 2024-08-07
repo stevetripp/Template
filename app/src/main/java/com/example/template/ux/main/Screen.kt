@@ -28,6 +28,7 @@ enum class Screen(val title: String, val type: ScreenType = ScreenType.NAVIGATIO
     PERMISSIONS("Permissions (Location)", ScreenType.UI),
     POP_WITH_RESULT("Pop With Result", ScreenType.UI),
     PULL_REFRESH("Pull Refresh", ScreenType.UI),
+    REGEX("RegEx Validator", ScreenType.SERVICES),
     REORDERABLE_LIST("Reorderable List", ScreenType.UI),
     SEARCH("Search", ScreenType.UI),
     SERVICE_EXAMPLES("Service Examples"),

@@ -73,6 +73,8 @@ import com.example.template.ux.popwithresult.PopWithResultParentScreen
 import com.example.template.ux.pullrefresh.PullRefreshRoute
 import com.example.template.ux.pullrefresh.PullRefreshScreen
 import com.example.template.ux.pullrefresh.deepLinks
+import com.example.template.ux.regex.RegexRoute
+import com.example.template.ux.regex.RegexScreen
 import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.reorderablelist.ReorderableListScreen
 import com.example.template.ux.search.SearchRoute
@@ -144,6 +146,7 @@ fun NavGraph(
         composable<PopWithResultChildRoute> { PopWithResultChildScreen(navController) }
         composable<PopWithResultParentRoute> { PopWithResultParentScreen(navController) }
         composable<PullRefreshRoute>(deepLinks = PullRefreshRoute.deepLinks()) { PullRefreshScreen(navController) }
+        composable<RegexRoute> { RegexScreen(navController) }
         composable<ReorderableListRoute> { ReorderableListScreen(navController) }
         composable<SearchRoute> { SearchScreen(navController) }
         composable<ServicesExamplesRoute> { ServicesExamplesScreen(navController) }
