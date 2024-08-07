@@ -19,7 +19,7 @@ import com.example.template.ux.main.Screen
 @Composable
 fun DialogScreen(navController: NavController, viewModel: DialogViewModel = hiltViewModel()) {
     val uiState = viewModel.uiState
-    DialogContent(uiState, navController::navigateUp)
+    DialogContent(uiState, navController::popBackStack)
     HandleDialogUiState(uiState.dialogUiStateFlow)
 }
 

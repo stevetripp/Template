@@ -39,15 +39,9 @@ import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 
-private enum class State {
-    HIDDEN,
-    FADE_IN,
-    MOVE_LEFT
-}
-
 @Composable
 fun AnimatedGestureScreen(navController: NavController) {
-    AnimatedGesturesContent(navController::navigateUp)
+    AnimatedGesturesContent(navController::popBackStack)
 }
 
 @Composable

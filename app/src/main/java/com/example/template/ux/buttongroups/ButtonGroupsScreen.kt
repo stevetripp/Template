@@ -29,7 +29,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun ButtonGroupsScreen(navController: NavController) {
-    ButtonGroupsContent(navController::navigateUp)
+    ButtonGroupsContent(navController::popBackStack)
 }
 
 @Composable

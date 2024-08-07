@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun ChipSheetScreen(navController: NavController, viewModel: ChipSheetViewModel = hiltViewModel()) {
-    ChipSheetContent(viewModel.uiState, navController::navigateUp)
+    ChipSheetContent(viewModel.uiState, navController::popBackStack)
 }
 
 @Composable

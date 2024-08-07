@@ -22,7 +22,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun WebViewScreen(navController: NavController) {
-    WebViewContent(navController::navigateUp)
+    WebViewContent(navController::popBackStack)
 }
 
 @SuppressLint("SetJavaScriptEnabled")

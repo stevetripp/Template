@@ -19,7 +19,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun ModalSideSheetScreen(navController: NavController, viewModel: ModalSideSheetViewModel = hiltViewModel()) {
-    ModalSideSheetContent(viewModel.uiState, onBack = navController::navigateUp)
+    ModalSideSheetContent(viewModel.uiState, onBack = navController::popBackStack)
 }
 
 @Composable

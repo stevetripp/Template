@@ -15,7 +15,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun KtorScreen(navController: NavController, viewModel: KtorViewModel = hiltViewModel()) {
-    KtorContent(viewModel.uiState, navController::navigateUp)
+    KtorContent(viewModel.uiState, navController::popBackStack)
 }
 
 @Composable

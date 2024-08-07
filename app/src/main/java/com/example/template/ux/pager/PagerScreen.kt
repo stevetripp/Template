@@ -28,7 +28,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun PagerScreen(navController: NavController) {
-    PagerContent(navController::navigateUp)
+    PagerContent(navController::popBackStack)
 }
 
 @Composable

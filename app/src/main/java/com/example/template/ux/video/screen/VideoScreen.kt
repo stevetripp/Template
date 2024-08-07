@@ -23,7 +23,7 @@ import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
 @Composable
 fun VideoScreen(navController: NavController, viewModel: VideoScreenViewModel = hiltViewModel()) {
-    VideoContent(viewModel.uiState, navController::navigateUp)
+    VideoContent(viewModel.uiState, navController::popBackStack)
     HandleNavigation(viewModel, navController)
     HandleDialogUiState(viewModel.uiState.dialogUiStateFlow)
 }

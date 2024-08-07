@@ -6,7 +6,7 @@ import com.example.template.ux.MainAppScaffoldWithNavBar
 
 @Composable
 fun ChildWithoutNavigationScreen(navController: NavController) {
-    ChildWithoutNavigationContent(navController::navigateUp)
+    ChildWithoutNavigationContent(navController::popBackStack)
 }
 
 @Composable

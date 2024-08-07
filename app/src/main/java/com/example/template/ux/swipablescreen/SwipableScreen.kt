@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SwipableScreen(navController: NavController) {
-    SwipableContent(navController::navigateUp)
+    SwipableContent(navController::popBackStack)
 }
 
 @Composable

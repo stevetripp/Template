@@ -24,7 +24,7 @@ import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
 @Composable
 fun ParametersScreen(navController: NavController, viewModel: ParametersViewModel = hiltViewModel()) {
-    ParametersContent(viewModel.uiState, navController::navigateUp)
+    ParametersContent(viewModel.uiState, navController::popBackStack)
     HandleNavigation(viewModel, navController)
 }
 

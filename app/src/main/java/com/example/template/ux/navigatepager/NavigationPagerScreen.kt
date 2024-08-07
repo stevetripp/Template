@@ -37,7 +37,7 @@ import kotlin.math.absoluteValue
 
 @Composable
 fun NavigationPagerScreen(navController: NavController) {
-    NavigationPagerContent(navController::navigateUp)
+    NavigationPagerContent(navController::popBackStack)
 }
 
 @Composable

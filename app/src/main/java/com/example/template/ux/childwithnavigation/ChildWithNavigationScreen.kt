@@ -18,7 +18,7 @@ fun ChildWithNavigationScreen(navController: NavController) {
     }
     MainAppScaffoldWithNavBar(
         title = Screen.CHILD_WITH_NAVIGATION.title,
-        onNavigationClick = navController::navigateUp,
+        onNavigationClick = navController::popBackStack,
         floatingActionButton = fab
     ) {
         TextButton(onClick = { navController.navigate(ChildWithoutNavigationRoute) }) {

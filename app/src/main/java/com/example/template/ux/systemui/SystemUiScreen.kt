@@ -20,7 +20,7 @@ import org.lds.mobile.ui.ext.requireActivity
 fun SystemUiScreen(navController: NavController) {
     val window = rememberWindow()
 
-    Scaffold(topBar = { AppTopAppBar(title = Screen.SYSTEM_UI.title, onBack = navController::navigateUp) }) {
+    Scaffold(topBar = { AppTopAppBar(title = Screen.SYSTEM_UI.title, onBack = navController::popBackStack) }) {
         Column(modifier = Modifier.padding(it)) {
         }
     }

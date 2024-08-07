@@ -25,7 +25,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun BottomNavigationScreen(navController: NavController) {
-    BottomNavigationContent(navController::navigateUp)
+    BottomNavigationContent(navController::popBackStack)
 }
 
 @Composable

@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun MemorizeScreen(navController: NavController, viewModel: MemorizeViewModel = hiltViewModel()) {
-    MemorizeContent(viewModel.uiState, navController::navigateUp)
+    MemorizeContent(viewModel.uiState, navController::popBackStack)
 }
 
 @Composable

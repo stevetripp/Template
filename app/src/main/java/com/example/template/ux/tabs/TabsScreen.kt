@@ -37,7 +37,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun TabsScreen(navController: NavController) {
-    TabsContent(navController::navigateUp)
+    TabsContent(navController::popBackStack)
 }
 
 @Composable

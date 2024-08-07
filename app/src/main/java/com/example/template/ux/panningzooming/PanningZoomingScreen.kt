@@ -44,7 +44,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun PanningZoomingScreen(navController: NavController) {
-    PanningZoomingContent(navController::navigateUp)
+    PanningZoomingContent(navController::popBackStack)
 }
 
 @Composable

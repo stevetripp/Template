@@ -17,7 +17,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun NotificationPermissionsScreen(navController: NavController, viewModel: NotificationPermissionsViewModel = hiltViewModel()) {
-    NotificationPermissionsContent(viewModel.uiState, navController::navigateUp)
+    NotificationPermissionsContent(viewModel.uiState, navController::popBackStack)
 }
 
 @Composable

@@ -24,7 +24,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun InputExamplesScreen(navController: NavController) {
-    InputExamplesContent(navController::navigateUp)
+    InputExamplesContent(navController::popBackStack)
 }
 
 @Composable

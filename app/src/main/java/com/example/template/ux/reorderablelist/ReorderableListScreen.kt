@@ -28,7 +28,7 @@ import org.burnoutcrew.reorderable.reorderable
 
 @Composable
 fun ReorderableListScreen(navController: NavController, viewModel: ReorderableListViewModel = hiltViewModel()) {
-    ReorderableListContent(viewModel.uiState, navController::navigateUp)
+    ReorderableListContent(viewModel.uiState, navController::popBackStack)
 }
 
 @Composable

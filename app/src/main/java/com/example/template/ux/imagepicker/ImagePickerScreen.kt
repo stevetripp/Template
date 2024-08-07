@@ -36,7 +36,7 @@ import com.example.template.ux.main.Screen
 
 @Composable
 fun ImagePickerScreen(navController: NavController) {
-    ImagePickerContent(navController::navigateUp)
+    ImagePickerContent(navController::popBackStack)
 }
 
 @Composable

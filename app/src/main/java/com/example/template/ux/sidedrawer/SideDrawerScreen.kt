@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SideDrawerScreen(navController: NavController) {
-    SideDrawerContent(navController::navigateUp)
+    SideDrawerContent(navController::popBackStack)
 }
 
 @Composable

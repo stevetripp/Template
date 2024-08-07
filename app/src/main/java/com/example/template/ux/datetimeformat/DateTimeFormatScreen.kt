@@ -25,7 +25,7 @@ import java.util.Locale
 
 @Composable
 fun DateTimeFormatScreen(navController: NavController) {
-    DateTimeFormatContent(navController::navigateUp)
+    DateTimeFormatContent(navController::popBackStack)
 }
 
 @Composable

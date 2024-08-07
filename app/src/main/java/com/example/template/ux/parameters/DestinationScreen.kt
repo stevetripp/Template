@@ -16,7 +16,7 @@ import com.example.template.ui.composable.AppTopAppBar
 
 @Composable
 fun DestinationScreen(navController: NavController, viewModel: DestinationViewModel = hiltViewModel()) {
-    DestinationContent(viewModel.uiState, navController::navigateUp)
+    DestinationContent(viewModel.uiState, navController::popBackStack)
 }
 
 @Composable
