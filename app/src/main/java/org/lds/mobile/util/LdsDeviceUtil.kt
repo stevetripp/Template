@@ -65,7 +65,7 @@ constructor(private val application: Application) {
         }
     }
 
-    fun getPackageVersionName(packageName: String): String {
+    fun getPackageVersionName(packageName: String): String? {
         return try {
             application.packageManager.getPackageInfo(packageName, 0).versionName
         } catch (ignore: PackageManager.NameNotFoundException) {
