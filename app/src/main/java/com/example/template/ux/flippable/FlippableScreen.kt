@@ -17,13 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
-import com.example.template.ext.popBackStackOrFinishActivity
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import com.wajahatkarim.flippable.Flippable
 import com.wajahatkarim.flippable.rememberFlipController
+import org.lds.mobile.ui.ext.popBackStackOrFinishActivity
 
 @Composable
 fun FlippableScreen(navController: NavController) {
