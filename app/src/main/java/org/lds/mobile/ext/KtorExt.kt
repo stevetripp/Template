@@ -32,58 +32,62 @@ import org.lds.mobile.network.CacheApiResponse
 @Suppress("kotlin:S6312") // Sonar issue with Coroutine scope on function ext
 suspend fun <T, E> HttpClient.executeSafely(
     apiCall: suspend HttpClient.() -> HttpResponse,
-    mapError: suspend (HttpResponse) -> ApiResponse.Failure.Error<E> = {
-        ApiResponse.Failure.Error(
-            null,
-            "Error executing service call: ${it.request.method.value} ${it.request.url} (${it.status})"
-        )
+    mapClientError: suspend (HttpResponse) -> ApiResponse.Failure.Error.Client<E> = {
+        ApiResponse.Failure.Error.Client(null, "Error executing service call: ${it.request.method.value} ${it.request.url} (${it.status})")
     },
     mapException: suspend (Throwable) -> ApiResponse.Failure.Exception = { ApiResponse.Failure.Exception(it) },
     mapSuccess: suspend (HttpResponse) -> T,
-): ApiResponse<T, E> {
+): ApiResponse<out T, out E> {
     return try {
         val response = apiCall()
         if (response.status.isSuccess()) {
-            @Suppress("UNCHECKED_CAST", "kotlin:S6531") // This is unnecessary, but the compiler doesn't know that.
-            ApiResponse.Success(mapSuccess(response)) as ApiResponse<T, E>
+            ApiResponse.Success(mapSuccess(response))
         } else {
-            @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
-            mapError(response) as ApiResponse<T, E>
+            val message = "Error executing service call: ${response.request.method.value} ${response.request.url} (${response.status})"
+            when (response.status) {
+                HttpStatusCode.Forbidden -> ApiResponse.Failure.Error.Forbidden(message)
+                HttpStatusCode.NoToken -> ApiResponse.Failure.Error.NoToken(message)
+                in HttpStatusCode(400, "")..HttpStatusCode(499, "") -> mapClientError(response)
+                in HttpStatusCode(500, "")..HttpStatusCode(599, "") -> ApiResponse.Failure.Error.Server(message)
+                else -> ApiResponse.Failure.Error.Unknown(response.status, message)
+            }
         }
     } catch (expected: Throwable) {
-        @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
-        mapException(expected) as ApiResponse<T, E>
+        mapException(expected)
     }
 }
+
+private val HttpStatusCode.Companion.NoToken: HttpStatusCode
+    get() = HttpStatusCode(480, "No Token")
 
 @Suppress("kotlin:S6312") // Sonar issue with Coroutine scope on function ext
 suspend fun <T, E> HttpClient.executeSafelyCached(
     apiCall: suspend HttpClient.() -> HttpResponse,
-    mapError: suspend (HttpResponse) -> CacheApiResponse.Failure.Error<E> = {
-        CacheApiResponse.Failure.Error(
-            null,
-            "Error executing service call: ${it.request.method.value} ${it.request.url} (${it.status})"
-        )
+    mapClientError: suspend (HttpResponse) -> CacheApiResponse.Failure.Error.Client<E> = {
+        CacheApiResponse.Failure.Error.Client(null, "Error executing service call: ${it.request.method.value} ${it.request.url} (${it.status})")
     },
-    mapException: suspend (Throwable) -> ApiResponse.Failure.Exception = { ApiResponse.Failure.Exception(it) },
+    mapException: suspend (Throwable) -> CacheApiResponse.Failure.Exception = { CacheApiResponse.Failure.Exception(it) },
     mapSuccess: suspend (HttpResponse) -> T,
-): CacheApiResponse<T, E> {
+): CacheApiResponse<out T, out E> {
     return try {
         val response = apiCall()
         if (response.status == HttpStatusCode.NotModified) {
-            @Suppress("UNCHECKED_CAST", "kotlin:S6531") // This is unnecessary, but the compiler doesn't know that.
-            CacheApiResponse.Success(null, response.etag(), response.headers[HttpHeaders.LastModified]) as CacheApiResponse<T, E>
+            CacheApiResponse.Success(null, response.etag(), response.headers[HttpHeaders.LastModified])
         }
         if (response.status.isSuccess()) {
-            @Suppress("UNCHECKED_CAST", "kotlin:S6531") // This is unnecessary, but the compiler doesn't know that.
-            CacheApiResponse.Success(mapSuccess(response), response.etag(), response.headers[HttpHeaders.LastModified]) as CacheApiResponse<T, E>
+            CacheApiResponse.Success(mapSuccess(response), response.etag(), response.headers[HttpHeaders.LastModified])
         } else {
-            @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
-            mapError(response) as CacheApiResponse<T, E>
+            val message = "Error executing service call: ${response.request.method.value} ${response.request.url} (${response.status})"
+            when (response.status) {
+                HttpStatusCode.Forbidden -> CacheApiResponse.Failure.Error.Forbidden(message)
+                HttpStatusCode.NoToken -> CacheApiResponse.Failure.Error.NoToken(message)
+                in HttpStatusCode(400, "")..HttpStatusCode(499, "") -> mapClientError(response)
+                in HttpStatusCode(500, "")..HttpStatusCode(599, "") -> CacheApiResponse.Failure.Error.Server(message)
+                else -> CacheApiResponse.Failure.Error.Unknown(response.status, message)
+            }
         }
     } catch (expected: Throwable) {
-        @Suppress("UNCHECKED_CAST") // This is unnecessary, but the compiler doesn't know that.
-        mapException(expected) as CacheApiResponse<T, E>
+        mapException(expected)
     }
 }
 

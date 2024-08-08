@@ -15,7 +15,7 @@ class GoogleBooksService @Inject constructor(
     @Named(ServiceModule.GOOGLE_API_STANDARD_CLIENT)
     private val httpClient: HttpClient
 ) {
-    suspend fun getVolumes(q: String, maxResults: Int): ApiResponse<VolumesDto, Unit> {
+    suspend fun getVolumes(q: String, maxResults: Int): ApiResponse<out VolumesDto, out Unit> {
         return httpClient.executeSafely({ getResource(GoogleBooksV1ServiceResource.Volumes(q = q, maxResults = maxResults)) }) { it.body() }
     }
 }
