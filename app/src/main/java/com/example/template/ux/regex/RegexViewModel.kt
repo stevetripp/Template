@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.template.model.datastore.AppPreferenceDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.lds.mobile.ext.stateInDefault
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,7 +18,31 @@ class RegexViewModel @Inject constructor(
 
     private val textFlow = MutableStateFlow("")
     private val regexTextFlow = MutableStateFlow("")
-    private val resultsTextFlow = MutableStateFlow("")
+
+    private val multilineModeEnabledFlow = appPrefs.multilineModeEnabledFlow.stateInDefault(viewModelScope, false)
+
+    private val resultsTextFlow = combine(textFlow, regexTextFlow, multilineModeEnabledFlow) { text, regexText, multilineEnabled ->
+        try {
+            val options = mutableSetOf(RegexOption.IGNORE_CASE).apply {
+                if (multilineEnabled) add(RegexOption.MULTILINE)
+            }
+            val regex = Regex(regexText, options)
+            val matches = regex.findAll(text).toList()
+
+            val results = StringBuilder()
+
+            matches.forEach { match ->
+                results.appendLine(match.value)
+            }
+
+            appPrefs.setRegexText(text)
+            appPrefs.setRegexExpression(regexText)
+
+            results.toString()
+        } catch (expected: Exception) {
+            expected.toString()
+        }
+    }.stateInDefault(viewModelScope, "")
 
     init {
         viewModelScope.launch {
@@ -29,35 +55,9 @@ class RegexViewModel @Inject constructor(
         textFlow = textFlow,
         regexTextFlow = regexTextFlow,
         resultsTextFlow = resultsTextFlow,
-        onTextChange = ::onTextChange,
-        onRegexTextChange = ::onRegexTextChange
+        multilineModeEnabledFlow = multilineModeEnabledFlow,
+        onTextChange = { textFlow.value = it },
+        onRegexTextChange = { regexTextFlow.value = it },
+        onToggleMultilineMode = { appPrefs.setMultilineModeEnabledAsync(it) }
     )
-
-    private fun onTextChange(text: String) {
-        textFlow.value = text
-        updateResults()
-    }
-
-    private fun onRegexTextChange(regexText: String) {
-        regexTextFlow.value = regexText
-        updateResults()
-    }
-
-    private fun updateResults() = viewModelScope.launch {
-        try {
-            val regex = Regex(regexTextFlow.value, RegexOption.IGNORE_CASE)
-            val matches = regex.findAll(textFlow.value).toList()
-
-            val results = StringBuilder()
-
-            matches.forEach { match ->
-                results.appendLine(match.value)
-            }
-            resultsTextFlow.value = results.toString()
-
-            appPrefs.setRegexText(textFlow.value)
-            appPrefs.setRegexExpression(regexTextFlow.value)
-        } catch (_: Exception) {
-        }
-    }
 }
