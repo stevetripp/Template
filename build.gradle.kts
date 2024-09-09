@@ -46,16 +46,18 @@ allprojects {
 // ===== Dependency Analysis =====
 // ./gradlew projectHealth
 dependencyAnalysis {
+    structure {
+        ignoreKtx(true)
+    }
     issues {
         all {
             onAny {
-                ignoreKtx(true)
                 severity("fail")
             }
             onUnusedDependencies {
-//                exclude(
-//                    depGroupAndName(libs.compose.ui.tooling), // Compose Previews
-//                )
+                exclude(
+                    depGroupAndName(libs.junit.jupiter), // Needed for unit tests
+                )
             }
             onUsedTransitiveDependencies { severity("ignore") }
             onIncorrectConfiguration { severity("ignore") }

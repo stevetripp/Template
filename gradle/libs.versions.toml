@@ -1,32 +1,32 @@
 [versions]
-agp = "8.5.1" # see https://developer.android.com/studio/releases/gradle-plugin
-kotlin = "2.0.10" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-ksp = "2.0.10-1.0.24" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
-kotlinxSerializationJson = "1.7.1"
-kotlinxDateTime = "0.6.0"
+agp = "8.5.2" # see https://developer.android.com/studio/releases/gradle-plugin
+kotlin = "2.0.20" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+ksp = "2.0.20-1.0.25" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
+kotlinxSerializationJson = "1.7.2"
+kotlinxDateTime = "0.6.1"
 
-accompanist = "0.34.0"
-androidxActivityCompose = "1.9.1"
+accompanist = "0.36.0"
+androidxActivityCompose = "1.9.2"
 androidxBiometrics = "1.1.0"
-androidxComposeMaterial = "1.7.0-beta07"
-androidxComposeMaterial3 = "1.3.0-beta05"
-androidxComposeMaterial3Adaptive = "1.0.0-beta04"
-androidxComposeMaterial3AdaptiveNavigation = "1.3.0-beta05"
-androidxComposeUi = "1.7.0-beta07"
+androidxComposeMaterial = "1.7.0"
+androidxComposeMaterial3 = "1.3.0"
+androidxComposeMaterial3Adaptive = "1.0.0"
+androidxComposeMaterial3AdaptiveNavigation = "1.3.0"
+androidxComposeUi = "1.7.0"
 androidxDataStore = "1.1.1"
 androidxHilt = "1.2.0"
-androidxLifecycle = "2.8.4"
-androidxMedia3 = "1.4.0"
-androidxNavigation = "2.8.0-beta07"
+androidxLifecycle = "2.8.5"
+androidxMedia3 = "1.4.1"
+androidxNavigation = "2.8.0"
 androidxSplashScreen = "1.1.0-rc01"
 androidxTestJunit = "1.2.1"
 coil = "2.7.0"
-dependencyAnalysis = "1.33.0"
-detekt = "1.23.6"
+dependencyAnalysis = "2.0.1"
+detekt = "1.23.7"
 flippable = "1.5.4"
 googleMaterial = "1.12.0"
-hilt = "2.51.1"
-junitBom = "5.10.3"
+hilt = "2.52"
+junitBom = "5.11.0"
 kermit = "2.0.4"
 ktor = "2.3.12"
 reorderableCompose = "0.9.6"
@@ -46,7 +46,6 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
 
 [libraries]
-accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 androidx-biometrics = { module = "androidx.biometric:biometric", version.ref = "androidxBiometrics" }
@@ -57,9 +56,6 @@ androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-ru
 
 androidx-media3-cast = { module = "androidx.media3:media3-cast", version.ref = "androidxMedia3" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "androidxMedia3" }
-androidx-media3-exoplayer-dash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "androidxMedia3" }
-androidx-media3-exoplayer-hls = { module = "androidx.media3:media3-exoplayer-hls", version.ref = "androidxMedia3" }
-androidx-media3-session = { module = "androidx.media3:media3-session", version.ref = "androidxMedia3" }
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidxMedia3" }
 
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
@@ -97,6 +93,5 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client-resources = { module = "io.ktor:ktor-client-resources", version.ref = "ktor" }
-ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 
 reorderable-compose = { module = "org.burnoutcrew.composereorderable:reorderable", version.ref = "reorderableCompose" }
