@@ -35,6 +35,7 @@ import com.example.template.ux.stickyheaders.StickyHeadersRoute
 import com.example.template.ux.swipablescreen.SwipableRoute
 import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.tabs.TabsRoute
+import com.example.template.ux.typography.TypographyRoute
 import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
@@ -91,6 +92,7 @@ class HomeViewModel
             Screen.SWIPABLE -> navigate(SwipableRoute)
             Screen.SYSTEM_UI -> navigate(SystemUiRoute)
             Screen.TABS -> navigate(TabsRoute)
+            Screen.TYPOGRAPHY -> navigate(TypographyRoute)
             Screen.URI_NAVIGATION -> navigate(UriNavigationRoute)
             Screen.VIDEO -> navigate(VideoScreenRoute)
             Screen.WEBVIEW -> navigate(WebViewRoute)

@@ -38,6 +38,7 @@ enum class Screen(val title: String, val type: ScreenType = ScreenType.NAVIGATIO
     SWIPABLE("Swipable", ScreenType.UI),
     SYSTEM_UI("System UI", ScreenType.UI),
     TABS("Tabs", ScreenType.UI),
+    TYPOGRAPHY("Typography", ScreenType.UI),
     URI_NAVIGATION("Uri Navigation", ScreenType.UI),
     VIDEO("Video", ScreenType.UI),
     WEBVIEW("Webview", ScreenType.UI);

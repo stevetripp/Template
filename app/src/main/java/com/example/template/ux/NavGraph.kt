@@ -93,6 +93,8 @@ import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.systemui.SystemUiScreen
 import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
+import com.example.template.ux.typography.TypographyRoute
+import com.example.template.ux.typography.TypographyScreen
 import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.urinavigation.UriNavigationScreen
 import com.example.template.ux.video.player.PlayerActivity
@@ -156,6 +158,7 @@ fun NavGraph(
         composable<SwipableRoute> { SwipableScreen(navController) }
         composable<SystemUiRoute> { SystemUiScreen(navController) }
         composable<TabsRoute> { TabsScreen(navController) }
+        composable<TypographyRoute> { TypographyScreen(navController) }
         composable<UriNavigationRoute> { UriNavigationScreen(navController) }
         composable<VideoScreenRoute> { VideoScreen(navController) }
         composable<WebViewRoute> { WebViewScreen(navController) }
