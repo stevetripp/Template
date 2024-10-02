@@ -24,13 +24,13 @@ class SearchViewModel
 
     private val filteredListFlow = searchTextFlow.map { searchText ->
         Log.i("SMT", "filteredListFlow($searchText)")
-        randomNames.filter { it.contains(searchText) }
+        randomNames.filter { it.contains(searchText, ignoreCase = true) }
     }.stateInDefault(viewModelScope, emptyList())
 
     private val suggestedListFlow = combine(queryTextFlow, previousQueriesFlow) { queryText, previousQueries ->
         Log.i("SMT", "suggestedListFlow($queryText, ${previousQueries})")
         if (queryText.isBlank()) return@combine previousQueries
-        previousQueries.filter { it.contains(queryText) }
+        previousQueries.filter { it.contains(queryText, ignoreCase = true) }
     }.stateInDefault(viewModelScope, emptyList())
 
     val uiState = SearchUiState(

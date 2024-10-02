@@ -1,4 +1,4 @@
-package com.example.template.ui.composable
+package com.example.template.ui.widget
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,11 +31,12 @@ import androidx.compose.ui.unit.dp
 fun SynchronizedSearchBar(
     query: String,
     scrollable: @Composable (Modifier) -> Unit,
-    isActive: Boolean,
+    isExpanded: Boolean,
     modifier: Modifier = Modifier,
     onQueryChange: (String) -> Unit,
     onSearch: (String) -> Unit,
-    onActiveChange: (Boolean) -> Unit,
+    onExpandedChanged: (Boolean) -> Unit,
+    placeholder: @Composable (() -> Unit)? = { Text("Hinted search text") },
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val localDensity = LocalDensity.current
@@ -61,30 +63,37 @@ fun SynchronizedSearchBar(
             .nestedScroll(nestedScrollConnection)
     ) {
         SearchBar(
+            inputField = {
+                SearchBarDefaults.InputField(
+                    modifier = Modifier.fillMaxWidth(),
+                    query = query,
+                    onQueryChange = onQueryChange,
+                    onSearch = {
+                        onSearch(it)
+                        onExpandedChanged(false)
+                    },
+                    expanded = isExpanded,
+                    onExpandedChange = onExpandedChanged,
+                    placeholder = placeholder,
+                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                    trailingIcon = {
+                        Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.clickable {
+                            if (query.isNotBlank()) {
+                                onQueryChange("")
+                                onSearch("")
+                            } else {
+                                onExpandedChanged(false)
+                            }
+                        })
+                    },
+                )
+            },
+            expanded = isExpanded,
+            onExpandedChange = onExpandedChanged,
             modifier = Modifier
                 .fillMaxWidth()
                 .graphicsLayer { translationY = scrollGroupOffsetHeightPx }
-                .then(if (!isActive) Modifier.padding(horizontal = 16.dp) else Modifier),
-            query = query,
-            onQueryChange = onQueryChange,
-            onSearch = {
-                onSearch(it)
-                onActiveChange(false)
-            },
-            active = isActive,
-            onActiveChange = onActiveChange,
-            placeholder = { Text("Hinted search text") },
-            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-            trailingIcon = {
-                Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.clickable {
-                    if (query.isNotBlank()) {
-                        onQueryChange("")
-                        onSearch("")
-                    } else {
-                        onActiveChange(false)
-                    }
-                })
-            },
+                .then(if (!isExpanded) Modifier.padding(horizontal = 16.dp) else Modifier),
             content = content,
         )
         scrollable(

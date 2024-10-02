@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
@@ -24,7 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
-import com.example.template.ui.composable.SynchronizedSearchBar
+import com.example.template.ui.widget.SynchronizedSearchBar
 import com.example.template.ux.main.Screen
 
 @Composable
@@ -34,54 +33,43 @@ fun SearchScreen(navController: NavController, viewModel: SearchViewModel = hilt
 
 @Composable
 private fun SearchContent(uiState: SearchUiState, onBack: () -> Unit = {}) {
-    var searchIsActive by rememberSaveable { mutableStateOf(false) }
+    var isExpanded by rememberSaveable { mutableStateOf(false) }
     val query by uiState.queryTextFlow.collectAsStateWithLifecycle()
     val filteredList by uiState.filteredListFlow.collectAsStateWithLifecycle()
     val suggestionList by uiState.suggestionListFlow.collectAsStateWithLifecycle()
-    val lazyListState = rememberLazyListState()
 
     Scaffold(
-        topBar = if (searchIsActive) {
-            {}
-        } else {
-            { AppTopAppBar(title = Screen.SEARCH.title, onBack = onBack) }
-        }
+        topBar = { if (!isExpanded) AppTopAppBar(title = Screen.SEARCH.title, onBack = onBack) }
     ) { paddingValues ->
 
         SynchronizedSearchBar(
             modifier = Modifier.padding(paddingValues),
             query = query,
             scrollable = { modifier ->
-                LazyColumn(
-                    modifier = modifier
-                        .fillMaxSize(),
-                    state = lazyListState
-                ) {
+                LazyColumn(modifier = modifier.fillMaxSize()) {
                     items(filteredList) { item ->
                         ListItem(
                             headlineContent = { Text(text = item) },
-                            Modifier
-                                .fillMaxWidth()
+                            Modifier.fillMaxWidth()
                         )
                     }
                 }
             },
-            isActive = searchIsActive,
+            isExpanded = isExpanded,
             onQueryChange = uiState.onQueryChange,
             onSearch = uiState.onSearch,
-            onActiveChange = { searchIsActive = it },
-            content = {
-                suggestionList.forEach {
-                    ListItem(
-                        headlineContent = { Text(text = it) },
-                        leadingContent = { Icon(Icons.Filled.Star, contentDescription = null) },
-                        modifier = Modifier
-                            .clickable { uiState.onQueryChange(it) }
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 4.dp)
-                    )
-                }
+            onExpandedChanged = { isExpanded = it }
+        ) {
+            suggestionList.forEach {
+                ListItem(
+                    headlineContent = { Text(text = it) },
+                    leadingContent = { Icon(Icons.Filled.Star, contentDescription = null) },
+                    modifier = Modifier
+                        .clickable { uiState.onQueryChange(it) }
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 4.dp)
+                )
             }
-        )
+        }
     }
 }
