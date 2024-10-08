@@ -11,7 +11,7 @@ class ReorderableListViewModel
 @Inject constructor(
 ) : ViewModel() {
 
-    private val listFlow = MutableStateFlow(List(100) { ReoderableItemData(it, "Item $it") })
+    private val listFlow = MutableStateFlow(List(100) { ReorderableItemData(it, "Item $it") })
 
     val uiState = ReorderableListUiState(
         listFlow = listFlow,
@@ -28,4 +28,4 @@ class ReorderableListViewModel
     }
 }
 
-data class ReoderableItemData(val id: Int, val value: String)
+data class ReorderableItemData(val id: Int, val value: String)

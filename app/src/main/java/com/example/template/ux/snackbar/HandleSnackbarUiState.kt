@@ -21,11 +21,11 @@ fun HandleSnackbarUiState(snackbarUiStateFlow: StateFlow<SnackbarUiState?>): Sna
         val (message, label, duration, onAction, resetSnackbarUiState) = snackbarUiState ?: return@LaunchedEffect
         val result = snackbarHostState.showSnackbar(
             message = message,
-            actionLabel = label,
+            actionLabel = onAction?.let { label.orEmpty() },
             duration = duration,
         )
 
-        if (result == SnackbarResult.ActionPerformed) onAction()
+        if (result == SnackbarResult.ActionPerformed) onAction?.invoke()
         resetSnackbarUiState()
     }
 
@@ -34,8 +34,8 @@ fun HandleSnackbarUiState(snackbarUiStateFlow: StateFlow<SnackbarUiState?>): Sna
 
 data class SnackbarUiState(
     val message: String,
-    val actionLabel: String,
+    val actionLabel: String? = null,
     val duration: SnackbarDuration = SnackbarDuration.Short,
-    val onAction: () -> Unit,
+    val onAction: (() -> Unit)? = null,
     val resetSnackbarUiState: () -> Unit = {},
 )

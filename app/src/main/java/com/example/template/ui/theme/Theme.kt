@@ -1,6 +1,7 @@
 package com.example.template.ui.theme
 
 import android.app.Activity
+import android.content.res.Configuration
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
@@ -290,3 +292,7 @@ fun AppTheme(
     )
 }
 
+object AppTheme {
+    val isLandscape: Boolean
+        @Composable get() = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+}
