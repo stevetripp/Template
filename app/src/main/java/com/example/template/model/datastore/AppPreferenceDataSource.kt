@@ -47,8 +47,11 @@ class AppPreferenceDataSource
     val regexExpressionFlow: Flow<String> = application.dataStore.data.mapDistinct { it[REGEX_EXPRESSION] ?: "" }
     suspend fun setRegexExpression(value: String) = application.dataStore.edit { it[REGEX_EXPRESSION] = value }
 
-    val multilineModeEnabledFlow: Flow<Boolean> = application.dataStore.data.mapDistinct { it[REGEX_MULTILINE_ENABLED] ?: false }
+    val multilineModeEnabledFlow: Flow<Boolean> = application.dataStore.data.mapDistinct { it[REGEX_MULTILINE_ENABLED] == true }
     fun setMultilineModeEnabledAsync(value: Boolean) = appScope.launch { application.dataStore.edit { it[REGEX_MULTILINE_ENABLED] = value } }
+
+    val enforceNavigationBarContrastFlow: Flow<Boolean> = application.dataStore.data.mapDistinct { it[ENFORCE_NAVIGATION_BAR_CONTRAST] != false }
+    fun setEnforceNavigationBarContrastAsync(value: Boolean) = appScope.launch { application.dataStore.edit { it[ENFORCE_NAVIGATION_BAR_CONTRAST] = value } }
 
     companion object {
         private val PREVIOUS_QUERIES = stringPreferencesKey("PREVIOUS_SEARCHES")
@@ -56,5 +59,7 @@ class AppPreferenceDataSource
         private val REGEX_TEXT = stringPreferencesKey("REGEX_TEXT")
         private val REGEX_EXPRESSION = stringPreferencesKey("REGEX_EXPRESSION")
         private val REGEX_MULTILINE_ENABLED = booleanPreferencesKey("REGEX_MULTILINE_ENABLED")
+
+        private val ENFORCE_NAVIGATION_BAR_CONTRAST = booleanPreferencesKey("ENFORCE_NAVIGATION_BAR_CONTRAST")
     }
 }

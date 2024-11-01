@@ -6,9 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.activity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.template.ux.DeepLink.HOST
-import com.example.template.ux.DeepLink.PATH_PREFIX
-import com.example.template.ux.DeepLink.SCHEME
 import com.example.template.ux.about.AboutRoute
 import com.example.template.ux.about.AboutScreen
 import com.example.template.ux.animatedgestures.AnimatedGestureScreen
@@ -81,6 +78,8 @@ import com.example.template.ux.search.SearchRoute
 import com.example.template.ux.search.SearchScreen
 import com.example.template.ux.servicesexamples.ServicesExamplesRoute
 import com.example.template.ux.servicesexamples.ServicesExamplesScreen
+import com.example.template.ux.settings.SettingRoute
+import com.example.template.ux.settings.SettingsScreen
 import com.example.template.ux.sidedrawer.SideDrawerRoute
 import com.example.template.ux.sidedrawer.SideDrawerScreen
 import com.example.template.ux.snackbar.SnackbarRoute
@@ -117,6 +116,7 @@ fun NavGraph(
         navController = navController,
         startDestination = HomeRoute
     ) {
+        activity<PlayerRoute>(PlayerRoute.typeMap()) { this.activityClass = PlayerActivity::class }
         composable<AboutRoute> { AboutScreen(navController) }
         composable<AnimatedGesturesRoute> { AnimatedGestureScreen(navController) }
         composable<BottomNavigationRoute> { BottomNavigationScreen(navController) }
@@ -144,7 +144,6 @@ fun NavGraph(
         composable<PanningZoomingRoute> { PanningZoomingScreen(navController) }
         composable<ParametersRoute> { ParametersScreen(navController) }
         composable<PermissionsRoute> { PermissionsScreen(navController) }
-        activity<PlayerRoute>(PlayerRoute.typeMap()) { this.activityClass = PlayerActivity::class }
         composable<PopWithResultChildRoute> { PopWithResultChildScreen(navController) }
         composable<PopWithResultParentRoute> { PopWithResultParentScreen(navController) }
         composable<PullRefreshRoute>(deepLinks = PullRefreshRoute.deepLinks()) { PullRefreshScreen(navController) }
@@ -152,6 +151,7 @@ fun NavGraph(
         composable<ReorderableListRoute> { ReorderableListScreen(navController) }
         composable<SearchRoute> { SearchScreen(navController) }
         composable<ServicesExamplesRoute> { ServicesExamplesScreen(navController) }
+        composable<SettingRoute> { SettingsScreen(navController) }
         composable<SideDrawerRoute> { SideDrawerScreen(navController) }
         composable<SnackbarRoute> { SnackbarScreen(navController) }
         composable<StickyHeadersRoute> { StickyHeadersScreen(navController) }
