@@ -1,13 +1,12 @@
 <resources>
     <!-- Workaround for issue for large splash images on SDK > 31 (use above and remove v31/themes.xml when fixed https://issuetracker.google.com/issues/201724091) -->
-    <style name="AppTheme.Splash" parent="Theme.SplashScreen.IconBackground">
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen">
         <!-- Match lightScheme.primary -->
         <item name="windowSplashScreenBackground">#FF004305</item>
-        <item name="windowSplashScreenIconBackgroundColor">#FF004305</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar" />
+    <style name="AppTheme" parent="android:Theme.Material.NoActionBar" />
 </resources>
