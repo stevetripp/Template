@@ -54,7 +54,7 @@ class SearchViewModel
     }
 
     companion object {
-        private val randomNames = listOf(
+        val randomNames = listOf(
             "Emily Johnson",
             "Alexander Martinez",
             "Olivia Thompson",

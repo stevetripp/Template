@@ -12,6 +12,7 @@ enum class Screen(val title: String, val type: ScreenType = ScreenType.NAVIGATIO
     DATE_TIME_FORMAT("Date/Time Format", ScreenType.UI),
     DIALOG("Dialog", ScreenType.UI),
     FLIPPABLE("Flippable", ScreenType.UI),
+    FILTER_TEXT("Filter Text", ScreenType.UI),
     GMAIL_ADDRESS_FIELD("Gmail Address Field", ScreenType.UI),
     HOME("UI Examples"),
     IMAGE_PICKER("Image Picker", ScreenType.UI),
