@@ -1,7 +1,7 @@
-package com.example.template.ux.filtertextfield
+package com.example.template.ux.synchronizescrolling
 
 import kotlinx.serialization.Serializable
 import org.lds.mobile.navigation.NavigationRoute
 
 @Serializable
-object FilterTextRoute : NavigationRoute
+object SynchronizeScrollingRoute : NavigationRoute

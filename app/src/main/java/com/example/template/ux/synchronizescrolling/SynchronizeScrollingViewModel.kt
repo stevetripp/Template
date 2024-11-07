@@ -1,4 +1,4 @@
-package com.example.template.ux.filtertextfield
+package com.example.template.ux.synchronizescrolling
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +10,7 @@ import org.lds.mobile.ext.stateInDefault
 import javax.inject.Inject
 
 @HiltViewModel
-class FilterTextViewModel @Inject constructor() : ViewModel() {
+class SynchronizeScrollingViewModel @Inject constructor() : ViewModel() {
 
     private val queryFlow = MutableStateFlow<String>("")
     private val randomNamesFlow = MutableStateFlow(SearchViewModel.randomNames)
@@ -18,7 +18,7 @@ class FilterTextViewModel @Inject constructor() : ViewModel() {
         names.filter { it.contains(query, true) }
     }.stateInDefault(viewModelScope, emptyList())
 
-    val uiState = FilterTextUiState(
+    val uiState = SynchronizeScrollingUiState(
         namesFlow = namesFlow,
         queryFlow = queryFlow,
         onQueryChange = { queryFlow.value = it }

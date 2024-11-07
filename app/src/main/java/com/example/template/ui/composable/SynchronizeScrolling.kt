@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -25,26 +23,28 @@ import androidx.compose.ui.zIndex
 import kotlin.math.roundToInt
 
 @Composable
-fun CoordinatedLazyColumn(
-    pinCoordinatedContent: Boolean,
+fun SynchronizeScrolling(
+    pinSyncedContent: Boolean,
     modifier: Modifier = Modifier,
-    coordinatedContent: @Composable (Modifier) -> Unit,
-    content: LazyListScope.() -> Unit
+    syncedContent: @Composable (Modifier) -> Unit,
+    content: @Composable (PaddingValues) -> Unit
 ) {
     val density = LocalDensity.current
 
-    var coordinatedContentSize by remember { mutableStateOf(IntSize(0, 0)) }
-    val coordinatedContentHeightDp by remember(coordinatedContentSize) { mutableStateOf(with(density) { coordinatedContentSize.height.toDp() }) }
-    var coordinatedContentHeightOffsetPx by remember { mutableFloatStateOf(0f) }
-    val nestedScrollConnection = remember(coordinatedContentSize) {
+    var syncedContentSize by remember { mutableStateOf(IntSize(0, 0)) }
+    val syncedContentHeightDp by remember(syncedContentSize) { mutableStateOf(with(density) { syncedContentSize.height.toDp() }) }
+    var syncedContentHeightOffsetPx by remember { mutableFloatStateOf(0f) }
+    val nestedScrollConnection = remember(syncedContentSize, pinSyncedContent) {
         object : NestedScrollConnection {
-            val coordinatedContentHeightPx = coordinatedContentSize.height.toFloat()
+            val coordinatedContentHeightPx = syncedContentSize.height.toFloat()
 
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-                if (pinCoordinatedContent) {
+                if (pinSyncedContent) {
+                    syncedContentHeightOffsetPx = 0f
+                } else {
                     val delta = available.y
-                    val newOffset = coordinatedContentHeightOffsetPx + delta
-                    coordinatedContentHeightOffsetPx = newOffset.coerceIn(-coordinatedContentHeightPx, 0f)
+                    val newOffset = syncedContentHeightOffsetPx + delta
+                    syncedContentHeightOffsetPx = newOffset.coerceIn(-coordinatedContentHeightPx, 0f)
                 }
                 return Offset.Zero
             }
@@ -56,13 +56,11 @@ fun CoordinatedLazyColumn(
             .fillMaxSize()
             .nestedScroll(nestedScrollConnection)
     ) {
-        coordinatedContent(Modifier
+        syncedContent(Modifier
             .zIndex(1f)
-            .offset { IntOffset(0, coordinatedContentHeightOffsetPx.roundToInt()) }
-            .onSizeChanged { coordinatedContentSize = it }
+            .offset { IntOffset(0, syncedContentHeightOffsetPx.roundToInt()) }
+            .onSizeChanged { syncedContentSize = it }
         )
-        LazyColumn(contentPadding = PaddingValues(top = coordinatedContentHeightDp)) {
-            content()
-        }
+        content(PaddingValues(top = syncedContentHeightDp))
     }
 }

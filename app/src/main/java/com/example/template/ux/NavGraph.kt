@@ -76,8 +76,8 @@ import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.reorderablelist.ReorderableListScreen
 import com.example.template.ux.search.SearchRoute
 import com.example.template.ux.search.SearchScreen
-import com.example.template.ux.filtertextfield.FilterTextRoute
-import com.example.template.ux.filtertextfield.FilterTextScreen
+import com.example.template.ux.synchronizescrolling.SynchronizeScrollingRoute
+import com.example.template.ux.synchronizescrolling.SynchronizeScrollingScreen
 import com.example.template.ux.servicesexamples.ServicesExamplesRoute
 import com.example.template.ux.servicesexamples.ServicesExamplesScreen
 import com.example.template.ux.settings.SettingRoute
@@ -131,7 +131,7 @@ fun NavGraph(
         composable<DateTimeFormatRoute> { DateTimeFormatScreen(navController) }
         composable<DestinationRoute>(typeMap = DestinationRoute.typeMap(), deepLinks = DestinationRoute.deepLinks()) { DestinationScreen(navController) }
         composable<DialogRoute> { DialogScreen(navController) }
-        composable<FilterTextRoute> { FilterTextScreen(navController) }
+        composable<SynchronizeScrollingRoute> { SynchronizeScrollingScreen(navController) }
         composable<FlippableRoute>(deepLinks = FlippableRoute.deepLinks()) { FlippableScreen(navController) }
         composable<GmailAddressFieldRoute> { GmailAddressFieldScreen(navController) }
         composable<HomeRoute> { HomeScreen(navController) }

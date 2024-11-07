@@ -29,7 +29,7 @@ import com.example.template.ux.popwithresult.PopWithResultParentRoute
 import com.example.template.ux.pullrefresh.PullRefreshRoute
 import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.search.SearchRoute
-import com.example.template.ux.filtertextfield.FilterTextRoute
+import com.example.template.ux.synchronizescrolling.SynchronizeScrollingRoute
 import com.example.template.ux.sidedrawer.SideDrawerRoute
 import com.example.template.ux.snackbar.SnackbarRoute
 import com.example.template.ux.stickyheaders.StickyHeadersRoute
@@ -70,7 +70,6 @@ class HomeViewModel
             Screen.CHIP_SHEET -> navigate(ChipSheetRoute)
             Screen.DATE_TIME_FORMAT -> navigate(DateTimeFormatRoute)
             Screen.DIALOG -> navigate(DialogRoute)
-            Screen.FILTER_TEXT -> navigate(FilterTextRoute)
             Screen.FLIPPABLE -> navigate(FlippableRoute)
             Screen.GMAIL_ADDRESS_FIELD -> navigate(GmailAddressFieldRoute)
             Screen.IMAGE_PICKER -> navigate(ImagePickerRoute)
@@ -92,6 +91,7 @@ class HomeViewModel
             Screen.SNACKBAR -> navigate(SnackbarRoute)
             Screen.STICKY_HEADERS -> navigate(StickyHeadersRoute)
             Screen.SWIPABLE -> navigate(SwipableRoute)
+            Screen.SYNCHRONIZE_SCROLLING -> navigate(SynchronizeScrollingRoute)
             Screen.SYSTEM_UI -> navigate(SystemUiRoute)
             Screen.TABS -> navigate(TabsRoute)
             Screen.TYPOGRAPHY -> navigate(TypographyRoute)

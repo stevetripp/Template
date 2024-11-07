@@ -1,6 +1,8 @@
-package com.example.template.ux.filtertextfield
+package com.example.template.ux.synchronizescrolling
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
@@ -14,38 +16,42 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewPhoneOrientations
 import com.example.template.ui.composable.AppTopAppBar
-import com.example.template.ui.composable.CoordinatedLazyColumn
 import com.example.template.ui.composable.FilterTextField
+import com.example.template.ui.composable.SynchronizeScrolling
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import com.example.template.ux.search.SearchViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
-fun FilterTextScreen(navController: NavController, viewModel: FilterTextViewModel = hiltViewModel()) {
-    FilterTextContent(viewModel.uiState, navController::popBackStack)
+fun SynchronizeScrollingScreen(navController: NavController, viewModel: SynchronizeScrollingViewModel = hiltViewModel()) {
+    SynchronizeScrollingContent(viewModel.uiState, navController::popBackStack)
 }
 
 @Composable
-private fun FilterTextContent(uiState: FilterTextUiState, onBack: () -> Unit = {}) {
+private fun SynchronizeScrollingContent(uiState: SynchronizeScrollingUiState, onBack: () -> Unit = {}) {
     val names by uiState.namesFlow.collectAsStateWithLifecycle()
     val query by uiState.queryFlow.collectAsStateWithLifecycle()
 
     Scaffold(
-        topBar = { AppTopAppBar(title = Screen.FILTER_TEXT.title, onBack = onBack) }
+        topBar = { AppTopAppBar(title = Screen.SYNCHRONIZE_SCROLLING.title, onBack = onBack) }
     ) { paddingValues ->
-        CoordinatedLazyColumn(modifier = Modifier.padding(paddingValues),
-            pinCoordinatedContent = query.isBlank(),
-            coordinatedContent = { coordinatedModifier ->
+        SynchronizeScrolling(modifier = Modifier.padding(paddingValues),
+            pinSyncedContent = query.isNotBlank(),
+            syncedContent = { syncModifier ->
                 FilterTextField(
-                    modifier = coordinatedModifier.padding(horizontal = 16.dp),
+                    modifier = syncModifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
                     query = query,
                     placeholder = "Placeholder",
                     onQueryChange = uiState.onQueryChange
                 )
-            }) {
-            items(names) { name ->
-                ListItem(headlineContent = { Text(text = name) })
+            }) { contentPadding ->
+            LazyColumn(contentPadding = contentPadding) {
+                items(names) { name ->
+                    ListItem(headlineContent = { Text(text = name) })
+                }
             }
         }
     }
@@ -55,5 +61,5 @@ private fun FilterTextContent(uiState: FilterTextUiState, onBack: () -> Unit = {
 @Composable
 private fun Preview() {
     val listFlow = MutableStateFlow(SearchViewModel.randomNames)
-    AppTheme { FilterTextContent(FilterTextUiState(namesFlow = listFlow)) }
+    AppTheme { SynchronizeScrollingContent(SynchronizeScrollingUiState(namesFlow = listFlow)) }
 }
