@@ -14,6 +14,9 @@ import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomSheet.BottomSheetScreen
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
+import com.example.template.ux.breadcrumbs.BreadCrumbsRoute
+import com.example.template.ux.breadcrumbs.BreadCrumbsScreen
+import com.example.template.ux.breadcrumbs.typeMap
 import com.example.template.ux.buttongroups.ButtonGroupsRoute
 import com.example.template.ux.buttongroups.ButtonGroupsScreen
 import com.example.template.ux.carousel.CarouselRoute
@@ -76,8 +79,6 @@ import com.example.template.ux.reorderablelist.ReorderableListRoute
 import com.example.template.ux.reorderablelist.ReorderableListScreen
 import com.example.template.ux.search.SearchRoute
 import com.example.template.ux.search.SearchScreen
-import com.example.template.ux.synchronizescrolling.SynchronizeScrollingRoute
-import com.example.template.ux.synchronizescrolling.SynchronizeScrollingScreen
 import com.example.template.ux.servicesexamples.ServicesExamplesRoute
 import com.example.template.ux.servicesexamples.ServicesExamplesScreen
 import com.example.template.ux.settings.SettingRoute
@@ -90,6 +91,8 @@ import com.example.template.ux.stickyheaders.StickyHeadersRoute
 import com.example.template.ux.stickyheaders.StickyHeadersScreen
 import com.example.template.ux.swipablescreen.SwipableRoute
 import com.example.template.ux.swipablescreen.SwipableScreen
+import com.example.template.ux.synchronizescrolling.SynchronizeScrollingRoute
+import com.example.template.ux.synchronizescrolling.SynchronizeScrollingScreen
 import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.systemui.SystemUiScreen
 import com.example.template.ux.tabs.TabsRoute
@@ -123,6 +126,7 @@ fun NavGraph(
         composable<AnimatedGesturesRoute> { AnimatedGestureScreen(navController) }
         composable<BottomNavigationRoute> { BottomNavigationScreen(navController) }
         composable<BottomSheetRoute> { BottomSheetScreen(navController) }
+        composable<BreadCrumbsRoute>(BreadCrumbsRoute.typeMap()) { BreadCrumbsScreen(navController) }
         composable<ButtonGroupsRoute> { ButtonGroupsScreen(navController) }
         composable<CarouselRoute> { CarouselScreen(navController) }
         composable<ChildWithNavigationRoute> { ChildWithNavigationScreen(navController) }
