@@ -109,6 +109,14 @@ sealed interface NavigationAction {
         }
     }
 
+    data class PopToDestination(private val destination: String, private val inclusive: Boolean = false) : NavigationActionRoute {
+        override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
+            val stackPopped = navController.popBackStack(destination, inclusive = inclusive)
+            resetNavigate(this)
+            return stackPopped
+        }
+    }
+
     data class PopWithResult(
         private val resultValues: List<PopResultKeyValue>,
         private val popToRoute: NavigationRoute? = null,
@@ -134,7 +142,7 @@ sealed interface NavigationAction {
 }
 
 fun NavigationAction.navigate(context: Context, navController: NavController, resetNavigate: (NavigationAction) -> Unit) {
-    when(this) {
+    when (this) {
         is NavigationActionIntent -> navigate(context, resetNavigate)
         is NavigationActionRoute -> navigate(navController, resetNavigate)
         is NavigationActionFull -> navigate(context, navController, resetNavigate)

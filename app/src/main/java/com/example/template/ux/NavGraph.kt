@@ -6,6 +6,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.activity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.template.ux.DeepLink.HOST
+import com.example.template.ux.DeepLink.PATH_PREFIX
+import com.example.template.ux.DeepLink.SCHEME
 import com.example.template.ux.about.AboutRoute
 import com.example.template.ux.about.AboutScreen
 import com.example.template.ux.animatedgestures.AnimatedGestureScreen
@@ -16,7 +19,6 @@ import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
 import com.example.template.ux.breadcrumbs.BreadCrumbsRoute
 import com.example.template.ux.breadcrumbs.BreadCrumbsScreen
-import com.example.template.ux.breadcrumbs.typeMap
 import com.example.template.ux.buttongroups.ButtonGroupsRoute
 import com.example.template.ux.buttongroups.ButtonGroupsScreen
 import com.example.template.ux.carousel.CarouselRoute
@@ -126,7 +128,7 @@ fun NavGraph(
         composable<AnimatedGesturesRoute> { AnimatedGestureScreen(navController) }
         composable<BottomNavigationRoute> { BottomNavigationScreen(navController) }
         composable<BottomSheetRoute> { BottomSheetScreen(navController) }
-        composable<BreadCrumbsRoute>(BreadCrumbsRoute.typeMap()) { BreadCrumbsScreen(navController) }
+        composable<BreadCrumbsRoute>(/*BreadCrumbsRoute.typeMap()*/) { BreadCrumbsScreen(navController) }
         composable<ButtonGroupsRoute> { ButtonGroupsScreen(navController) }
         composable<CarouselRoute> { CarouselScreen(navController) }
         composable<ChildWithNavigationRoute> { ChildWithNavigationScreen(navController) }

@@ -23,6 +23,7 @@ interface ViewModelNavigation {
     fun navigate(route: NavigationRoute, optionsBuilder: NavOptionsBuilder.() -> Unit)
     fun navigate(intent: Intent, options: Bundle? = null, popBackStack: Boolean = false)
     fun popBackStack(route: NavigationRoute? = null, inclusive: Boolean = false)
+    fun popBackStack(route: String, inclusive: Boolean = false)
     fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, popToRoute: NavigationRoute? = null, inclusive: Boolean = false)
 
     fun navigate(navigationAction: NavigationAction)
@@ -55,6 +56,10 @@ class ViewModelNavigationImpl : ViewModelNavigation {
 
     override fun popBackStack(route: NavigationRoute?, inclusive: Boolean) {
         _navigatorFlow.compareAndSet(null, NavigationAction.Pop(route, inclusive))
+    }
+
+    override fun popBackStack(destination: String, inclusive: Boolean) {
+        _navigatorFlow.compareAndSet(null, NavigationAction.PopToDestination(destination, inclusive))
     }
 
     override fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, popToRoute: NavigationRoute?, inclusive: Boolean) {

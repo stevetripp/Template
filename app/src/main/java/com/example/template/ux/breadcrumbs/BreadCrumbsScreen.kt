@@ -17,25 +17,28 @@ import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import org.lds.mobile.ui.compose.navigation.HandleNavigation
-
-data class BreadCrumbsUiState(
-    val titleFlow: StateFlow<String> = MutableStateFlow("Title"),
-    val onNavigate: () -> Unit = {},
-)
 
 @Composable
 fun BreadCrumbsScreen(navController: NavController, viewModel: BreadCrumbsViewModel = hiltViewModel()) {
     BreadCrumbsContent(viewModel.uiState, navController::popBackStack)
     HandleNavigation(viewModel, navController)
+    viewModel.uiState.onNavController(navController)
 }
 
 @Composable
 fun BreadCrumbsContent(uiState: BreadCrumbsUiState, onBack: () -> Unit = {}) {
+    val breadCrumbs by uiState.breadCrumbsFlow.collectAsStateWithLifecycle()
     val title by uiState.titleFlow.collectAsStateWithLifecycle()
 
-    Scaffold(topBar = { AppTopAppBar(title = title, onBack = onBack) }) { paddingValues ->
+    Scaffold(topBar = {
+        AppTopAppBar(
+            title = title,
+            breadCrumbs = breadCrumbs,
+            onBreadCrumbClicked = uiState.onBreadCrumbClicked,
+            onBack = onBack,
+        )
+    }) { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues)
