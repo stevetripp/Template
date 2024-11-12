@@ -11,5 +11,7 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
     val navController = rememberNavController()
     NavGraph(navController)
 
+    viewModel.initBreadcrumbManager(navController)
+
     HandleNavBarNavigation(viewModel, navController)
 }

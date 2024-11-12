@@ -25,8 +25,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.theme.AppTheme
-import com.example.template.ux.breadcrumbs.BreadCrumb
-import com.example.template.ux.breadcrumbs.BreadCrumbsRoute
+import com.example.template.ux.breadcrumbs.BreadcrumbRoute
+import com.example.template.ux.breadcrumbs.BreadcrumbsRoute
 
 @Composable
 fun AppTopAppBar(
@@ -37,7 +37,7 @@ fun AppTopAppBar(
     AppTopAppBar(
         title = title,
         navigationImage = navigationImage,
-        breadCrumbs = emptyList(),
+        breadcrumbRoutes = emptyList(),
         onBreadCrumbClicked = {},
         onBack = onBack
     )
@@ -47,8 +47,8 @@ fun AppTopAppBar(
 fun AppTopAppBar(
     title: String,
     navigationImage: ImageVector? = Icons.AutoMirrored.Default.ArrowBack,
-    breadCrumbs: List<BreadCrumb>,
-    onBreadCrumbClicked: (BreadCrumb) -> Unit,
+    breadcrumbRoutes: List<BreadcrumbRoute>,
+    onBreadCrumbClicked: (BreadcrumbRoute) -> Unit,
     onBack: () -> Unit = {}
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -57,12 +57,12 @@ fun AppTopAppBar(
         title = {
             Column(
                 modifier = Modifier
-                    .then(if (breadCrumbs.isNotEmpty()) Modifier.clickable { expanded = true } else Modifier)
+                    .then(if (breadcrumbRoutes.isNotEmpty()) Modifier.clickable { expanded = true } else Modifier)
             ) {
                 Text(text = title)
-                breadCrumbs.lastOrNull()?.let {
+                breadcrumbRoutes.lastOrNull()?.let {
                     Row {
-                        Text(text = it.title, style = MaterialTheme.typography.titleSmall)
+                        Text(text = it.breadcrumbTitle, style = MaterialTheme.typography.titleSmall)
                         Icon(Icons.Default.ArrowDropDown, contentDescription = null)
                     }
                 }
@@ -70,9 +70,9 @@ fun AppTopAppBar(
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false }) {
-                breadCrumbs.reversed().forEach { breadCrumb ->
+                breadcrumbRoutes.reversed().forEach { breadCrumb ->
                     DropdownMenuItem(
-                        text = { Text(breadCrumb.title) },
+                        text = { Text(breadCrumb.breadcrumbTitle) },
                         onClick = {
                             onBreadCrumbClicked(breadCrumb)
                             expanded = false
@@ -90,19 +90,19 @@ fun AppTopAppBar(
 @PreviewDefault
 @Composable
 private fun Preview(
-    @PreviewParameter(BreadCrumbPreviewParameter::class) breadCrumbs: List<BreadCrumb>
+    @PreviewParameter(BreadCrumbPreviewParameter::class) breadCrumbs: List<BreadcrumbRoute>
 ) {
     AppTheme {
         Column(modifier = Modifier.fillMaxSize()) {
-            AppTopAppBar(title = "Title", breadCrumbs = breadCrumbs, onBreadCrumbClicked = {})
+            AppTopAppBar(title = "Title", breadcrumbRoutes = breadCrumbs, onBreadCrumbClicked = {})
         }
     }
 }
 
-private class BreadCrumbPreviewParameter : PreviewParameterProvider<List<BreadCrumb>> {
-    override val values: Sequence<List<BreadCrumb>>
+private class BreadCrumbPreviewParameter : PreviewParameterProvider<List<BreadcrumbRoute>> {
+    override val values: Sequence<List<BreadcrumbRoute>>
         get() = sequenceOf(
             emptyList(),
-            (1..3).map { BreadCrumb( BreadCrumbsRoute(), "Subtitle $it") }
+            (1..3).map { BreadcrumbsRoute("Subtitle $it") }
         )
 }

@@ -2,12 +2,9 @@ package com.example.template.ux
 
 import android.os.Bundle
 import androidx.navigation.NavType
-import com.example.template.ux.breadcrumbs.BreadCrumb
 import com.example.template.ux.parameters.EnumParameter
 import com.example.template.ux.parameters.Parameter1
 import com.example.template.ux.video.VideoId
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 /**
  * Mappings for type safe navigation
@@ -52,12 +49,5 @@ object NavTypeMaps {
         override fun parseValue(value: String): EnumParameter = EnumParameter.valueOf(value)
         override fun put(bundle: Bundle, key: String, value: EnumParameter?) = value?.let { bundle.putString(key, serializeAsValue(it)) } ?: Unit
         override fun serializeAsValue(value: EnumParameter?): String = value?.name.orEmpty()
-    }
-
-    val BreadCrumbListNullableNavType = object : NavType<List<BreadCrumb>?>(isNullableAllowed = true) {
-        override fun get(bundle: Bundle, key: String): List<BreadCrumb>? = bundle.getString(key)?.let { parseValue(it) }
-        override fun parseValue(value: String): List<BreadCrumb>? = if (value.isBlank()) null else Json.decodeFromString(value)
-        override fun put(bundle: Bundle, key: String, value: List<BreadCrumb>?) = bundle.putString(key, serializeAsValue(value))
-        override fun serializeAsValue(value: List<BreadCrumb>?): String = value?.let { Json.encodeToString(it) }.orEmpty()
     }
 }

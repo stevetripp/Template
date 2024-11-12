@@ -20,21 +20,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
 @Composable
-fun BreadCrumbsScreen(navController: NavController, viewModel: BreadCrumbsViewModel = hiltViewModel()) {
-    BreadCrumbsContent(viewModel.uiState, navController::popBackStack)
+fun BreadcrumbsScreen(navController: NavController, viewModel: BreadCrumbsViewModel = hiltViewModel()) {
+    BreadcrumbsContent(viewModel.uiState, navController::popBackStack)
     HandleNavigation(viewModel, navController)
-    viewModel.uiState.onNavController(navController)
 }
 
 @Composable
-fun BreadCrumbsContent(uiState: BreadCrumbsUiState, onBack: () -> Unit = {}) {
-    val breadCrumbs by uiState.breadCrumbsFlow.collectAsStateWithLifecycle()
+fun BreadcrumbsContent(uiState: BreadcrumbsUiState, onBack: () -> Unit = {}) {
+    val breadcrumbRoutes by uiState.breadcrumbRoutesFlow.collectAsStateWithLifecycle()
     val title by uiState.titleFlow.collectAsStateWithLifecycle()
 
     Scaffold(topBar = {
         AppTopAppBar(
             title = title,
-            breadCrumbs = breadCrumbs,
+            breadcrumbRoutes = breadcrumbRoutes,
             onBreadCrumbClicked = uiState.onBreadCrumbClicked,
             onBack = onBack,
         )
@@ -52,5 +51,5 @@ fun BreadCrumbsContent(uiState: BreadCrumbsUiState, onBack: () -> Unit = {}) {
 @PreviewDefault
 @Composable
 private fun Preview() {
-    AppTheme { BreadCrumbsContent(BreadCrumbsUiState(titleFlow = MutableStateFlow(Screen.BREAD_CRUMBS_SCREEN.title))) }
+    AppTheme { BreadcrumbsContent(BreadcrumbsUiState(titleFlow = MutableStateFlow(Screen.BREADCRUMBS_SCREEN.title))) }
 }

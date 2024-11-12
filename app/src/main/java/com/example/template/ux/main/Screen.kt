@@ -4,7 +4,7 @@ import com.example.template.ux.about.AboutRoute
 import com.example.template.ux.animatedgestures.AnimatedGesturesRoute
 import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
-import com.example.template.ux.breadcrumbs.BreadCrumbsRoute
+import com.example.template.ux.breadcrumbs.BreadcrumbsRoute
 import com.example.template.ux.buttongroups.ButtonGroupsRoute
 import com.example.template.ux.carousel.CarouselRoute
 import com.example.template.ux.childwithnavigation.ChildWithNavigationRoute
@@ -50,7 +50,7 @@ enum class Screen(val title: String, val route: NavigationRoute, val type: Scree
     ANIMATED_GESTURE("Animated Gesture", AnimatedGesturesRoute, ScreenType.UI),
     BOTTOM_NAVIGATION("Bottom Navigation", BottomNavigationRoute, ScreenType.UI),
     BOTTOM_SHEET("Bottom Sheet", BottomSheetRoute, ScreenType.UI),
-    BREAD_CRUMBS_SCREEN("Bread Crumbs", BreadCrumbsRoute(), ScreenType.UI),
+    BREADCRUMBS_SCREEN("Breadcrumbs", BreadcrumbsRoute(title = "Breadcrumbs"), ScreenType.UI),
     BUTTON_GROUPS("Button Groups", ButtonGroupsRoute, ScreenType.UI),
     CAROUSEL("Carousel", CarouselRoute, ScreenType.UI),
     CHILD_WITH_NAVIGATION("Child with Navigation", ChildWithNavigationRoute, ScreenType.UI),

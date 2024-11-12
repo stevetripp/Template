@@ -4,7 +4,6 @@ import kotlinx.serialization.Serializable
 import org.lds.mobile.navigation.NavigationRoute
 
 @Serializable
-data class BreadCrumb(
-    val route: NavigationRoute,
-    val title: String
-)
+abstract class BreadcrumbRoute(
+    open val breadcrumbTitle: String
+) : NavigationRoute

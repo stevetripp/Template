@@ -17,8 +17,8 @@ import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomSheet.BottomSheetScreen
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
-import com.example.template.ux.breadcrumbs.BreadCrumbsRoute
-import com.example.template.ux.breadcrumbs.BreadCrumbsScreen
+import com.example.template.ux.breadcrumbs.BreadcrumbsRoute
+import com.example.template.ux.breadcrumbs.BreadcrumbsScreen
 import com.example.template.ux.buttongroups.ButtonGroupsRoute
 import com.example.template.ux.buttongroups.ButtonGroupsScreen
 import com.example.template.ux.carousel.CarouselRoute
@@ -128,7 +128,7 @@ fun NavGraph(
         composable<AnimatedGesturesRoute> { AnimatedGestureScreen(navController) }
         composable<BottomNavigationRoute> { BottomNavigationScreen(navController) }
         composable<BottomSheetRoute> { BottomSheetScreen(navController) }
-        composable<BreadCrumbsRoute>(/*BreadCrumbsRoute.typeMap()*/) { BreadCrumbsScreen(navController) }
+        composable<BreadcrumbsRoute> { BreadcrumbsScreen(navController) }
         composable<ButtonGroupsRoute> { ButtonGroupsScreen(navController) }
         composable<CarouselRoute> { CarouselScreen(navController) }
         composable<ChildWithNavigationRoute> { ChildWithNavigationScreen(navController) }
