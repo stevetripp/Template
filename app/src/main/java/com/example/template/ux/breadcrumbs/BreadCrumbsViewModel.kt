@@ -19,7 +19,7 @@ class BreadCrumbsViewModel @Inject constructor(
 ) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
     private val breadCrumbsRoute = savedStateHandle.toRoute<BreadcrumbsRoute>(/*BreadCrumbsRoute.typeMap()*/)
-    private val titleFlow = MutableStateFlow(breadCrumbsRoute.breadcrumbTitle ?: Screen.BREADCRUMBS_SCREEN.title)
+    private val titleFlow = MutableStateFlow(breadCrumbsRoute.title)
     private val breadcrumbRoutesFlow = breadcrumbManager.breadcrumbRoutesFlow().stateInDefault(viewModelScope, emptyList())
 
     val uiState = BreadcrumbsUiState(

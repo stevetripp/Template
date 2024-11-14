@@ -62,7 +62,7 @@ fun AppTopAppBar(
                 Text(text = title)
                 breadcrumbRoutes.lastOrNull()?.let {
                     Row {
-                        Text(text = it.breadcrumbTitle, style = MaterialTheme.typography.titleSmall)
+                        Text(text = it.title, style = MaterialTheme.typography.titleSmall)
                         Icon(Icons.Default.ArrowDropDown, contentDescription = null)
                     }
                 }
@@ -72,7 +72,7 @@ fun AppTopAppBar(
                 onDismissRequest = { expanded = false }) {
                 breadcrumbRoutes.reversed().forEach { breadCrumb ->
                     DropdownMenuItem(
-                        text = { Text(breadCrumb.breadcrumbTitle) },
+                        text = { Text(breadCrumb.title) },
                         onClick = {
                             onBreadCrumbClicked(breadCrumb)
                             expanded = false
