@@ -21,9 +21,11 @@ class StartupActivity : ComponentActivity() {
     private val viewModel: StartupViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
-        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+
+        installSplashScreen()
+
+        enableEdgeToEdge()
 
         collectFlows()
         viewModel.startup()
