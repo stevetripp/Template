@@ -18,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -36,19 +35,18 @@ fun ModalBottomSheetScreen(navController: NavController) {
 
 @Composable
 private fun ModalBottomSheetContent(onBack: () -> Unit = {}) {
-    var showBottomSheet by rememberSaveable { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     var text by remember { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     var radioButtonsData by remember {
         mutableStateOf(listOf("One Item" to 1, "Ten Items" to 10, "One Hundred Items" to 100).map { RadioButtonData(it.first, it.second, it.first == "One Item") })
     }
-
-    if (showBottomSheet) {
+    if (bottomSheetState.isVisible) {
         val selectedRbData = radioButtonsData.find { it.isSelected } ?: radioButtonsData[0]
         ModalBottomSheet(
             sheetState = bottomSheetState,
-            onDismissRequest = { showBottomSheet = false }) {
+            onDismissRequest = { }
+        ) {
             // sheetContent MUST have at least one composable or an exception is thrown
             LazyColumn {
                 items(selectedRbData.itemCount) {
@@ -56,10 +54,7 @@ private fun ModalBottomSheetContent(onBack: () -> Unit = {}) {
                     ListItem(
                         modifier = Modifier.clickable {
                             text = listItemText
-                            scope.launch {
-                                bottomSheetState.hide() // Added for animation
-                                showBottomSheet = false
-                            }
+                            scope.launch { bottomSheetState.hide() }
                         },
                         headlineContent = { Text(listItemText) },
                         leadingContent = {
@@ -84,8 +79,10 @@ private fun ModalBottomSheetContent(onBack: () -> Unit = {}) {
                     text = rbData.text,
                     selected = rbData.isSelected,
                     onClick = {
-                        showBottomSheet = true
-                        radioButtonsData = radioButtonsData.map { it.copy(isSelected = it.text == rbData.text) }
+                        scope.launch {
+                            bottomSheetState.expand()
+                            radioButtonsData = radioButtonsData.map { it.copy(isSelected = it.text == rbData.text) }
+                        }
                     }
                 )
             }
