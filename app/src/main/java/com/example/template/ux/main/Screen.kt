@@ -19,6 +19,7 @@ import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.ktor.KtorRoute
 import com.example.template.ux.memorize.MemorizeRoute
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
+import com.example.template.ux.modaldrawersheet.ModalDrawerSheetRoute
 import com.example.template.ux.modalsidesheet.ModalSideSheetRoute
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
@@ -65,6 +66,7 @@ enum class Screen(val title: String, val route: NavigationRoute, val type: Scree
     KTOR("Ktor Test", KtorRoute, ScreenType.SERVICES),
     MEMORIZE("Memorize", MemorizeRoute, ScreenType.UI),
     MODAL_BOTTOM_SHEET("Modal Bottom Sheet", ModalBottomSheetRoute, ScreenType.UI),
+    MODAL_DRAWER_SHEET("Modal Drawer Sheet", ModalDrawerSheetRoute, ScreenType.UI),
     MODAL_SIDE_SHEET("Modal Side Sheet", ModalSideSheetRoute, ScreenType.UI),
     NAVIGATION_PAGER("Navigation Pager", NavigationPagerRoute, ScreenType.UI),
     NOTIFICATION_PERMISSIONS("Permissions (Notification)", NotificationPermissionsRoute, ScreenType.UI),

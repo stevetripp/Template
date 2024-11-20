@@ -3,10 +3,12 @@ package com.example.template.ui.composable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -14,6 +16,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,12 +36,16 @@ import com.example.template.ux.breadcrumbs.BreadcrumbsRoute
 fun AppTopAppBar(
     title: String,
     navigationImage: ImageVector? = Icons.AutoMirrored.Default.ArrowBack,
+    actions: @Composable RowScope.() -> Unit = {},
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
     onBack: () -> Unit = {}
 ) {
     AppTopAppBar(
         title = title,
         navigationImage = navigationImage,
+        actions = actions,
         breadcrumbRoutes = emptyList(),
+        colors = colors,
         onBreadCrumbClicked = {},
         onBack = onBack
     )
@@ -47,7 +55,9 @@ fun AppTopAppBar(
 fun AppTopAppBar(
     title: String,
     navigationImage: ImageVector? = Icons.AutoMirrored.Default.ArrowBack,
+    actions: @Composable RowScope.() -> Unit = {},
     breadcrumbRoutes: List<BreadcrumbRoute>,
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
     onBreadCrumbClicked: (BreadcrumbRoute) -> Unit,
     onBack: () -> Unit = {}
 ) {
@@ -83,7 +93,9 @@ fun AppTopAppBar(
         },
         navigationIcon = navigationImage?.let {
             { IconButton(onClick = onBack) { Icon(it, "Back") } }
-        } ?: { }
+        } ?: { },
+        actions = actions,
+        colors = colors,
     )
 }
 
@@ -93,9 +105,15 @@ private fun Preview(
     @PreviewParameter(BreadCrumbPreviewParameter::class) breadCrumbs: List<BreadcrumbRoute>
 ) {
     AppTheme {
-        Column(modifier = Modifier.fillMaxSize()) {
-            AppTopAppBar(title = "Title", breadcrumbRoutes = breadCrumbs, onBreadCrumbClicked = {})
-        }
+        AppTopAppBar(
+            title = "Title",
+            breadcrumbRoutes = breadCrumbs,
+            onBreadCrumbClicked = {},
+            actions = {
+                IconButton(onClick = {}) { Icon(Icons.Default.Phone, contentDescription = null) }
+                IconButton(onClick = {}) { Icon(Icons.Default.Email, contentDescription = null) }
+            }
+        )
     }
 }
 

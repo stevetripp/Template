@@ -50,6 +50,8 @@ import com.example.template.ux.memorize.MemorizeRoute
 import com.example.template.ux.memorize.MemorizeScreen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetScreen
+import com.example.template.ux.modaldrawersheet.ModalDrawerSheetRoute
+import com.example.template.ux.modaldrawersheet.ModelDrawerSheetScreen
 import com.example.template.ux.modalsidesheet.ModalSideSheetRoute
 import com.example.template.ux.modalsidesheet.ModalSideSheetScreen
 import com.example.template.ux.navigatepager.NavigationPagerRoute
@@ -146,6 +148,7 @@ fun NavGraph(
         composable<KtorRoute> { KtorScreen(navController) }
         composable<MemorizeRoute> { MemorizeScreen(navController) }
         composable<ModalBottomSheetRoute> { ModalBottomSheetScreen(navController) }
+        composable<ModalDrawerSheetRoute> { ModelDrawerSheetScreen(navController) }
         composable<ModalSideSheetRoute> { ModalSideSheetScreen(navController) }
         composable<NavigationPagerRoute> { NavigationPagerScreen(navController) }
         composable<NotificationPermissionsRoute> { NotificationPermissionsScreen(navController) }
