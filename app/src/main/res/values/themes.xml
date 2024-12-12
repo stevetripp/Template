@@ -9,4 +9,16 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Material.NoActionBar" />
+
+    <style name="VideoActivityTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="mediaRouteTheme">@style/VideoActivityMediaRouteTheme</item>
+    </style>
+
+    <style name="VideoActivityMediaRouteTheme" parent="Theme.MediaRouter">
+        <item name="mediaRouteButtonStyle">@style/VideoActivityMediaRouteButtonStyle</item>
+    </style>
+
+    <style name="VideoActivityMediaRouteButtonStyle" parent="Widget.MediaRouter.Light.MediaRouteButton">
+<!--        <item name="mediaRouteButtonTint">@color/white</item>-->
+    </style>
 </resources>

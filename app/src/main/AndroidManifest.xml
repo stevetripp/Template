@@ -48,7 +48,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
-            android:supportsPictureInPicture="true" />
+            android:supportsPictureInPicture="true"
+            android:theme="@style/VideoActivityTheme" />
 
         <!--
             Chromecast receiver

@@ -1,23 +1,23 @@
 [versions]
-agp = "8.7.2" # see https://developer.android.com/studio/releases/gradle-plugin
-kotlin = "2.0.21" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-ksp = "2.0.21-1.0.27" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
+agp = "8.7.3" # see https://developer.android.com/studio/releases/gradle-plugin
+kotlin = "2.1.0" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+ksp = "2.1.0-1.0.29" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
 kotlinxSerializationJson = "1.7.3"
 kotlinxDateTime = "0.6.1"
 
 accompanist = "0.36.0"
 androidxActivityCompose = "1.9.3"
 androidxBiometrics = "1.1.0"
-androidxComposeMaterial = "1.7.5"
+androidxComposeMaterial = "1.7.6"
 androidxComposeMaterial3 = "1.3.1"
 androidxComposeMaterial3Adaptive = "1.0.0"
 androidxComposeMaterial3AdaptiveNavigation = "1.3.1"
-androidxComposeUi = "1.7.5"
+androidxComposeUi = "1.7.6"
 androidxDataStore = "1.1.1"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.8.7"
-androidxMedia3 = "1.4.1"
-androidxNavigation = "2.9.0-alpha03"
+androidxMedia3 = "1.5.0"
+androidxNavigation = "2.9.0-alpha04"
 androidxSplashScreen = "1.1.0-rc01"
 androidxTestJunit = "1.2.1"
 coil = "2.7.0"
@@ -25,7 +25,7 @@ dependencyAnalysis = "2.4.2"
 detekt = "1.23.7"
 flippable = "1.5.4"
 googleMaterial = "1.12.0"
-hilt = "2.52"
+hilt = "2.53.1"
 junitBom = "5.11.3"
 kermit = "2.0.4"
 ktor = "3.0.1"
@@ -56,6 +56,7 @@ androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-ru
 
 androidx-media3-cast = { module = "androidx.media3:media3-cast", version.ref = "androidxMedia3" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "androidxMedia3" }
+androidx-media3-exoplayer-hls = { module = "androidx.media3:media3-exoplayer-hls", version.ref = "androidxMedia3" }
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidxMedia3" }
 
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
