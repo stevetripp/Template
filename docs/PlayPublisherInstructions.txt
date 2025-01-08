@@ -1,0 +1,17 @@
+== Signing / PlayStore ==
+UPLOAD_KEYSTORE
+• openssl base64 < mykeystore_upload | tr -d '\n' | tee upload_encoded.txt
+•
+UPLOAD_SIGNING_STORE_PASSWORD
+• From global gradle.properties
+UPLOAD_SIGNING_KEY_ALIAS
+• From global gradle.properties
+UPLOAD_SIGNING_KEY_PASSWORD
+• From global gradle.properties
+== App Distribution ==
+APP_DISTRIBUTION_KEYS
+• Open Service Account json.... then copy ALL of the text from the file (google-service-accounts/app-name.json)
+PLAYSTORE_KEYS
+• Setup Service Account for Play Store
+    • https://github.com/Triple-T/gradle-play-publisher?tab=readme-ov-file#service-account
+• Take contents from Service Account json file (playstore/xxx-playstore.json)
