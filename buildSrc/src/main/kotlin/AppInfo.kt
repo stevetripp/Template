@@ -8,7 +8,7 @@ object AppInfo {
         const val APP_NAME = "template"
         const val MIN = 1002
         val CODE = System.getenv("VERSION_CODE")?.toIntOrNull() ?: MIN
-        val NAME = "1.0.0 ($CODE.${System.getenv("BUILD_NUMBER")})"
+        val NAME = "1.0.1 ($CODE.${System.getenv("BUILD_NUMBER")})"
     }
 
     object AndroidSdk {
