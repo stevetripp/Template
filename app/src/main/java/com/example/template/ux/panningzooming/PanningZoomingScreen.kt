@@ -51,8 +51,6 @@ fun PanningZoomingContent(onBack: () -> Unit = {}) {
 @Composable
 fun CanvasCard(pageImage: ImageBitmap, modifier: Modifier = Modifier) {
 
-    var tapOffset by remember { mutableStateOf(Offset(0F, 0F)) }
-
     PanAndZoom(
         modifier = modifier
             .fillMaxSize()

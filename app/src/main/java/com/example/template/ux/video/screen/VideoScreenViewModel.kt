@@ -34,6 +34,7 @@ class VideoScreenViewModel @Inject constructor() : ViewModel(), ViewModelNavigat
         navigate(PlayerRoute(videoItem.id))
     }
 
+    @Suppress("UnusedParameter")
     private fun onVideoRenditionTapped(videoItem: VideoItem) {
         dialogUiStateFlow.value = ExampleAlertDialogUiState(
             title = "Not yet implemented. Expecting to play a downloaded video (MP4)",
