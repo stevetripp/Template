@@ -29,6 +29,7 @@ hilt = "2.53.1"
 junitBom = "5.11.3"
 kermit = "2.0.4"
 ktor = "3.0.1"
+playPublisher = "3.12.1"
 reorderableCompose = "0.9.6"
 undercouchDownload = "5.6.0"
 versions = "0.51.0"
@@ -43,6 +44,7 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+playPublisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
 
 [libraries]

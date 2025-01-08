@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.dependency.analysis)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.playPublisher)
     alias(libs.plugins.download)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
@@ -209,4 +210,17 @@ tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConf
 // create JUnit reports
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+// ===== TripleT / Google Play Publisher =====
+// Access can be verified with ./gradlew bootstrapListing
+play {
+    // try to get the credentials from gradle properties (ex: Jenkins) OR try to pull from env.ANDROID_PUBLISHER_CREDENTIALS (Gradle Actions)
+    val tntServiceAccountCreds: String? by project
+    tntServiceAccountCreds?.let { filename ->
+        serviceAccountCredentials.set(File(filename))
+    }
+
+    track.set("internal")
+    defaultToAppBundles.set(true)
 }
