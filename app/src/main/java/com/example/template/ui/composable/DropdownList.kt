@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -34,7 +36,7 @@ fun DropdownList(value: String, label: String, options: List<DropdownOption>, mo
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .menuAnchor(),
+                    .menuAnchor(MenuAnchorType.PrimaryNotEditable),
                 readOnly = true,
                 value = value,
                 onValueChange = {},
@@ -45,7 +47,7 @@ fun DropdownList(value: String, label: String, options: List<DropdownOption>, mo
             TextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .menuAnchor(),
+                    .menuAnchor(MenuAnchorType.PrimaryNotEditable),
                 readOnly = true,
                 value = value,
                 onValueChange = {},
@@ -79,13 +81,15 @@ private fun DropDownListPreview() {
     }
     var selected by remember { mutableStateOf(DropdownOption("")) }
     AppTheme {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-        ) {
-            DropdownList(selected.selectedValue, "Option", options) {
-                selected = it
+        Surface {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
+            ) {
+                DropdownList(selected.selectedValue, "Option", options) {
+                    selected = it
+                }
             }
         }
     }
