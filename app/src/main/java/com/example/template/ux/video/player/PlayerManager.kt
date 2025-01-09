@@ -44,6 +44,7 @@ import com.google.android.gms.cast.framework.CastContext
  * @param playerView The [PlayerView] for playback.
  * @param castContext The [CastContext].
  */
+@Suppress("UnsafeCallOnNullableType")
 internal class PlayerManager(
     private val context: Context,
     private val listener: Listener,
