@@ -50,23 +50,6 @@ android {
         viewBinding = true // needed for ActivityVideoBinding
     }
 
-    // set dummy signing values if not defined in ~/.gradle/gradle.properties
-    if (!project.hasProperty("tntKeystore")) {
-        println("Using dummy signing values")
-        project.extra.set("tntKeystore", "dummy")
-        project.extra.set("tntKeystorePassword", "dummy")
-        project.extra.set("tntKeyAlias", "dummy")
-        project.extra.set("tntKeyPassword", "dummy")
-    }
-    // set dummy signing values if not defined in ~/.gradle/gradle.properties
-    if (!project.hasProperty("tntUploadKeystore")) {
-        println("Using dummy signing values")
-        project.extra.set("tntUploadKeystore", "dummy")
-        project.extra.set("tntUploadKeystorePassword", "dummy")
-        project.extra.set("tntUploadKeyAlias", "dummy")
-        project.extra.set("tntUploadKeyPassword", "dummy")
-    }
-
     // defined values my* in ~/.gradle/gradle.properties
     signingConfigs {
         create("uploadConfig") {
@@ -128,6 +111,11 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
             resValue("string", "file_provider", "com.tnt.template.fileprovider")
+        }
+        val alpha by creating {
+            initWith(release)
+            versionNameSuffix = " ALPHA"
+            applicationIdSuffix = ".alpha"
         }
     }
 }
@@ -207,7 +195,7 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 detekt {
     allRules = true // fail build on any finding
     buildUponDefaultConfig = true // preconfigure defaults
-    config = files("$projectDir/build/config/detektConfig.yml") // point to your custom config defining rules to run, overwriting default behavior
+    config.setFrom(files("$projectDir/build/config/detektConfig.yml")) // point to your custom config defining rules to run, overwriting default behavior
 //    baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
 }
 
