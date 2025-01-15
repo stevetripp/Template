@@ -47,12 +47,7 @@ android {
     buildFeatures {
         buildConfig = true
         compose = true
-        viewBinding = true
-    }
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        viewBinding = true // needed for ActivityVideoBinding
     }
 
     // set dummy signing values if not defined in ~/.gradle/gradle.properties
@@ -80,11 +75,18 @@ android {
             val tntUploadKeyAlias: String by project.extra
             val tntUploadKeyPassword: String by project.extra
 
-            tntUploadKeystore?.let {
-                storeFile = File(it)
+            val envSigningKeystore = System.getenv("SIGNING_KEYSTORE")
+            if (tntUploadKeystore != null) {
+                storeFile = File(tntUploadKeystore)
                 storePassword = tntUploadKeystorePassword
                 keyAlias = tntUploadKeyAlias
                 keyPassword = tntUploadKeyPassword
+            } else if (envSigningKeystore != null) {
+                // From environment (local or Github Actions)
+                storeFile = file(envSigningKeystore)
+                storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+                keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+                keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
             }
         }
 
@@ -94,11 +96,18 @@ android {
             val tntKeyAlias: String by project.extra
             val tntKeyPassword: String by project.extra
 
-            tntKeystore?.let {
-                storeFile = File(it)
+            val envSigningKeystore = System.getenv("SIGNING_KEYSTORE")
+            if (tntKeystore != null) {
+                storeFile = File(tntKeystore)
                 storePassword = tntKeystorePassword
                 keyAlias = tntKeyAlias
                 keyPassword = tntKeyPassword
+            } else if (envSigningKeystore != null) {
+                // From environment (local or Github Actions)
+                storeFile = file(envSigningKeystore)
+                storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+                keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+                keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
             }
         }
     }
@@ -168,7 +177,31 @@ dependencies {
     testImplementation(platform(libs.junit.bom))
 }
 
+// ===== TEST TASKS =====
+
+// create JUnit reports
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
 // ===== Detekt =====
+
+// download detekt config file
+tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
+    download {
+        onlyIf { !file("build/config/detektConfig.yml").exists() }
+        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20231101.yml")
+        dest("build/config/detektConfig.yml")
+    }
+}
+
+// make sure when running detekt, the config file is downloaded
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    // Target version of the generated JVM bytecode. It is used for type resolution.
+    this.jvmTarget = "17"
+    dependsOn("downloadDetektConfig")
+}
+
+// ./gradlew detekt
 // ./gradlew detektDebug
 // ./gradlew detektBaselineDebug
 detekt {
@@ -189,28 +222,6 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     }
 }
 
-tasks {
-    // make sure when running detekt, the config file is downloaded
-    withType<io.gitlab.arturbosch.detekt.Detekt> {
-        // Target version of the generated JVM bytecode. It is used for type resolution.
-        this.jvmTarget = "17"
-        dependsOn("downloadDetektConfig")
-    }
-}
-
-// download detekt config file
-tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
-    download {
-        onlyIf { !file("build/config/detektConfig.yml").exists() }
-        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20231101.yml")
-        dest("build/config/detektConfig.yml")
-    }
-}
-
-// create JUnit reports
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
 
 // ===== TripleT / Google Play Publisher =====
 // Access can be verified with ./gradlew bootstrapListing
