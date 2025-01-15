@@ -40,9 +40,6 @@ jobs:
         echo $APP_DISTRIBUTION_KEYS > app-distribution.json
         echo PLAYSTORE_KEYS > playstore.json
 
-    # - name: License
-    #  run: ./gradlew createLicenseReport
-
     - name: Build
       run: ./gradlew clean assembleRelease bundleRelease
       env:
@@ -59,9 +56,6 @@ jobs:
 
     - name: Detekt
       run: ./gradlew detekt detektRelease
-
-    # - name: App Distribution
-    #  run: ./gradlew appDistributionUploadRelease
 
     - name: Deploy to Play Store
       env:
@@ -80,7 +74,6 @@ jobs:
       with:
         name: build-reports
         path: |
-          **/build/licenses/*.html
           **/build/test-results/**/TEST-*.xml
           app/build/reports/*.html
           */build/reports/detekt/*.html
