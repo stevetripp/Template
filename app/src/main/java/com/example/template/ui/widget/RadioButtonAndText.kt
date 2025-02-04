@@ -31,7 +31,7 @@ fun RadioButtonAndText(text: String, selected: Boolean, onClick: () -> Unit) {
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        RadioButton(selected = selected, onClick = null)
+        RadioButton(modifier = Modifier.padding(end = 8.dp), selected = selected, onClick = null)
         Text(text = text)
     }
 }

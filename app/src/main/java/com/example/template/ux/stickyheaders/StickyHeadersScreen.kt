@@ -47,7 +47,6 @@ fun StickyHeadersContent(uiState: StickyHeadersUiState, onBack: () -> Unit = {})
 
                     is LazyColumnItem.Item -> item { Text(text = it.text) }
                 }
-
             }
         }
     }

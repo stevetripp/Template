@@ -1,36 +1,38 @@
 package com.example.template.ux.bottomSheet
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.BottomSheetScaffoldState
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.launch
+import com.example.template.ui.PreviewDefault
+import com.example.template.ui.theme.AppTheme
 
 @Composable
-fun BottomSheetContent(scaffoldState: BottomSheetScaffoldState) {
-    val scope = rememberCoroutineScope()
-    Column(
-        Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TopAppBar(title = { Text(text = "Sheet content") })
-        Text("Sheet content")
-        Spacer(Modifier.height(20.dp))
-        Button(
-            onClick = {
-                scope.launch { scaffoldState.bottomSheetState.hide() }
-            }
+fun BottomSheetContent(modifier: Modifier = Modifier, onHide: () -> Unit) {
+    Surface {
+        Column(
+            modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+                .navigationBarsPadding(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text("Click to collapse sheet")
+            TopAppBar(title = { Text(text = "Sheet content") })
+            Button(onClick = onHide) { Text("Click to collapse sheet") }
         }
     }
+}
+
+@PreviewDefault
+@Composable
+private fun Preview() {
+    AppTheme { BottomSheetContent(onHide = {}) }
 }

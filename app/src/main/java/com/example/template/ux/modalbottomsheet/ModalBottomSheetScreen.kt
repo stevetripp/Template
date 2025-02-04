@@ -39,7 +39,8 @@ private fun ModalBottomSheetContent(onBack: () -> Unit = {}) {
     var text by remember { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     var radioButtonsData by remember {
-        mutableStateOf(listOf("One Item" to 1, "Ten Items" to 10, "One Hundred Items" to 100).map { RadioButtonData(it.first, it.second, it.first == "One Item") })
+        mutableStateOf(
+            (1..30).map { "$it Item(s)" to it }.map { RadioButtonData(it.first, it.second, it.first == "One Item") })
     }
     if (bottomSheetState.isVisible) {
         val selectedRbData = radioButtonsData.find { it.isSelected } ?: radioButtonsData[0]
