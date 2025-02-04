@@ -1,38 +1,38 @@
 [versions]
-agp = "8.7.3" # see https://developer.android.com/studio/releases/gradle-plugin
-kotlin = "2.1.0" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-ksp = "2.1.0-1.0.29" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
+agp = "8.8.0" # see https://developer.android.com/studio/releases/gradle-plugin
+kotlin = "2.1.10" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+ksp = "2.1.10-1.0.29" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
 kotlinxSerializationJson = "1.8.0"
 kotlinxDateTime = "0.6.1"
 
-accompanist = "0.36.0"
+accompanist = "0.37.0"
 androidxActivityCompose = "1.10.0"
 androidxBiometrics = "1.1.0"
-androidxComposeMaterial = "1.7.6"
+androidxComposeMaterial = "1.7.7"
 androidxComposeMaterial3 = "1.3.1"
 androidxComposeMaterial3Adaptive = "1.0.0"
 androidxComposeMaterial3AdaptiveNavigation = "1.3.1"
-androidxComposeUi = "1.7.6"
+androidxComposeUi = "1.7.7"
 androidxDataStore = "1.1.2"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.8.7"
 androidxMedia3 = "1.5.1"
-androidxNavigation = "2.9.0-alpha04"
+androidxNavigation = "2.9.0-alpha05"
 androidxSplashScreen = "1.1.0-rc01"
 androidxTestJunit = "1.2.1"
 coil = "2.7.0"
-dependencyAnalysis = "2.7.0"
+dependencyAnalysis = "2.8.0"
 detekt = "1.23.7"
 flippable = "1.5.4"
 googleMaterial = "1.12.0"
-hilt = "2.53.1"
+hilt = "2.55"
 junitBom = "5.11.4"
 kermit = "2.0.5"
 ktor = "3.0.3"
 playPublisher = "3.12.1"
 reorderableCompose = "0.9.6"
 undercouchDownload = "5.6.0"
-versions = "0.51.0"
+versions = "0.52.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
