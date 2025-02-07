@@ -7,7 +7,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
@@ -42,6 +44,8 @@ private fun ModalBottomSheetContent(onBack: () -> Unit = {}) {
         mutableStateOf(
             (1..30).map { "$it Item(s)" to it }.map { RadioButtonData(it.first, it.second, it.first == "One Item") })
     }
+    var applyPadding by remember { mutableStateOf(true) }
+
     if (bottomSheetState.isVisible) {
         val selectedRbData = radioButtonsData.find { it.isSelected } ?: radioButtonsData[0]
         ModalBottomSheet(
@@ -69,11 +73,21 @@ private fun ModalBottomSheetContent(onBack: () -> Unit = {}) {
             }
         }
     }
-    Scaffold(topBar = { AppTopAppBar(title = Screen.MODAL_BOTTOM_SHEET.title, onBack = onBack) }) { paddingValues ->
+    Scaffold(
+        topBar = {
+            AppTopAppBar(
+                title = Screen.MODAL_BOTTOM_SHEET.title,
+                onBack = onBack,
+                actions = {
+                    IconButton(onClick = {applyPadding = !applyPadding}) { Icon(imageVector = Icons.Default.Padding, contentDescription = null) }
+                }
+            )
+        }
+    ) { paddingValues ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues),
+                .then(if (applyPadding) Modifier.padding(paddingValues) else Modifier)
         ) {
             items(radioButtonsData) { rbData ->
                 RadioButtonAndText(
