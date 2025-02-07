@@ -3,6 +3,7 @@ package com.example.template.ux.panningzooming
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -10,14 +11,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
@@ -40,44 +37,50 @@ fun PanningZoomingScreen(navController: NavController) {
 
 @Composable
 fun PanningZoomingContent(onBack: () -> Unit = {}) {
-    Scaffold(topBar = { AppTopAppBar(title = Screen.PANNING_ZOOMING.title, onBack = onBack) }) {
+    Scaffold(
+        topBar = { AppTopAppBar(title = Screen.PANNING_ZOOMING.title, onBack = onBack) }
+    ) { paddingValues ->
         val outlineStream = LocalContext.current.assets.open("CP011-Outline-iPad.png")
         val pageImage = BitmapFactory.decodeStream(outlineStream).asImageBitmap()
 
-        CanvasCard(modifier = Modifier.padding(it), pageImage = pageImage)
+        CanvasCard(modifier = Modifier.padding(paddingValues), pageImage = pageImage)
     }
 }
 
 @Composable
 fun CanvasCard(pageImage: ImageBitmap, modifier: Modifier = Modifier) {
 
-    PanAndZoom(
+    Box(
         modifier = modifier
             .fillMaxSize()
-    ) {
-        val pageWidthPx = pageImage.width
-        val pageHeightPx = pageImage.height
-        val maxWidthPx = with(LocalDensity.current) { maxWidth.toPx() }
-        val maxHeightPx = with(LocalDensity.current) { maxHeight.toPx() }
+            .clipToBounds() // Prevents zoomed content from extending into the system bottom navigation bar
+    )
+    {
+        PanAndZoom(modifier = Modifier.fillMaxSize()) {
+            val pageWidthPx = pageImage.width
+            val pageHeightPx = pageImage.height
+            val maxWidthPx = with(LocalDensity.current) { maxWidth.toPx() }
+            val maxHeightPx = with(LocalDensity.current) { maxHeight.toPx() }
 
-        val paddingDp = 5.dp
-        val paddingPx = with(LocalDensity.current) { paddingDp.toPx() }
-        val cardSize = IntSize(pageWidthPx, pageHeightPx).findBestFit(maxWidthPx, maxHeightPx, paddingPx)
-        val pageWidthDp = with(LocalDensity.current) { cardSize.width.toDp() }
-        val pageHeightDp = with(LocalDensity.current) { cardSize.height.toDp() }
+            val paddingDp = 5.dp
+            val paddingPx = with(LocalDensity.current) { paddingDp.toPx() }
+            val cardSize = IntSize(pageWidthPx, pageHeightPx).findBestFit(maxWidthPx, maxHeightPx, paddingPx)
+            val pageWidthDp = with(LocalDensity.current) { cardSize.width.toDp() }
+            val pageHeightDp = with(LocalDensity.current) { cardSize.height.toDp() }
 
-        Card(
-            modifier = Modifier
-                .width(pageWidthDp)
-                .height(pageHeightDp)
-                .shadow(5.dp)
-                .align(Alignment.Center)
-        ) {
-            Image(
+            Card(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.White), painter = BitmapPainter(pageImage), contentDescription = null
-            )
+                    .width(pageWidthDp)
+                    .height(pageHeightDp)
+                    .shadow(5.dp)
+                    .align(Alignment.Center)
+            ) {
+                Image(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.White), painter = BitmapPainter(pageImage), contentDescription = null
+                )
+            }
         }
     }
 }

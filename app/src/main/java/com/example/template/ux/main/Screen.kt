@@ -11,6 +11,7 @@ import com.example.template.ux.childwithnavigation.ChildWithNavigationRoute
 import com.example.template.ux.chipsheet.ChipSheetRoute
 import com.example.template.ux.datetimeformat.DateTimeFormatRoute
 import com.example.template.ux.dialog.DialogRoute
+import com.example.template.ux.edgetoedge.EdgeToEdgeRoute
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
 import com.example.template.ux.home.HomeRoute
@@ -58,6 +59,7 @@ enum class Screen(val title: String, val route: NavigationRoute, val type: Scree
     CHIP_SHEET("Chip Sheet", ChipSheetRoute, ScreenType.UI),
     DATE_TIME_FORMAT("Date/Time Format", DateTimeFormatRoute, ScreenType.UI),
     DIALOG("Dialog", DialogRoute, ScreenType.UI),
+    EDGE_TO_EDGE("Edge to Edge Example", EdgeToEdgeRoute, ScreenType.UI),
     FLIPPABLE("Flippable", FlippableRoute, ScreenType.UI),
     GMAIL_ADDRESS_FIELD("Gmail Address Field", GmailAddressFieldRoute, ScreenType.UI),
     HOME("UI Examples", HomeRoute),

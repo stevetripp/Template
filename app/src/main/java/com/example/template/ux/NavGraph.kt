@@ -33,6 +33,8 @@ import com.example.template.ux.datetimeformat.DateTimeFormatRoute
 import com.example.template.ux.datetimeformat.DateTimeFormatScreen
 import com.example.template.ux.dialog.DialogRoute
 import com.example.template.ux.dialog.DialogScreen
+import com.example.template.ux.edgetoedge.EdgeToEdgeRoute
+import com.example.template.ux.edgetoedge.EdgeToEdgeScreen
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.flippable.FlippableScreen
 import com.example.template.ux.flippable.deepLinks
@@ -139,7 +141,7 @@ fun NavGraph(
         composable<DateTimeFormatRoute> { DateTimeFormatScreen(navController) }
         composable<DestinationRoute>(typeMap = DestinationRoute.typeMap(), deepLinks = DestinationRoute.deepLinks()) { DestinationScreen(navController) }
         composable<DialogRoute> { DialogScreen(navController) }
-        composable<SynchronizeScrollingRoute> { SynchronizeScrollingScreen(navController) }
+        composable<EdgeToEdgeRoute> { EdgeToEdgeScreen(navController) }
         composable<FlippableRoute>(deepLinks = FlippableRoute.deepLinks()) { FlippableScreen(navController) }
         composable<GmailAddressFieldRoute> { GmailAddressFieldScreen(navController) }
         composable<HomeRoute> { HomeScreen(navController) }
@@ -168,6 +170,7 @@ fun NavGraph(
         composable<SnackbarRoute> { SnackbarScreen(navController) }
         composable<StickyHeadersRoute> { StickyHeadersScreen(navController) }
         composable<SwipableRoute> { SwipableScreen(navController) }
+        composable<SynchronizeScrollingRoute> { SynchronizeScrollingScreen(navController) }
         composable<SystemUiRoute> { SystemUiScreen(navController) }
         composable<TabsRoute> { TabsScreen(navController) }
         composable<TypographyRoute> { TypographyScreen(navController) }
