@@ -76,6 +76,9 @@
             <meta-data
                 android:name="com.example.template.startup.LoggingInitializer"
                 android:value="androidx.startup" />
+            <meta-data
+                android:name="com.example.template.startup.NotificationInitializer"
+                android:value="androidx.startup" />
         </provider>
 
         <provider

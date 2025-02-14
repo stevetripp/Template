@@ -58,6 +58,8 @@ import com.example.template.ux.modalsidesheet.ModalSideSheetRoute
 import com.example.template.ux.modalsidesheet.ModalSideSheetScreen
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.navigatepager.NavigationPagerScreen
+import com.example.template.ux.notification.NotificationRoute
+import com.example.template.ux.notification.NotificationScreen
 import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
 import com.example.template.ux.notificationpermissions.NotificationPermissionsScreen
 import com.example.template.ux.pager.PagerRoute
@@ -154,6 +156,7 @@ fun NavGraph(
         composable<ModalSideSheetRoute> { ModalSideSheetScreen(navController) }
         composable<NavigationPagerRoute> { NavigationPagerScreen(navController) }
         composable<NotificationPermissionsRoute> { NotificationPermissionsScreen(navController) }
+        composable<NotificationRoute> { NotificationScreen(navController) }
         composable<PagerRoute> { PagerScreen(navController) }
         composable<PanningZoomingRoute> { PanningZoomingScreen(navController) }
         composable<ParametersRoute> { ParametersScreen(navController) }

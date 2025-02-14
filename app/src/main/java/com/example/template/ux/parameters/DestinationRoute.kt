@@ -1,7 +1,6 @@
 package com.example.template.ux.parameters
 
 import androidx.navigation.navDeepLink
-import com.example.template.util.SmtLogger
 import com.example.template.ux.DeepLink
 import com.example.template.ux.NavTypeMaps
 import kotlinx.serialization.SerialName
@@ -41,7 +40,6 @@ fun DestinationRoute.Companion.deepLinks() = listOf(
     navDeepLink {
         uriPattern = "${DeepLink.ROOT}/PARAMETERS/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM1)}/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM2)}" +
                 "?${RouteUtil.defineOptionalArgs(DeepLinkArgs.QUERY_PARAM1, DeepLinkArgs.QUERY_PARAM2)}"
-        SmtLogger.i("""uriPattern: $uriPattern""")
     }
 )
 

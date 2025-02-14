@@ -23,6 +23,7 @@ import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modaldrawersheet.ModalDrawerSheetRoute
 import com.example.template.ux.modalsidesheet.ModalSideSheetRoute
 import com.example.template.ux.navigatepager.NavigationPagerRoute
+import com.example.template.ux.notification.NotificationRoute
 import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
 import com.example.template.ux.pager.PagerRoute
 import com.example.template.ux.panningzooming.PanningZoomingRoute
@@ -71,6 +72,7 @@ enum class Screen(val title: String, val route: NavigationRoute, val type: Scree
     MODAL_DRAWER_SHEET("Modal Drawer Sheet", ModalDrawerSheetRoute, ScreenType.UI),
     MODAL_SIDE_SHEET("Modal Side Sheet", ModalSideSheetRoute, ScreenType.UI),
     NAVIGATION_PAGER("Navigation Pager", NavigationPagerRoute, ScreenType.UI),
+    NOTIFICATION("Notifications", NotificationRoute, ScreenType.UI),
     NOTIFICATION_PERMISSIONS("Permissions (Notification)", NotificationPermissionsRoute, ScreenType.UI),
     PAGER("Pager", PagerRoute, ScreenType.UI),
     PANNING_ZOOMING("Panning and Zooming", PanningZoomingRoute, ScreenType.UI),
