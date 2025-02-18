@@ -35,6 +35,8 @@ import com.example.template.ux.dialog.DialogRoute
 import com.example.template.ux.dialog.DialogScreen
 import com.example.template.ux.edgetoedge.EdgeToEdgeRoute
 import com.example.template.ux.edgetoedge.EdgeToEdgeScreen
+import com.example.template.ux.fab.FabRoute
+import com.example.template.ux.fab.FabScreen
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.flippable.FlippableScreen
 import com.example.template.ux.flippable.deepLinks
@@ -144,6 +146,7 @@ fun NavGraph(
         composable<DestinationRoute>(typeMap = DestinationRoute.typeMap(), deepLinks = DestinationRoute.deepLinks()) { DestinationScreen(navController) }
         composable<DialogRoute> { DialogScreen(navController) }
         composable<EdgeToEdgeRoute> { EdgeToEdgeScreen(navController) }
+        composable<FabRoute> { FabScreen(navController) }
         composable<FlippableRoute>(deepLinks = FlippableRoute.deepLinks()) { FlippableScreen(navController) }
         composable<GmailAddressFieldRoute> { GmailAddressFieldScreen(navController) }
         composable<HomeRoute> { HomeScreen(navController) }
