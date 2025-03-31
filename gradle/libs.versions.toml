@@ -1,11 +1,6 @@
 [versions]
-agp = "8.9.0" # see https://developer.android.com/studio/releases/gradle-plugin
-kotlin = "2.1.10" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-ksp = "2.1.10-1.0.30" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
-kotlinxSerializationJson = "1.8.0"
-kotlinxDateTime = "0.6.2"
-
 accompanistPermissions = "0.37.2"
+agp = "8.9.1" # see https://developer.android.com/studio/releases/gradle-plugin
 androidxActivityCompose = "1.10.1"
 androidxBiometrics = "1.1.0"
 androidxComposeMaterial = "1.7.8"
@@ -13,21 +8,25 @@ androidxComposeMaterial3 = "1.3.1"
 androidxComposeMaterial3Adaptive = "1.1.0"
 androidxComposeMaterial3AdaptiveNavigation = "1.3.1"
 androidxComposeUi = "1.7.8"
-androidxDataStore = "1.1.3"
+androidxDataStore = "1.1.4"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.8.7"
-androidxMedia3 = "1.5.1"
-androidxNavigation = "2.9.0-alpha08"
+androidxMedia3 = "1.6.0"
+androidxNavigation = "2.9.0-alpha09"
 androidxSplashScreen = "1.1.0-rc01"
 androidxTestJunit = "1.2.1"
 coil = "2.7.0"
 dependencyAnalysis = "2.8.2"
-detekt = "1.23.7"
+detekt = "1.23.8"
 flippable = "1.5.4"
 googleMaterial = "1.12.0"
-hilt = "2.55"
-junitBom = "5.11.4"
+hilt = "2.56.1"
+junitBom = "5.12.1"
 kermit = "2.0.5"
+kotlin = "2.1.20" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+kotlinxDateTime = "0.6.2"
+kotlinxSerializationJson = "1.8.0"
+ksp = "2.1.20-1.0.31" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
 ktor = "3.1.0"
 playPublisher = "3.12.1"
 reorderableCompose = "0.9.6"
@@ -45,7 +44,7 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 playPublisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
-versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" } # ./gradlew dependencyUpdates -Drevision=release
 
 [libraries]
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanistPermissions" }
@@ -66,10 +65,12 @@ androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", v
 
 androidx-test-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestJunit" }
 
+burnoutcrew-compose-reorderable = { group = "org.burnoutcrew.composereorderable", name = "reorderable", version.ref = "reorderableCompose" }
+
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 compose-material = { group = "androidx.compose.material", name = "material", version.ref = "androidxComposeMaterial" }
-compose-material-iconsext = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidxComposeMaterial" } # Material design icons (extended)
+compose-material-iconsext = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidxComposeMaterial" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
 compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "androidxComposeMaterial3Adaptive" }
 compose-material3-adaptive-navigation = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version.ref = "androidxComposeMaterial3AdaptiveNavigation" }
@@ -78,8 +79,8 @@ compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", versi
 
 flippable = { group = "com.wajahatkarim", name = "flippable", version.ref = "flippable" } # https://devlibrary.withgoogle.com/products/android/repos/wajahatkarim3-Flippable
 
-google-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-google-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+google-dagger-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" } # https://github.com/material-components/material-components-android/releases
 
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junitBom" }
@@ -87,7 +88,7 @@ junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
 
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 
-kotlin-date-time = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
+kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
@@ -96,5 +97,3 @@ ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
 ktor-client-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
-
-reorderable-compose = { group = "org.burnoutcrew.composereorderable", name = "reorderable", version.ref = "reorderableCompose" }

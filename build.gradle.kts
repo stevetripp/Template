@@ -65,7 +65,7 @@ dependencyAnalysis {
             onRuntimeOnly { severity("ignore") }
             onUnusedAnnotationProcessors {
                 exclude(
-                    depGroupAndName(libs.google.hilt.android.compiler),
+                    depGroupAndName(libs.google.dagger.hilt.android.compiler),
                 )
             }
         }
