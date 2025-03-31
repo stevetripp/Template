@@ -163,6 +163,8 @@ dependencies {
 
     testImplementation(libs.junit.jupiter)
     testImplementation(platform(libs.junit.bom))
+
+    testRuntimeOnly(libs.junit.platformLauncher)
 }
 
 // ===== TEST TASKS =====

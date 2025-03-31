@@ -85,6 +85,7 @@ google-material = { group = "com.google.android.material", name = "material", ve
 
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junitBom" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
+junit-platformLauncher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 
