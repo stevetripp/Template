@@ -149,6 +149,7 @@ dependencies {
     implementation(libs.flippable)
     implementation(libs.google.dagger.hilt.android)
     implementation(libs.google.material)
+    implementation(libs.google.maps.compose)
     implementation(libs.kermit)
     implementation(libs.kotlin.datetime)
     implementation(libs.kotlin.serialization.json)

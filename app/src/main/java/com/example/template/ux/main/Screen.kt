@@ -19,6 +19,7 @@ import com.example.template.ux.home.HomeRoute
 import com.example.template.ux.imagepicker.ImagePickerRoute
 import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.ktor.KtorRoute
+import com.example.template.ux.map.MapRoute
 import com.example.template.ux.memorize.MemorizeRoute
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modaldrawersheet.ModalDrawerSheetRoute
@@ -70,6 +71,7 @@ enum class Screen(val title: String, val route: NavigationRoute, val type: Scree
     INPUT_EXAMPLES("Input Examples", InputExamplesRoute, ScreenType.UI),
     KTOR("Ktor Test", KtorRoute, ScreenType.SERVICES),
     MEMORIZE("Memorize", MemorizeRoute, ScreenType.UI),
+    MAP("Map", MapRoute, ScreenType.UI),
     MODAL_BOTTOM_SHEET("Modal Bottom Sheet", ModalBottomSheetRoute, ScreenType.UI),
     MODAL_DRAWER_SHEET("Modal Drawer Sheet", ModalDrawerSheetRoute, ScreenType.UI),
     MODAL_SIDE_SHEET("Modal Side Sheet", ModalSideSheetRoute, ScreenType.UI),
