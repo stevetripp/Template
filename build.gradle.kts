@@ -3,16 +3,16 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.detekt) apply false
-    alias(libs.plugins.download) apply false
-    alias(libs.plugins.hilt) apply false
-    alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.kotlin.android) apply false
-    alias(libs.plugins.kotlin.serialization) apply false
-    alias(libs.plugins.compose.compiler) apply false
-    alias(libs.plugins.versions)
-    alias(libs.plugins.dependency.analysis)
+    alias(libs.plugins.android.application.plugin) apply false
+    alias(libs.plugins.arturbosch.detekt.plugin) apply false
+    alias(libs.plugins.autonomousapps.dependency.analysis.plugin)
+    alias(libs.plugins.ben.manes.versions.plugin)
+    alias(libs.plugins.dagger.hilt.plugin) apply false
+    alias(libs.plugins.kotlin.android.plugin) apply false
+    alias(libs.plugins.kotlin.compose.plugin) apply false
+    alias(libs.plugins.kotlin.serialization.plugin) apply false
+    alias(libs.plugins.ksp.plugin) apply false
+    alias(libs.plugins.undercouch.download.plugin) apply false
 }
 
 allprojects {
@@ -65,7 +65,7 @@ dependencyAnalysis {
             onRuntimeOnly { severity("ignore") }
             onUnusedAnnotationProcessors {
                 exclude(
-                    depGroupAndName(libs.google.dagger.hilt.android.compiler),
+                    depGroupAndName(libs.dagger.hilt.android.compiler),
                 )
             }
         }

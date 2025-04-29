@@ -1,100 +1,90 @@
 [versions]
 accompanistPermissions = "0.37.2"
 agp = "8.9.1" # see https://developer.android.com/studio/releases/gradle-plugin
-androidxActivityCompose = "1.10.1"
-androidxBiometrics = "1.1.0"
+androidxActivity = "1.10.1"
+androidxBiometric = "1.1.0"
 androidxComposeMaterial = "1.7.8"
-androidxComposeMaterial3 = "1.3.1"
+androidxComposeMaterial3 = "1.3.2"
 androidxComposeMaterial3Adaptive = "1.1.0"
-androidxComposeMaterial3AdaptiveNavigation = "1.3.1"
+androidxComposeMaterial3AdaptiveNavigationSuite = "1.3.2"
 androidxComposeUi = "1.7.8"
-androidxDataStore = "1.1.4"
+androidxCoreSplashscreen = "1.1.0-rc01"
+androidxDatastorePreferences = "1.1.4"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.8.7"
 androidxMedia3 = "1.6.0"
 androidxNavigation = "2.9.0-alpha09"
-androidxSplashScreen = "1.1.0-rc01"
-androidxTestJunit = "1.2.1"
+androidxTestExtJunit = "1.2.1"
+androidxTestRunner = "1.6.2"
+arturboschDetekt = "1.23.8"
+autonomousappsDependencyAnalysis = "2.15.0"
+benManesVersions = "0.52.0"
+burnoutcrewComposereorderable = "0.9.6"
 coil = "2.7.0"
-dependencyAnalysis = "2.8.2"
-detekt = "1.23.8"
-flippable = "1.5.4"
-googleMaterial = "1.12.0"
-hilt = "2.56.1"
+dagger = "2.56.1"
+googleAndroidMaterial = "1.12.0"
 junitBom = "5.12.1"
-kermit = "2.0.5"
 kotlin = "2.1.20" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
 kotlinxDateTime = "0.6.2"
-kotlinxSerializationJson = "1.8.0"
-ksp = "2.1.20-1.0.31" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
-ktor = "3.1.0"
-playPublisher = "3.12.1"
-reorderableCompose = "0.9.6"
+kotlinxSerializationJson = "1.8.1"
+ksp = "2.1.20-1.0.32" # 2.1.20-2.0.0 breaks build
+ktor = "3.1.2"
+touchlabKermit = "2.0.5"
+tripletPlay = "3.12.1"
 undercouchDownload = "5.6.0"
-versions = "0.52.0"
+wajahatkarimFlippable = "1.5.4"
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "agp" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-download = { id = "de.undercouch.download", version.ref = "undercouchDownload" }
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-playPublisher = { id = "com.github.triplet.play", version.ref = "playPublisher" }
-versions = { id = "com.github.ben-manes.versions", version.ref = "versions" } # ./gradlew dependencyUpdates -Drevision=release
+android-application-plugin = { id = "com.android.application", version.ref = "agp" }
+arturbosch-detekt-plugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "arturboschDetekt" }
+autonomousapps-dependency-analysis-plugin = { id = "com.autonomousapps.dependency-analysis", version.ref = "autonomousappsDependencyAnalysis" }
+ben-manes-versions-plugin = { id = "com.github.ben-manes.versions", version.ref = "benManesVersions" } # ./gradlew dependencyUpdates -Drevision=release
+dagger-hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
+kotlin-android-plugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose-plugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization-plugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp-plugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+triplet-play-plugin = { id = "com.github.triplet.play", version.ref = "tripletPlay" }
+undercouch-download-plugin = { id = "de.undercouch.download", version.ref = "undercouchDownload" }
 
 [libraries]
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanistPermissions" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityCompose" }
-androidx-biometrics = { group = "androidx.biometric", name = "biometric", version.ref = "androidxBiometrics" }
-androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDataStore" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
+androidx-biometric = { group = "androidx.biometric", name = "biometric", version.ref = "androidxBiometric" }
+androidx-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "androidxComposeMaterial" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidxComposeMaterial" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
+androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "androidxComposeMaterial3Adaptive" }
+androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version.ref = "androidxComposeMaterial3AdaptiveNavigationSuite" }
+androidx-compose-material3-window-size = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxComposeUi" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDatastorePreferences" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHilt" }
 androidx-lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
-
 androidx-media3-cast = { group = "androidx.media3", name = "media3-cast", version.ref = "androidxMedia3" }
 androidx-media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "androidxMedia3" }
 androidx-media3-exoplayer-hls = { group = "androidx.media3", name = "media3-exoplayer-hls", version.ref = "androidxMedia3" }
 androidx-media3-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "androidxMedia3" }
-
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
-androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxSplashScreen" }
-
-androidx-test-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestJunit" }
-
-burnoutcrew-compose-reorderable = { group = "org.burnoutcrew.composereorderable", name = "reorderable", version.ref = "reorderableCompose" }
-
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExtJunit" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
+burnoutcrew-composereorderable = { group = "org.burnoutcrew.composereorderable", name = "reorderable", version.ref = "burnoutcrewComposereorderable" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
-
-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "androidxComposeMaterial" }
-compose-material-iconsext = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidxComposeMaterial" }
-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
-compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "androidxComposeMaterial3Adaptive" }
-compose-material3-adaptive-navigation = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version.ref = "androidxComposeMaterial3AdaptiveNavigation" }
-compose-material3-windowsize = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxComposeUi" }
-
-flippable = { group = "com.wajahatkarim", name = "flippable", version.ref = "flippable" } # https://devlibrary.withgoogle.com/products/android/repos/wajahatkarim3-Flippable
-
-google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-google-dagger-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
-google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" } # https://github.com/material-components/material-components-android/releases
-
+dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger" }
+dagger-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger" }
+google-android-material = { group = "com.google.android.material", name = "material", version.ref = "googleAndroidMaterial" } # https://github.com/material-components/material-components-android/releases
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junitBom" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
-junit-platformLauncher = { group = "org.junit.platform", name = "junit-platform-launcher" }
-
-kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
-
-kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
-kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
-ktor-client-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+touchlab-kermit = { group = "co.touchlab", name = "kermit", version.ref = "touchlabKermit" }
+wajahatkarim-flippable = { group = "com.wajahatkarim", name = "flippable", version.ref = "wajahatkarimFlippable" } # https://devlibrary.withgoogle.com/products/android/repos/wajahatkarim3-Flippable
