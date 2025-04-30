@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.navigation.toRoute
 import com.example.template.util.SmtLogger
+import com.example.template.ux.NavTypeMaps
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -14,7 +15,7 @@ class DestinationViewModel
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val destinationRoute = savedStateHandle.toRoute<DestinationRoute>(DestinationRoute.typeMap())
+    private val destinationRoute = savedStateHandle.toRoute<DestinationRoute>(NavTypeMaps.typeMap)
     private val reqParam1Flow = MutableStateFlow(destinationRoute.reqParam1)
     private val reqParam2Flow = MutableStateFlow(destinationRoute.reqParam2)
     private val optParam1Flow = MutableStateFlow(destinationRoute.optParam1)

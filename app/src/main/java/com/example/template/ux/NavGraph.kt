@@ -73,7 +73,6 @@ import com.example.template.ux.parameters.DestinationScreen
 import com.example.template.ux.parameters.ParametersRoute
 import com.example.template.ux.parameters.ParametersScreen
 import com.example.template.ux.parameters.deepLinks
-import com.example.template.ux.parameters.typeMap
 import com.example.template.ux.permissions.PermissionsRoute
 import com.example.template.ux.permissions.PermissionsScreen
 import com.example.template.ux.popwithresult.PopWithResultChildRoute
@@ -113,7 +112,6 @@ import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.urinavigation.UriNavigationScreen
 import com.example.template.ux.video.player.PlayerActivity
 import com.example.template.ux.video.player.PlayerRoute
-import com.example.template.ux.video.player.typeMap
 import com.example.template.ux.video.screen.VideoScreen
 import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
@@ -131,7 +129,7 @@ fun NavGraph(
         navController = navController,
         startDestination = HomeRoute
     ) {
-        activity<PlayerRoute>(PlayerRoute.typeMap()) { this.activityClass = PlayerActivity::class }
+        activity<PlayerRoute>(typeMap = NavTypeMaps.typeMap) { this.activityClass = PlayerActivity::class }
         composable<AboutRoute> { AboutScreen(navController) }
         composable<AnimatedGesturesRoute> { AnimatedGestureScreen(navController) }
         composable<BottomNavigationRoute> { BottomNavigationScreen(navController) }
@@ -143,7 +141,7 @@ fun NavGraph(
         composable<ChildWithoutNavigationRoute> { ChildWithoutNavigationScreen(navController) }
         composable<ChipSheetRoute> { ChipSheetScreen(navController) }
         composable<DateTimeFormatRoute> { DateTimeFormatScreen(navController) }
-        composable<DestinationRoute>(typeMap = DestinationRoute.typeMap(), deepLinks = DestinationRoute.deepLinks()) { DestinationScreen(navController) }
+        composable<DestinationRoute>(typeMap = NavTypeMaps.typeMap, deepLinks = DestinationRoute.deepLinks()) { DestinationScreen(navController) }
         composable<DialogRoute> { DialogScreen(navController) }
         composable<EdgeToEdgeRoute> { EdgeToEdgeScreen(navController) }
         composable<FabRoute> { FabScreen(navController) }

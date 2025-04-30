@@ -2,9 +2,10 @@ package com.example.template.ux
 
 import android.os.Bundle
 import androidx.navigation.NavType
-import com.example.template.ux.parameters.EnumParameter
 import com.example.template.ux.parameters.Parameter1
 import com.example.template.ux.video.VideoId
+import kotlin.reflect.KType
+import kotlin.reflect.typeOf
 
 /**
  * Mappings for type safe navigation
@@ -35,19 +36,16 @@ object NavTypeMaps {
         override fun serializeAsValue(value: VideoId): String = value.value
     }
 
-    @Deprecated("Remove (shouldn't be needed for enums https://issuetracker.google.com/issues/346475493")
-    val EnumParameterNavType = object : NavType<EnumParameter>(isNullableAllowed = false) {
-        override fun get(bundle: Bundle, key: String): EnumParameter? = bundle.getString(key)?.let { parseValue(it) }
-        override fun parseValue(value: String): EnumParameter = EnumParameter.valueOf(value)
-        override fun put(bundle: Bundle, key: String, value: EnumParameter) = bundle.putString(key, serializeAsValue(value))
-        override fun serializeAsValue(value: EnumParameter): String = value.name
-    }
+    /**
+     * Map of Kotlin types to their corresponding NavType implementations. Uses KType objects from typeOf<> as keys for direct type mapping.  Includes both non-nullable and nullable types.
+     */
+    @Suppress("UNCHECKED_CAST")
+    val typeMap: Map<KType, NavType<*>> = mapOf(
+        // Non-nullable types
+        typeOf<Parameter1>() to Parameter1NavType,
+        typeOf<VideoId>() to VideoIdNavType,
 
-    @Deprecated("Remove (shouldn't be needed for enums https://issuetracker.google.com/issues/346475493")
-    val EnumParameterNullableNavType = object : NavType<EnumParameter?>(isNullableAllowed = true) {
-        override fun get(bundle: Bundle, key: String): EnumParameter? = bundle.getString(key)?.let { parseValue(it) }
-        override fun parseValue(value: String): EnumParameter = EnumParameter.valueOf(value)
-        override fun put(bundle: Bundle, key: String, value: EnumParameter?) = value?.let { bundle.putString(key, serializeAsValue(it)) } ?: Unit
-        override fun serializeAsValue(value: EnumParameter?): String = value?.name.orEmpty()
-    }
+        // Nullable types
+        typeOf<Parameter1?>() to Parameter1NullableNavType
+    )
 }

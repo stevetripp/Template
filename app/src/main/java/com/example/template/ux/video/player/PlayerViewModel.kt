@@ -7,6 +7,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.MimeTypes
 import androidx.navigation.toRoute
+import com.example.template.ux.NavTypeMaps
 import com.example.template.ux.video.TestData
 import com.example.template.ux.video.VideoId
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +25,7 @@ class PlayerViewModel @Inject constructor(
     deviceUtil: LdsDeviceUtil,
 ) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
 
-    private val playerRoute = savedStateHandle.toRoute<PlayerRoute>(PlayerRoute.typeMap())
+    private val playerRoute = savedStateHandle.toRoute<PlayerRoute>(NavTypeMaps.typeMap)
     private val videoId = playerRoute.videoId
 
     val mediaItemsFlow: Flow<PlayList> = flow {
