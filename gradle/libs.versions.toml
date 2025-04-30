@@ -26,7 +26,7 @@ dagger = "2.56.2"
 googleAndroidMaterial = "1.12.0"
 junitBom = "5.12.2"
 kotlin = "2.1.20" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-kotlinxDateTime = "0.6.2"
+kotlinxDatetime = "0.6.2"
 kotlinxSerializationJson = "1.8.1"
 ksp = "2.1.20-1.0.32" # 2.1.20-2.0.0 breaks build
 ktor = "3.1.2"
@@ -79,7 +79,7 @@ google-android-material = { group = "com.google.android.material", name = "mater
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junitBom" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
