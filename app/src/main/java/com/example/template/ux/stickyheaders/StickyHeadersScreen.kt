@@ -4,12 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -35,17 +35,19 @@ fun StickyHeadersContent(uiState: StickyHeadersUiState, onBack: () -> Unit = {})
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
-            lazyColumnItems.forEach {
-                when (it) {
+            lazyColumnItems.forEach { lazyColumnItem ->
+                when (lazyColumnItem) {
                     is LazyColumnItem.Header -> stickyHeader {
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(Color.Cyan), text = it.text
+                                .background(MaterialTheme.colorScheme.surface),
+                            text = lazyColumnItem.text,
+                            style = MaterialTheme.typography.titleLarge
                         )
                     }
 
-                    is LazyColumnItem.Item -> item { Text(text = it.text) }
+                    is LazyColumnItem.Item -> item { Text(text = lazyColumnItem.text) }
                 }
             }
         }
