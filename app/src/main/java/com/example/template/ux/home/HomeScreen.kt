@@ -2,6 +2,7 @@ package com.example.template.ux.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -62,6 +63,7 @@ fun HomeContent(uiState: HomeScreenUiState, mainUiState: MainUiState) {
             columns = GridCells.Fixed(2),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(bottom = 48.dp),
         ) {
             items(screens) { screen ->
                 Card(modifier = Modifier.height(60.dp), onClick = { uiState.onItemClicked(screen) }) {
