@@ -3,7 +3,6 @@ package com.example.template.ux.reorderablelist
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.burnoutcrew.reorderable.ItemPosition
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,14 +15,13 @@ class ReorderableListViewModel
     val uiState = ReorderableListUiState(
         listFlow = listFlow,
         onMove = ::onMove,
-        canDragOver = { _, _ -> true },
     )
 
-    private fun onMove(from: ItemPosition, to: ItemPosition) {
+    private fun onMove(fromIndex: Int, toIndex: Int) {
         val list = listFlow.value.toMutableList()
-        val movedItem = list[from.index]
-        list.removeAt(from.index)
-        list.add(to.index, movedItem)
+        val movedItem = list[fromIndex]
+        list.removeAt(fromIndex)
+        list.add(toIndex, movedItem)
         listFlow.value = list
     }
 }

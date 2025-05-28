@@ -1,14 +1,19 @@
 package com.example.template.ux.reorderablelist
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,12 +28,6 @@ import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
-import org.burnoutcrew.reorderable.ReorderableItem
-import org.burnoutcrew.reorderable.ReorderableState
-import org.burnoutcrew.reorderable.detectReorderAfterLongPress
-import org.burnoutcrew.reorderable.rememberReorderableLazyGridState
-import org.burnoutcrew.reorderable.rememberReorderableLazyListState
-import org.burnoutcrew.reorderable.reorderable
 
 @Composable
 fun ReorderableListScreen(navController: NavController, viewModel: ReorderableListViewModel = hiltViewModel()) {
@@ -41,38 +40,41 @@ fun ReorderableListContent(uiState: ReorderableListUiState, onBack: () -> Unit =
         val list by uiState.listFlow.collectAsStateWithLifecycle()
         val modifier = Modifier.padding(paddingValues)
 
-
-        val reorderableItem: @Composable (ReorderableState<*>, ReorderableItemData) -> Unit = { state, item ->
-            ReorderableItem(state = state, key = item.id) { isDragging ->
-                val elevation by animateDpAsState(if (isDragging) 16.dp else 0.dp, label = "animateDpAsState")
-                Box(
-                    modifier = Modifier
-                        .shadow(elevation)
-                        .detectReorderAfterLongPress(state) // remove to prevent selection
-                ) {
-                    ListItem(headlineContent = { Text(item.value) })
-                }
-            }
+        @Composable
+        fun DraggableItemContent(value: String, isDragging: Boolean) {
+            val elevation by animateDpAsState(if (isDragging) 16.dp else 0.dp, label = "animateDpAsState")
+            val color by animateColorAsState(if (isDragging) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.background)
+            ListItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .shadow(elevation)
+                    .background(color),
+                headlineContent = { Text(value) }
+            )
         }
 
         if (AppTheme.isLandscape) {
-            val state = rememberReorderableLazyGridState(uiState.onMove, canDragOver = uiState.canDragOver)
+            val gridState = rememberLazyGridState()
+            val dragDropState = rememberGridDragDropState(gridState, uiState.onMove)
             LazyVerticalGrid(
-                state = state.gridState,
-                modifier = modifier
-                    .reorderable(state),
-                columns = GridCells.Fixed(2)
+                modifier = modifier.dragContainer(dragDropState),
+                state = gridState,
+                columns = GridCells.Fixed(3)
             ) {
-                items(items = list, key = { it.id }) { item -> reorderableItem(state, item) }
+                itemsIndexed(items = list, key = { _, item -> item.id }) { index, item ->
+                    DraggableItem(dragDropState, index) { isDragging -> DraggableItemContent(value = item.value, isDragging = isDragging) }
+                }
             }
         } else {
-            val state = rememberReorderableLazyListState(onMove = uiState.onMove, canDragOver = uiState.canDragOver)
+            val lazyListState = rememberLazyListState()
+            val dragDropState = rememberDragDropState(lazyListState, uiState.onMove)
             LazyColumn(
-                state = state.listState,
-                modifier = modifier
-                    .reorderable(state)
+                modifier = modifier.dragContainer(dragDropState),
+                state = lazyListState
             ) {
-                items(items = list, key = { it.id }) { item -> reorderableItem(state, item) }
+                itemsIndexed(items = list, key = { _, item -> item.id }) { index, item ->
+                    DraggableItem(dragDropState, index) { isDragging -> DraggableItemContent(value = item.value, isDragging = isDragging) }
+                }
             }
         }
     }
