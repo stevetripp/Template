@@ -70,7 +70,7 @@ class PlayerActivity : AppCompatActivity(), PlayerManager.Listener {
             setNavigationIcon(R.drawable.ic_arrow_back_24)
             setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
             inflateMenu(R.menu.menu_video)
-            CastButtonFactory.setUpMediaRouteButton(this@PlayerActivity, menu, R.id.media_route_menu_item)
+            CastButtonFactory.setUpMediaRouteButton(this@PlayerActivity, menu, R.id.cast_menu_item)
         }
 
         activityVideoBinding.videoView.setControllerVisibilityListener(

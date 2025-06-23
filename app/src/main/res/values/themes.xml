@@ -3,6 +3,7 @@
     <style name="AppTheme.Splash" parent="Theme.SplashScreen.IconBackground">
         <!-- Match lightScheme.primary -->
         <item name="windowSplashScreenBackground">#FF004305</item>
+        <item name="windowSplashScreenIconBackgroundColor">#FF004305</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
@@ -19,6 +20,6 @@
     </style>
 
     <style name="VideoActivityMediaRouteButtonStyle" parent="Widget.MediaRouter.Light.MediaRouteButton">
-<!--        <item name="mediaRouteButtonTint">@color/white</item>-->
+        <item name="mediaRouteButtonTint">#FFFFFFFF</item>
     </style>
 </resources>
