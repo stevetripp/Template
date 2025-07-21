@@ -9,11 +9,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.datetime.Clock
 import org.lds.mobile.navigation.ViewModelNavigation
 import org.lds.mobile.navigation.ViewModelNavigationImpl
 import javax.inject.Inject
 import kotlin.random.Random
+import kotlin.time.Clock
 
 @HiltViewModel
 class PullRefreshViewModel
