@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import kotlin.math.max
 
 plugins {
     alias(libs.plugins.android.application.plugin)
@@ -22,8 +23,9 @@ android {
         applicationId = AppInfo.APPLICATION_ID
         minSdk = AppInfo.AndroidSdk.MIN
         targetSdk = AppInfo.AndroidSdk.TARGET
-        versionCode = AppInfo.Version.CODE
-        versionName = AppInfo.Version.NAME
+        val buildNumber = (System.getenv("BUILD_NUMBER") ?: AppInfo.Version.CODE.toString()).toInt()
+        versionCode = max(buildNumber, AppInfo.Version.CODE)
+        versionName = "${AppInfo.Version.NAME_PREFIX}.${versionCode}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -185,7 +187,7 @@ tasks.withType<Test> {
 tasks.register<de.undercouch.gradle.tasks.download.Download>("downloadDetektConfig") {
     download {
         onlyIf { !file("build/config/detektConfig.yml").exists() }
-        src("https://raw.githubusercontent.com/ICSEng/AndroidPublic/main/detekt/detektConfig-20231101.yml")
+        src("https://mobile-cdn.churchofjesuschrist.org/android/build/detekt/detektConfig-20231101.yml")
         dest("build/config/detektConfig.yml")
     }
 }

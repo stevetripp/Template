@@ -38,6 +38,7 @@ jobs:
       - name: Build
         run: ./gradlew clean assembleAlpha bundleAlpha
         env:
+          BUILD_NUMBER: ${{ github.run_number }}
           SIGNING_KEYSTORE: upload-keystore
           SIGNING_STORE_PASSWORD: ${{ secrets.UPLOAD_SIGNING_STORE_PASSWORD }}
           SIGNING_KEY_ALIAS: ${{ secrets.UPLOAD_SIGNING_KEY_ALIAS }}

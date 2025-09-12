@@ -5,8 +5,8 @@ object AppInfo {
 
     // Manifest version information
     object Version {
-        const val CODE = 1003
-        val NAME = "1.0.1 ($CODE.${System.getenv("BUILD_NUMBER")})"
+        const val CODE = 1003 // Used for local builds
+        const val NAME_PREFIX = "1.0.2"
     }
 
     object AndroidSdk {
