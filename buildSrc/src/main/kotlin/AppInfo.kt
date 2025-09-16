@@ -5,8 +5,10 @@ object AppInfo {
 
     // Manifest version information
     object Version {
-        const val CODE = 1003 // Used for local builds
-        const val NAME_PREFIX = "1.0.2"
+        const val MIN = 1003 // Specify the Min version here and in the .github/workflows/release.yml file
+        private const val SEMANTIC_NAME = "1.0.2"
+        val CODE = System.getenv("VERSION_CODE")?.toIntOrNull() ?: MIN
+        val NAME = """$SEMANTIC_NAME-($CODE.${System.getenv("CI_BUILD_NUMBER").orEmpty()})"""
     }
 
     object AndroidSdk {

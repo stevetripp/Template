@@ -1,4 +1,3 @@
-import kotlin.math.max
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -20,12 +19,12 @@ android {
     compileSdk = AppInfo.AndroidSdk.COMPILE
 
     defaultConfig {
-        applicationId = AppInfo.APPLICATION_ID
         minSdk = AppInfo.AndroidSdk.MIN
         targetSdk = AppInfo.AndroidSdk.TARGET
-        val buildNumber = ((System.getenv("BUILD_NUMBER") ?: "-1").toInt() + 1)
-        versionCode = max(buildNumber, AppInfo.Version.CODE)
-        versionName = "${AppInfo.Version.NAME_PREFIX}.${versionCode}"
+
+        applicationId = AppInfo.APPLICATION_ID
+        versionCode = AppInfo.Version.CODE
+        versionName = AppInfo.Version.NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
