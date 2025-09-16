@@ -16,7 +16,6 @@ jobs:
     # https://stackoverflow.com/a/69348586/2476068
     env:
       GRADLE_OPTS: -Dorg.gradle.jvmargs="-XX:MaxMetaspaceSize=2g"
-      VERSION_CODE: ${{ 1003 + github.run_number }}
       CI_BUILD_NUMBER: ${{ github.run_number }}
 
     steps:
@@ -31,6 +30,12 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Set version code
+        run: echo "VERSION_CODE=$((${{ github.run_number }} + 1800))" >> $GITHUB_ENV
+
+      #      - name: Set version code
+      #        run: echo "CI_BUILD_NUMBER=$((${{ github.run_number }}))" >> $GITHUB_ENV
+
       - name: Setup
         env:
           ENCODED_STRING: ${{ secrets.UPLOAD_KEYSTORE }}
@@ -41,8 +46,9 @@ jobs:
           echo $ENCODED_STRING | base64 -d -i > app/upload-keystore
           echo $APP_DISTRIBUTION_KEYS > app-distribution.json
           echo PLAYSTORE_KEYS > playstore.json
-          echo "Version code is $VERSION_CODE"
-          echo "CI build number is $CI_BUILD_NUMBER"
+          echo "VERSION_CODE = ${{ env.VERSION_CODE }}"
+          echo "CI_BUILD_NUMBER = ${{ env.VERSION_CODE }}"
+          echo "CI_BUILD_NUMBER = ${{ CI_BUILD_NUMBER }}"
 
       - name: Build
         run: ./gradlew clean assembleRelease bundleRelease
