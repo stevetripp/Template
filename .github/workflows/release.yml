@@ -68,9 +68,17 @@ jobs:
 
       - name: Increment and persist version code
         run: |
-          echo "VERSION_CODE=$((${{ env.VERSION_CODE }} + 1))" >> $GITHUB_ENV
-          echo "${{ env.VERSION_CODE }}" > version.txt
-          echo "VERSION_CODE = ${{ env.VERSION_CODE }}"
+          # Calculate the new version code and store it in a shell variable
+          NEW_VERSION_CODE=$((${{ env.VERSION_CODE }} + 1))
+
+          # Use the new shell variable to update GITHUB_ENV for subsequent steps
+          echo "VERSION_CODE=$NEW_VERSION_CODE" >> $GITHUB_ENV
+
+          # Use the new shell variable to update the file for the cache
+          echo "$NEW_VERSION_CODE" > version.txt
+
+          # Log the new value for debugging
+          echo "Incremented VERSION_CODE to $NEW_VERSION_CODE"
 
       - name: Deploy to Play Store
         env:
