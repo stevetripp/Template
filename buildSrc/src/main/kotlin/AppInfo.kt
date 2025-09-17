@@ -5,10 +5,11 @@ object AppInfo {
 
     // Manifest version information
     object Version {
-        const val MIN = 1003 // Specify the Min version here and in the .github/workflows/release.yml file
-        private const val SEMANTIC_NAME = "1.0.2"
-        val CODE = System.getenv("VERSION_CODE")?.toIntOrNull() ?: MIN
-        val NAME = """$SEMANTIC_NAME-($CODE.${System.getenv("CI_BUILD_NUMBER").orEmpty()})"""
+        const val MIN = 1810 // Specify the Min version code here and in the .github/workflows/release.yml MIN_VERSION_CODE variable
+        private const val SEMANTIC_VERSION = "1.0.2"
+        val VERSION_CODE = System.getenv("VERSION_CODE")?.toIntOrNull() ?: MIN
+        val RUN_NUMBER = System.getenv("RUN_NUMBER").orEmpty()
+        val NAME = """$SEMANTIC_VERSION-($VERSION_CODE.$RUN_NUMBER)"""
     }
 
     object AndroidSdk {
