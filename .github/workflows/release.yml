@@ -17,7 +17,7 @@ jobs:
     env:
       GRADLE_OPTS: -Dorg.gradle.jvmargs="-XX:MaxMetaspaceSize=2g"
       RUN_NUMBER: ${{ github.run_number }}
-      MIN_VERSION_CODE: 1810
+      MIN_VERSION_CODE: 1811
 
     steps:
       - uses: actions/checkout@v4

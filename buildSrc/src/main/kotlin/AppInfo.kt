@@ -5,7 +5,7 @@ object AppInfo {
 
     // Manifest version information
     object Version {
-        const val MIN = 1810 // Specify the Min version code here and in the .github/workflows/release.yml MIN_VERSION_CODE variable
+        const val MIN = 1811 // Specify the Min version code here and in the .github/workflows/release.yml MIN_VERSION_CODE variable
         private const val SEMANTIC_VERSION = "1.0.2"
         val CODE = System.getenv("VERSION_CODE")?.toIntOrNull() ?: MIN
         val RUN_NUMBER = System.getenv("RUN_NUMBER").orEmpty()
