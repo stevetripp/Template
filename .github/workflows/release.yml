@@ -9,7 +9,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # GRADLE_OPTS do not impact the JVM used by the daemon to do the actual builds (gradle.properties is where you configure the daemon's JVM).
+    # GRADLE_OPTS do not impact the JVM used by the daemon to do the actual builds (gradle.properties is where you configure the daemon'''s JVM).
     # This only impacts the configuration of the JVM that runs the gradle client. MaxMetaspaceSize is unbounded by default, which leads to a
     # condition where the unbounded metaspace allocations starve some other component of the build, and the gradle daemon disappears.
     # https://docs.gradle.org/6.7.1/userguide/build_environment.html#sec:gradle_environment_variables
@@ -39,7 +39,13 @@ jobs:
           if [ ! -f version.txt ]; then
             echo "$MIN_VERSION_CODE" > version.txt
           fi
-          echo "VERSION_CODE=$(cat version.txt)" >> $GITHUB_ENV
+          VERSION_FROM_FILE=$(cat version.txt)
+          if [ "$MIN_VERSION_CODE" -gt "$VERSION_FROM_FILE" ]; then
+            VERSION_CODE=$MIN_VERSION_CODE
+          else
+            VERSION_CODE=$VERSION_FROM_FILE
+          fi
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
           echo "RUN_NUMBER=$RUN_NUMBER" >> $GITHUB_ENV
 
       - name: Grant execute permission for gradlew
