@@ -2,8 +2,8 @@ package com.example.template.ui.widget
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -74,9 +74,10 @@ sealed class ChipItem {
 
     object Divider : ChipItem() {
         @Composable
-        override fun ShowListItem(onClicked: () -> Unit) = Divider()
+        override fun ShowListItem(onClicked: () -> Unit) = HorizontalDivider()
+
         @Composable
-        override fun ShowDropdownMenuItem(onClicked: () -> Unit) = Divider()
+        override fun ShowDropdownMenuItem(onClicked: () -> Unit) = HorizontalDivider()
     }
 }
 

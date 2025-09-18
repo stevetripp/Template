@@ -12,7 +12,7 @@ import io.ktor.client.plugins.resources.get as getResource
 
 @Singleton
 class GoogleBooksService @Inject constructor(
-    @Named(ServiceModule.GOOGLE_API_STANDARD_CLIENT)
+    @param:Named(ServiceModule.GOOGLE_API_STANDARD_CLIENT)
     private val httpClient: HttpClient
 ) {
     suspend fun getVolumes(q: String, maxResults: Int): ApiResponse<out VolumesDto, out Unit> {
