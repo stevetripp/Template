@@ -7,8 +7,8 @@ object AppInfo {
     object Version {
         private const val SEMANTIC_VERSION = "1.0.2"
         val CODE = System.getenv("VERSION_CODE")?.toIntOrNull() ?: 1
-        val RUN_NUMBER = System.getenv("RUN_NUMBER") ?: "0"
-        val NAME = """$SEMANTIC_VERSION-($CODE.$RUN_NUMBER)"""
+        val BUILD_NUMBER = System.getenv("BUILD_NUMBER") ?: "0"
+        val NAME = """$SEMANTIC_VERSION-($CODE.$BUILD_NUMBER)"""
     }
 
     object AndroidSdk {
