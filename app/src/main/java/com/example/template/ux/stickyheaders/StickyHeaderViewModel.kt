@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StickyHeaderViewModel
 @Inject constructor(
-    @ApplicationScope
+    @param:ApplicationScope
     private val applicationScope: CoroutineScope,
 ) : ViewModel() {
 

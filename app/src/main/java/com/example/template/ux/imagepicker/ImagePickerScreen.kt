@@ -61,9 +61,11 @@ fun ImagePickerContent(onBack: () -> Unit = {}) {
             imageUri = uri.first()
         }
 
-        Column(modifier = Modifier
-            .padding(it)
-            .padding(16.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .padding(16.dp)
+        ) {
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 Button(onClick = {
                     photoGalleryLauncher.launch("image/*")
@@ -82,12 +84,12 @@ fun ImagePickerContent(onBack: () -> Unit = {}) {
             Spacer(modifier = Modifier.height(12.dp))
 
             imageUri?.let { uri ->
-                if (Build.VERSION.SDK_INT < 28) {
-                    bitmap.value = MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
-
-                } else {
+                bitmap.value = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     val source = ImageDecoder.createSource(context.contentResolver, uri)
-                    bitmap.value = ImageDecoder.decodeBitmap(source)
+                    ImageDecoder.decodeBitmap(source)
+                } else {
+                    @Suppress("DEPRECATION")
+                    MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
                 }
 
                 bitmap.value?.let { btm ->

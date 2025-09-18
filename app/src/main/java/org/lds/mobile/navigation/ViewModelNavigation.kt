@@ -58,8 +58,8 @@ class ViewModelNavigationImpl : ViewModelNavigation {
         _navigatorFlow.compareAndSet(null, NavigationAction.Pop(route, inclusive))
     }
 
-    override fun popBackStack(destination: String, inclusive: Boolean) {
-        _navigatorFlow.compareAndSet(null, NavigationAction.PopToDestination(destination, inclusive))
+    override fun popBackStack(route: String, inclusive: Boolean) {
+        _navigatorFlow.compareAndSet(null, NavigationAction.PopToDestination(route, inclusive))
     }
 
     override fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, popToRoute: NavigationRoute?, inclusive: Boolean) {

@@ -21,7 +21,7 @@ import javax.inject.Singleton
 class AppPreferenceDataSource
 @Inject constructor(
     private val application: Application,
-    @ApplicationScope private val appScope: CoroutineScope,
+    @param:ApplicationScope private val appScope: CoroutineScope,
 ) {
     private val Context.dataStore by preferencesDataStore(
         name = "app",

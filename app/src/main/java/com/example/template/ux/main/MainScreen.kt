@@ -1,7 +1,7 @@
 package com.example.template.ux.main
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.template.ux.NavGraph
 import org.lds.mobile.ui.compose.navigation.HandleNavBarNavigation
