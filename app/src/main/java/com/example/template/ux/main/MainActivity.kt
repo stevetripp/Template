@@ -1,7 +1,6 @@
 package com.example.template.ux.main
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -35,16 +34,11 @@ class MainActivity : ComponentActivity() {
             AppTheme { MainScreen() }
         }
 
-        // ATTENTION: This was auto-generated to handle app links.
-        val appLinkIntent: Intent = intent
-        val appLinkAction: String? = appLinkIntent.action
-        val appLinkData: Uri? = appLinkIntent.data
+    }
 
-        SmtLogger.i(
-            """appLinkIntent: $appLinkIntent
-            |appLinkAction: $appLinkAction
-            |appLinkData: $appLinkData
-        """.trimMargin()
-        )
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        SmtLogger.i("""intent: ${intent.action}, ${intent.data}""")
+        intent.data?.let { viewModel.navigateToDeepLink(it) }
     }
 }

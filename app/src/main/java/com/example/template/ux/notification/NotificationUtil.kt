@@ -9,7 +9,6 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import com.example.template.R
-import com.example.template.util.SmtLogger
 import com.example.template.ux.DeepLink
 import com.example.template.ux.main.MainActivity
 import com.example.template.ux.main.Screen
@@ -22,7 +21,6 @@ constructor(application: Application) {
     private val notificationManager: NotificationManager = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     fun initialize() {
-        SmtLogger.i("""initialize""")
         val importance = NotificationManager.IMPORTANCE_DEFAULT // Notification importance
 
         val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance).apply {
