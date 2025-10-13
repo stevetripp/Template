@@ -13,8 +13,18 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val preferenceDataSource: AppPreferenceDataSource,
 ) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
+    private val inAppUpdateTypes = InAppUpdateType.entries
+
     val uiState = SettingsUiState(
         enforceNavigationBarContrastFlow = preferenceDataSource.enforceNavigationBarContrastFlow.stateInDefault(viewModelScope, true),
+        inAppUpdateTypeFlow = preferenceDataSource.inAppUpdateTypeFlow.stateInDefault(viewModelScope, InAppUpdateType.NONE),
         onEnforceNavigationBarContrastClicked = { preferenceDataSource.setEnforceNavigationBarContrastAsync(it) },
+        onInAppUpdateTypeClicked = {
+            // Cycle through the enum values and persist selection
+            val currentType = it
+            val currentIndex = inAppUpdateTypes.indexOf(currentType)
+            val nextIndex = (currentIndex + 1) % inAppUpdateTypes.size
+            preferenceDataSource.setInAppUpdateTypeAsync(inAppUpdateTypes[nextIndex])
+        }
     )
 }
