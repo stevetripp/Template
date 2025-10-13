@@ -15,32 +15,27 @@ plugins {
     alias(libs.plugins.undercouch.download.plugin) apply false
 }
 
-allprojects {
+// ===== Gradle Dependency Check =====
+// ./gradlew dependencyUpdates -Drevision=release
+// ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
+//
+// ./gradlew app:dependencyInsight --configuration debugRuntimeClasspath --dependency androidx.room
+// ./gradlew shared:dependencyInsight --configuration commonMainApiDependenciesMetadata --dependency androidx.room
+// ./gradlew shared:resolvableConfigurations | grep "^Configuration"
+tasks.withType<DependencyUpdatesTask> {
+    rejectVersionIf { isNonStable(version = candidate.version, includeStablePreRelease = true) }
+}
 
-    // ./gradlew dependencyUpdates -Drevision=release --refresh-dependencies
-    // Gradle Dependency Check
-    apply(plugin = "com.github.ben-manes.versions") // ./gradlew dependencyUpdates -Drevision=release
-//    val excludeVersionContaining = emptyList<String>()
-    val excludeVersionContaining = listOf("alpha", "eap", "M1", "dev") // example: "alpha", "beta"
-    // some artifacts may be OK to check for "alpha"... add these exceptions here
-    val ignoreArtifacts = emptyList<String>()
-
-    tasks.named<DependencyUpdatesTask>("dependencyUpdates") {
-        resolutionStrategy {
-            componentSelection {
-                all {
-                    if (ignoreArtifacts.contains(candidate.module).not()) {
-                        val rejected = excludeVersionContaining.any { qualifier ->
-                            candidate.version.matches(Regex("(?i).*[.-]$qualifier[.\\d-+]*"))
-                        }
-                        if (rejected) {
-                            reject("Release candidate")
-                        }
-                    }
-                }
-            }
-        }
+fun isNonStable(version: String, includeStablePreRelease: Boolean): Boolean {
+    val stablePreReleaseKeyword = listOf("RC", "BETA").any { version.uppercase().contains(it) }
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+    val regex = "^[0-9,.v-]+$".toRegex()
+    val isStable = if (includeStablePreRelease) {
+        stableKeyword || regex.matches(version) || stablePreReleaseKeyword
+    } else {
+        stableKeyword || regex.matches(version)
     }
+    return isStable.not()
 }
 
 // ===== Dependency Analysis =====

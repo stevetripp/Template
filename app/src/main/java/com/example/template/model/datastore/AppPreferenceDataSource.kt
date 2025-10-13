@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.template.inject.ApplicationScope
+import com.example.template.ux.settings.InAppUpdateType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -53,13 +54,20 @@ class AppPreferenceDataSource
     val enforceNavigationBarContrastFlow: Flow<Boolean> = application.dataStore.data.mapDistinct { it[ENFORCE_NAVIGATION_BAR_CONTRAST] != false }
     fun setEnforceNavigationBarContrastAsync(value: Boolean) = appScope.launch { application.dataStore.edit { it[ENFORCE_NAVIGATION_BAR_CONTRAST] = value } }
 
-    companion object {
-        private val PREVIOUS_QUERIES = stringPreferencesKey("PREVIOUS_SEARCHES")
+    // In-app update type
+    val inAppUpdateTypeFlow: Flow<InAppUpdateType> = application.dataStore.data.mapDistinct {
+        val typeName = it[IN_APP_UPDATE_TYPE] ?: InAppUpdateType.NONE.name
+        runCatching { InAppUpdateType.valueOf(typeName) }.getOrDefault(InAppUpdateType.NONE)
+    }
 
-        private val REGEX_TEXT = stringPreferencesKey("REGEX_TEXT")
+    fun setInAppUpdateTypeAsync(value: InAppUpdateType) = appScope.launch { application.dataStore.edit { it[IN_APP_UPDATE_TYPE] = value.name } }
+
+    companion object {
+        private val ENFORCE_NAVIGATION_BAR_CONTRAST = booleanPreferencesKey("ENFORCE_NAVIGATION_BAR_CONTRAST")
+        private val IN_APP_UPDATE_TYPE = stringPreferencesKey("IN_APP_UPDATE_TYPE")
+        private val PREVIOUS_QUERIES = stringPreferencesKey("PREVIOUS_SEARCHES")
         private val REGEX_EXPRESSION = stringPreferencesKey("REGEX_EXPRESSION")
         private val REGEX_MULTILINE_ENABLED = booleanPreferencesKey("REGEX_MULTILINE_ENABLED")
-
-        private val ENFORCE_NAVIGATION_BAR_CONTRAST = booleanPreferencesKey("ENFORCE_NAVIGATION_BAR_CONTRAST")
+        private val REGEX_TEXT = stringPreferencesKey("REGEX_TEXT")
     }
 }

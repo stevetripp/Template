@@ -155,6 +155,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.dagger.hilt.android)
     implementation(libs.google.android.material)
+    implementation(libs.google.android.play.app.update)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.client.content.negotiation)
