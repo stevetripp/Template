@@ -32,7 +32,7 @@ private fun SettingsContent(uiState: SettingsUiState, onBack: () -> Unit = {}) {
             )
             Setting.Clickable(
                 text = "In-App Update Type",
-                secondaryText = uiState.inAppUpdateTypeFlow.collectAsStateWithLifecycle().value.displayName,
+                secondaryText = inAppUpdateType.displayName,
                 onClickBody = { uiState.onInAppUpdateTypeClicked(inAppUpdateType) }
             )
         }

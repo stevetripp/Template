@@ -5,13 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.example.template.util.SmtLogger
 import com.example.template.ux.settings.InAppUpdateType
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.InstallState
-import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
@@ -96,29 +96,29 @@ class InAppUpdateManagerUtil(
     private fun onAppUpdateInfo(appUpdateInfo: AppUpdateInfo) {
         val updateAvailability = appUpdateInfo.updateAvailability()
 
+        SmtLogger.i(
+            """updateAvailability = $updateAvailability
+            |installStatus = ${appUpdateInfo.installStatus()}
+            |isImmediateUpdateAllowed: ${appUpdateInfo.isImmediateUpdateAllowed}
+            |isFlexibleUpdateAllowed: ${appUpdateInfo.isFlexibleUpdateAllowed}
+        """.trimIndent()
+        )
+
         // Checks if update is available and of the desired type (FLEXIBLE or IMMEDIATE)
-        if (updateAvailability == UpdateAvailability.UPDATE_AVAILABLE) {
-            if (inAppUpdateType == InAppUpdateType.IMMEDIATE && appUpdateInfo.isImmediateUpdateAllowed) {
-                appUpdateManager.startUpdateFlowForResult(
-                    appUpdateInfo,
-                    updateResultLauncher,
-                    AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build()
-                )
-            } else if (inAppUpdateType == InAppUpdateType.FLEXIBLE && appUpdateInfo.isFlexibleUpdateAllowed) {
-                appUpdateManager.startUpdateFlowForResult(
-                    appUpdateInfo,
-                    updateResultLauncher,
-                    AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build()
-                )
-            } else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
-                // An update has been downloaded, but not installed. Prompt user to install the update
-                onCompleteUpdate()
-            }
-        } else if (updateAvailability == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
-            // If an update is already in progress (e.g., user started it, then left the app)
-            // For flexible updates, if the update is already downloaded, we should prompt the user to complete it.
-            // For immediate updates, the system handles the continuation.
+        if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+            // An update has been downloaded, but not installed. Prompt user to install the update
             onCompleteUpdate()
+        } else if (updateAvailability == UpdateAvailability.UPDATE_AVAILABLE &&
+            ((inAppUpdateType == InAppUpdateType.IMMEDIATE && appUpdateInfo.isImmediateUpdateAllowed) ||
+                    (inAppUpdateType == InAppUpdateType.FLEXIBLE && appUpdateInfo.isFlexibleUpdateAllowed))
+        ) {
+            inAppUpdateType.appUpdateType?.let { appUpdateType ->
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    updateResultLauncher,
+                    AppUpdateOptions.newBuilder(appUpdateType).build()
+                )
+            }
         }
     }
 
@@ -136,6 +136,7 @@ class InAppUpdateManagerUtil(
     fun completeUpdate() = appUpdateManager.completeUpdate()
 
     private val installStateUpdatedListener = { state: InstallState ->
+        SmtLogger.i("""installStatus(): ${state.installStatus()}""")
         if (state.installStatus() == InstallStatus.DOWNLOADED) {
             onCompleteUpdate()
         }
@@ -146,6 +147,7 @@ class InAppUpdateManagerUtil(
      * This is only used for FLEXIBLE updates.
      */
     override fun onResume(owner: LifecycleOwner) {
+        SmtLogger.i("""onResume""")
         appUpdateManager.registerListener(installStateUpdatedListener)
     }
 
@@ -154,6 +156,7 @@ class InAppUpdateManagerUtil(
      * This is only used for FLEXIBLE updates.
      */
     override fun onPause(owner: LifecycleOwner) {
+        SmtLogger.i("""onPause""")
         appUpdateManager.unregisterListener(installStateUpdatedListener)
     }
 }
