@@ -1,6 +1,7 @@
 package com.example.template.ux.bottomSheet
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ fun BottomSheetContent(modifier: Modifier = Modifier, onHide: () -> Unit) {
         Column(
             modifier
                 .fillMaxWidth()
+                .fillMaxHeight(.8f)
                 .padding(bottom = 16.dp)
                 .navigationBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally,

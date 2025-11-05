@@ -15,7 +15,6 @@ import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
@@ -32,12 +31,16 @@ fun BottomSheetScreen(navController: NavController) {
 @Composable
 fun BottomSheetScreenContent(onBack: () -> Unit = {}) {
     val scope = rememberCoroutineScope()
-    val density = LocalDensity.current
     val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = SheetState(skipPartiallyExpanded = false, density = density, skipHiddenState = false, initialValue = SheetValue.PartiallyExpanded)
+        bottomSheetState = SheetState(
+            skipPartiallyExpanded = false,
+            initialValue = SheetValue.PartiallyExpanded,
+            positionalThreshold = { 0.5f },
+            velocityThreshold = { 400f }
+        )
     )
     val bottomNavBarHeightDp = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-    val peekHeight = 48.dp + bottomNavBarHeightDp
+    val peekHeight = 200.dp + bottomNavBarHeightDp
 
     BottomSheetScaffold(
         topBar = { AppTopAppBar(title = Screen.BOTTOM_SHEET.title, onBack = onBack) },
