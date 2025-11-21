@@ -12,7 +12,8 @@ import androidx.navigation.NavController
 import com.example.template.ui.PreviewPhoneOrientations
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
-import org.lds.mobile.ui.compose.material3.setting.Setting
+import com.example.template.ui.widget.Clickable
+import com.example.template.ui.widget.Switch
 
 @Composable
 fun SettingsScreen(navController: NavController, viewModel: SettingsViewModel = hiltViewModel()) {
@@ -24,13 +25,13 @@ private fun SettingsContent(uiState: SettingsUiState, onBack: () -> Unit = {}) {
     val inAppUpdateType by uiState.inAppUpdateTypeFlow.collectAsStateWithLifecycle()
     Scaffold(topBar = { AppTopAppBar(title = "Settings", onBack = onBack) }) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            Setting.Switch(
+            Switch(
                 text = "Enforce Navigation Bar Contrast",
                 currentCheckedValueFlow = uiState.enforceNavigationBarContrastFlow,
                 secondaryText = "Default is set to true.",
                 onClickBody = uiState.onEnforceNavigationBarContrastClicked,
             )
-            Setting.Clickable(
+            Clickable(
                 text = "In-App Update Type",
                 secondaryText = inAppUpdateType.displayName,
                 onClickBody = { uiState.onInAppUpdateTypeClicked(inAppUpdateType) }
