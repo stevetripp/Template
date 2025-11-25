@@ -27,7 +27,7 @@ class NavUriLogger(val prefix: String = "") : NavController.OnDestinationChanged
             // Create a list of the placeholder names
             val placeholderNames = matches.map { it.groupValues[1] }.toList()
             // Map placeholder names to values. Note: getString() wouldn't work when value was an enum type
-            val nameValuePairs = placeholderNames.map { it to arguments.getString(it) }
+            val nameValuePairs = placeholderNames.map { it to arguments[it] }
 
             // Replace placeholders with values
             var uriWithValues = uri

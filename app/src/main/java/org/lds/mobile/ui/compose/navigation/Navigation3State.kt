@@ -1,0 +1,80 @@
+package org.lds.mobile.ui.compose.navigation
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSerializable
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavEntryDecorator
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.rememberDecoratedNavEntries
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.navigation3.runtime.serialization.NavBackStackSerializer
+import androidx.savedstate.compose.serialization.serializers.MutableStateSerializer
+import kotlinx.serialization.KSerializer
+import org.lds.mobile.navigation3.NavigationState
+
+/**
+ * Create a navigation state that persists config changes and process death.
+ * @param startRoute The initial route when the app starts.
+ * @param topLevelRoutes A set of all top-level routes in the application.
+ * @param navKeySerializer A serializer for `NavKey` to enable saving and restoring navigation state. NavKeySerializer() for Android OR Custom NavKeyBridgeSerializer on KMP
+ */
+@Composable
+fun rememberNavigationState(
+    startRoute: NavKey,
+    topLevelRoutes: Set<NavKey>,
+    navKeySerializer: KSerializer<NavKey>
+): NavigationState {
+
+    val topLevelRoute = rememberSerializable(
+        startRoute, topLevelRoutes,
+        serializer = MutableStateSerializer(navKeySerializer)
+    ) {
+        mutableStateOf(startRoute)
+    }
+
+    val backStacks = topLevelRoutes.associateWith { key -> rememberNavBackStack(navKeySerializer, key) }
+
+    return remember(startRoute, topLevelRoutes) {
+        NavigationState(
+            startRoute = startRoute,
+            topLevelRoute = topLevelRoute,
+            backStacks = backStacks
+        )
+    }
+}
+
+/**
+ * Convert NavigationState into NavEntries.
+ */
+@Composable
+fun NavigationState.toEntries(
+    entryProvider: (NavKey) -> NavEntry<NavKey>,
+    decorators: List<NavEntryDecorator<NavKey>> = listOf(rememberSaveableStateHolderNavEntryDecorator())
+): SnapshotStateList<NavEntry<NavKey>> {
+
+    val decoratedEntries = backStacks.mapValues { (_, stack) ->
+        rememberDecoratedNavEntries(
+            backStack = stack,
+            entryDecorators = decorators,
+            entryProvider = entryProvider
+        )
+    }
+
+    return stacksInUse
+        .flatMap { decoratedEntries[it].orEmpty() }
+        .toMutableStateList()
+}
+
+@Composable
+fun rememberNavBackStack(navKeySerializer: KSerializer<NavKey>, vararg elements: NavKey): NavBackStack<NavKey> {
+    return rememberSerializable(
+        serializer = NavBackStackSerializer(elementSerializer = navKeySerializer)
+    ) {
+        NavBackStack(*elements)
+    }
+}

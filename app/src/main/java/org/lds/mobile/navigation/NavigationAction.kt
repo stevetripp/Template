@@ -73,6 +73,16 @@ sealed interface NavigationAction {
         }
     }
 
+    data class NavigateWithNavController(
+        private val block: (NavController) -> Unit,
+    ) : NavigationActionRoute {
+        override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
+            block(navController)
+            resetNavigate(this)
+            return false
+        }
+    }
+
     data class PopAndNavigate(private val route: NavigationRoute) : NavigationActionRoute {
         override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
             val stackPopped = navController.popBackStack()
@@ -96,22 +106,18 @@ sealed interface NavigationAction {
         }
     }
 
-    data class Pop(private val route: NavigationRoute? = null, private val inclusive: Boolean = false) : NavigationActionRoute {
+    data class Pop(
+        private val route: NavigationRoute? = null,
+        private val inclusive: Boolean = false,
+        private val saveState: Boolean = false
+    ) : NavigationActionRoute {
         override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
             val stackPopped = if (route == null) {
                 navController.popBackStack()
             } else {
-                navController.popBackStack(route, inclusive = inclusive)
+                navController.popBackStack(route, inclusive = inclusive, saveState = saveState)
             }
 
-            resetNavigate(this)
-            return stackPopped
-        }
-    }
-
-    data class PopToDestination(private val destination: String, private val inclusive: Boolean = false) : NavigationActionRoute {
-        override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
-            val stackPopped = navController.popBackStack(destination, inclusive = inclusive)
             resetNavigate(this)
             return stackPopped
         }
@@ -119,22 +125,33 @@ sealed interface NavigationAction {
 
     data class PopWithResult(
         private val resultValues: List<PopResultKeyValue>,
-        private val popToRoute: NavigationRoute? = null,
+        private val route: NavigationRoute? = null,
         private val inclusive: Boolean = false,
+        private val saveState: Boolean = false
     ) : NavigationActionRoute {
         override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
-            val destinationNavBackStackEntry = if (popToRoute != null) {
-                navController.getBackStackEntry(popToRoute)
+            val destinationNavBackStackEntry = if (route != null) {
+                navController.getBackStackEntry(route)
             } else {
                 navController.previousBackStackEntry
             }
             resultValues.forEach { destinationNavBackStackEntry?.savedStateHandle?.set(it.key, it.value) }
-            val stackPopped = if (popToRoute == null) {
+            val stackPopped = if (route == null) {
                 navController.popBackStack()
             } else {
-                navController.popBackStack(popToRoute, inclusive = inclusive)
+                navController.popBackStack(route, inclusive = inclusive, saveState = saveState)
             }
 
+            resetNavigate(this)
+            return stackPopped
+        }
+    }
+
+    data class PopWithNavController(
+        private val block: (NavController) -> Boolean,
+    ) : NavigationActionRoute {
+        override fun navigate(navController: NavController, resetNavigate: (NavigationAction) -> Unit): Boolean {
+            val stackPopped = block(navController)
             resetNavigate(this)
             return stackPopped
         }
@@ -142,7 +159,7 @@ sealed interface NavigationAction {
 }
 
 fun NavigationAction.navigate(context: Context, navController: NavController, resetNavigate: (NavigationAction) -> Unit) {
-    when (this) {
+    when(this) {
         is NavigationActionIntent -> navigate(context, resetNavigate)
         is NavigationActionRoute -> navigate(navController, resetNavigate)
         is NavigationActionFull -> navigate(context, navController, resetNavigate)
