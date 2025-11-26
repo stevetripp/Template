@@ -27,6 +27,6 @@ constructor(
     val uiState = PopWithResultParentUiState(
         resultStringFlow = resultStringFlow,
         onClickMeClicked = { navigate(PopWithResultChildRoute) },
-        onSetNavController = { navControllerFlow.value = it }
+        onSetNavigator = { navigatorFlow.value = it }
     )
 }

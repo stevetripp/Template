@@ -1,7 +1,7 @@
 package com.example.template.ux.gmailaddressfield
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import org.lds.mobile.navigation.NavigationRoute
 
 @Serializable
-object GmailAddressFieldRoute : NavigationRoute
+object GmailAddressFieldRoute : NavKey

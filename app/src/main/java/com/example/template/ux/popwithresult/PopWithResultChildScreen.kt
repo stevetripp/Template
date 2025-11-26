@@ -8,13 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
-import org.lds.mobile.ui.compose.navigation.HandleNavigation
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
+import org.lds.mobile.ui.compose.navigation.HandleNavigation3
 
 @Composable
 fun PopWithResultChildScreen(navController: NavController, viewModel: PopWithResultChildViewModel = hiltViewModel()) {

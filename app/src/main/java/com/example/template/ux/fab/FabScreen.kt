@@ -21,19 +21,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.model.data.SelectedObject
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun FabScreen(navController: NavController, viewModel: FabViewModel = hiltViewModel()) {
-    FabContent(viewModel.uiState, onBack = navController::popBackStack)
+fun FabScreen(navigator: Navigation3Navigator, viewModel: FabViewModel) {
+    FabContent(viewModel.uiState, onBack = navigator::pop)
 }
 
 @Composable

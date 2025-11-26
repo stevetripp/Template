@@ -11,18 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.Utils
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ui.widget.PermissionsBanner
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun PermissionsScreen(navController: NavController, viewModel: PermissionsViewModel = hiltViewModel()) {
-    PermissionsContent(viewModel.uiState, navController::popBackStack)
+fun PermissionsScreen(navigator: Navigation3Navigator, viewModel: PermissionsViewModel) {
+    PermissionsContent(viewModel.uiState, navigator::pop)
 }
 
 @Composable

@@ -21,17 +21,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun ReorderableListScreen(navController: NavController, viewModel: ReorderableListViewModel = hiltViewModel()) {
-    ReorderableListContent(viewModel.uiState, navController::popBackStack)
+fun ReorderableListScreen(navigator: Navigation3Navigator, viewModel: ReorderableListViewModel) {
+    ReorderableListContent(viewModel.uiState, navigator::pop)
 }
 
 @Composable

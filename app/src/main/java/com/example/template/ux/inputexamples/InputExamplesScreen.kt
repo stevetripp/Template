@@ -14,17 +14,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.composable.DropdownList
 import com.example.template.ui.composable.DropdownOption
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun InputExamplesScreen(navController: NavController) {
-    InputExamplesContent(navController::popBackStack)
+fun InputExamplesScreen(navigator: Navigation3Navigator) {
+    InputExamplesContent(navigator::pop)
 }
 
 @Composable

@@ -19,16 +19,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.widget.SynchronizedSearchBar
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun SearchScreen(navController: NavController, viewModel: SearchViewModel = hiltViewModel()) {
-    SearchContent(viewModel.uiState, navController::popBackStack)
+fun SearchScreen(navigator: Navigation3Navigator, viewModel: SearchViewModel) {
+    SearchContent(viewModel.uiState, navigator::pop)
 }
 
 @Composable

@@ -23,16 +23,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.template.ext.findBestFit
 import com.example.template.ui.PreviewPhoneOrientations
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun PanningZoomingScreen(navController: NavController) {
-    PanningZoomingContent(navController::popBackStack)
+fun PanningZoomingScreen(navigator: Navigation3Navigator) {
+    PanningZoomingContent(navigator::pop)
 }
 
 @Composable

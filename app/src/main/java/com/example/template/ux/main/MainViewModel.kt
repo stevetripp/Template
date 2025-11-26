@@ -27,7 +27,9 @@ class MainViewModel
 
     val uiState = MainUiState(
         enforceNavigationBarContrastFlow = preferenceDataSource.enforceNavigationBarContrastFlow.stateInDefault(viewModelScope, true),
-        onSettingsClicked = { navigate(SettingRoute) },
+        onSettingsClicked = {
+            SmtLogger.i("""Here""")
+            navigate(SettingRoute) },
     )
 
     fun initBreadcrumbManager(navController: NavController) = breadcrumbManager.initNavController(navController)

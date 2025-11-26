@@ -8,18 +8,17 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ui.widget.ModalSideSheet
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun ModalSideSheetScreen(navController: NavController, viewModel: ModalSideSheetViewModel = hiltViewModel()) {
-    ModalSideSheetContent(viewModel.uiState, onBack = navController::popBackStack)
+fun ModalSideSheetScreen(navigator: Navigation3Navigator, viewModel: ModalSideSheetViewModel) {
+    ModalSideSheetContent(viewModel.uiState, onBack = navigator::pop)
 }
 
 @Composable

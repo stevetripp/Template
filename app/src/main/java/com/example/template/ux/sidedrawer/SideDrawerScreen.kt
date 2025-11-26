@@ -13,14 +13,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ux.main.Screen
 import kotlinx.coroutines.launch
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun SideDrawerScreen(navController: NavController) {
-    SideDrawerContent(navController::popBackStack)
+fun SideDrawerScreen(navigator: Navigation3Navigator) {
+    SideDrawerContent(navigator::pop)
 }
 
 @Composable

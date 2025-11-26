@@ -10,9 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
@@ -22,10 +20,11 @@ import com.example.template.ui.widget.ChipItemsPreviewParameterProvider
 import com.example.template.ui.widget.ChipModalBottomSheet
 import com.example.template.ux.main.Screen
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun ChipSheetScreen(navController: NavController, viewModel: ChipSheetViewModel = hiltViewModel()) {
-    ChipSheetContent(viewModel.uiState, navController::popBackStack)
+fun ChipSheetScreen(navigator: Navigation3Navigator, viewModel: ChipSheetViewModel) {
+    ChipSheetContent(viewModel.uiState, navigator::pop)
 }
 
 @Composable

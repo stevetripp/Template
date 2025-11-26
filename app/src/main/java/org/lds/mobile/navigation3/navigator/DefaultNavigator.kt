@@ -22,10 +22,16 @@ import org.lds.mobile.navigation3.pop
  *         entry<CRoute> { CScreen(navigator, hiltViewModel()) }
  *     }
  *
+ *     val decorators: List<NavEntryDecorator<NavKey>> = listOf(
+ *         rememberSaveableStateHolderNavEntryDecorator(),
+ *         rememberViewModelStoreNavEntryDecorator()
+ *     )
+ *
  *     NavDisplay(
  *         backStack = backstack,
  *         onBack = { navigator.pop() },
  *         entryProvider = entryProvider,
+ *         entryDecorators = decorators
  *     )
  * }
  * ```
@@ -44,10 +50,16 @@ import org.lds.mobile.navigation3.pop
  *         entry<CRoute> { CScreen(navigator, hiltViewModel()) }
  *     }
  *
+ *     val decorators: List<NavEntryDecorator<NavKey>> = listOf(
+ *         rememberSaveableStateHolderNavEntryDecorator(),
+ *         rememberViewModelStoreNavEntryDecorator()
+ *     )
+ *
  *     NavDisplay(
  *         backStack = backstack,
  *         onBack = { navigator.pop() },
  *         entryProvider = entryProvider,
+ *         entryDecorators = decorators
  *     )
  * }
  *
@@ -89,6 +101,8 @@ import org.lds.mobile.navigation3.pop
 class DefaultNavigator(
     private val backStack: NavBackStack<NavKey>
 ) : Navigation3Navigator {
+    override fun getCurrentBackStack(): NavBackStack<NavKey> = backStack
+
     override fun navigate(key: NavKey) {
         backStack.navigate(key)
     }

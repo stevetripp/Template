@@ -10,28 +10,27 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import com.wajahatkarim.flippable.Flippable
 import com.wajahatkarim.flippable.rememberFlipController
-import org.lds.mobile.ui.ext.popBackStackOrFinishActivity
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun FlippableScreen(navController: NavController) {
+fun FlippableScreen(navigator: Navigation3Navigator) {
     val context = LocalContext.current
-    FlippableContent {
+    FlippableContent(
         // This is needed for deep linking to close the app when tapping back
-        navController.popBackStackOrFinishActivity(context)
-    }
+        onBack = navigator::pop
+    )
 }
 
 @Composable
@@ -65,11 +64,12 @@ fun FlippableContent(onBack: () -> Unit = {}) {
 
             Flippable(
                 frontSide = {
-                    Card(modifier = modifier, colors = CardDefaults.cardColors(containerColor = Color.Yellow)) {
+                    Card(modifier = modifier, colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)) {
                         Text(
                             modifier = Modifier.verticalScroll(scrollState),
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
                             text =
-                            """Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus 
+                                """Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus 
                                 |nibh. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. 
                                 |
                                 |Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. 
@@ -89,8 +89,8 @@ fun FlippableContent(onBack: () -> Unit = {}) {
                 },
 
                 backSide = {
-                    Card(modifier = modifier, colors = CardDefaults.cardColors(containerColor = Color.Yellow)) {
-                        Text(text = "Side 2")
+                    Card(modifier = modifier, colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)) {
+                        Text(text = "Side 2", color = MaterialTheme.colorScheme.onSecondaryContainer)
                     }
                 },
 

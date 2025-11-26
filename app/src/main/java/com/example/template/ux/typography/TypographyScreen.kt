@@ -10,15 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun TypographyScreen(navController: NavController) {
-    TypographyContent(onBack = navController::popBackStack)
+fun TypographyScreen(navigator: Navigation3Navigator) {
+    TypographyContent(navigator::pop)
 }
 
 enum class TypographyStyle(val textStyle: @Composable () -> TextStyle, val styleName: String) {
@@ -40,9 +40,13 @@ enum class TypographyStyle(val textStyle: @Composable () -> TextStyle, val style
 }
 
 @Composable
-private fun TypographyContent(onBack: () -> Unit={}) {
+private fun TypographyContent(onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.TYPOGRAPHY.title, onBack = onBack) }) { paddingValues ->
-        LazyColumn(modifier = Modifier.padding(paddingValues).padding(16.dp)) {
+        LazyColumn(
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(16.dp)
+        ) {
             items(TypographyStyle.entries) { typographyStyle ->
                 val style = typographyStyle.textStyle()
                 val text = "${typographyStyle.styleName} (${style.fontSize})"

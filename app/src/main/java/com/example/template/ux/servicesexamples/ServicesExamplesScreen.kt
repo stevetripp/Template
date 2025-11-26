@@ -16,26 +16,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
+import com.example.template.ui.PreviewNavigator
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.MainAppScaffoldWithNavBar
 import com.example.template.ux.main.Screen
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.lds.mobile.ui.compose.navigation.HandleNavigation
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
+import org.lds.mobile.ui.compose.navigation.HandleNavigation3
 
 @Composable
-fun ServicesExamplesScreen(navController: NavController, viewModel: ServicesExamplesViewModel = hiltViewModel()) {
-    ServicesExamplesContent(viewModel.uiState)
-    HandleNavigation(viewModelNav = viewModel, navController = navController)
+fun ServicesExamplesScreen(navigator: Navigation3Navigator, viewModel: ServicesExamplesViewModel) {
+    ServicesExamplesContent(navigator, viewModel.uiState)
+    HandleNavigation3(viewModelNavigation = viewModel, navigator = navigator)
 }
 
 @Composable
-fun ServicesExamplesContent(uiState: ServicesExamplesScreenUiState) {
+fun ServicesExamplesContent(navigator: Navigation3Navigator, uiState: ServicesExamplesScreenUiState) {
     val screens by uiState.screensFlow.collectAsStateWithLifecycle()
-    MainAppScaffoldWithNavBar(title = Screen.SERVICE_EXAMPLES.title, navigationIconVisible = false) {
+    MainAppScaffoldWithNavBar(navigator, title = Screen.SERVICE_EXAMPLES.title, navigationIconVisible = false) {
         LazyVerticalGrid(
             modifier = Modifier.padding(horizontal = 16.dp),
             columns = GridCells.Fixed(2),
@@ -56,5 +56,5 @@ fun ServicesExamplesContent(uiState: ServicesExamplesScreenUiState) {
 @PreviewDefault
 @Composable
 private fun Preview() {
-    AppTheme { ServicesExamplesContent(ServicesExamplesScreenUiState(MutableStateFlow(Screen.entries))) }
+    AppTheme { ServicesExamplesContent(PreviewNavigator(), ServicesExamplesScreenUiState(MutableStateFlow(Screen.entries))) }
 }

@@ -11,9 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewPhoneOrientations
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.composable.FilterTextField
@@ -22,10 +20,11 @@ import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import com.example.template.ux.search.SearchViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun SynchronizeScrollingScreen(navController: NavController, viewModel: SynchronizeScrollingViewModel = hiltViewModel()) {
-    SynchronizeScrollingContent(viewModel.uiState, navController::popBackStack)
+fun SynchronizeScrollingScreen(navigator: Navigation3Navigator, viewModel: SynchronizeScrollingViewModel) {
+    SynchronizeScrollingContent(viewModel.uiState, navigator::pop)
 }
 
 @Composable
@@ -36,7 +35,8 @@ private fun SynchronizeScrollingContent(uiState: SynchronizeScrollingUiState, on
     Scaffold(
         topBar = { AppTopAppBar(title = Screen.SYNCHRONIZE_SCROLLING.title, onBack = onBack) }
     ) { paddingValues ->
-        SynchronizeScrolling(modifier = Modifier.padding(paddingValues),
+        SynchronizeScrolling(
+            modifier = Modifier.padding(paddingValues),
             pinSyncedContent = query.isNotBlank(),
             syncedContent = { syncModifier ->
                 FilterTextField(

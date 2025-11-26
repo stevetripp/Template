@@ -1,7 +1,7 @@
 package com.example.template.ux.notificationpermissions
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import org.lds.mobile.navigation.NavigationRoute
 
 @Serializable
-object NotificationPermissionsRoute : NavigationRoute
+object NotificationPermissionsRoute : NavKey

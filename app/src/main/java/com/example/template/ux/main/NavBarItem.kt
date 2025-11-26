@@ -8,15 +8,15 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.MiscellaneousServices
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation3.runtime.NavKey
 import com.example.template.ux.about.AboutRoute
 import com.example.template.ux.home.HomeRoute
 import com.example.template.ux.servicesexamples.ServicesExamplesRoute
-import org.lds.mobile.navigation.NavigationRoute
 
 enum class NavBarItem(
     val unselectedImageVector: ImageVector,
     val selectedImageVector: ImageVector,
-    val route: NavigationRoute,
+    val route: NavKey,
     val text: String? = null,
 ) {
     UI_EXAMPLES(Icons.Outlined.Lightbulb, Icons.Filled.Lightbulb, HomeRoute, "UI Examples"),
@@ -24,7 +24,7 @@ enum class NavBarItem(
     ABOUT(Icons.Outlined.Info, Icons.Filled.Info, AboutRoute, "About");
 
     companion object {
-        fun getNavBarItemRouteMap(): Map<NavBarItem, NavigationRoute> {
+        fun getNavBarItemRouteMap(): Map<NavBarItem, NavKey> {
             return entries.associateWith { item -> item.route }
         }
     }

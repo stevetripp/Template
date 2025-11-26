@@ -19,10 +19,10 @@ import com.example.template.ux.main.Screen
 import org.lds.mobile.ui.compose.navigation.HandleNavigation
 
 @Composable
-fun PopWithResultParentScreen(navController: NavController, viewModel: PopWithResultParentViewModel = hiltViewModel()) {
-    PopWithResultParentContent(viewModel.uiState, navController::popBackStack)
-    HandleNavigation(viewModelNav = viewModel, navController = navController)
-    viewModel.uiState.onSetNavController(navController)
+fun PopWithResultParentScreen(navigator: Navigation3Navigator, viewModel: PopWithResultParentViewModel = hiltViewModel()) {
+    PopWithResultParentContent(viewModel.uiState, navigator::pop)
+    HandleNavigation3(viewModelNavigation = viewModel, navigator = navigator)
+    viewModel.uiState.onSetNavigator(navigator)
 }
 
 @Composable

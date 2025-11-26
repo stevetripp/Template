@@ -25,19 +25,19 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.template.R
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import com.google.android.material.math.MathUtils
-import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
+import kotlinx.coroutines.launch
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun NavigationPagerScreen(navController: NavController) {
-    NavigationPagerContent(navController::popBackStack)
+fun NavigationPagerScreen(navigator: Navigation3Navigator) {
+    NavigationPagerContent(navigator::pop)
 }
 
 @Composable

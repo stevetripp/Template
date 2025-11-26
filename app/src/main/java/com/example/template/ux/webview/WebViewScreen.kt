@@ -16,13 +16,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun WebViewScreen(navController: NavController) {
-    WebViewContent(navController::popBackStack)
+fun WebViewScreen(navigator: Navigation3Navigator) {
+    WebViewContent(navigator::pop)
 }
 
 @SuppressLint("SetJavaScriptEnabled")

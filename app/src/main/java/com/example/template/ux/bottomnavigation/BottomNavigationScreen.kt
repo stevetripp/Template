@@ -17,15 +17,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun BottomNavigationScreen(navController: NavController) {
-    BottomNavigationContent(navController::popBackStack)
+fun BottomNavigationScreen(navigator: Navigation3Navigator) {
+    BottomNavigationContent(navigator::pop)
 }
 
 @Composable

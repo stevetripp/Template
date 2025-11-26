@@ -1,5 +1,6 @@
 package com.example.template.ux.main
 
+import androidx.navigation3.runtime.NavKey
 import com.example.template.ux.about.AboutRoute
 import com.example.template.ux.animatedgestures.AnimatedGesturesRoute
 import com.example.template.ux.bottomSheet.BottomSheetRoute
@@ -47,9 +48,8 @@ import com.example.template.ux.typography.TypographyRoute
 import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
-import org.lds.mobile.navigation.NavigationRoute
 
-enum class Screen(val title: String, val route: NavigationRoute, val type: ScreenType = ScreenType.NAVIGATION) {
+enum class Screen(val title: String, val route: NavKey, val type: ScreenType = ScreenType.NAVIGATION) {
     ABOUT("About", AboutRoute),
     ANIMATED_GESTURE("Animated Gesture", AnimatedGesturesRoute, ScreenType.UI),
     BOTTOM_NAVIGATION("Bottom Navigation", BottomNavigationRoute, ScreenType.UI),

@@ -34,18 +34,18 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun AnimatedGestureScreen(navController: NavController) {
-    AnimatedGesturesContent(navController::popBackStack)
+fun AnimatedGestureScreen(navigator: Navigation3Navigator) {
+    AnimatedGestureContent(navigator::pop)
 }
 
 @Composable
-fun AnimatedGesturesContent(onBack: () -> Unit = {}) {
+fun AnimatedGestureContent(onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.ANIMATED_GESTURE.title, onBack = onBack) }) {
         Column(modifier = Modifier.padding(it)) {
 //        UpdateTransitionExample()
@@ -99,7 +99,7 @@ private fun RememberInfiniteTransitionExample() {
 @Preview
 @Composable
 private fun AnimatedGestureContentPreview() {
-    AppTheme { AnimatedGesturesContent() }
+    AppTheme { AnimatedGestureContent() }
 }
 
 @Composable
@@ -115,5 +115,5 @@ private fun GestureIndicator(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun GestureIndicatorPreview() {
-    AppTheme { Surface() { GestureIndicator() } }
+    AppTheme { Surface { GestureIndicator() } }
 }

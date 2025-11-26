@@ -4,24 +4,25 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import com.example.template.ux.MainAppScaffoldWithNavBar
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun ChildWithNavigationScreen(navController: NavController) {
+fun ChildWithNavigationScreen(navigator: Navigation3Navigator) {
 
     val fab = @Composable {
-        FloatingActionButton(onClick = { navController.navigate(ChildWithoutNavigationRoute) }) {
+        FloatingActionButton(onClick = { navigator.navigate(ChildWithoutNavigationRoute) }) {
             Text(text = "Click Me")
         }
     }
     MainAppScaffoldWithNavBar(
+        navigator,
         title = Screen.CHILD_WITH_NAVIGATION.title,
-        onNavigationClick = navController::popBackStack,
+        onNavigationClick = navigator::pop,
         floatingActionButton = fab
     ) {
-        TextButton(onClick = { navController.navigate(ChildWithoutNavigationRoute) }) {
+        TextButton(onClick = { navigator.navigate(ChildWithoutNavigationRoute) }) {
             Text(text = "Click Me")
         }
     }

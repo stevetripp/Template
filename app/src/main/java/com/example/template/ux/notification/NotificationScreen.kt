@@ -8,16 +8,15 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun NotificationScreen(navController: NavController, viewModel: NotificationViewModel = hiltViewModel()) {
-    NotificationContent(viewModel.uiState, onBack = navController::popBackStack)
+fun NotificationScreen(navigator: Navigation3Navigator, viewModel: NotificationViewModel) {
+    NotificationContent(viewModel.uiState, onBack = navigator::pop)
 }
 
 @Composable

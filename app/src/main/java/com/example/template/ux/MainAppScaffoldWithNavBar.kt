@@ -30,16 +30,15 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.template.ux.main.MainViewModel
 import com.example.template.ux.main.NavBarItem
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.ui.compose.WindowSize
 import org.lds.mobile.ui.compose.rememberWindowSize
 import org.lds.mobile.ui.ext.requireActivity
 
 @Composable
 fun MainAppScaffoldWithNavBar(
+    navigator: Navigation3Navigator,
     title: String,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
@@ -53,6 +52,7 @@ fun MainAppScaffoldWithNavBar(
     content: @Composable () -> Unit,
 ) {
     MainAppScaffoldWithNavBar(
+        navigator,
         title = { Text(text = title) },
         modifier = modifier,
         navigationIconVisible = navigationIconVisible,
@@ -69,6 +69,7 @@ fun MainAppScaffoldWithNavBar(
 
 @Composable
 fun MainAppScaffoldWithNavBar(
+    navigator: Navigation3Navigator,
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
@@ -82,8 +83,6 @@ fun MainAppScaffoldWithNavBar(
     content: @Composable () -> Unit,
 ) {
     val isPreview = LocalInspectionMode.current
-    val viewModel: MainViewModel? = if (isPreview) null else hiltViewModel(LocalContext.current.requireActivity())
-    val selectedNavBarItem = viewModel?.selectedNavBarFlow?.collectAsStateWithLifecycle()?.value
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior() // Set to TopAppBarDefaults.pinnedScrollBehavior() when not MediumTopAppBar
     val windowDpSize = if (isPreview) IntSize(0, 0) else currentWindowSize()
 
@@ -114,14 +113,14 @@ fun MainAppScaffoldWithNavBar(
         layoutType = if (hideNavigation) NavigationSuiteType.None else getNavigationSuiteType(windowDpSize.toDpSize()),
         navigationSuiteItems = {
             NavBarItem.entries.forEach { navBarItem ->
-                val selected = selectedNavBarItem == navBarItem
+                val selected = navBarItem.route == navigator.getSelectedTopLevelRoute()
                 val imageVector = if (selected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector
 
                 item(
                     selected = selected,
                     icon = { Icon(imageVector = imageVector, contentDescription = null) },
                     label = { navBarItem.text?.let { Text(text = it, maxLines = 1) } },
-                    onClick = { viewModel?.onNavBarItemSelected(navBarItem) }
+                    onClick = { navigator.navigateTopLevel(navBarItem.route, reselected = selected) }
                 )
             }
         },

@@ -18,16 +18,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewPhoneOrientations
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun EdgeToEdgeScreen(navController: NavController, viewModel: EdgeToEdgeViewModel = hiltViewModel()) {
-    EdgeToEdgeContent(viewModel.uiState, navController::popBackStack)
+fun EdgeToEdgeScreen(navigator: Navigation3Navigator, viewModel: EdgeToEdgeViewModel) {
+    EdgeToEdgeContent(viewModel.uiState, navigator::pop)
 }
 
 @Composable

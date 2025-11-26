@@ -22,17 +22,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ui.widget.RadioButtonAndText
 import com.example.template.ux.main.Screen
 import kotlinx.coroutines.launch
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun ModalBottomSheetScreen(navController: NavController) {
-    ModalBottomSheetContent(navController::popBackStack)
+fun ModalBottomSheetScreen(navigator: Navigation3Navigator) {
+    ModalBottomSheetContent(navigator::pop)
 }
 
 @Composable
@@ -79,7 +79,7 @@ private fun ModalBottomSheetContent(onBack: () -> Unit = {}) {
                 title = Screen.MODAL_BOTTOM_SHEET.title,
                 onBack = onBack,
                 actions = {
-                    IconButton(onClick = {applyPadding = !applyPadding}) { Icon(imageVector = Icons.Default.Padding, contentDescription = null) }
+                    IconButton(onClick = { applyPadding = !applyPadding }) { Icon(imageVector = Icons.Default.Padding, contentDescription = null) }
                 }
             )
         }

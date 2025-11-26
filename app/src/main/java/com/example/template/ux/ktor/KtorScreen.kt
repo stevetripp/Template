@@ -8,14 +8,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun KtorScreen(navController: NavController, viewModel: KtorViewModel = hiltViewModel()) {
-    KtorContent(viewModel.uiState, navController::popBackStack)
+fun KtorScreen(navigator: Navigation3Navigator, viewModel: KtorViewModel) {
+    KtorContent(viewModel.uiState, navigator::pop)
 }
 
 @Composable
@@ -24,7 +23,8 @@ fun KtorContent(uiState: KtorUiState, onBack: () -> Unit = {}) {
         Column(
             Modifier
                 .padding(paddingValues)
-                .padding(horizontal = 16.dp)) {
+                .padding(horizontal = 16.dp)
+        ) {
             Button(onClick = uiState.onExecute) { Text(text = "Execute") }
         }
     }

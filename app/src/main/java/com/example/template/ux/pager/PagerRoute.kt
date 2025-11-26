@@ -1,7 +1,7 @@
 package com.example.template.ux.pager
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import org.lds.mobile.navigation.NavigationRoute
 
 @Serializable
-object PagerRoute : NavigationRoute
+object PagerRoute : NavKey

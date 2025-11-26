@@ -27,16 +27,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.photo.TntFileProvider
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun ImagePickerScreen(navController: NavController) {
-    ImagePickerContent(navController::popBackStack)
+fun ImagePickerScreen(navigator: Navigation3Navigator) {
+    ImagePickerContent(navigator::pop)
 }
 
 @Composable

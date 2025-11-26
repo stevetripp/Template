@@ -1,7 +1,7 @@
 package com.example.template.ux.modaldrawersheet
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import org.lds.mobile.navigation.NavigationRoute
 
 @Serializable
-object ModalDrawerSheetRoute : NavigationRoute
+object ModalDrawerSheetRoute : NavKey

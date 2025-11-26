@@ -14,18 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import java.util.Locale
 import kotlin.time.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import java.util.Locale
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun DateTimeFormatScreen(navController: NavController) {
-    DateTimeFormatContent(navController::popBackStack)
+fun DateTimeFormatScreen(navigator: Navigation3Navigator) {
+    DateTimeFormatContent(navigator::pop)
 }
 
 @Composable

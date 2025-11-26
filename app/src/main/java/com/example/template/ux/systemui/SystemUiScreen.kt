@@ -10,15 +10,15 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun SystemUiScreen(navController: NavController) {
-    SystemUiContent(onBack = navController::popBackStack)
+fun SystemUiScreen(navigator: Navigation3Navigator) {
+    SystemUiContent(navigator::pop)
 }
 
 @Composable

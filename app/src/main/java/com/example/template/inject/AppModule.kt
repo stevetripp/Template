@@ -12,9 +12,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import org.lds.media.cast.CastManager
 import java.io.File
 import javax.inject.Singleton
+import org.lds.media.cast.CastManager
 
 @Module
 @InstallIn(SingletonComponent::class)

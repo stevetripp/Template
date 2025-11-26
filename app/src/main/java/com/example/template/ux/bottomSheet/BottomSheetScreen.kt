@@ -16,16 +16,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import kotlinx.coroutines.launch
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun BottomSheetScreen(navController: NavController) {
-    BottomSheetScreenContent(navController::popBackStack)
+fun BottomSheetScreen(navigator: Navigation3Navigator) {
+    BottomSheetScreenContent(navigator::pop)
 }
 
 @Composable

@@ -10,16 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 
 @Composable
-fun SnackbarScreen(navController: NavController, viewModel: SnackbarViewModel = hiltViewModel()) {
-    SnackbarContent(viewModel.uiState, navController::popBackStack)
+fun SnackbarScreen(navigator: Navigation3Navigator, viewModel: SnackbarViewModel) {
+    SnackbarContent(viewModel.uiState, navigator::pop)
 }
 
 

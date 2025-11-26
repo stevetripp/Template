@@ -1,7 +1,7 @@
 package com.example.template.ux.synchronizescrolling
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import org.lds.mobile.navigation.NavigationRoute
 
 @Serializable
-object SynchronizeScrollingRoute : NavigationRoute
+object SynchronizeScrollingRoute : NavKey
