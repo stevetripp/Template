@@ -2,6 +2,7 @@ package com.example.template.ux.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavBackStack
@@ -113,6 +114,8 @@ import com.example.template.ux.typography.TypographyRoute
 import com.example.template.ux.typography.TypographyScreen
 import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.urinavigation.UriNavigationScreen
+import com.example.template.ux.video.player.PlayerActivity
+import com.example.template.ux.video.player.PlayerRoute
 import com.example.template.ux.video.screen.VideoScreen
 import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
@@ -185,6 +188,11 @@ fun MainScreen(mainViewModel: MainViewModel = hiltViewModel()) {
         entry<UriNavigationRoute> { UriNavigationScreen(navigator, hiltViewModel()) }
         entry<VideoScreenRoute> { VideoScreen(navigator, hiltViewModel()) }
         entry<WebViewRoute> { WebViewScreen(navigator) }
+        entry<PlayerRoute> { key ->
+            // NOTE: I prefer to launch the PlayerActivity here, but it caused the pop to result in a blank screen and required an
+            // additional back.
+            PlayerActivity.launch(LocalContext.current, key.videoId)
+        }
     }
 
     val decorators: List<NavEntryDecorator<NavKey>> = listOf(

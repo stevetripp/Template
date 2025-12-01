@@ -1,6 +1,8 @@
 package com.example.template.ux.video.player
 
 import android.app.PictureInPictureParams
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Rational
@@ -23,8 +25,8 @@ import com.google.android.gms.cast.framework.CastButtonFactory
 import com.google.android.gms.cast.framework.CastContext
 import com.google.common.util.concurrent.MoreExecutors
 import dagger.hilt.android.AndroidEntryPoint
-import org.lds.mobile.ext.withLifecycleOwner
 import javax.inject.Inject
+import org.lds.mobile.ext.withLifecycleOwner
 
 /**
  * Manifest Dependency: The following attribute must be placed on the <Activity> to prevent the activity from being destroyed during rotation.
@@ -196,4 +198,15 @@ class PlayerActivity : AppCompatActivity(), PlayerManager.Listener {
     }
 
     // End demo code
+
+    companion object {
+        private const val EXTRA_VIDEO_ID = "videoId"
+
+        fun launch(context: Context, videoId: VideoId) {
+            val intent = Intent(context, PlayerActivity::class.java).apply {
+                putExtra(EXTRA_VIDEO_ID, videoId.value)
+            }
+            context.startActivity(intent)
+        }
+    }
 }

@@ -9,6 +9,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -21,9 +22,9 @@ import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.ui.compose.navigation.HandleNavigation3
 
 @Composable
-fun VideoScreen(navController: NavController, viewModel: VideoScreenViewModel = hiltViewModel()) {
-    VideoContent(viewModel.uiState, navController::popBackStack)
-    HandleNavigation(viewModel, navController)
+fun VideoScreen(navigator: Navigation3Navigator, viewModel: VideoScreenViewModel) {
+    VideoContent(viewModel.uiState, navigator::pop)
+    HandleNavigation3(viewModelNavigation = viewModel, navigator = navigator)
     HandleDialogUiState(viewModel.uiState.dialogUiStateFlow)
 }
 
@@ -31,6 +32,7 @@ fun VideoScreen(navController: NavController, viewModel: VideoScreenViewModel = 
 fun VideoContent(uiState: VideoScreenUiState, onBack: () -> Unit = {}) {
 
     val videoItems by uiState.videoItemsFlow.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.VIDEO.title, onBack = onBack) }) { paddingValues ->
         LazyColumn(
@@ -40,7 +42,7 @@ fun VideoContent(uiState: VideoScreenUiState, onBack: () -> Unit = {}) {
         ) {
             item { Text(text = "HLS Streams", fontWeight = FontWeight.Bold) }
             items(videoItems) {
-                TextButton(onClick = { uiState.onHlsStreamTapped(it) }) { Text(text = it.hlsUrl.value, maxLines = 1) }
+                TextButton(onClick = { uiState.onLaunchPlayer(context, it) }) { Text(text = it.hlsUrl.value, maxLines = 1) }
             }
             item { Text(text = "Video Renditions", fontWeight = FontWeight.Bold) }
             items(videoItems) {

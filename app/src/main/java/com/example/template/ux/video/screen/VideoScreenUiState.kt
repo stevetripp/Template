@@ -1,5 +1,6 @@
 package com.example.template.ux.video.screen
 
+import android.content.Context
 import com.example.template.ui.dialog.DialogUiState
 import com.example.template.ux.video.VideoItem
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,4 +11,5 @@ data class VideoScreenUiState(
     val dialogUiStateFlow: StateFlow<DialogUiState<*>?> = MutableStateFlow<DialogUiState<*>?>(null),
     val onHlsStreamTapped: (VideoItem) -> Unit = {},
     val onVideoRenditionTapped: (VideoItem) -> Unit = {},
+    val onLaunchPlayer: (Context, VideoItem) -> Unit = { _, _ -> },
 )

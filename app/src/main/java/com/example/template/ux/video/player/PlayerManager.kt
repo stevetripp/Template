@@ -69,12 +69,12 @@ internal class PlayerManager(
     private val mediaQueue = ArrayList<MediaItem>()
 
     private var lastSeenTracks: Tracks? = null
+
     /** Returns the index of the currently played item.  */
     private var currentItemIndex: Int
     private var currentPlayer: Player? = null
 
     init {
-        SmtLogger.i("""init""")
         currentItemIndex = C.INDEX_UNSET
 
         localPlayer = ExoPlayer.Builder(context).build()
@@ -180,7 +180,6 @@ internal class PlayerManager(
             return
         }
 
-        SmtLogger.i("""setCurrentPlayer($currentPlayer)""")
         playerView.player = currentPlayer
         playerView.controllerHideOnTouch = currentPlayer === localPlayer
         if (currentPlayer === castPlayer) {
@@ -237,7 +236,6 @@ internal class PlayerManager(
      * @param itemIndex The index of the item to play.
      */
     fun setCurrentItem(itemIndex: Int) {
-        SmtLogger.i("""setCurrentItem($itemIndex)""")
         maybeSetCurrentItemAndNotify(itemIndex)
         if (currentPlayer!!.currentTimeline.windowCount != mediaQueue.size) {
             // This only happens with the cast player. The receiver app in the cast device clears the
