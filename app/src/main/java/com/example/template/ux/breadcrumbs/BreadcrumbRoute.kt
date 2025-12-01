@@ -1,7 +1,7 @@
 package com.example.template.ux.breadcrumbs
 
-import org.lds.mobile.navigation.NavigationRoute
+import androidx.navigation3.runtime.NavKey
 
-interface BreadcrumbRoute : NavigationRoute {
+interface BreadcrumbRoute : NavKey {
     val title: String
 }

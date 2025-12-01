@@ -6,34 +6,29 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
-import com.example.template.ux.main.Screen
-import kotlinx.coroutines.flow.MutableStateFlow
-import org.lds.mobile.ui.compose.navigation.HandleNavigation
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
+import org.lds.mobile.ui.compose.navigation.HandleNavigation3
 
 @Composable
-fun BreadcrumbsScreen(navController: NavController, viewModel: BreadCrumbsViewModel = hiltViewModel()) {
-    BreadcrumbsContent(viewModel.uiState, navController::popBackStack)
-    HandleNavigation(viewModel, navController)
+fun BreadcrumbsScreen(navigator: Navigation3Navigator, breadcrumbRoutes: List<BreadcrumbRoute>, viewModel: BreadCrumbsViewModel) {
+    BreadcrumbsContent(viewModel.uiState, breadcrumbRoutes, navigator::pop)
+    HandleNavigation3(viewModel, navigator)
 }
 
 @Composable
-fun BreadcrumbsContent(uiState: BreadcrumbsUiState, onBack: () -> Unit = {}) {
-    val breadcrumbRoutes by uiState.breadcrumbRoutesFlow.collectAsStateWithLifecycle()
-    val title by uiState.titleFlow.collectAsStateWithLifecycle()
+fun BreadcrumbsContent(uiState: BreadcrumbsUiState, breadcrumbRoutes: List<BreadcrumbRoute>, onBack: () -> Unit = {}) {
+    val title = breadcrumbRoutes.lastOrNull()?.title.orEmpty()
+    val backstack = breadcrumbRoutes.dropLast(1)
 
     Scaffold(topBar = {
         AppTopAppBar(
             title = title,
-            breadcrumbRoutes = breadcrumbRoutes,
+            breadcrumbRoutes = backstack,
             onBreadCrumbClicked = uiState.onBreadCrumbClicked,
             onBack = onBack,
         )
@@ -43,7 +38,7 @@ fun BreadcrumbsContent(uiState: BreadcrumbsUiState, onBack: () -> Unit = {}) {
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
-            TextButton(uiState.onNavigate) { Text(text = "Navigate") }
+            TextButton({ uiState.onNavigate(backstack) }) { Text(text = "Navigate") }
         }
     }
 }
@@ -51,5 +46,10 @@ fun BreadcrumbsContent(uiState: BreadcrumbsUiState, onBack: () -> Unit = {}) {
 @PreviewDefault
 @Composable
 private fun Preview() {
-    AppTheme { BreadcrumbsContent(BreadcrumbsUiState(titleFlow = MutableStateFlow(Screen.BREADCRUMBS_SCREEN.title))) }
+    val sampleRoutes = listOf(
+        BreadcrumbsRoute(title = "Home"),
+        BreadcrumbsRoute(title = "Section"),
+        BreadcrumbsRoute(title = "Details")
+    )
+    AppTheme { BreadcrumbsContent(BreadcrumbsUiState(), sampleRoutes) }
 }

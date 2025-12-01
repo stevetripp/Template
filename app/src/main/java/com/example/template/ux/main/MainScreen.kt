@@ -23,7 +23,7 @@ import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomSheet.BottomSheetScreen
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
-import com.example.template.ux.breadcrumbs.BreadCrumbsViewModel
+import com.example.template.ux.breadcrumbs.BreadcrumbRoute
 import com.example.template.ux.breadcrumbs.BreadcrumbsRoute
 import com.example.template.ux.breadcrumbs.BreadcrumbsScreen
 import com.example.template.ux.buttongroups.ButtonGroupsRoute
@@ -135,13 +135,17 @@ fun MainScreen(mainViewModel: MainViewModel = hiltViewModel()) {
     )
 
     val navigator: Navigation3Navigator = TopLevelBackStackNavigator(navigationState)
+    val backstack = navigator.getCurrentBackStack()
 
     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
         entry<AboutRoute> { AboutScreen(navigator) }
         entry<AnimatedGesturesRoute> { AnimatedGestureScreen(navigator) }
         entry<BottomNavigationRoute> { BottomNavigationScreen(navigator) }
         entry<BottomSheetRoute> { BottomSheetScreen(navigator) }
-        entry<BreadcrumbsRoute> { key -> BreadcrumbsScreen(navigator, hiltViewModel<BreadCrumbsViewModel, BreadCrumbsViewModel.Factory>(creationCallback = { it.create(key) })) }
+        entry<BreadcrumbsRoute> { key ->
+            val breadcrumbRoutes = backstack?.mapNotNull { it as? BreadcrumbRoute } ?: emptyList()
+            BreadcrumbsScreen(navigator, breadcrumbRoutes, hiltViewModel())
+        }
         entry<ButtonGroupsRoute> { ButtonGroupsScreen(navigator) }
         entry<CarouselRoute> { CarouselScreen(navigator) }
         entry<ChildWithNavigationRoute> { ChildWithNavigationScreen(navigator) }
@@ -205,7 +209,7 @@ fun MainScreen(mainViewModel: MainViewModel = hiltViewModel()) {
         onBack = { navigator.pop() }
     )
 
-    navigator.getCurrentBackStack()?.let { backstack -> ObserveRouteChanges(backstack) { SmtLogger.i(it.toString()) } }
+    backstack?.let { ObserveRouteChanges(it) { navKey -> SmtLogger.i(navKey.toString()) } }
 }
 
 

@@ -5,5 +5,4 @@ import kotlinx.coroutines.flow.StateFlow
 
 data class MainUiState(
     val enforceNavigationBarContrastFlow: StateFlow<Boolean> = MutableStateFlow(true),
-    val onSettingsClicked: () -> Unit = {},
 )
