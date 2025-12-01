@@ -120,7 +120,6 @@ import com.example.template.ux.webview.WebViewScreen
 import org.lds.mobile.navigation3.NavigationState
 import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.navigation3.navigator.TopLevelBackStackNavigator
-import org.lds.mobile.ui.compose.navigation.HandleNav3BarNavigation
 import org.lds.mobile.ui.compose.navigation.rememberNavigationState
 import org.lds.mobile.ui.compose.navigation.toEntries
 
@@ -152,7 +151,7 @@ fun MainScreen(mainViewModel: MainViewModel = hiltViewModel()) {
         entry<FabRoute> { FabScreen(navigator, hiltViewModel()) }
         entry<FlippableRoute> { FlippableScreen(navigator) }
         entry<GmailAddressFieldRoute> { GmailAddressFieldScreen(navigator, hiltViewModel()) }
-        entry<HomeRoute> { HomeScreen(navigator, hiltViewModel(), mainViewModel) }
+        entry<HomeRoute> { HomeScreen(navigator, hiltViewModel()) }
         entry<ImagePickerRoute> { ImagePickerScreen(navigator) }
         entry<InputExamplesRoute> { InputExamplesScreen(navigator) }
         entry<KtorRoute> { KtorScreen(navigator, hiltViewModel()) }
@@ -199,7 +198,6 @@ fun MainScreen(mainViewModel: MainViewModel = hiltViewModel()) {
     )
 
     navigator.getCurrentBackStack()?.let { backstack -> ObserveRouteChanges(backstack) { SmtLogger.i(it.toString()) } }
-    HandleNav3BarNavigation(mainViewModel, navigator)
 }
 
 

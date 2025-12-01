@@ -27,28 +27,26 @@ import com.example.template.ui.PreviewDefault
 import com.example.template.ui.PreviewNavigator
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.MainAppScaffoldWithNavBar
-import com.example.template.ux.main.MainUiState
-import com.example.template.ux.main.MainViewModel
 import com.example.template.ux.main.Screen
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.ui.compose.navigation.HandleNavigation3
 
 @Composable
-fun HomeScreen(navigator: Navigation3Navigator, viewModel: HomeViewModel, mainViewModel: MainViewModel) {
-    HomeContent(navigator, viewModel.uiState, mainViewModel.uiState)
+fun HomeScreen(navigator: Navigation3Navigator, viewModel: HomeViewModel) {
+    HomeContent(navigator, viewModel.uiState)
     HandleNavigation3(viewModelNavigation = viewModel, navigator = navigator)
 }
 
 @Composable
-fun HomeContent(navigator: Navigation3Navigator, uiState: HomeScreenUiState, mainUiState: MainUiState) {
+fun HomeContent(navigator: Navigation3Navigator, uiState: HomeScreenUiState) {
     val screens by uiState.screensFlow.collectAsStateWithLifecycle()
 //    val statusBarHeight = with(LocalDensity.current) {
 //        WindowInsets.systemBars.getTop(this).toDp()
 //    }
 
     val appBarMenu: @Composable RowScope.() -> Unit = {
-        IconButton(mainUiState.onSettingsClicked) { Icon(Icons.Default.Settings, contentDescription = null) }
+        IconButton(uiState.onSettingsClicked) { Icon(Icons.Default.Settings, contentDescription = null) }
     }
 
     MainAppScaffoldWithNavBar(
@@ -80,6 +78,6 @@ fun HomeContent(navigator: Navigation3Navigator, uiState: HomeScreenUiState, mai
 @Composable
 private fun HomeContentPreview() {
     AppTheme {
-        HomeContent(PreviewNavigator(), HomeScreenUiState(MutableStateFlow(Screen.entries)), MainUiState())
+        HomeContent(PreviewNavigator(), HomeScreenUiState(MutableStateFlow(Screen.entries)))
     }
 }

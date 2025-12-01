@@ -7,14 +7,14 @@ import com.example.template.ux.main.ScreenType
 import com.example.template.ux.regex.RegexRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.lds.mobile.navigation.ViewModelNavigation
-import org.lds.mobile.navigation.ViewModelNavigationImpl
+import org.lds.mobile.navigation3.ViewModelNavigation3
+import org.lds.mobile.navigation3.ViewModelNavigation3Impl
 import javax.inject.Inject
 
 @HiltViewModel
 class ServicesExamplesViewModel
 @Inject constructor(
-) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
+) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
     private val screens = Screen.entries.filter { it.type == ScreenType.SERVICES }
     private val screensFlow = MutableStateFlow(screens)

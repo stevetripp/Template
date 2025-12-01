@@ -3,6 +3,7 @@ package com.example.template.ux.home
 import androidx.lifecycle.ViewModel
 import com.example.template.ux.main.Screen
 import com.example.template.ux.main.ScreenType
+import com.example.template.ux.settings.SettingRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +20,8 @@ class HomeViewModel
 
     val uiState = HomeScreenUiState(
         screensFlow = screensFlow,
-        onItemClicked = ::onItemClicked
+        onItemClicked = ::onItemClicked,
+        onSettingsClicked = { navigate(SettingRoute) }
     )
 
     private fun onItemClicked(screen: Screen) = navigate(screen.route)

@@ -15,8 +15,8 @@ import com.example.template.ui.widget.Switch
 import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
-fun SettingsScreen(navController: NavController, viewModel: SettingsViewModel = hiltViewModel()) {
-    SettingsContent(viewModel.uiState, navController::popBackStack)
+fun SettingsScreen(navigator: Navigation3Navigator, viewModel: SettingsViewModel) {
+    SettingsContent(viewModel.uiState, navigator::pop)
 }
 
 @Composable
