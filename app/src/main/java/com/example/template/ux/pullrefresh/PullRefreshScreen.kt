@@ -22,11 +22,11 @@ import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.ui.ext.requireActivity
 
 @Composable
-fun PullRefreshScreen(navController: NavHostController, viewModel: PullRefreshViewModel = hiltViewModel()) {
+fun PullRefreshScreen(navigator: Navigation3Navigator, viewModel: PullRefreshViewModel) {
     val context = LocalContext.current
-    PullRefreshContent(viewModel.uiState) {
-        // This is needed for deep linking to close the app when tapping back
-        navController.popBackStackOrFinishActivity(context)
+    PullRefreshContent(viewModel.uiState)
+    {
+        if (viewModel.uiState.closeOnBack) context.requireActivity().finishAffinity() else navigator.pop()
     }
 }
 

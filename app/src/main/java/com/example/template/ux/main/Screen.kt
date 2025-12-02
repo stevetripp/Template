@@ -81,7 +81,7 @@ enum class Screen(val title: String, val route: NavKey, val type: ScreenType = S
     PARAMETERS("Parameters", ParametersRoute, ScreenType.UI),
     PERMISSIONS("Permissions (Location)", PermissionsRoute, ScreenType.UI),
     POP_WITH_RESULT("Pop With Result", PopWithResultParentRoute, ScreenType.UI),
-    PULL_REFRESH("Pull Refresh", PullRefreshRoute, ScreenType.UI),
+    PULL_REFRESH("Pull Refresh", PullRefreshRoute(), ScreenType.UI),
     REGEX("RegEx Validator", RegexRoute, ScreenType.SERVICES),
     REORDERABLE_LIST("Reorderable List", ReorderableListRoute, ScreenType.UI),
     SEARCH("Search", SearchRoute, ScreenType.UI),

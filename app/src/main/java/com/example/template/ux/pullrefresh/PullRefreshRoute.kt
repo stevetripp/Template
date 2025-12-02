@@ -1,14 +1,13 @@
 package com.example.template.ux.pullrefresh
 
-import androidx.navigation.navDeepLink
+import androidx.core.net.toUri
+import androidx.navigation3.runtime.NavKey
 import com.example.template.ux.DeepLink
 import com.example.template.ux.main.Screen
 import kotlinx.serialization.Serializable
-import org.lds.mobile.navigation.NavigationRoute
 
 @Serializable
-object PullRefreshRoute : NavigationRoute
+data class PullRefreshRoute(val closeOnBack: Boolean = false) : NavKey
 
-fun PullRefreshRoute.deepLinks() = listOf(
-    navDeepLink<PullRefreshRoute>(basePath = "${DeepLink.ROOT}/${Screen.PULL_REFRESH.name}",)
-)
+// https://trippntechnology.com/template/PullRefreshRoute
+val PullRefreshRoute.Companion.deepLinkUri get() = "${DeepLink.ROOT}/${Screen.PULL_REFRESH.name}".toUri()

@@ -86,6 +86,7 @@ import com.example.template.ux.popwithresult.PopWithResultParentRoute
 import com.example.template.ux.popwithresult.PopWithResultParentScreen
 import com.example.template.ux.pullrefresh.PullRefreshRoute
 import com.example.template.ux.pullrefresh.PullRefreshScreen
+import com.example.template.ux.pullrefresh.PullRefreshViewModel
 import com.example.template.ux.regex.RegexRoute
 import com.example.template.ux.regex.RegexScreen
 import com.example.template.ux.reorderablelist.ReorderableListRoute
@@ -121,20 +122,21 @@ import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
 import org.lds.mobile.navigation3.NavigationState
-import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.navigation3.navigator.TopLevelBackStackNavigator
 import org.lds.mobile.ui.compose.navigation.rememberNavigationState
 import org.lds.mobile.ui.compose.navigation.toEntries
 
 @Composable
-fun MainScreen(mainViewModel: MainViewModel = hiltViewModel()) {
+fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewModel()) {
+    SmtLogger.i("""deeplinkRoute:  $deeplinkRoute""")
+
     val navigationState: NavigationState = rememberNavigationState(
         startRoute = HomeRoute,
         topLevelRoutes = NavBarItem.entries.map { it.route }.toSet(),
         navKeySerializer = NavKeySerializer()
     )
 
-    val navigator: Navigation3Navigator = TopLevelBackStackNavigator(navigationState)
+    val navigator: TopLevelBackStackNavigator = TopLevelBackStackNavigator(navigationState)
     val backstack = navigator.getCurrentBackStack()
 
     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
@@ -175,7 +177,7 @@ fun MainScreen(mainViewModel: MainViewModel = hiltViewModel()) {
         entry<PermissionsRoute> { PermissionsScreen(navigator, hiltViewModel()) }
         entry<PopWithResultChildRoute> { PopWithResultChildScreen(navigator, hiltViewModel()) }
         entry<PopWithResultParentRoute> { PopWithResultParentScreen(navigator) }
-        entry<PullRefreshRoute> { PullRefreshScreen(navigator, hiltViewModel()) }
+        entry<PullRefreshRoute> { key -> PullRefreshScreen(navigator, hiltViewModel<PullRefreshViewModel, PullRefreshViewModel.Factory>(creationCallback = { it.create(key) })) }
         entry<RegexRoute> { RegexScreen(navigator, hiltViewModel()) }
         entry<ReorderableListRoute> { ReorderableListScreen(navigator, hiltViewModel()) }
         entry<SearchRoute> { SearchScreen(navigator, hiltViewModel()) }
@@ -199,17 +201,19 @@ fun MainScreen(mainViewModel: MainViewModel = hiltViewModel()) {
         }
     }
 
-    val decorators: List<NavEntryDecorator<NavKey>> = listOf(
-        rememberSaveableStateHolderNavEntryDecorator(),
-        rememberViewModelStoreNavEntryDecorator()
-    )
+    val decorators: List<NavEntryDecorator<NavKey>> = listOf(rememberSaveableStateHolderNavEntryDecorator(), rememberViewModelStoreNavEntryDecorator())
+
+    LaunchedEffect(deeplinkRoute) {
+        // LaunchEffect used to ignore deeplinkRoute when MainScreen is recomposed and it hasn't changed
+        deeplinkRoute?.let { navigator.navigate(it) }
+    }
 
     NavDisplay(
-        entries = navigationState.toEntries(entryProvider, decorators),
+        entries = navigator.state.toEntries(entryProvider, decorators),
         onBack = { navigator.pop() }
     )
 
-    backstack?.let { ObserveRouteChanges(it) { navKey -> SmtLogger.i(navKey.toString()) } }
+    backstack?.let { ObserveRouteChanges(it) { navKey -> SmtLogger.i("""Navigating to: $navKey""") } }
 }
 
 

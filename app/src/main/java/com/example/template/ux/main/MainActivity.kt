@@ -16,8 +16,11 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavKey
 import com.example.template.ui.theme.AppTheme
 import com.example.template.util.SmtLogger
+import com.example.template.ux.pullrefresh.PullRefreshRoute
+import com.example.template.ux.pullrefresh.deepLinkUri
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -40,6 +43,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
+
+        // ATTENTION: This was auto-generated to handle app links.
+        val appLinkIntent: Intent = intent
+        val appLinkAction: String? = appLinkIntent.action
+        val appLinkData: Uri? = appLinkIntent.data
+
+        SmtLogger.i(
+            """appLinkIntent: $appLinkIntent
+            |appLinkAction: $appLinkAction
+            |appLinkData: $appLinkData
+            |deepLinkUri: ${PullRefreshRoute.deepLinkUri}
+        """.trimMargin()
+        )
+
+        val deepLinkRoute: NavKey? = when (appLinkData) {
+            PullRefreshRoute.deepLinkUri -> PullRefreshRoute(closeOnBack = true)
+            else -> null
+        }
+
+        SmtLogger.i("""deepLinkRoute: $deepLinkRoute""")
 
         setContent {
             val enforceNavigationBarContrastState = mainViewModel.uiState.enforceNavigationBarContrastFlow.collectAsStateWithLifecycle()
@@ -68,22 +91,10 @@ class MainActivity : ComponentActivity() {
 
                 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
                 Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) }) {
-                    MainScreen()
+                    MainScreen(deepLinkRoute)
                 }
             }
         }
-
-        // ATTENTION: This was auto-generated to handle app links.
-        val appLinkIntent: Intent = intent
-        val appLinkAction: String? = appLinkIntent.action
-        val appLinkData: Uri? = appLinkIntent.data
-
-        SmtLogger.i(
-            """appLinkIntent: $appLinkIntent
-            |appLinkAction: $appLinkAction
-            |appLinkData: $appLinkData
-        """.trimMargin()
-        )
 
         inAppUpdateManagerUtil = InAppUpdateManagerUtil(activity = this, inAppUpdateType = mainViewModel.inAppUpdateType, onCompleteUpdate = { showSnackbarChannel.trySend(Unit) })
     }
