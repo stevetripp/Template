@@ -22,9 +22,9 @@ import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.ui.compose.navigation.HandleNavigation3
 
 @Composable
-fun ParametersScreen(navController: NavController, viewModel: ParametersViewModel = hiltViewModel()) {
-    ParametersContent(viewModel.uiState, navController::popBackStack)
-    HandleNavigation(viewModel, navController)
+fun ParametersScreen(navigator: Navigation3Navigator, viewModel: ParametersViewModel) {
+    ParametersContent(viewModel.uiState, navigator::pop)
+    HandleNavigation3(viewModelNavigation = viewModel, navigator = navigator)
 }
 
 @Composable
@@ -41,9 +41,11 @@ fun ParametersContent(uiState: ParametersUiState, onBack: () -> Unit) {
             modifier = Modifier
                 .padding(paddingValues)
         ) {
-            TextField(modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(), value = requiredValue, onValueChange = uiState.onReqParam1Changed)
+            TextField(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(), value = requiredValue, onValueChange = uiState.onReqParam1Changed
+            )
             DropdownList(
                 value = enumParameter.name,
                 label = "Required Enum",
@@ -53,9 +55,11 @@ fun ParametersContent(uiState: ParametersUiState, onBack: () -> Unit) {
                     uiState.onReqParam2Changed(param)
                 }
             )
-            TextField(modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(), value = optionalValue.orEmpty(), onValueChange = uiState.onOptParam1Changed)
+            TextField(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(), value = optionalValue.orEmpty(), onValueChange = uiState.onOptParam1Changed
+            )
             DropdownList(
                 value = optionalEnumParameter?.name.orEmpty(),
                 label = "Optional Enum",
@@ -65,7 +69,11 @@ fun ParametersContent(uiState: ParametersUiState, onBack: () -> Unit) {
                     uiState.onOptParam2Changed(param)
                 }
             )
-            Button(modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth(),onClick = uiState.onButtonClick) { Text(text = "Tap Me") }
+            Button(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(), onClick = uiState.onButtonClick
+            ) { Text(text = "Tap Me") }
         }
     }
 }

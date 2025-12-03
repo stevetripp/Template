@@ -1,21 +1,18 @@
 package com.example.template.ux.parameters
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.navigation.toRoute
 import com.example.template.util.SmtLogger
-import com.example.template.ux.NavTypeMaps
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Inject
 
-@HiltViewModel
+@HiltViewModel(assistedFactory = DestinationViewModel.Factory::class)
 class DestinationViewModel
-@Inject constructor(
-    savedStateHandle: SavedStateHandle
+@AssistedInject constructor(
+    @Assisted private val destinationRoute: DestinationRoute
 ) : ViewModel() {
-
-    private val destinationRoute = savedStateHandle.toRoute<DestinationRoute>(NavTypeMaps.typeMap)
     private val reqParam1Flow = MutableStateFlow(destinationRoute.reqParam1)
     private val reqParam2Flow = MutableStateFlow(destinationRoute.reqParam2)
     private val optParam1Flow = MutableStateFlow(destinationRoute.optParam1)
@@ -30,5 +27,11 @@ class DestinationViewModel
         reqParam2Flow = reqParam2Flow,
         optParam1Flow = optParam1Flow,
         optParam2Flow = optParam2Flow,
+        onCloseBack = destinationRoute.closeOnBack
     )
+
+    @AssistedFactory
+    interface Factory {
+        fun create(route: DestinationRoute): DestinationViewModel
+    }
 }

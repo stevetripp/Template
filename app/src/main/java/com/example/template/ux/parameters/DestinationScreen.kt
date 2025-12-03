@@ -8,15 +8,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.composable.AppTopAppBar
+import kotlinx.coroutines.flow.MutableStateFlow
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
+import org.lds.mobile.ui.ext.requireActivity
 
 @Composable
-fun DestinationScreen(navController: NavController, viewModel: DestinationViewModel = hiltViewModel()) {
-    DestinationContent(viewModel.uiState, navController::popBackStack)
+fun DestinationScreen(navigator: Navigation3Navigator, viewModel: DestinationViewModel = hiltViewModel()) {
+    val context = LocalContext.current
+    DestinationContent(viewModel.uiState) { if (viewModel.uiState.onCloseBack) context.requireActivity().finishAffinity() else navigator.pop() }
 }
 
 @Composable
@@ -50,4 +55,16 @@ fun DestinationContent(uiState: DestinationUiState, onBack: () -> Unit) {
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DestinationContentPreview() {
+    val mockUiState = DestinationUiState(
+        reqParam1Flow = MutableStateFlow(Parameter1("Sample Value")),
+        reqParam2Flow = MutableStateFlow(EnumParameter.TWO),
+        optParam1Flow = MutableStateFlow(Parameter1("Optional Value")),
+        optParam2Flow = MutableStateFlow(EnumParameter.THREE)
+    )
+    DestinationContent(uiState = mockUiState, onBack = {})
 }

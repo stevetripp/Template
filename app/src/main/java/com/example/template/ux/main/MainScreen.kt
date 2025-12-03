@@ -76,8 +76,10 @@ import com.example.template.ux.panningzooming.PanningZoomingRoute
 import com.example.template.ux.panningzooming.PanningZoomingScreen
 import com.example.template.ux.parameters.DestinationRoute
 import com.example.template.ux.parameters.DestinationScreen
+import com.example.template.ux.parameters.DestinationViewModel
 import com.example.template.ux.parameters.ParametersRoute
 import com.example.template.ux.parameters.ParametersScreen
+import com.example.template.ux.parameters.ParametersViewModel
 import com.example.template.ux.permissions.PermissionsRoute
 import com.example.template.ux.permissions.PermissionsScreen
 import com.example.template.ux.popwithresult.PopWithResultChildRoute
@@ -154,7 +156,7 @@ fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewMo
         entry<ChildWithoutNavigationRoute> { ChildWithoutNavigationScreen(navigator) }
         entry<ChipSheetRoute> { ChipSheetScreen(navigator, hiltViewModel()) }
         entry<DateTimeFormatRoute> { DateTimeFormatScreen(navigator) }
-        entry<DestinationRoute> { DestinationScreen(navigator) }
+        entry<DestinationRoute> { key -> DestinationScreen(navigator, hiltViewModel<DestinationViewModel, DestinationViewModel.Factory>(creationCallback = { it.create(key) })) }
         entry<DialogRoute> { DialogScreen(navigator, hiltViewModel()) }
         entry<EdgeToEdgeRoute> { EdgeToEdgeScreen(navigator, hiltViewModel()) }
         entry<FabRoute> { FabScreen(navigator, hiltViewModel()) }

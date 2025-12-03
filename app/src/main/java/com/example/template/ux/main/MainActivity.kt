@@ -18,9 +18,12 @@ import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavKey
 import com.example.template.ui.theme.AppTheme
+import com.example.template.util.DeepLinkUrl
 import com.example.template.util.SmtLogger
+import com.example.template.ux.parameters.DestinationRoute
+import com.example.template.ux.parameters.deepLinkUrl
 import com.example.template.ux.pullrefresh.PullRefreshRoute
-import com.example.template.ux.pullrefresh.deepLinkUri
+import com.example.template.ux.pullrefresh.deepLinkUrl
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -53,13 +56,17 @@ class MainActivity : ComponentActivity() {
             """appLinkIntent: $appLinkIntent
             |appLinkAction: $appLinkAction
             |appLinkData: $appLinkData
-            |deepLinkUri: ${PullRefreshRoute.deepLinkUri}
+            |deepLinkUri: ${PullRefreshRoute.deepLinkUrl}
         """.trimMargin()
         )
 
-        val deepLinkRoute: NavKey? = when (appLinkData) {
-            PullRefreshRoute.deepLinkUri -> PullRefreshRoute(closeOnBack = true)
-            else -> null
+        val url = appLinkData?.let { DeepLinkUrl(it.toString()) }
+        val deepLinkRoute: NavKey? = url?.let {
+            when {
+                it.matches(PullRefreshRoute.deepLinkUrl) -> it.toRoute<PullRefreshRoute>(PullRefreshRoute.deepLinkUrl).copy(closeOnBack = true)
+                it.matches(DestinationRoute.deepLinkUrl) -> it.toRoute<DestinationRoute>(DestinationRoute.deepLinkUrl).copy(closeOnBack = true)
+                else -> null
+            }
         }
 
         SmtLogger.i("""deepLinkRoute: $deepLinkRoute""")

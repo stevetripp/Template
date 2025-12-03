@@ -1,10 +1,10 @@
 package com.example.template.ux.parameters
 
-import androidx.navigation.navDeepLink
+import androidx.navigation3.runtime.NavKey
 import com.example.template.ux.DeepLink
+import io.ktor.http.Url
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.lds.mobile.navigation.NavigationRoute
 import org.lds.mobile.navigation.RouteUtil
 
 
@@ -18,21 +18,26 @@ data class DestinationRoute(
     val optParam1: Parameter1? = null,
     @SerialName(DeepLinkArgs.QUERY_PARAM2)
     val optParam2: EnumParameter? = null,
-) : NavigationRoute
+    @SerialName(DeepLinkArgs.QUERY_PARAM3)
+    val optParam3: Int? = null,
+    val closeOnBack: Boolean = false
+) : NavKey
 
-private object DeepLinkArgs {
+// https://trippntechnology.com/template/DESTINATION/{pathParam1}/{pathParam2}?queryParam1=value&queryParam2=value&queryParam3=value
+val DestinationRoute.Companion.deepLinkUrl
+    get() = Url(
+        "${DeepLink.ROOT}/DESTINATION/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM1)}/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM2)}" +
+                "?${RouteUtil.defineOptionalArgs(DeepLinkArgs.QUERY_PARAM1, DeepLinkArgs.QUERY_PARAM2, DeepLinkArgs.QUERY_PARAM3)}"
+    )
+
+
+object DeepLinkArgs {
     const val PATH_PARAM1 = "pathParam1"
     const val PATH_PARAM2 = "pathParam2"
     const val QUERY_PARAM1 = "queryParam1"
     const val QUERY_PARAM2 = "queryParam2"
+    const val QUERY_PARAM3 = "queryParam3"
 }
-
-fun DestinationRoute.Companion.deepLinks() = listOf(
-    navDeepLink {
-        uriPattern = "${DeepLink.ROOT}/PARAMETERS/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM1)}/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM2)}" +
-                "?${RouteUtil.defineOptionalArgs(DeepLinkArgs.QUERY_PARAM1, DeepLinkArgs.QUERY_PARAM2)}"
-    }
-)
 
 @JvmInline
 @Serializable
