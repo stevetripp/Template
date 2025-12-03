@@ -79,7 +79,6 @@ import com.example.template.ux.parameters.DestinationScreen
 import com.example.template.ux.parameters.DestinationViewModel
 import com.example.template.ux.parameters.ParametersRoute
 import com.example.template.ux.parameters.ParametersScreen
-import com.example.template.ux.parameters.ParametersViewModel
 import com.example.template.ux.permissions.PermissionsRoute
 import com.example.template.ux.permissions.PermissionsScreen
 import com.example.template.ux.popwithresult.PopWithResultChildRoute
@@ -115,8 +114,6 @@ import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
 import com.example.template.ux.typography.TypographyRoute
 import com.example.template.ux.typography.TypographyScreen
-import com.example.template.ux.urinavigation.UriNavigationRoute
-import com.example.template.ux.urinavigation.UriNavigationScreen
 import com.example.template.ux.video.player.PlayerActivity
 import com.example.template.ux.video.player.PlayerRoute
 import com.example.template.ux.video.screen.VideoScreen
@@ -193,7 +190,6 @@ fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewMo
         entry<SystemUiRoute> { SystemUiScreen(navigator) }
         entry<TabsRoute> { TabsScreen(navigator) }
         entry<TypographyRoute> { TypographyScreen(navigator) }
-        entry<UriNavigationRoute> { UriNavigationScreen(navigator, hiltViewModel()) }
         entry<VideoScreenRoute> { VideoScreen(navigator, hiltViewModel()) }
         entry<WebViewRoute> { WebViewScreen(navigator) }
         entry<PlayerRoute> { key ->

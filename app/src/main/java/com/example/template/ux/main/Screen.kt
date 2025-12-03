@@ -45,7 +45,6 @@ import com.example.template.ux.synchronizescrolling.SynchronizeScrollingRoute
 import com.example.template.ux.systemui.SystemUiRoute
 import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.typography.TypographyRoute
-import com.example.template.ux.urinavigation.UriNavigationRoute
 import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
 
@@ -94,7 +93,6 @@ enum class Screen(val title: String, val route: NavKey, val type: ScreenType = S
     SYSTEM_UI("System UI", SystemUiRoute, ScreenType.UI),
     TABS("Tabs", TabsRoute, ScreenType.UI),
     TYPOGRAPHY("Typography", TypographyRoute, ScreenType.UI),
-    URI_NAVIGATION("Uri Navigation", UriNavigationRoute, ScreenType.UI),
     VIDEO("Video", VideoScreenRoute, ScreenType.UI),
     WEBVIEW("Webview", WebViewRoute, ScreenType.UI);
 }

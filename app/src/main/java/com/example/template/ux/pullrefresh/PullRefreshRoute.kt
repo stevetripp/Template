@@ -1,7 +1,7 @@
 package com.example.template.ux.pullrefresh
 
 import androidx.navigation3.runtime.NavKey
-import com.example.template.ux.DeepLink
+import com.example.template.util.DeepLink
 import com.example.template.ux.main.Screen
 import io.ktor.http.Url
 import kotlinx.serialization.Serializable

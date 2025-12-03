@@ -10,9 +10,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import com.example.template.R
 import com.example.template.util.SmtLogger
-import com.example.template.ux.DeepLink
 import com.example.template.ux.main.MainActivity
-import com.example.template.ux.main.Screen
+import com.example.template.ux.pullrefresh.PullRefreshRoute
+import com.example.template.ux.pullrefresh.deepLinkUrl
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -56,7 +56,7 @@ constructor(application: Application) {
         val notificationId = 2 // A unique ID for this notification
 
         // Create the deep link URI
-        val deepLinkUri = "${DeepLink.ROOT}/${Screen.FLIPPABLE.name}".toUri()
+        val deepLinkUri = PullRefreshRoute.deepLinkUrl.toString().toUri()
 
         // Create an intent with the deep link URI
         val intent = Intent(Intent.ACTION_VIEW, deepLinkUri).apply {

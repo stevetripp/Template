@@ -1,6 +1,5 @@
 package com.example.template.util
 
-import com.example.template.ux.DeepLink
 import com.example.template.ux.parameters.DestinationRoute
 import com.example.template.ux.parameters.EnumParameter
 import com.example.template.ux.parameters.Parameter1
