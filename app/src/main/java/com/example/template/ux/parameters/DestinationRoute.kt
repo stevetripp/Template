@@ -24,7 +24,7 @@ data class DestinationRoute(
 ) : NavKey
 
 // https://trippntechnology.com/template/DESTINATION/{pathParam1}/{pathParam2}?queryParam1=value&queryParam2=value&queryParam3=value
-val DestinationRoute.Companion.deepLinkUrl
+val DestinationRoute.Companion.deepLinkPattern
     get() = Url(
         "${DeepLink.ROOT}/DESTINATION/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM1)}/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM2)}" +
                 "?${RouteUtil.defineOptionalArgs(DeepLinkArgs.QUERY_PARAM1, DeepLinkArgs.QUERY_PARAM2, DeepLinkArgs.QUERY_PARAM3)}"

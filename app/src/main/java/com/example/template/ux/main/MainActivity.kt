@@ -18,15 +18,17 @@ import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavKey
 import com.example.template.ui.theme.AppTheme
-import com.example.template.util.DeepLinkUrl
 import com.example.template.util.SmtLogger
 import com.example.template.ux.parameters.DestinationRoute
-import com.example.template.ux.parameters.deepLinkUrl
+import com.example.template.ux.parameters.deepLinkPattern
 import com.example.template.ux.pullrefresh.PullRefreshRoute
-import com.example.template.ux.pullrefresh.deepLinkUrl
+import com.example.template.ux.pullrefresh.deepLinkPattern
 import dagger.hilt.android.AndroidEntryPoint
+import io.ktor.http.Url
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
+import org.lds.mobile.navigation3.matches
+import org.lds.mobile.navigation3.toRoute
 
 /**
  * MainActivity for the app's main entry point.
@@ -56,15 +58,15 @@ class MainActivity : ComponentActivity() {
             """appLinkIntent: $appLinkIntent
             |appLinkAction: $appLinkAction
             |appLinkData: $appLinkData
-            |deepLinkUri: ${PullRefreshRoute.deepLinkUrl}
+            |deepLinkUri: ${PullRefreshRoute.deepLinkPattern}
         """.trimMargin()
         )
 
-        val url = appLinkData?.let { DeepLinkUrl(it.toString()) }
-        val deepLinkRoute: NavKey? = url?.let {
+        val deepLinkRoute: NavKey? = appLinkData?.let {
+            val deepLinkUrl = Url(it.toString())
             when {
-                it.matches(PullRefreshRoute.deepLinkUrl) -> it.toRoute<PullRefreshRoute>(PullRefreshRoute.deepLinkUrl).copy(closeOnBack = true)
-                it.matches(DestinationRoute.deepLinkUrl) -> it.toRoute<DestinationRoute>(DestinationRoute.deepLinkUrl).copy(closeOnBack = true)
+                deepLinkUrl.matches(PullRefreshRoute.deepLinkPattern) -> deepLinkUrl.toRoute<PullRefreshRoute>(PullRefreshRoute.deepLinkPattern).copy(closeOnBack = true)
+                deepLinkUrl.matches(DestinationRoute.deepLinkPattern) -> deepLinkUrl.toRoute<DestinationRoute>(DestinationRoute.deepLinkPattern).copy(closeOnBack = true)
                 else -> null
             }
         }

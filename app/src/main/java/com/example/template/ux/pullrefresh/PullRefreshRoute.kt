@@ -10,4 +10,4 @@ import kotlinx.serialization.Serializable
 data class PullRefreshRoute(val closeOnBack: Boolean = false) : NavKey
 
 // https://trippntechnology.com/template/PULL_REFRESH
-val PullRefreshRoute.Companion.deepLinkUrl get() = Url("${DeepLink.ROOT}/${Screen.PULL_REFRESH.name}")
+val PullRefreshRoute.Companion.deepLinkPattern get() = Url("${DeepLink.ROOT}/${Screen.PULL_REFRESH.name}")
