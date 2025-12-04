@@ -23,13 +23,14 @@ import kotlinx.serialization.json.Json
  * ```
  */
 fun Url.matches(patternUrl: Url): Boolean {
-    val patternPath = patternUrl.segments.map { it.replace("\\{.*?\\}".toRegex(), ".*") }
-    val targetPath = this.segments
+    val placeholderPattern = "\\{.*?\\}".toRegex()
+    val patternSegments = patternUrl.segments.map { it.replace(placeholderPattern, ".*") }
+    val targetSegments = this.segments
 
-    if (patternPath.size != targetPath.size) return false
+    if (patternSegments.size != targetSegments.size) return false
 
-    patternPath.forEachIndexed { index, value ->
-        if (!targetPath[index].matches(value.toRegex())) return false
+    patternSegments.forEachIndexed { index, value ->
+        if (!targetSegments[index].matches(value.toRegex())) return false
     }
 
     return true
@@ -70,12 +71,10 @@ fun Url.getParameters(patternUrl: Url): Map<String, String> {
     val patternSegments = patternUrl.segments
     val targetSegments = this.segments
 
-    if (patternSegments.size == targetSegments.size) {
-        patternSegments.forEachIndexed { index, patternSegment ->
-            if (patternSegment.startsWith("{") && patternSegment.endsWith("}")) {
-                val paramName = patternSegment.substring(1, patternSegment.length - 1)
-                results[paramName] = targetSegments[index]
-            }
+    patternSegments.forEachIndexed { index, patternSegment ->
+        if (patternSegment.startsWith("{") && patternSegment.endsWith("}")) {
+            val paramName = patternSegment.substring(1, patternSegment.length - 1)
+            results[paramName] = targetSegments[index]
         }
     }
 
@@ -109,6 +108,6 @@ fun Url.getParameters(patternUrl: Url): Map<String, String> {
  */
 inline fun <reified T : NavKey> Url.toRoute(patternUrl: Url): T {
     val parameters = getParameters(patternUrl)
-    val jsonString = Json.Default.encodeToString(parameters)
-    return Json.Default.decodeFromString<T>(jsonString)
+    val jsonString = Json.encodeToString(parameters)
+    return Json.decodeFromString<T>(jsonString)
 }
