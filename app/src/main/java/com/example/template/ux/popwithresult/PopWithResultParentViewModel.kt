@@ -2,31 +2,26 @@ package com.example.template.ux.popwithresult
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flatMapLatest
-import org.lds.mobile.ext.stateInDefault
-import org.lds.mobile.navigation.ViewModelNavigation
-import org.lds.mobile.navigation.ViewModelNavigationImpl
 import javax.inject.Inject
+import kotlinx.coroutines.flow.mapNotNull
+import org.lds.mobile.ext.stateInDefault
+import org.lds.mobile.navigation3.ViewModelNavigation3
+import org.lds.mobile.navigation3.ViewModelNavigation3Impl
+import org.lds.mobile.navigation3.navigator.ResultStore
 
 @HiltViewModel
 class PopWithResultParentViewModel
 @Inject
 constructor(
-) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
+) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
-    private val navControllerFlow = MutableStateFlow<NavController?>(null)
-    private val currentBackStackEntryFlow = navControllerFlow.filterNotNull().flatMapLatest { it.currentBackStackEntryFlow }
-    private val resultStringFlow = currentBackStackEntryFlow.flatMapLatest {
-        it.savedStateHandle.getStateFlow(PopWithResultChildRoute.Arg.RESULT_STRING, "")
-    }.stateInDefault(viewModelScope, null)
+    val resultStringFlow = ResultStore.getResultFlow<String>(PopWithResultChildViewModel.CHILD_RESULT_KEY).mapNotNull {
+        it?.let { ResultStore.removeResult<String>(PopWithResultChildViewModel.CHILD_RESULT_KEY) }
+    }
 
     val uiState = PopWithResultParentUiState(
-        resultStringFlow = resultStringFlow,
-        onClickMeClicked = { navigate(PopWithResultChildRoute) },
-        onSetNavigator = { navigatorFlow.value = it }
+        resultStringFlow = resultStringFlow.stateInDefault(viewModelScope, ""),
+        onClickMeClicked = { navigate(PopWithResultChildRoute) }
     )
 }

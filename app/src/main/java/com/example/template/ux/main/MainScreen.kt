@@ -127,7 +127,6 @@ import org.lds.mobile.ui.compose.navigation.toEntries
 
 @Composable
 fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewModel()) {
-    SmtLogger.i("""deeplinkRoute:  $deeplinkRoute""")
 
     val navigationState: NavigationState = rememberNavigationState(
         startRoute = HomeRoute,

@@ -1,11 +1,7 @@
 package com.example.template.ux.popwithresult
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import org.lds.mobile.navigation.NavigationRoute
 
 @Serializable
-object PopWithResultChildRoute : NavigationRoute {
-    object Arg {
-        const val RESULT_STRING = "RESULT_STRING"
-    }
-}
+object PopWithResultChildRoute : NavKey

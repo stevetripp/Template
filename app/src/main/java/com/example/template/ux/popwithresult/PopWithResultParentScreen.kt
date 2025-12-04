@@ -11,18 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
-import org.lds.mobile.ui.compose.navigation.HandleNavigation
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
+import org.lds.mobile.ui.compose.navigation.HandleNavigation3
 
 @Composable
 fun PopWithResultParentScreen(navigator: Navigation3Navigator, viewModel: PopWithResultParentViewModel = hiltViewModel()) {
     PopWithResultParentContent(viewModel.uiState, navigator::pop)
     HandleNavigation3(viewModelNavigation = viewModel, navigator = navigator)
-    viewModel.uiState.onSetNavigator(navigator)
 }
 
 @Composable

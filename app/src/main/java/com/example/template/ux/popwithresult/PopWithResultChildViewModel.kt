@@ -3,16 +3,17 @@ package com.example.template.ux.popwithresult
 import androidx.lifecycle.ViewModel
 import com.example.template.util.SmtLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import org.lds.mobile.navigation.PopResultKeyValue
-import org.lds.mobile.navigation.ViewModelNavigation
-import org.lds.mobile.navigation.ViewModelNavigationImpl
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import org.lds.mobile.navigation3.ViewModelNavigation3
+import org.lds.mobile.navigation3.ViewModelNavigation3Impl
+import org.lds.mobile.navigation3.navigator.ResultKey
+import org.lds.mobile.navigation3.navigator.ResultStore
 
 @HiltViewModel
 class PopWithResultChildViewModel
 @Inject
-constructor() : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
+constructor() : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
     private val valueFlow = MutableStateFlow("")
 
@@ -21,7 +22,12 @@ constructor() : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
         onValueChanged = { valueFlow.value = it },
         onPopBackStack = {
             SmtLogger.i("onPopBackStack")
-            popBackStackWithResult(listOf(PopResultKeyValue(PopWithResultChildRoute.Arg.RESULT_STRING, valueFlow.value)))
+            ResultStore.setResult(CHILD_RESULT_KEY, valueFlow.value)
+            popBackStack()
         }
     )
+
+    companion object {
+        val CHILD_RESULT_KEY = object : ResultKey {}
+    }
 }

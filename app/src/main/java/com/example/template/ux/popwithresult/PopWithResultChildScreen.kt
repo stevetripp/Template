@@ -16,20 +16,22 @@ import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.ui.compose.navigation.HandleNavigation3
 
 @Composable
-fun PopWithResultChildScreen(navController: NavController, viewModel: PopWithResultChildViewModel = hiltViewModel()) {
-    PopWithResultChildContent(viewModel.uiState, viewModel.uiState.onPopBackStack)
-    HandleNavigation(viewModelNav = viewModel, navController = navController)
+fun PopWithResultChildScreen(navigator: Navigation3Navigator, viewModel: PopWithResultChildViewModel) {
+    PopWithResultChildContent(viewModel.uiState)
+    HandleNavigation3(viewModelNavigation = viewModel, navigator = navigator)
 }
 
 @Composable
-private fun PopWithResultChildContent(uiState: PopWithResultChildUiState, onBack: () -> Unit = {}) {
+private fun PopWithResultChildContent(uiState: PopWithResultChildUiState) {
     val value by uiState.valueFlow.collectAsStateWithLifecycle()
     Scaffold(
-        topBar = { AppTopAppBar(title = "Pop With Result Child", onBack = onBack) }
+        topBar = { AppTopAppBar(title = "Pop With Result Child", onBack = uiState.onPopBackStack) }
     ) { paddingValues ->
-        Column(modifier = Modifier
-            .padding(paddingValues)
-            .padding(horizontal = 16.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp)
+        ) {
             TextField(value = value, onValueChange = uiState.onValueChanged)
         }
     }
