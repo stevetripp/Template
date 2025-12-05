@@ -50,6 +50,11 @@ class DeepLinkExtTest {
         // Test path and query parameters together
         val deepLink7 = DeepLink(Url("https://example.com/users/456/posts/789?sort=desc&filter=recent"))
         assertThat(deepLink7.matches(DeepLinkPattern(Url("https://example.com/users/{userId}/posts/{postId}")))).isTrue()
+
+        // Test invalid protocol - should not match
+        val deepLink8 = DeepLink(Url("invalid://example.com/users"))
+        assertThat(deepLink8.matches(DeepLinkPattern(Url("https://example.com/users")))).isEqualTo(false)
+        assertThat(deepLink8.matches(DeepLinkPattern(Url("invalid://example.com/users")))).isEqualTo(true)
     }
 
     @Test

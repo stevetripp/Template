@@ -37,7 +37,7 @@ data class DeepLink(val url: Url) {
         val patternSegments = pattern.url.segments.map { it.replace(placeholderRegex, ".*") }
         val targetSegments = url.segments
 
-        if (patternSegments.size != targetSegments.size) return false
+        if (pattern.url.protocol != url.protocol || pattern.url.host != url.host || patternSegments.size != targetSegments.size) return false
 
         patternSegments.forEachIndexed { index, value ->
             if (!targetSegments[index].matches(value.toRegex())) return false
