@@ -27,8 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.ktor.http.Url
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
-import org.lds.mobile.navigation3.matches
-import org.lds.mobile.navigation3.toRoute
+import org.lds.mobile.navigation3.DeepLink
 
 /**
  * MainActivity for the app's main entry point.
@@ -63,10 +62,10 @@ class MainActivity : ComponentActivity() {
         )
 
         val deepLinkRoute: NavKey? = appLinkData?.let {
-            val deepLinkUrl = Url(it.toString())
+            val deepLink = DeepLink(Url(it.toString()))
             when {
-                deepLinkUrl.matches(PullRefreshRoute.deepLinkPattern) -> deepLinkUrl.toRoute<PullRefreshRoute>(PullRefreshRoute.deepLinkPattern).copy(closeOnBack = true)
-                deepLinkUrl.matches(DestinationRoute.deepLinkPattern) -> deepLinkUrl.toRoute<DestinationRoute>(DestinationRoute.deepLinkPattern).copy(closeOnBack = true)
+                deepLink.matches(PullRefreshRoute.deepLinkPattern) -> deepLink.toRoute<PullRefreshRoute>(PullRefreshRoute.deepLinkPattern).copy(closeOnBack = true)
+                deepLink.matches(DestinationRoute.deepLinkPattern) -> deepLink.toRoute<DestinationRoute>(DestinationRoute.deepLinkPattern).copy(closeOnBack = true)
                 else -> null
             }
         }

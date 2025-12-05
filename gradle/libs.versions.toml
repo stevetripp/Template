@@ -1,14 +1,14 @@
 [versions]
 accompanistPermissions = "0.37.3"
 agp = "8.13.1" # see https://developer.android.com/studio/releases/gradle-plugin
-androidxActivity = "1.12.0"
+androidxActivity = "1.12.1"
 androidxBiometric = "1.1.0"
-androidxComposeMaterial = "1.9.5"
+androidxComposeMaterial = "1.10.0"
 androidxComposeMaterial3 = "1.4.0"
 androidxComposeMaterial3Adaptive = "1.2.0"
 androidxComposeMaterial3AdaptiveNavigationSuite = "1.4.0"
 androidxComposeMaterialIconsExtended = "1.7.8"
-androidxComposeUi = "1.9.5"
+androidxComposeUi = "1.10.0"
 androidxCoreSplashscreen = "1.2.0"
 androidxDatastorePreferences = "1.2.0"
 androidxHilt = "1.3.0"
@@ -19,7 +19,7 @@ androidxNavigation3 = "1.0.0"
 androidxTestExtJunit = "1.3.0"
 androidxTestRunner = "1.7.0"
 arturboschDetekt = "1.23.8"
-autonomousappsDependencyAnalysis = "3.5.0"
+autonomousappsDependencyAnalysis = "3.5.1"
 benManesVersions = "0.53.0"
 coil = "2.7.0"
 dagger = "2.57.2"
@@ -36,6 +36,7 @@ touchlabKermit = "2.0.8"
 tripletPlay = "3.12.2"
 undercouchDownload = "5.6.0"
 wajahatkarimFlippable = "1.5.4"
+willowtreeappsAssertk = "0.28.1"
 
 [plugins]
 android-application-plugin = { id = "com.android.application", version.ref = "agp" }
@@ -95,3 +96,4 @@ ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", ver
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 touchlab-kermit = { group = "co.touchlab", name = "kermit", version.ref = "touchlabKermit" }
 wajahatkarim-flippable = { group = "com.wajahatkarim", name = "flippable", version.ref = "wajahatkarimFlippable" } # https://devlibrary.withgoogle.com/products/android/repos/wajahatkarim3-Flippable
+willowtreeapps-assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "willowtreeappsAssertk" }

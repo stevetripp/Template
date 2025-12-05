@@ -1,11 +1,12 @@
 package com.example.template.ux.parameters
 
 import androidx.navigation3.runtime.NavKey
-import com.example.template.util.DeepLink
+import com.example.template.util.AppDeepLinks
 import io.ktor.http.Url
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.lds.mobile.navigation.RouteUtil
+import org.lds.mobile.navigation3.DeepLinkPattern
 
 
 @Serializable
@@ -25,9 +26,11 @@ data class DestinationRoute(
 
 // https://trippntechnology.com/template/DESTINATION/{pathParam1}/{pathParam2}?queryParam1=value&queryParam2=value&queryParam3=value
 val DestinationRoute.Companion.deepLinkPattern
-    get() = Url(
-        "${DeepLink.ROOT}/DESTINATION/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM1)}/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM2)}" +
-                "?${RouteUtil.defineOptionalArgs(DeepLinkArgs.QUERY_PARAM1, DeepLinkArgs.QUERY_PARAM2, DeepLinkArgs.QUERY_PARAM3)}"
+    get() = DeepLinkPattern(
+        Url(
+            "${AppDeepLinks.ROOT}/DESTINATION/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM1)}/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM2)}" +
+                    "?${RouteUtil.defineOptionalArgs(DeepLinkArgs.QUERY_PARAM1, DeepLinkArgs.QUERY_PARAM2, DeepLinkArgs.QUERY_PARAM3)}"
+        )
     )
 
 

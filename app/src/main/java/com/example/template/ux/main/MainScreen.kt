@@ -5,12 +5,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.runtime.serialization.NavKeySerializer
 import androidx.navigation3.ui.NavDisplay
@@ -122,10 +120,12 @@ import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
 import org.lds.mobile.navigation3.NavigationState
 import org.lds.mobile.navigation3.navigator.TopLevelBackStackNavigator
+import org.lds.mobile.ui.compose.navigation.ObserveRouteChanges
 import org.lds.mobile.ui.compose.navigation.rememberNavigationState
 import org.lds.mobile.ui.compose.navigation.toEntries
 
 @Composable
+@Suppress("UnusedParameter")
 fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewModel()) {
 
     val navigationState: NavigationState = rememberNavigationState(
@@ -143,7 +143,7 @@ fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewMo
         entry<BottomNavigationRoute> { BottomNavigationScreen(navigator) }
         entry<BottomSheetRoute> { BottomSheetScreen(navigator) }
         entry<BreadcrumbsRoute> { key ->
-            val breadcrumbRoutes = backstack?.mapNotNull { it as? BreadcrumbRoute } ?: emptyList()
+            val breadcrumbRoutes = backstack?.mapNotNull { it as? BreadcrumbRoute }.orEmpty()
             BreadcrumbsScreen(navigator, breadcrumbRoutes, hiltViewModel())
         }
         entry<ButtonGroupsRoute> { ButtonGroupsScreen(navigator) }
@@ -214,41 +214,3 @@ fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewMo
 }
 
 
-/**
- * Observes changes to the navigation back stack and invokes a callback when the current route changes.
- *
- * This composable tracks the back stack state across recompositions and detects when the current
- * route (last item in the back stack) changes. When a change is detected, it invokes the
- * [onRouteChanged] callback with the new current route.
- *
- * @param currentBackStack The navigation back stack to observe
- * @param ignoreBack If true, skips notification when navigating backwards through the stack.
- *                   Only notifies on forward navigation. Defaults to false.
- * @param onRouteChanged Callback invoked with the current route when it changes
- */
-@Composable
-fun ObserveRouteChanges(currentBackStack: NavBackStack<NavKey>, ignoreBack: Boolean = false, onRouteChanged: (NavKey) -> Unit) {
-    // Track the previous back stack state to detect navigation changes
-    val previousBackStack = rememberNavBackStack()
-
-    // Early exit if back stack size hasn't changed
-    if (previousBackStack.size == currentBackStack.size) return
-
-    // Determine if user is navigating backwards through the stack
-    val navigatingBack = previousBackStack.size > currentBackStack.size
-
-    // Update tracked state with current back stack
-    previousBackStack.clear()
-    previousBackStack.addAll(currentBackStack)
-
-    // Skip logging if we should ignore back navigation
-    if (ignoreBack && navigatingBack) return
-
-    // Get the most recent route from the back stack
-    val currentRoute = currentBackStack.last()
-
-    // Notify via callback when the current route changes
-    LaunchedEffect(currentRoute) {
-        onRouteChanged(currentRoute)
-    }
-}

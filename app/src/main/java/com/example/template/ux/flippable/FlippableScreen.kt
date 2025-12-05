@@ -15,7 +15,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
@@ -26,11 +25,7 @@ import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
 @Composable
 fun FlippableScreen(navigator: Navigation3Navigator) {
-    val context = LocalContext.current
-    FlippableContent(
-        // This is needed for deep linking to close the app when tapping back
-        onBack = navigator::pop
-    )
+    FlippableContent(onBack = navigator::pop)
 }
 
 @Composable
