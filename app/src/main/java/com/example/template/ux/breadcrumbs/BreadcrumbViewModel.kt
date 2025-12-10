@@ -20,13 +20,16 @@ import androidx.lifecycle.ViewModel
  *     )
  * }
  * ```
- *
- * @property breadcrumbRoutes The list of breadcrumb routes for the current screen.
  */
 abstract class BreadcrumbViewModel : ViewModel() {
     /**
-     * The list of breadcrumb routes representing the navigation path.
-     * Subclasses must override this property.
+     * The list of breadcrumb routes representing the navigation path for the current screen.
+     *
+     * Subclasses must override this property to define the breadcrumb trail specific to their screen.
+     * Each [BreadcrumbRoute] in the list represents a step in the navigation hierarchy, typically
+     * ordered from the root (home) to the current screen.
+     *
+     * @see BreadcrumbRoute
      */
     abstract val breadcrumbRoutes: List<BreadcrumbRoute>
 }

@@ -52,5 +52,5 @@ private fun Preview() {
         BreadcrumbsRoute(title = "Section"),
         BreadcrumbsRoute(title = "Details")
     )
-    AppTheme { BreadcrumbsContent(BreadcrumbsUiState()) }
+    AppTheme { BreadcrumbsContent(BreadcrumbsUiState(sampleRoutes)) }
 }
