@@ -15,13 +15,14 @@ import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.ui.compose.navigation.HandleNavigation3
 
 @Composable
-fun BreadcrumbsScreen(navigator: Navigation3Navigator, breadcrumbRoutes: List<BreadcrumbRoute>, viewModel: BreadCrumbsViewModel) {
-    BreadcrumbsContent(viewModel.uiState, breadcrumbRoutes, navigator::pop)
+fun BreadcrumbsScreen(navigator: Navigation3Navigator, viewModel: BreadCrumbsViewModel) {
+    BreadcrumbsContent(viewModel.uiState, navigator::pop)
     HandleNavigation3(viewModel, navigator)
 }
 
 @Composable
-fun BreadcrumbsContent(uiState: BreadcrumbsUiState, breadcrumbRoutes: List<BreadcrumbRoute>, onBack: () -> Unit = {}) {
+fun BreadcrumbsContent(uiState: BreadcrumbsUiState, onBack: () -> Unit = {}) {
+    val breadcrumbRoutes = uiState.breadcrumbRoutes
     val title = breadcrumbRoutes.lastOrNull()?.title.orEmpty()
     val backstack = breadcrumbRoutes.dropLast(1)
 
@@ -38,7 +39,7 @@ fun BreadcrumbsContent(uiState: BreadcrumbsUiState, breadcrumbRoutes: List<Bread
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
-            TextButton({ uiState.onNavigate(backstack) }) { Text(text = "Navigate") }
+            TextButton({ uiState.onNavigate() }) { Text(text = "Navigate") }
         }
     }
 }
@@ -51,5 +52,5 @@ private fun Preview() {
         BreadcrumbsRoute(title = "Section"),
         BreadcrumbsRoute(title = "Details")
     )
-    AppTheme { BreadcrumbsContent(BreadcrumbsUiState(), sampleRoutes) }
+    AppTheme { BreadcrumbsContent(BreadcrumbsUiState()) }
 }

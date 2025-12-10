@@ -21,6 +21,7 @@ import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomSheet.BottomSheetScreen
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
+import com.example.template.ux.breadcrumbs.BreadCrumbsViewModel
 import com.example.template.ux.breadcrumbs.BreadcrumbRoute
 import com.example.template.ux.breadcrumbs.BreadcrumbsRoute
 import com.example.template.ux.breadcrumbs.BreadcrumbsScreen
@@ -136,15 +137,18 @@ fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewMo
 
     val navigator: TopLevelBackStackNavigator = TopLevelBackStackNavigator(navigationState)
     val backstack = navigator.getCurrentBackStack()
+    val breadcrumbRoutes = backstack?.mapNotNull { it as? BreadcrumbRoute }.orEmpty()
 
     val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
         entry<AboutRoute> { AboutScreen(navigator) }
         entry<AnimatedGesturesRoute> { AnimatedGestureScreen(navigator) }
         entry<BottomNavigationRoute> { BottomNavigationScreen(navigator) }
         entry<BottomSheetRoute> { BottomSheetScreen(navigator) }
-        entry<BreadcrumbsRoute> { key ->
-            val breadcrumbRoutes = backstack?.mapNotNull { it as? BreadcrumbRoute }.orEmpty()
-            BreadcrumbsScreen(navigator, breadcrumbRoutes, hiltViewModel())
+        entry<BreadcrumbsRoute> {
+            BreadcrumbsScreen(
+                navigator = navigator,
+                viewModel = hiltViewModel<BreadCrumbsViewModel, BreadCrumbsViewModel.Factory>(creationCallback = { factory -> factory.create(breadcrumbRoutes) })
+            )
         }
         entry<ButtonGroupsRoute> { ButtonGroupsScreen(navigator) }
         entry<CarouselRoute> { CarouselScreen(navigator) }

@@ -32,8 +32,8 @@ fun ObserveRouteChanges(currentBackStack: NavBackStack<NavKey>, ignoreBack: Bool
     // Track the previous back stack state to detect navigation changes
     val previousBackStack = rememberNavBackStack()
 
-    // Early exit if back stack size hasn't changed
-    if (previousBackStack.size == currentBackStack.size) return
+    // Early exit if back stack hasn't changed
+    if (previousBackStack == currentBackStack) return
 
     // Determine if user is navigating backwards through the stack (before updating state)
     val navigatingBack = previousBackStack.size > currentBackStack.size
