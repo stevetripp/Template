@@ -17,8 +17,9 @@ fun ChildWithNavigationScreen(navigator: Navigation3Navigator) {
         }
     }
     MainAppScaffoldWithNavBar(
-        navigator,
         title = Screen.CHILD_WITH_NAVIGATION.title,
+        selectedRoute = navigator.getSelectedTopLevelRoute(),
+        onNavBarItemSelected = { navBarItem, reselected -> navigator.navigateTopLevel(navBarItem.route, reselected) },
         onNavigationClick = navigator::pop,
         floatingActionButton = fab
     ) {

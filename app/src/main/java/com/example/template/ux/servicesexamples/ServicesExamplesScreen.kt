@@ -35,7 +35,12 @@ fun ServicesExamplesScreen(navigator: Navigation3Navigator, viewModel: ServicesE
 @Composable
 fun ServicesExamplesContent(navigator: Navigation3Navigator, uiState: ServicesExamplesScreenUiState) {
     val screens by uiState.screensFlow.collectAsStateWithLifecycle()
-    MainAppScaffoldWithNavBar(navigator, title = Screen.SERVICE_EXAMPLES.title, navigationIconVisible = false) {
+    MainAppScaffoldWithNavBar(
+        title = Screen.SERVICE_EXAMPLES.title,
+        selectedRoute = navigator.getSelectedTopLevelRoute(),
+        onNavBarItemSelected = { navBarItem, reselected -> navigator.navigateTopLevel(navBarItem.route, reselected) },
+        navigationIconVisible = false
+    ) {
         LazyVerticalGrid(
             modifier = Modifier.padding(horizontal = 16.dp),
             columns = GridCells.Fixed(2),

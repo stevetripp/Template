@@ -41,18 +41,14 @@ fun HomeScreen(navigator: Navigation3Navigator, viewModel: HomeViewModel) {
 @Composable
 fun HomeContent(navigator: Navigation3Navigator, uiState: HomeScreenUiState) {
     val screens by uiState.screensFlow.collectAsStateWithLifecycle()
-//    val statusBarHeight = with(LocalDensity.current) {
-//        WindowInsets.systemBars.getTop(this).toDp()
-//    }
-
     val appBarMenu: @Composable RowScope.() -> Unit = {
         IconButton(uiState.onSettingsClicked) { Icon(Icons.Default.Settings, contentDescription = null) }
     }
 
     MainAppScaffoldWithNavBar(
-        navigator = navigator,
-//        modifier = Modifier.padding(top = statusBarHeight),
         title = Screen.HOME.title,
+        selectedRoute = navigator.getSelectedTopLevelRoute(),
+        onNavBarItemSelected = { navBarItem, reselected -> navigator.navigateTopLevel(navBarItem.route, reselected) },
         navigationIconVisible = false,
         actions = { appBarMenu() }
     ) {

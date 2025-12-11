@@ -30,16 +30,18 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.navigation3.runtime.NavKey
+import com.example.template.util.SmtLogger
 import com.example.template.ux.main.NavBarItem
-import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.ui.compose.WindowSize
 import org.lds.mobile.ui.compose.rememberWindowSize
 import org.lds.mobile.ui.ext.requireActivity
 
 @Composable
 fun MainAppScaffoldWithNavBar(
-    navigator: Navigation3Navigator,
     title: String,
+    selectedRoute: NavKey,
+    onNavBarItemSelected: (NavBarItem, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -52,8 +54,9 @@ fun MainAppScaffoldWithNavBar(
     content: @Composable () -> Unit,
 ) {
     MainAppScaffoldWithNavBar(
-        navigator,
         title = { Text(text = title) },
+        selectedRoute = selectedRoute,
+        onNavBarItemSelected = onNavBarItemSelected,
         modifier = modifier,
         navigationIconVisible = navigationIconVisible,
         navigationIcon = navigationIcon,
@@ -69,8 +72,9 @@ fun MainAppScaffoldWithNavBar(
 
 @Composable
 fun MainAppScaffoldWithNavBar(
-    navigator: Navigation3Navigator,
     title: @Composable () -> Unit,
+    selectedRoute: NavKey,
+    onNavBarItemSelected: (NavBarItem, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -113,14 +117,15 @@ fun MainAppScaffoldWithNavBar(
         layoutType = if (hideNavigation) NavigationSuiteType.None else getNavigationSuiteType(windowDpSize.toDpSize()),
         navigationSuiteItems = {
             NavBarItem.entries.forEach { navBarItem ->
-                val selected = navBarItem.route == navigator.getSelectedTopLevelRoute()
+                val selected = navBarItem.route == selectedRoute
+                SmtLogger.i("""navBarItem: $navBarItem selected: $selected""")
                 val imageVector = if (selected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector
 
                 item(
                     selected = selected,
                     icon = { Icon(imageVector = imageVector, contentDescription = null) },
                     label = { navBarItem.text?.let { Text(text = it, maxLines = 1) } },
-                    onClick = { navigator.navigateTopLevel(navBarItem.route, reselected = selected) }
+                    onClick = { onNavBarItemSelected(navBarItem, selected) }
                 )
             }
         },
