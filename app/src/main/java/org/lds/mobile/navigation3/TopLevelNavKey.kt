@@ -1,3 +1,5 @@
 package org.lds.mobile.navigation3
 
-interface TopLevelNavKey
+import androidx.navigation3.runtime.NavKey
+
+interface TopLevelNavKey : NavKey
