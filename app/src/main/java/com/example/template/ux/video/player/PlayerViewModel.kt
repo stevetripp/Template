@@ -11,19 +11,17 @@ import com.example.template.ux.NavTypeMaps
 import com.example.template.ux.video.TestData
 import com.example.template.ux.video.VideoId
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.lds.media.cast.CastManager
-import org.lds.mobile.navigation.ViewModelNavigation
-import org.lds.mobile.navigation.ViewModelNavigationImpl
 import org.lds.mobile.util.LdsDeviceUtil
-import javax.inject.Inject
 
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     deviceUtil: LdsDeviceUtil,
-) : ViewModel(), ViewModelNavigation by ViewModelNavigationImpl() {
+) : ViewModel() {
 
     private val playerRoute = savedStateHandle.toRoute<PlayerRoute>(NavTypeMaps.typeMap)
     private val videoId = playerRoute.videoId
