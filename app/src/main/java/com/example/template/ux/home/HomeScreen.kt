@@ -46,9 +46,8 @@ fun HomeContent(navigator: Navigation3Navigator, uiState: HomeScreenUiState) {
     }
 
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = Screen.HOME.title,
-        selectedRoute = navigator.getSelectedTopLevelRoute(),
-        onNavBarItemSelected = { navBarItem, reselected -> navigator.navigateTopLevel(navBarItem.route, reselected) },
         navigationIconVisible = false,
         actions = { appBarMenu() }
     ) {

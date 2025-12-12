@@ -12,11 +12,10 @@ fun ChildWithoutNavigationScreen(navigator: Navigation3Navigator) {
 @Composable
 fun ChildWithoutNavigationContent(navigator: Navigation3Navigator) {
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = "Child Without Navigation",
-        selectedRoute = navigator.getSelectedTopLevelRoute(),
-        onNavBarItemSelected = { navBarItem, reselected -> navigator.navigateTopLevel(navBarItem.route, reselected) },
         hideNavigation = true,
-        onNavigationClick = navigator::pop
-    ) {
-    }
+        onNavigationClick = navigator::pop,
+        content = { }
+    )
 }

@@ -8,10 +8,9 @@ import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 @Composable
 fun AboutScreen(navigator: Navigation3Navigator) {
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = Screen.ABOUT.title,
-        selectedRoute = navigator.getSelectedTopLevelRoute(),
-        onNavBarItemSelected = { navBarItem, reselected -> navigator.navigateTopLevel(navBarItem.route, reselected) },
         navigationIconVisible = false,
-    ) {
-    }
+        content = { },
+    )
 }

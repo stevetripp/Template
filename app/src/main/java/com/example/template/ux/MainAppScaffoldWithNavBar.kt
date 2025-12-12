@@ -16,10 +16,14 @@ import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.currentWindowSize
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffoldDefaults
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -30,18 +34,20 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.navigation3.runtime.NavKey
-import com.example.template.util.SmtLogger
+import com.example.template.ui.PreviewPhoneOrientations
+import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.NavBarItem
+import org.lds.mobile.navigation3.NavigationState
+import org.lds.mobile.navigation3.navigator.Navigation3Navigator
+import org.lds.mobile.navigation3.navigator.TopLevelBackStackNavigator
 import org.lds.mobile.ui.compose.WindowSize
 import org.lds.mobile.ui.compose.rememberWindowSize
 import org.lds.mobile.ui.ext.requireActivity
 
 @Composable
 fun MainAppScaffoldWithNavBar(
+    navigator: Navigation3Navigator,
     title: String,
-    selectedRoute: NavKey,
-    onNavBarItemSelected: (NavBarItem, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -54,9 +60,8 @@ fun MainAppScaffoldWithNavBar(
     content: @Composable () -> Unit,
 ) {
     MainAppScaffoldWithNavBar(
+        navigator = navigator,
         title = { Text(text = title) },
-        selectedRoute = selectedRoute,
-        onNavBarItemSelected = onNavBarItemSelected,
         modifier = modifier,
         navigationIconVisible = navigationIconVisible,
         navigationIcon = navigationIcon,
@@ -72,9 +77,8 @@ fun MainAppScaffoldWithNavBar(
 
 @Composable
 fun MainAppScaffoldWithNavBar(
+    navigator: Navigation3Navigator,
     title: @Composable () -> Unit,
-    selectedRoute: NavKey,
-    onNavBarItemSelected: (NavBarItem, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     navigationIconVisible: Boolean = true,
     navigationIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -88,7 +92,7 @@ fun MainAppScaffoldWithNavBar(
 ) {
     val isPreview = LocalInspectionMode.current
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior() // Set to TopAppBarDefaults.pinnedScrollBehavior() when not MediumTopAppBar
-    val windowDpSize = if (isPreview) IntSize(0, 0) else currentWindowSize()
+    val windowDpSize = currentWindowSize()
 
     // TopAppBar
     val topAppBar: @Composable (() -> Unit) = {
@@ -117,15 +121,13 @@ fun MainAppScaffoldWithNavBar(
         layoutType = if (hideNavigation) NavigationSuiteType.None else getNavigationSuiteType(windowDpSize.toDpSize()),
         navigationSuiteItems = {
             NavBarItem.entries.forEach { navBarItem ->
-                val selected = navBarItem.route == selectedRoute
-                SmtLogger.i("""navBarItem: $navBarItem selected: $selected""")
+                val selected = navBarItem.route == navigator.getSelectedTopLevelRoute()
                 val imageVector = if (selected) navBarItem.selectedImageVector else navBarItem.unselectedImageVector
-
                 item(
                     selected = selected,
                     icon = { Icon(imageVector = imageVector, contentDescription = null) },
                     label = { navBarItem.text?.let { Text(text = it, maxLines = 1) } },
-                    onClick = { onNavBarItemSelected(navBarItem, selected) }
+                    onClick = { navigator.navigateTopLevel(navBarItem.route, selected) }
                 )
             }
         },
@@ -166,13 +168,14 @@ fun MainAppScaffoldWithNavBar(
  * - Navigation Rail for medium and expanded window sizes up to 1240dp (between 600dp and 1240dp)
  * - Navigation Drawer to window size above 1240dp
  */
+@Composable
 fun getNavigationSuiteType(windowSize: DpSize): NavigationSuiteType {
     return if (windowSize.width > 1240.dp) {
         NavigationSuiteType.NavigationDrawer
     } else if (windowSize.width >= 600.dp) {
         NavigationSuiteType.NavigationRail
     } else {
-        NavigationSuiteType.NavigationBar
+        NavigationSuiteScaffoldDefaults.navigationSuiteType(currentWindowAdaptiveInfo())
     }
 }
 
@@ -180,3 +183,31 @@ fun getNavigationSuiteType(windowSize: DpSize): NavigationSuiteType {
 private fun IntSize.toDpSize(): DpSize = with(LocalDensity.current) {
     DpSize(width.toDp(), height.toDp())
 }
+
+@PreviewPhoneOrientations
+@Composable
+private fun MainAppScaffoldWithNavBarPreview() {
+    // Create mock navigation state for preview
+    val startRoute = NavBarItem.entries.first().route
+    val navigationState = remember {
+        NavigationState(
+            startRoute = startRoute,
+            topLevelRoute = mutableStateOf(startRoute),
+            backStacks = mapOf()
+        )
+    }
+    val mockNavigator = remember { TopLevelBackStackNavigator(navigationState) }
+
+    AppTheme {
+        MainAppScaffoldWithNavBar(
+            navigator = mockNavigator,
+            title = "Preview Title",
+            content = {
+                Box(modifier = Modifier.padding(16.dp)) {
+                    Text("Sample Content")
+                }
+            }
+        )
+    }
+}
+

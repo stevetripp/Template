@@ -1,7 +1,7 @@
 package com.example.template.ux.about
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import org.lds.mobile.navigation3.TopLevelNavKey
 
 @Serializable
-object AboutRoute : TopLevelNavKey
+object AboutRoute : NavKey

@@ -25,7 +25,7 @@ annotation class PreviewPhoneOrientations
 annotation class PreviewPhonePortrait
 
 @Preview(group = "PhoneLandscape", device = "spec:width=411dp,height=891dp,orientation=landscape,dpi=420", name = "Phone Landscape Light")
-@Preview(group = "PhoneLandscape", device = "spec:width=411dp,height=891dp,orientation=landscape,dpi=420", uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL, name = "Phone Landscape Light")
+@Preview(group = "PhoneLandscape", device = "spec:width=411dp,height=891dp,orientation=landscape,dpi=420", uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL, name = "Phone Landscape Dark")
 annotation class PreviewPhoneLandscape
 
 class PreviewNavigator : Navigation3Navigator {
