@@ -200,11 +200,9 @@ class PlayerActivity : AppCompatActivity(), PlayerManager.Listener {
     // End demo code
 
     companion object {
-        private const val EXTRA_VIDEO_ID = "videoId"
-
         fun launch(context: Context, videoId: VideoId) {
             val intent = Intent(context, PlayerActivity::class.java).apply {
-                putExtra(EXTRA_VIDEO_ID, videoId.value)
+                putExtra(PlayerRouteArgs.VIDEO_ID, videoId.value)
             }
             context.startActivity(intent)
         }

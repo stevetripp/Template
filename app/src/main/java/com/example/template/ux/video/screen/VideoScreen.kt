@@ -43,6 +43,7 @@ fun VideoContent(uiState: VideoScreenUiState, onBack: () -> Unit = {}) {
             item { Text(text = "HLS Streams", fontWeight = FontWeight.Bold) }
             items(videoItems) {
                 TextButton(onClick = { uiState.onLaunchPlayer(context, it) }) { Text(text = it.hlsUrl.value, maxLines = 1) }
+//                TextButton(onClick = { uiState.onHlsStreamTapped(it) }) { Text(text = it.hlsUrl.value, maxLines = 1) }
             }
             item { Text(text = "Video Renditions", fontWeight = FontWeight.Bold) }
             items(videoItems) {

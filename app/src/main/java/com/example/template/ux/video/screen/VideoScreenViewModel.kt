@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.template.ui.dialog.DialogUiState
 import com.example.template.ui.dialog.ExampleAlertDialogUiState
 import com.example.template.ui.dialog.dismissDialog
+import com.example.template.util.SmtLogger
 import com.example.template.ux.video.TestData
 import com.example.template.ux.video.VideoItem
 import com.example.template.ux.video.player.PlayerActivity
@@ -35,11 +36,13 @@ class VideoScreenViewModel @Inject constructor() : ViewModel(), ViewModelNavigat
     )
 
     private fun onLaunchPlayer(context: Context, videoItem: VideoItem) {
+        SmtLogger.i("""here""")
         val activity = context.requireActivity()
         PlayerActivity.launch(activity, videoItem.id)
     }
 
     private fun onHlsStreamTapped(videoItem: VideoItem) {
+        SmtLogger.i("""here""")
         // NOTE: Prefer calling this rather than onLaunchPlayer, but resulted in black screen when navigating back
         navigate(PlayerRoute(videoItem.id))
     }

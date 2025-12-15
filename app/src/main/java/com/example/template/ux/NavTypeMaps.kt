@@ -2,7 +2,6 @@ package com.example.template.ux
 
 import android.os.Bundle
 import androidx.navigation.NavType
-import com.example.template.ux.parameters.Parameter1
 import com.example.template.ux.video.VideoId
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
@@ -15,20 +14,6 @@ import kotlin.reflect.typeOf
  * 2. If value for NavType<XXX> is complex (class with multiple variables) use Json.encodeToString<XXX>(value) and Json.decodeFromString<XXX>(value)
  */
 object NavTypeMaps {
-    val Parameter1NavType = object : NavType<Parameter1>(isNullableAllowed = false) {
-        override fun get(bundle: Bundle, key: String): Parameter1? = bundle.getString(key)?.let { parseValue(it) }
-        override fun parseValue(value: String): Parameter1 = Parameter1(value)
-        override fun put(bundle: Bundle, key: String, value: Parameter1) = bundle.putString(key, serializeAsValue(value))
-        override fun serializeAsValue(value: Parameter1): String = value.value
-    }
-
-    val Parameter1NullableNavType = object : NavType<Parameter1?>(isNullableAllowed = true) {
-        override fun get(bundle: Bundle, key: String): Parameter1? = bundle.getString(key)?.let { parseValue(it) }
-        override fun parseValue(value: String): Parameter1? = if (value.isBlank()) null else Parameter1(value)
-        override fun put(bundle: Bundle, key: String, value: Parameter1?) = bundle.putString(key, serializeAsValue(value))
-        override fun serializeAsValue(value: Parameter1?): String = value?.value.orEmpty()
-    }
-
     val VideoIdNavType = object : NavType<VideoId>(isNullableAllowed = false) {
         override fun get(bundle: Bundle, key: String): VideoId? = bundle.getString(key)?.let { parseValue(it) }
         override fun parseValue(value: String): VideoId = VideoId(value)
@@ -42,10 +27,8 @@ object NavTypeMaps {
     @Suppress("UNCHECKED_CAST")
     val typeMap: Map<KType, NavType<*>> = mapOf(
         // Non-nullable types
-        typeOf<Parameter1>() to Parameter1NavType,
         typeOf<VideoId>() to VideoIdNavType,
 
         // Nullable types
-        typeOf<Parameter1?>() to Parameter1NullableNavType
     )
 }
