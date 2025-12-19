@@ -1,6 +1,7 @@
 package com.example.template.ux.parameters
 
 import androidx.lifecycle.ViewModel
+import com.example.template.domain.Parameter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,9 +33,9 @@ class ParametersViewModel
         if (reqParam1Flow.value.isBlank()) return
         navigate(
             DestinationRoute(
-                reqParam1 = Parameter1(reqParam1Flow.value),
+                reqParam1 = Parameter(reqParam1Flow.value),
                 reqParam2 = reqParam2Flow.value,
-                optParam1 = optParam1Flow.value?.let { Parameter1(it) },
+                optParam1 = optParam1Flow.value?.let { Parameter(it) },
                 optParam2 = optParam2Flow.value
             )
         )

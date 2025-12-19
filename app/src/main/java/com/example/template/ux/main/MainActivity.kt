@@ -57,7 +57,6 @@ class MainActivity : ComponentActivity() {
             """appLinkIntent: $appLinkIntent
             |appLinkAction: $appLinkAction
             |appLinkData: $appLinkData
-            |deepLinkUri: ${PullRefreshRoute.deepLinkPattern}
         """.trimMargin()
         )
 

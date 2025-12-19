@@ -37,10 +37,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="https" />
-                <data android:host="trippntechnology.com" />
-                <!-- pathPrefix is used to limit access to a specific path -->
-                <!-- <data android:pathPrefix="/deeplink" />-->
+                <data
+                    android:host="trippntechnology.com"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 

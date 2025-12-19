@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.template.domain.Parameter
 import com.example.template.ui.composable.AppTopAppBar
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.lds.mobile.navigation3.navigator.Navigation3Navigator
@@ -61,9 +62,9 @@ fun DestinationContent(uiState: DestinationUiState, onBack: () -> Unit) {
 @Composable
 fun DestinationContentPreview() {
     val mockUiState = DestinationUiState(
-        reqParam1Flow = MutableStateFlow(Parameter1("Sample Value")),
+        reqParam1Flow = MutableStateFlow(Parameter("Sample Value")),
         reqParam2Flow = MutableStateFlow(EnumParameter.TWO),
-        optParam1Flow = MutableStateFlow(Parameter1("Optional Value")),
+        optParam1Flow = MutableStateFlow(Parameter("Optional Value")),
         optParam2Flow = MutableStateFlow(EnumParameter.THREE)
     )
     DestinationContent(uiState = mockUiState, onBack = {})

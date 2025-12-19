@@ -20,7 +20,7 @@ import androidx.media3.ui.PlayerView
 import com.example.template.R
 import com.example.template.databinding.ActivityVideoBinding
 import com.example.template.util.SmtLogger
-import com.example.template.ux.video.VideoId
+import com.example.template.domain.VideoId
 import com.google.android.gms.cast.framework.CastButtonFactory
 import com.google.android.gms.cast.framework.CastContext
 import com.google.common.util.concurrent.MoreExecutors

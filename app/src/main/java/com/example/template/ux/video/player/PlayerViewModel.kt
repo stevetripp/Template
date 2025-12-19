@@ -9,7 +9,7 @@ import androidx.media3.common.MimeTypes
 import androidx.navigation.toRoute
 import com.example.template.ux.NavTypeMaps
 import com.example.template.ux.video.TestData
-import com.example.template.ux.video.VideoId
+import com.example.template.domain.VideoId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

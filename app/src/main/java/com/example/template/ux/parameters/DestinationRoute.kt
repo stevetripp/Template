@@ -1,6 +1,7 @@
 package com.example.template.ux.parameters
 
 import androidx.navigation3.runtime.NavKey
+import com.example.template.domain.Parameter
 import com.example.template.util.AppDeepLinks
 import io.ktor.http.Url
 import kotlinx.serialization.SerialName
@@ -12,11 +13,11 @@ import org.lds.mobile.navigation3.DeepLinkPattern
 @Serializable
 data class DestinationRoute(
     @SerialName(DeepLinkArgs.PATH_PARAM1)
-    val reqParam1: Parameter1,
+    val reqParam1: Parameter,
     @SerialName(DeepLinkArgs.PATH_PARAM2)
     val reqParam2: EnumParameter,
     @SerialName(DeepLinkArgs.QUERY_PARAM1)
-    val optParam1: Parameter1? = null,
+    val optParam1: Parameter? = null,
     @SerialName(DeepLinkArgs.QUERY_PARAM2)
     val optParam2: EnumParameter? = null,
     @SerialName(DeepLinkArgs.QUERY_PARAM3)
@@ -24,7 +25,7 @@ data class DestinationRoute(
     val closeOnBack: Boolean = false
 ) : NavKey
 
-// https://trippntechnology.com/template/DESTINATION/{pathParam1}/{pathParam2}?queryParam1=value&queryParam2=value&queryParam3=value
+// adb shell am start -a android.intent.action.VIEW -d 'https://trippntechnology.com/template/DESTINATION/value1/TWO?queryParam1=firstvalue&queryParam2=ONE'
 val DestinationRoute.Companion.deepLinkPattern
     get() = DeepLinkPattern(
         Url(
@@ -41,10 +42,6 @@ object DeepLinkArgs {
     const val QUERY_PARAM2 = "queryParam2"
     const val QUERY_PARAM3 = "queryParam3"
 }
-
-@JvmInline
-@Serializable
-value class Parameter1(val value: String)
 
 enum class EnumParameter(val value: String) {
     ONE("One"),
