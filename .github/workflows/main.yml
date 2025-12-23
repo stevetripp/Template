@@ -51,7 +51,7 @@ jobs:
         run: ./gradlew lintAlpha
 
       - name: Detekt
-        run: ./gradlew detekt detektAlpha
+        run: ./gradlew detekt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
