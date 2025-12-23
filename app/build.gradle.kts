@@ -172,6 +172,7 @@ dependencies {
     implementation(libs.wajahatkarim.flippable)
 
     ksp(libs.dagger.hilt.android.compiler)
+    ksp(libs.kotlinx.metadata.jvm)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
