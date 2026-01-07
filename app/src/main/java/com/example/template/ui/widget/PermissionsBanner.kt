@@ -28,6 +28,7 @@ fun PermissionsBanner(
     permissions: List<String>,
     modifier: Modifier = Modifier,
     showSystemSettings: () -> Unit,
+    @Suppress("UnusedParameter")
     onPermissionStatusChanged: ((PermissionStatus) -> Unit)? = null,
 ) {
     val permissionState = rememberMultiplePermissionsState(permissions)

@@ -18,7 +18,7 @@ androidxNavigation = "2.9.6"
 androidxNavigation3 = "1.0.0"
 androidxTestExtJunit = "1.3.0"
 androidxTestRunner = "1.7.0"
-arturboschDetekt = "1.23.8"
+arturboschDetekt = "2.0.0-alpha.1"
 autonomousappsDependencyAnalysis = "3.5.1"
 benManesVersions = "0.53.0"
 coil = "2.7.0"
@@ -40,17 +40,17 @@ wajahatkarimFlippable = "1.5.4"
 willowtreeappsAssertk = "0.28.1"
 
 [plugins]
-android-application-plugin = { id = "com.android.application", version.ref = "agp" }
-arturbosch-detekt-plugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "arturboschDetekt" }
-autonomousapps-dependency-analysis-plugin = { id = "com.autonomousapps.dependency-analysis", version.ref = "autonomousappsDependencyAnalysis" }
-ben-manes-versions-plugin = { id = "com.github.ben-manes.versions", version.ref = "benManesVersions" } # ./gradlew dependencyUpdates -Drevision=release
-dagger-hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
-kotlin-android-plugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-compose-plugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-serialization-plugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp-plugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-triplet-play-plugin = { id = "com.github.triplet.play", version.ref = "tripletPlay" }
-undercouch-download-plugin = { id = "de.undercouch.download", version.ref = "undercouchDownload" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+arturbosch-detekt = { id = "dev.detekt", version.ref = "arturboschDetekt" }
+autonomousapps-dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "autonomousappsDependencyAnalysis" }
+ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "benManesVersions" } # ./gradlew dependencyUpdates -Drevision=release
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+triplet-play = { id = "com.github.triplet.play", version.ref = "tripletPlay" }
+undercouch-download = { id = "de.undercouch.download", version.ref = "undercouchDownload" }
 
 [libraries]
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanistPermissions" }

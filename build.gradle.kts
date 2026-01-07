@@ -1,18 +1,20 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import de.undercouch.gradle.tasks.download.Download
+import dev.detekt.gradle.Detekt
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
-    alias(libs.plugins.android.application.plugin) apply false
-    alias(libs.plugins.arturbosch.detekt.plugin) apply false
-    alias(libs.plugins.autonomousapps.dependency.analysis.plugin)
-    alias(libs.plugins.ben.manes.versions.plugin)
-    alias(libs.plugins.dagger.hilt.plugin) apply false
-    alias(libs.plugins.kotlin.android.plugin) apply false
-    alias(libs.plugins.kotlin.compose.plugin) apply false
-    alias(libs.plugins.kotlin.serialization.plugin) apply false
-    alias(libs.plugins.ksp.plugin) apply false
-    alias(libs.plugins.undercouch.download.plugin) apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.arturbosch.detekt)
+    alias(libs.plugins.autonomousapps.dependency.analysis)
+    alias(libs.plugins.ben.manes.versions)
+    alias(libs.plugins.dagger.hilt) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.undercouch.download)
 }
 
 // ===== Gradle Dependency Check =====
@@ -72,5 +74,41 @@ fun depGroupAndName(dependency: Provider<MinimalExternalModuleDependency>): Stri
 }
 
 tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+    delete(layout.buildDirectory)
 }
+
+allprojects {
+    apply(plugin = "dev.detekt")
+    apply(plugin = "de.undercouch.download")
+
+    // ===== Detekt =====
+    // download detekt config file
+    tasks.register<Download>("downloadDetektConfig") {
+        src("https://mobile-cdn.churchofjesuschrist.org/android/build/detekt/v2/detektConfig-latest.yml")
+        dest("$projectDir/build/config/detektConfig.yml")
+        onlyIf { !file("$projectDir/build/config/detektConfig.yml").exists() }
+    }
+
+    // ./gradlew detekt
+    // ./gradlew detektDebug (support type checking)
+    detekt {
+        // Only analyze actual source directories, not generated code
+//        source.setFrom("src/main/java", "src/main/kotlin", "src/commonMain/kotlin", "src/desktopMain/kotlin", "src/androidMain/kotlin")
+        allRules = true // fail build on any finding
+        buildUponDefaultConfig = true // preconfigure defaults
+        config.setFrom(files("$projectDir/build/config/detektConfig.yml")) // point to your custom config defining rules to run, overwriting default behavior
+    }
+
+    tasks.withType<Detekt>().configureEach {
+        // Exclude generated files and ImageVector files
+        exclude("**/ui/compose/icons/**")
+//        exclude { it.file.absolutePath.contains("generated") } // temporary fix to exclude generated files.
+
+        dependsOn("downloadDetektConfig")
+
+        reports {
+            html.required.set(true) // observe findings in your browser with structure and code snippets
+        }
+    }
+}
+
