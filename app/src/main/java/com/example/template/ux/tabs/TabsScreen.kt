@@ -14,10 +14,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,7 +47,7 @@ fun TabsContent(onBack: () -> Unit = {}) {
         val tabTitles = listOf("Hello", "There", "World")
         val pagerState = rememberPagerState { tabTitles.size }
         Column(modifier = Modifier.padding(paddingValues)) {
-            TabRow(selectedTabIndex = tabIndex) {
+            PrimaryTabRow(selectedTabIndex = tabIndex) {
                 tabTitles.forEachIndexed { index, title ->
 //                    CustomTab(title = title, selected = tabIndex == index, onClick = { tabIndex = index })
                     Tab(selected = tabIndex == index, onClick = { tabIndex = index }, text = { Text(text = title) })
