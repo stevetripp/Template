@@ -2,11 +2,13 @@ package com.example.template.ux.parameters
 
 import androidx.navigation3.runtime.NavKey
 import com.example.template.domain.Parameter
-import com.example.template.util.AppDeepLinks
+import com.example.template.util.DeepLinkConstants
+import com.example.template.util.ext.addPathSegmentVariables
+import com.example.template.util.ext.addPathSegments
+import com.example.template.util.ext.addQueryParameterVariables
 import io.ktor.http.Url
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.lds.mobile.navigation.RouteUtil
 import org.lds.mobile.navigation3.DeepLinkPattern
 
 
@@ -26,14 +28,19 @@ data class DestinationRoute(
 ) : NavKey
 
 // adb shell am start -a android.intent.action.VIEW -d 'https://trippntechnology.com/template/DESTINATION/value1/TWO?queryParam1=firstvalue&queryParam2=ONE'
-val DestinationRoute.Companion.deepLinkPattern
-    get() = DeepLinkPattern(
-        Url(
-            "${AppDeepLinks.ROOT}/DESTINATION/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM1)}/${RouteUtil.defineArg(DeepLinkArgs.PATH_PARAM2)}" +
-                    "?${RouteUtil.defineOptionalArgs(DeepLinkArgs.QUERY_PARAM1, DeepLinkArgs.QUERY_PARAM2, DeepLinkArgs.QUERY_PARAM3)}"
-        )
-    )
+// adb shell am start -a android.intent.action.VIEW -d 'myscheme://template/DESTINATION/value1/TWO?queryParam1=firstvalue&queryParam2=TWO'
 
+val DestinationRoute.Companion.deepLinkPatterns
+    get() = listOf(
+        DeepLinkPattern(Url(DeepLinkConstants.HTTPS_ROOT))
+            .addPathSegments(DeepLinkConstants.PATH_PREFIX, "DESTINATION")
+            .addPathSegmentVariables(DeepLinkArgs.PATH_PARAM1, DeepLinkArgs.PATH_PARAM2)
+            .addQueryParameterVariables(DeepLinkArgs.QUERY_PARAM1, DeepLinkArgs.QUERY_PARAM2, DeepLinkArgs.QUERY_PARAM3),
+        DeepLinkPattern(Url(DeepLinkConstants.CUSTOM_ROOT))
+            .addPathSegments("DESTINATION")
+            .addPathSegmentVariables(DeepLinkArgs.PATH_PARAM1, DeepLinkArgs.PATH_PARAM2)
+            .addQueryParameterVariables(DeepLinkArgs.QUERY_PARAM1, DeepLinkArgs.QUERY_PARAM2, DeepLinkArgs.QUERY_PARAM3)
+    )
 
 object DeepLinkArgs {
     const val PATH_PARAM1 = "pathParam1"

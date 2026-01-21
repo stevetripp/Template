@@ -16,13 +16,13 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation3.runtime.NavKey
 import com.example.template.ui.theme.AppTheme
+import com.example.template.util.DeepLinkConstants
 import com.example.template.util.SmtLogger
 import com.example.template.ux.parameters.DestinationRoute
-import com.example.template.ux.parameters.deepLinkPattern
+import com.example.template.ux.parameters.deepLinkPatterns
 import com.example.template.ux.pullrefresh.PullRefreshRoute
-import com.example.template.ux.pullrefresh.deepLinkPattern
+import com.example.template.ux.pullrefresh.deepLinkPatterns
 import dagger.hilt.android.AndroidEntryPoint
 import io.ktor.http.Url
 import kotlinx.coroutines.channels.Channel
@@ -60,13 +60,21 @@ class MainActivity : ComponentActivity() {
         """.trimMargin()
         )
 
-        val deepLinkRoute: NavKey? = appLinkData?.let {
-            val deepLink = DeepLink(Url(it.toString()))
-            when {
-                deepLink.matches(PullRefreshRoute.deepLinkPattern) -> deepLink.toRoute<PullRefreshRoute>(PullRefreshRoute.deepLinkPattern).copy(closeOnBack = true)
-                deepLink.matches(DestinationRoute.deepLinkPattern) -> deepLink.toRoute<DestinationRoute>(DestinationRoute.deepLinkPattern).copy(closeOnBack = true)
-                else -> null
-            }
+        val sb = StringBuilder("Deep Link Patterns:\n")
+        (PullRefreshRoute.deepLinkPatterns + DestinationRoute.deepLinkPatterns).forEach { sb.appendLine(it.url.toString()) }
+        SmtLogger.i(sb.toString())
+
+        // A Url doesn't handle anything other than https and http schemes. Replace the custom scheme for Url.
+        val deepLink = appLinkData?.let { uri ->
+            val uriString = uri.toString().replace(DeepLinkConstants.SCHEME_CUSTOM, DeepLinkConstants.SCHEME_HTTPS)
+            DeepLink(Url(uriString))
+        }
+
+        SmtLogger.i("""deepLink: $deepLink""")
+
+        val deepLinkRoute = deepLink?.let {
+            PullRefreshRoute.deepLinkPatterns.find { deepLink.matches(it) }?.let { deepLink.toRoute<PullRefreshRoute>(it).copy(closeOnBack = true) }
+                ?: DestinationRoute.deepLinkPatterns.find { deepLink.matches(it) }?.let { deepLink.toRoute<DestinationRoute>(it).copy(closeOnBack = true) }
         }
 
         SmtLogger.i("""deepLinkRoute: $deepLinkRoute""")

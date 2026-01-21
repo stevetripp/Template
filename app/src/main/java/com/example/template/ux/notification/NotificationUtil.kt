@@ -12,7 +12,7 @@ import com.example.template.R
 import com.example.template.util.SmtLogger
 import com.example.template.ux.main.MainActivity
 import com.example.template.ux.pullrefresh.PullRefreshRoute
-import com.example.template.ux.pullrefresh.deepLinkPattern
+import com.example.template.ux.pullrefresh.deepLinkPatterns
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -55,8 +55,8 @@ constructor(application: Application) {
     fun showDeepLinkNotification(context: Context) {
         val notificationId = 2 // A unique ID for this notification
 
-        // Create the deep link URI
-        val deepLinkUri = PullRefreshRoute.deepLinkPattern.toString().toUri()
+        // Create the deep link URI by extracting the custom URL from the pattern
+        val deepLinkUri = PullRefreshRoute.deepLinkPatterns.last().url.toString().toUri()
 
         // Create an intent with the deep link URI
         val intent = Intent(Intent.ACTION_VIEW, deepLinkUri).apply {
@@ -65,7 +65,7 @@ constructor(application: Application) {
         }
 
         // Wrap the intent in a PendingIntent
-        val deepLinkPendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val deepLinkPendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
 
         // Build the notification
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)

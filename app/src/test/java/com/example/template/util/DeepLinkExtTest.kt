@@ -9,7 +9,7 @@ import assertk.assertions.isTrue
 import com.example.template.domain.Parameter
 import com.example.template.ux.parameters.DestinationRoute
 import com.example.template.ux.parameters.EnumParameter
-import com.example.template.ux.parameters.deepLinkPattern
+import com.example.template.ux.parameters.deepLinkPatterns
 import io.ktor.http.Url
 import org.junit.jupiter.api.Test
 import org.lds.mobile.navigation3.DeepLink
@@ -105,8 +105,9 @@ class DeepLinkExtTest {
     @Test
     fun testToRoute() {
         // Test: Convert URL to DestinationRoute with required path parameters and required query parameters
-        val patternUrl = DestinationRoute.deepLinkPattern
-        val deepLink1 = DeepLink(Url("${AppDeepLinks.ROOT}/DESTINATION/value1/ONE?queryParam1=query1&queryParam2=TWO"))
+        val patternUrl = DestinationRoute.deepLinkPatterns.first()
+        val templatePath = "${DeepLinkConstants.SCHEME_HTTPS}/${DeepLinkConstants.PATH_PREFIX}"
+        val deepLink1 = DeepLink(Url("$templatePath/DESTINATION/value1/ONE?queryParam1=query1&queryParam2=TWO"))
         val route1 = deepLink1.toRoute<DestinationRoute>(patternUrl)
 
         assertThat(route1.reqParam1).isEqualTo(Parameter("value1"))
@@ -115,7 +116,7 @@ class DeepLinkExtTest {
         assertThat(route1.optParam2).isEqualTo(EnumParameter.TWO)
 
         // Test: Convert URL to DestinationRoute with only required path parameters
-        val deepLink2 = DeepLink(Url("${AppDeepLinks.ROOT}/DESTINATION/value2/THREE"))
+        val deepLink2 = DeepLink(Url("$templatePath/DESTINATION/value2/THREE"))
         val route2 = deepLink2.toRoute<DestinationRoute>(patternUrl)
 
         assertThat(route2.reqParam1).isEqualTo(Parameter("value2"))
@@ -124,7 +125,7 @@ class DeepLinkExtTest {
         assertThat(route2.optParam2).isNull()
 
         // Test: Convert URL to DestinationRoute with only one optional query parameter
-        val deepLink3 = DeepLink(Url("${AppDeepLinks.ROOT}/DESTINATION/value3/TWO?queryParam1=query3"))
+        val deepLink3 = DeepLink(Url("$templatePath/DESTINATION/value3/TWO?queryParam1=query3"))
         val route3 = deepLink3.toRoute<DestinationRoute>(patternUrl)
 
         assertThat(route3.reqParam1).isEqualTo(Parameter("value3"))
@@ -133,14 +134,14 @@ class DeepLinkExtTest {
         assertThat(route3.optParam2).isNull()
 
         // Test: Convert URL with encoded characters in path parameter
-        val deepLink4 = DeepLink(Url("${AppDeepLinks.ROOT}/DESTINATION/test%20value/ONE"))
+        val deepLink4 = DeepLink(Url("$templatePath/DESTINATION/test%20value/ONE"))
         val route4 = deepLink4.toRoute<DestinationRoute>(patternUrl)
 
         assertThat(route4.reqParam1).isEqualTo(Parameter("test value"))
         assertThat(route4.reqParam2).isEqualTo(EnumParameter.ONE)
 
         // Test: Convert URL with optional Int parameter (optParam3)
-        val deepLink5 = DeepLink(Url("${AppDeepLinks.ROOT}/DESTINATION/value5/ONE?queryParam1=query5&queryParam3=42"))
+        val deepLink5 = DeepLink(Url("$templatePath/DESTINATION/value5/ONE?queryParam1=query5&queryParam3=42"))
         val route5 = deepLink5.toRoute<DestinationRoute>(patternUrl)
 
         assertThat(route5.reqParam1).isEqualTo(Parameter("value5"))
