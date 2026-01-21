@@ -106,7 +106,7 @@ class DeepLinkExtTest {
     fun testToRoute() {
         // Test: Convert URL to DestinationRoute with required path parameters and required query parameters
         val patternUrl = DestinationRoute.deepLinkPatterns.first()
-        val templatePath = "${DeepLinkConstants.SCHEME_HTTPS}/${DeepLinkConstants.PATH_PREFIX}"
+        val templatePath = "${DeepLinkConstants.HTTPS_ROOT}/${DeepLinkConstants.PATH_PREFIX}"
         val deepLink1 = DeepLink(Url("$templatePath/DESTINATION/value1/ONE?queryParam1=query1&queryParam2=TWO"))
         val route1 = deepLink1.toRoute<DestinationRoute>(patternUrl)
 
