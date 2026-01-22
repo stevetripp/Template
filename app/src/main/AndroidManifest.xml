@@ -71,16 +71,20 @@
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
             android:value="org.lds.media.cast.CastDefaultOptionsProvider" />
-        <!--        <meta-data-->
-        <!--            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"-->
-        <!--            android:value="androidx.media3.cast.DefaultCastOptionsProvider"-->
-        <!--            />-->
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"-->
+<!--            android:value="androidx.media3.cast.DefaultCastOptionsProvider"-->
+<!--            />-->
 
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
+<!--            <meta-data-->
+<!--                android:name="androidx.work.WorkManagerInitializer"-->
+<!--                android:value="androidx.startup"-->
+<!--                tools:node="remove" />-->
             <meta-data
                 android:name="com.example.template.startup.LoggingInitializer"
                 android:value="androidx.startup" />
