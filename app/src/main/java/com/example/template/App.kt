@@ -1,6 +1,7 @@
 package com.example.template
 
 import android.app.Application
+import com.example.template.di.getAllKoinModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androix.startup.KoinStartup
@@ -17,7 +18,7 @@ class App : Application(), KoinStartup {
         androidContext(this@App)
         androidLogger(Level.INFO)
 
-//        modules(getAllKoinModules())
+        modules(getAllKoinModules())
 
 //        workManagerFactory()
     }
