@@ -3,16 +3,13 @@ package com.example.template.ux.regex
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.template.model.datastore.AppPreferenceDataSource
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.lds.mobile.ext.stateInDefault
-import javax.inject.Inject
 
-@HiltViewModel
-class RegexViewModel @Inject constructor(
+class RegexViewModel(
     private val appPrefs: AppPreferenceDataSource,
 ) : ViewModel() {
 

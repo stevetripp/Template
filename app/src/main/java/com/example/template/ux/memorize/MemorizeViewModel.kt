@@ -3,15 +3,12 @@ package com.example.template.ux.memorize
 import androidx.compose.ui.text.AnnotatedString
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import org.lds.mobile.ext.stateInDefault
-import javax.inject.Inject
 
-@HiltViewModel
-class MemorizeViewModel @Inject constructor() : ViewModel() {
+class MemorizeViewModel : ViewModel() {
 
     private val textFlow = MutableStateFlow(
         "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac " +

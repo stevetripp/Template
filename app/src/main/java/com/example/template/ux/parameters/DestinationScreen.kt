@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.template.domain.Parameter
 import com.example.template.ui.composable.AppTopAppBar
@@ -20,7 +19,7 @@ import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 import org.lds.mobile.ui.ext.requireActivity
 
 @Composable
-fun DestinationScreen(navigator: Navigation3Navigator, viewModel: DestinationViewModel = hiltViewModel()) {
+fun DestinationScreen(navigator: Navigation3Navigator, viewModel: DestinationViewModel) {
     val context = LocalContext.current
     DestinationContent(viewModel.uiState) { if (viewModel.uiState.onCloseBack) context.requireActivity().finishAffinity() else navigator.pop() }
 }

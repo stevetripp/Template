@@ -4,17 +4,13 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.template.model.datastore.AppPreferenceDataSource
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.lds.mobile.ext.stateInDefault
-import javax.inject.Inject
 
-@HiltViewModel
-class SearchViewModel
-@Inject constructor(
+class SearchViewModel(
     private val prefs: AppPreferenceDataSource,
 ) : ViewModel() {
 

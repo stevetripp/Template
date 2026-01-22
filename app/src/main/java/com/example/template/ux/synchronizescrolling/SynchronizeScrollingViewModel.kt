@@ -3,14 +3,11 @@ package com.example.template.ux.synchronizescrolling
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.template.ux.search.SearchViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import org.lds.mobile.ext.stateInDefault
-import javax.inject.Inject
 
-@HiltViewModel
-class SynchronizeScrollingViewModel @Inject constructor() : ViewModel() {
+class SynchronizeScrollingViewModel : ViewModel() {
 
     private val queryFlow = MutableStateFlow<String>("")
     private val randomNamesFlow = MutableStateFlow(SearchViewModel.randomNames)

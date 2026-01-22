@@ -1,14 +1,9 @@
 package com.example.template.ux.reorderablelist
 
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Inject
 
-@HiltViewModel
-class ReorderableListViewModel
-@Inject constructor(
-) : ViewModel() {
+class ReorderableListViewModel : ViewModel() {
 
     private val listFlow = MutableStateFlow(List(100) { ReorderableItemData(it, "Item $it") })
 

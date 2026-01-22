@@ -2,15 +2,10 @@ package com.example.template.ux.fab
 
 import androidx.lifecycle.ViewModel
 import com.example.template.model.data.SelectedObject
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
-@HiltViewModel
-class FabViewModel
-@Inject constructor(
-) : ViewModel() {
+class FabViewModel : ViewModel() {
 
     private val fabTypesFlow = MutableStateFlow<List<SelectedObject<FabType>>>(FabType.entries.map { SelectedObject(it, it == FabType.DEFAULT) })
 

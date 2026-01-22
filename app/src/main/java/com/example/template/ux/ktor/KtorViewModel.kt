@@ -5,14 +5,11 @@ import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import com.example.template.model.webservice.GoogleBooksService
 import com.example.template.util.SmtLogger
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.lds.mobile.network.onException
 import org.lds.mobile.network.onSuccess
-import javax.inject.Inject
 
-@HiltViewModel
-class KtorViewModel @Inject constructor(
+class KtorViewModel(
     private val googleBooksService: GoogleBooksService,
 ) : ViewModel() {
     val uiState = KtorUiState(

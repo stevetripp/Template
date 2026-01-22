@@ -7,18 +7,15 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.MimeTypes
 import androidx.navigation.toRoute
+import com.example.template.domain.VideoId
 import com.example.template.ux.NavTypeMaps
 import com.example.template.ux.video.TestData
-import com.example.template.domain.VideoId
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.lds.media.cast.CastManager
 import org.lds.mobile.util.LdsDeviceUtil
 
-@HiltViewModel
-class PlayerViewModel @Inject constructor(
+class PlayerViewModel(
     savedStateHandle: SavedStateHandle,
     deviceUtil: LdsDeviceUtil,
 ) : ViewModel() {
