@@ -13,12 +13,8 @@ import com.example.template.util.SmtLogger
 import com.example.template.ux.main.MainActivity
 import com.example.template.ux.pullrefresh.PullRefreshRoute
 import com.example.template.ux.pullrefresh.deepLinkPatterns
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class NotificationUtil @Inject
-constructor(application: Application) {
+class NotificationUtil(application: Application) {
     private val notificationManager: NotificationManager = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     fun initialize() {

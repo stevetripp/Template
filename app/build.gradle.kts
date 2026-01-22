@@ -46,6 +46,7 @@ android {
                 "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi",
                 "-opt-in=kotlin.time.ExperimentalTime",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-opt-in=org.koin.core.annotation.KoinExperimentalAPI",
             )
         }
     }

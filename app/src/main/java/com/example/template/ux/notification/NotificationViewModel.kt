@@ -2,11 +2,8 @@ package com.example.template.ux.notification
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class NotificationViewModel @Inject constructor(
+class NotificationViewModel(
     private val notificationUtil: NotificationUtil,
 ) : ViewModel() {
     val uiState = NotificationUiState(

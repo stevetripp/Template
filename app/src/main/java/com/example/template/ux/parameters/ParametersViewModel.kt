@@ -2,15 +2,11 @@ package com.example.template.ux.parameters
 
 import androidx.lifecycle.ViewModel
 import com.example.template.domain.Parameter
-import dagger.hilt.android.lifecycle.HiltViewModel
-import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.lds.mobile.navigation3.ViewModelNavigation3
 import org.lds.mobile.navigation3.ViewModelNavigation3Impl
 
-@HiltViewModel
-class ParametersViewModel
-@Inject constructor() : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
+class ParametersViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
     private val reqParam1Flow = MutableStateFlow("")
     private val reqParam2Flow = MutableStateFlow(EnumParameter.ONE)
