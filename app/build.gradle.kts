@@ -174,6 +174,7 @@ dependencies {
     ksp(libs.kotlinx.metadata.jvm)
 
     testImplementation(libs.koin.test)
+    testImplementation(libs.kotlin.test)
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.willowtreeapps.assertk)
