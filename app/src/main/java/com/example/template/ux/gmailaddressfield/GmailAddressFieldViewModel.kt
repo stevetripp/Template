@@ -6,16 +6,12 @@ import android.provider.ContactsContract
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
-@HiltViewModel
-class GmailAddressFieldViewModel
-@Inject constructor(
+class GmailAddressFieldViewModel(
     private val application: Application,
 ) : ViewModel() {
 

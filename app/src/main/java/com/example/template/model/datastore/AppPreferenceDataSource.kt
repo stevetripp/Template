@@ -9,20 +9,15 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.template.inject.ApplicationScope
 import com.example.template.ux.settings.InAppUpdateType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.lds.mobile.ext.mapDistinct
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AppPreferenceDataSource
-@Inject constructor(
+class AppPreferenceDataSource(
     private val application: Application,
-    @param:ApplicationScope private val appScope: CoroutineScope,
+    private val appScope: CoroutineScope,
 ) {
     private val Context.dataStore by preferencesDataStore(
         name = "app",

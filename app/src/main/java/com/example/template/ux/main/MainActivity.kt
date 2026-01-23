@@ -8,7 +8,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -23,22 +22,20 @@ import com.example.template.ux.parameters.DestinationRoute
 import com.example.template.ux.parameters.deepLinkPatterns
 import com.example.template.ux.pullrefresh.PullRefreshRoute
 import com.example.template.ux.pullrefresh.deepLinkPatterns
-import dagger.hilt.android.AndroidEntryPoint
 import io.ktor.http.Url
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
+import org.koin.android.ext.android.inject
 import org.lds.mobile.navigation3.DeepLink
 
 /**
  * MainActivity for the app's main entry point.
  */
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private lateinit var inAppUpdateManagerUtil: InAppUpdateManagerUtil
+    val mainViewModel: MainViewModel by inject()
 
-    // Inject MainViewModel using Hilt
-    private val mainViewModel: MainViewModel by viewModels()
+    private lateinit var inAppUpdateManagerUtil: InAppUpdateManagerUtil
 
     // Channel to trigger update snackbar from non-Compose code
     private val showSnackbarChannel = Channel<Unit>(Channel.CONFLATED)

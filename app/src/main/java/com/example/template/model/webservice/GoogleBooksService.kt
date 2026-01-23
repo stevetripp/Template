@@ -5,14 +5,9 @@ import io.ktor.client.call.body
 import io.ktor.resources.Resource
 import org.lds.mobile.ext.executeSafely
 import org.lds.mobile.network.ApiResponse
-import javax.inject.Inject
-import javax.inject.Named
-import javax.inject.Singleton
 import io.ktor.client.plugins.resources.get as getResource
 
-@Singleton
-class GoogleBooksService @Inject constructor(
-    @param:Named(ServiceModule.GOOGLE_API_STANDARD_CLIENT)
+class GoogleBooksService(
     private val httpClient: HttpClient
 ) {
     suspend fun getVolumes(q: String, maxResults: Int): ApiResponse<out VolumesDto, out Unit> {

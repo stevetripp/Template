@@ -4,29 +4,21 @@ import android.content.Context
 import androidx.startup.Initializer
 import co.touchlab.kermit.Logger
 import com.example.template.ux.notification.NotificationUtil
-import dagger.hilt.EntryPoint
-import dagger.hilt.EntryPoints
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlin.system.measureTimeMillis
+import org.koin.androix.startup.KoinInitializer
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class NotificationInitializer : Initializer<Unit> {
+class NotificationInitializer : Initializer<Unit>, KoinComponent {
+    private val notificationUtil: NotificationUtil by inject()
+
     override fun create(context: Context) {
         measureTimeMillis {
-            val applicationContext = requireNotNull(context.applicationContext) { "Missing Application Context" }
-            val injector = EntryPoints.get(applicationContext, Injector::class.java)
-            val notificationUtil = injector.getNotificationUtil()
             notificationUtil.initialize()
         }.let { Logger.i("""STARTUP Initializer: NotificationInitializer finished (${it}ms)""") }
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
-        return emptyList()
-    }
-
-    @EntryPoint
-    @InstallIn(SingletonComponent::class)
-    interface Injector {
-        fun getNotificationUtil(): NotificationUtil
+        return listOf(KoinInitializer::class.java) // needed for injection used by NotificationUtil
     }
 }

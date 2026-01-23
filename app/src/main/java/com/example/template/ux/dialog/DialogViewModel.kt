@@ -8,14 +8,9 @@ import com.example.template.ui.dialog.EmptyStateDialogUiState
 import com.example.template.ui.dialog.ExampleAlertDialogUiState
 import com.example.template.ui.dialog.ExampleDialogUiState
 import com.example.template.ui.dialog.dismissDialog
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Inject
 
-@HiltViewModel
-class DialogViewModel
-@Inject constructor(
-) : ViewModel() {
+class DialogViewModel : ViewModel() {
 
     private val dialogUiStateFlow: MutableStateFlow<DialogUiState<*>?> = MutableStateFlow<DialogUiState<*>?>(null)
 

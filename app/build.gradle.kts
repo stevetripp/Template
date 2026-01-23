@@ -3,11 +3,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.autonomousapps.dependency.analysis)
-    alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.triplet.play)
 }
 
@@ -47,6 +45,7 @@ android {
                 "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi",
                 "-opt-in=kotlin.time.ExperimentalTime",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-opt-in=org.koin.core.annotation.KoinExperimentalAPI",
             )
         }
     }
@@ -142,7 +141,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
@@ -154,9 +152,13 @@ dependencies {
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.coil.compose)
-    implementation(libs.dagger.hilt.android)
     implementation(libs.google.android.material)
     implementation(libs.google.android.play.app.update)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.startup)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
+    implementation(libs.koin.core)
     implementation(libs.kotlinx.atomicfu)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
@@ -169,11 +171,10 @@ dependencies {
     implementation(libs.touchlab.kermit)
     implementation(libs.wajahatkarim.flippable)
 
-    ksp(libs.dagger.hilt.android.compiler)
-    ksp(libs.kotlinx.metadata.jvm)
-
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.kotlin.test)
     testImplementation(libs.willowtreeapps.assertk)
 
     testRuntimeOnly(libs.junit.platform.launcher)

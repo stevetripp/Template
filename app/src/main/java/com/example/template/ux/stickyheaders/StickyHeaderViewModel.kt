@@ -1,18 +1,12 @@
 package com.example.template.ux.stickyheaders
 
 import androidx.lifecycle.ViewModel
-import com.example.template.inject.ApplicationScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class StickyHeaderViewModel
-@Inject constructor(
-    @param:ApplicationScope
-    private val applicationScope: CoroutineScope,
+class StickyHeaderViewModel(
+    applicationScope: CoroutineScope,
 ) : ViewModel() {
 
     private val lazyColumnItemsFlow = MutableStateFlow<List<LazyColumnItem>>(emptyList())

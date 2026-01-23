@@ -3,7 +3,6 @@ package com.example.template.ux.main
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavEntryDecorator
@@ -21,7 +20,6 @@ import com.example.template.ux.bottomSheet.BottomSheetRoute
 import com.example.template.ux.bottomSheet.BottomSheetScreen
 import com.example.template.ux.bottomnavigation.BottomNavigationRoute
 import com.example.template.ux.bottomnavigation.BottomNavigationScreen
-import com.example.template.ux.breadcrumbs.BreadCrumbsViewModel
 import com.example.template.ux.breadcrumbs.BreadcrumbRoute
 import com.example.template.ux.breadcrumbs.BreadcrumbsRoute
 import com.example.template.ux.breadcrumbs.BreadcrumbsScreen
@@ -75,7 +73,6 @@ import com.example.template.ux.panningzooming.PanningZoomingRoute
 import com.example.template.ux.panningzooming.PanningZoomingScreen
 import com.example.template.ux.parameters.DestinationRoute
 import com.example.template.ux.parameters.DestinationScreen
-import com.example.template.ux.parameters.DestinationViewModel
 import com.example.template.ux.parameters.ParametersRoute
 import com.example.template.ux.parameters.ParametersScreen
 import com.example.template.ux.permissions.PermissionsRoute
@@ -86,7 +83,6 @@ import com.example.template.ux.popwithresult.PopWithResultParentRoute
 import com.example.template.ux.popwithresult.PopWithResultParentScreen
 import com.example.template.ux.pullrefresh.PullRefreshRoute
 import com.example.template.ux.pullrefresh.PullRefreshScreen
-import com.example.template.ux.pullrefresh.PullRefreshViewModel
 import com.example.template.ux.regex.RegexRoute
 import com.example.template.ux.regex.RegexScreen
 import com.example.template.ux.reorderablelist.ReorderableListRoute
@@ -119,6 +115,8 @@ import com.example.template.ux.video.screen.VideoScreen
 import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
 import com.example.template.ux.webview.WebViewScreen
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import org.lds.mobile.navigation3.NavigationState
 import org.lds.mobile.navigation3.navigator.TopLevelBackStackNavigator
 import org.lds.mobile.ui.compose.navigation.ObserveRouteChanges
@@ -126,8 +124,7 @@ import org.lds.mobile.ui.compose.navigation.rememberNavigationState
 import org.lds.mobile.ui.compose.navigation.toEntries
 
 @Composable
-@Suppress("UnusedParameter")
-fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewModel()) {
+fun MainScreen(deeplinkRoute: NavKey?) {
 
     val navigationState: NavigationState = rememberNavigationState(
         startRoute = HomeRoute,
@@ -135,7 +132,7 @@ fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewMo
         navKeySerializer = NavKeySerializer()
     )
 
-    val navigator: TopLevelBackStackNavigator = TopLevelBackStackNavigator(navigationState)
+    val navigator = TopLevelBackStackNavigator(navigationState)
     val backstack = navigator.getCurrentBackStack()
     val breadcrumbRoutes = backstack?.mapNotNull { it as? BreadcrumbRoute }.orEmpty()
 
@@ -144,56 +141,51 @@ fun MainScreen(deeplinkRoute: NavKey?, mainViewModel: MainViewModel = hiltViewMo
         entry<AnimatedGesturesRoute> { AnimatedGestureScreen(navigator) }
         entry<BottomNavigationRoute> { BottomNavigationScreen(navigator) }
         entry<BottomSheetRoute> { BottomSheetScreen(navigator) }
-        entry<BreadcrumbsRoute> {
-            BreadcrumbsScreen(
-                navigator = navigator,
-                viewModel = hiltViewModel<BreadCrumbsViewModel, BreadCrumbsViewModel.Factory>(creationCallback = { factory -> factory.create(breadcrumbRoutes) })
-            )
-        }
+        entry<BreadcrumbsRoute> { BreadcrumbsScreen(navigator = navigator, viewModel = koinViewModel { parametersOf(breadcrumbRoutes) }) }
         entry<ButtonGroupsRoute> { ButtonGroupsScreen(navigator) }
         entry<CarouselRoute> { CarouselScreen(navigator) }
         entry<ChildWithNavigationRoute> { ChildWithNavigationScreen(navigator) }
         entry<ChildWithoutNavigationRoute> { ChildWithoutNavigationScreen(navigator) }
-        entry<ChipSheetRoute> { ChipSheetScreen(navigator, hiltViewModel()) }
+        entry<ChipSheetRoute> { ChipSheetScreen(navigator, koinViewModel()) }
         entry<DateTimeFormatRoute> { DateTimeFormatScreen(navigator) }
-        entry<DestinationRoute> { key -> DestinationScreen(navigator, hiltViewModel<DestinationViewModel, DestinationViewModel.Factory>(creationCallback = { it.create(key) })) }
-        entry<DialogRoute> { DialogScreen(navigator, hiltViewModel()) }
-        entry<EdgeToEdgeRoute> { EdgeToEdgeScreen(navigator, hiltViewModel()) }
-        entry<FabRoute> { FabScreen(navigator, hiltViewModel()) }
+        entry<DestinationRoute> { key -> DestinationScreen(navigator, koinViewModel { parametersOf(key) }) }
+        entry<DialogRoute> { DialogScreen(navigator, koinViewModel()) }
+        entry<EdgeToEdgeRoute> { EdgeToEdgeScreen(navigator, koinViewModel()) }
+        entry<FabRoute> { FabScreen(navigator, koinViewModel()) }
         entry<FlippableRoute> { FlippableScreen(navigator) }
-        entry<GmailAddressFieldRoute> { GmailAddressFieldScreen(navigator, hiltViewModel()) }
-        entry<HomeRoute> { HomeScreen(navigator, hiltViewModel()) }
+        entry<GmailAddressFieldRoute> { GmailAddressFieldScreen(navigator, koinViewModel()) }
+        entry<HomeRoute> { HomeScreen(navigator, koinViewModel()) }
         entry<ImagePickerRoute> { ImagePickerScreen(navigator) }
         entry<InputExamplesRoute> { InputExamplesScreen(navigator) }
-        entry<KtorRoute> { KtorScreen(navigator, hiltViewModel()) }
-        entry<MemorizeRoute> { MemorizeScreen(navigator, hiltViewModel()) }
+        entry<KtorRoute> { KtorScreen(navigator, koinViewModel()) }
+        entry<MemorizeRoute> { MemorizeScreen(navigator, koinViewModel()) }
         entry<ModalBottomSheetRoute> { ModalBottomSheetScreen(navigator) }
         entry<ModalDrawerSheetRoute> { ModelDrawerSheetScreen(navigator) }
-        entry<ModalSideSheetRoute> { ModalSideSheetScreen(navigator, hiltViewModel()) }
+        entry<ModalSideSheetRoute> { ModalSideSheetScreen(navigator, koinViewModel()) }
         entry<NavigationPagerRoute> { NavigationPagerScreen(navigator) }
-        entry<NotificationPermissionsRoute> { NotificationPermissionsScreen(navigator, hiltViewModel()) }
-        entry<NotificationRoute> { NotificationScreen(navigator, hiltViewModel()) }
+        entry<NotificationPermissionsRoute> { NotificationPermissionsScreen(navigator, koinViewModel()) }
+        entry<NotificationRoute> { NotificationScreen(navigator, koinViewModel()) }
         entry<PagerRoute> { PagerScreen(navigator) }
         entry<PanningZoomingRoute> { PanningZoomingScreen(navigator) }
-        entry<ParametersRoute> { ParametersScreen(navigator, hiltViewModel()) }
-        entry<PermissionsRoute> { PermissionsScreen(navigator, hiltViewModel()) }
-        entry<PopWithResultChildRoute> { PopWithResultChildScreen(navigator, hiltViewModel()) }
-        entry<PopWithResultParentRoute> { PopWithResultParentScreen(navigator) }
-        entry<PullRefreshRoute> { key -> PullRefreshScreen(navigator, hiltViewModel<PullRefreshViewModel, PullRefreshViewModel.Factory>(creationCallback = { it.create(key) })) }
-        entry<RegexRoute> { RegexScreen(navigator, hiltViewModel()) }
-        entry<ReorderableListRoute> { ReorderableListScreen(navigator, hiltViewModel()) }
-        entry<SearchRoute> { SearchScreen(navigator, hiltViewModel()) }
-        entry<ServicesExamplesRoute> { ServicesExamplesScreen(navigator, hiltViewModel()) }
-        entry<SettingRoute> { SettingsScreen(navigator, hiltViewModel()) }
+        entry<ParametersRoute> { ParametersScreen(navigator, koinViewModel()) }
+        entry<PermissionsRoute> { PermissionsScreen(navigator, koinViewModel()) }
+        entry<PopWithResultChildRoute> { PopWithResultChildScreen(navigator, koinViewModel()) }
+        entry<PopWithResultParentRoute> { PopWithResultParentScreen(navigator, koinViewModel()) }
+        entry<PullRefreshRoute> { key -> PullRefreshScreen(navigator, koinViewModel { parametersOf(key) }) }
+        entry<RegexRoute> { RegexScreen(navigator, koinViewModel()) }
+        entry<ReorderableListRoute> { ReorderableListScreen(navigator, koinViewModel()) }
+        entry<SearchRoute> { SearchScreen(navigator, koinViewModel()) }
+        entry<ServicesExamplesRoute> { ServicesExamplesScreen(navigator, koinViewModel()) }
+        entry<SettingRoute> { SettingsScreen(navigator, koinViewModel()) }
         entry<SideDrawerRoute> { SideDrawerScreen(navigator) }
-        entry<SnackbarRoute> { SnackbarScreen(navigator, hiltViewModel()) }
-        entry<StickyHeadersRoute> { StickyHeadersScreen(navigator, hiltViewModel()) }
+        entry<SnackbarRoute> { SnackbarScreen(navigator, koinViewModel()) }
+        entry<StickyHeadersRoute> { StickyHeadersScreen(navigator, koinViewModel()) }
         entry<SwipableRoute> { SwipableScreen(navigator) }
-        entry<SynchronizeScrollingRoute> { SynchronizeScrollingScreen(navigator, hiltViewModel()) }
+        entry<SynchronizeScrollingRoute> { SynchronizeScrollingScreen(navigator, koinViewModel()) }
         entry<SystemUiRoute> { SystemUiScreen(navigator) }
         entry<TabsRoute> { TabsScreen(navigator) }
         entry<TypographyRoute> { TypographyScreen(navigator) }
-        entry<VideoScreenRoute> { VideoScreen(navigator, hiltViewModel()) }
+        entry<VideoScreenRoute> { VideoScreen(navigator, koinViewModel()) }
         entry<WebViewRoute> { WebViewScreen(navigator) }
         entry<PlayerRoute> { key ->
             // NOTE: I prefer to launch the PlayerActivity here, but it caused the pop to result in a blank screen and required an

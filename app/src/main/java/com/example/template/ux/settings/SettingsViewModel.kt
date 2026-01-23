@@ -3,14 +3,11 @@ package com.example.template.ux.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.template.model.datastore.AppPreferenceDataSource
-import dagger.hilt.android.lifecycle.HiltViewModel
 import org.lds.mobile.ext.stateInDefault
 import org.lds.mobile.navigation3.ViewModelNavigation3
 import org.lds.mobile.navigation3.ViewModelNavigation3Impl
-import javax.inject.Inject
 
-@HiltViewModel
-class SettingsViewModel @Inject constructor(
+class SettingsViewModel(
     private val preferenceDataSource: AppPreferenceDataSource,
 ) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
     private val inAppUpdateTypes = InAppUpdateType.entries

@@ -2,15 +2,10 @@ package com.example.template.ux.chipsheet
 
 import androidx.lifecycle.ViewModel
 import com.example.template.ui.widget.ChipItem
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
-import javax.inject.Inject
 
-@HiltViewModel
-class ChipSheetViewModel
-@Inject constructor(
-) : ViewModel() {
+class ChipSheetViewModel : ViewModel() {
 
     private val numberItemsFlow = MutableStateFlow(
         listOf(
@@ -86,6 +81,7 @@ class ChipSheetViewModel
                         mutableList.replace(selectedChip, selectedChip.copy(true))
                     }
                 }
+
                 else -> {
                     mutableList.replace(selectedChip, selectedChip.copy(!selectedChip.checked))
                     mutableList.filterIsInstance<ChipItem.Category>().firstOrNull()?.let { categoryChip ->
