@@ -22,7 +22,7 @@ import com.example.template.util.SmtLogger
 import com.google.android.gms.cast.framework.CastButtonFactory
 import com.google.android.gms.cast.framework.CastContext
 import com.google.common.util.concurrent.MoreExecutors
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.lds.mobile.ext.withLifecycleOwner
 
 /**
@@ -32,7 +32,7 @@ import org.lds.mobile.ext.withLifecycleOwner
  */
 class PlayerActivity : AppCompatActivity(), PlayerManager.Listener {
 
-    private val viewModel: PlayerViewModel by inject()
+    private val viewModel: PlayerViewModel by viewModel()
 
     private val activityVideoBinding by lazy(LazyThreadSafetyMode.NONE) { ActivityVideoBinding.inflate(layoutInflater) }
     private lateinit var playerView: PlayerView
@@ -47,17 +47,9 @@ class PlayerActivity : AppCompatActivity(), PlayerManager.Listener {
         castContext = CastContext.getSharedInstance(this, MoreExecutors.directExecutor()).result
         setContentView(activityVideoBinding.root)
         playerView = activityVideoBinding.videoView
-        setUpComposeOverlay()
         setupToolbar()
         collectFlows()
         addBackPressedCallback()
-    }
-
-    private fun setUpComposeOverlay() {
-//        viewBinding.composeOverlay.setContent {
-//            AppTheme {
-//            }
-//        }
     }
 
     private fun setupToolbar() {

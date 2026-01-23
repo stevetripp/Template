@@ -6,8 +6,10 @@ import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import com.example.template.model.datastore.AppPreferenceDataSource
+import com.example.template.model.webservice.GoogleBooksService
 import com.example.template.model.webservice.KtorClientDefaults.defaultSetup
 import com.example.template.model.webservice.KtorClientDefaults.setupStandardHeaders
+import com.example.template.ux.breadcrumbs.BreadCrumbsViewModel
 import com.example.template.ux.chipsheet.ChipSheetViewModel
 import com.example.template.ux.dialog.DialogViewModel
 import com.example.template.ux.edgetoedge.EdgeToEdgeViewModel
@@ -26,6 +28,7 @@ import com.example.template.ux.parameters.ParametersViewModel
 import com.example.template.ux.permissions.PermissionsViewModel
 import com.example.template.ux.popwithresult.PopWithResultChildViewModel
 import com.example.template.ux.popwithresult.PopWithResultParentViewModel
+import com.example.template.ux.pullrefresh.PullRefreshViewModel
 import com.example.template.ux.regex.RegexViewModel
 import com.example.template.ux.reorderablelist.ReorderableListViewModel
 import com.example.template.ux.search.SearchViewModel
@@ -95,14 +98,12 @@ val appModule = module {
 
     // CastManager
     single<CastManager> { CastManager(get(), initCast = true) }
-
-    // AppPreferenceDataSource
-    single<AppPreferenceDataSource> { AppPreferenceDataSource(application = androidApplication(), appScope = get<CoroutineScope>()) }
 }
 
 // ===== DataStore Module =====
 val datastoreModule = module {
-    // AppPreferenceDataSource is provided by appModule
+    // AppPreferenceDataSource
+    single<AppPreferenceDataSource> { AppPreferenceDataSource(application = androidApplication(), appScope = get<CoroutineScope>()) }
 }
 
 // ===== Media Module =====
@@ -121,7 +122,7 @@ val mediaModule = module {
 // ===== Service Module =====
 val serviceModule = module {
     // Google Books API HttpClient
-    single(/*qualifier = org.koin.core.qualifier.named("GOOGLE_API_STANDARD_CLIENT")*/) {
+    single() {
         HttpClient(OkHttp.create()) {
             install(Logging) { defaultSetup() }
             install(Resources)
@@ -132,10 +133,14 @@ val serviceModule = module {
             }
         }
     }
+
+    // Google Books Service
+    singleOf(::GoogleBooksService)
 }
 
 // ===== ViewModel Module =====
 val viewModelModule = module {
+    viewModelOf(::BreadCrumbsViewModel)
     viewModelOf(::ChipSheetViewModel)
     viewModelOf(::DestinationViewModel)
     viewModelOf(::DialogViewModel)
@@ -154,7 +159,7 @@ val viewModelModule = module {
     viewModelOf(::PlayerViewModel)
     viewModelOf(::PopWithResultChildViewModel)
     viewModelOf(::PopWithResultParentViewModel)
-//    viewModelOf { ::PullRefreshViewModel }
+    viewModelOf(::PullRefreshViewModel)
     viewModelOf(::RegexViewModel)
     viewModelOf(::ReorderableListViewModel)
     viewModelOf(::SearchViewModel)

@@ -11,13 +11,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.MainActivity
 import com.example.template.ux.main.MainViewModel
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.compose.viewmodel.koinViewModel
 import org.lds.mobile.ext.withLifecycleOwner
 
 class StartupActivity : ComponentActivity() {
 
-    private val startupViewModel: StartupViewModel by inject()
+    private val startupViewModel: StartupViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

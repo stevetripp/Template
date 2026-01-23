@@ -16,8 +16,8 @@ import org.lds.media.cast.CastManager
 import org.lds.mobile.util.LdsDeviceUtil
 
 class PlayerViewModel(
-    savedStateHandle: SavedStateHandle,
     deviceUtil: LdsDeviceUtil,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val playerRoute = savedStateHandle.toRoute<PlayerRoute>(NavTypeMaps.typeMap)

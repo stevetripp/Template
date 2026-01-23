@@ -58,7 +58,7 @@ fun ImagePickerContent(onBack: () -> Unit = {}) {
         val photoGalleryLauncher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.GetMultipleContents()
         ) { uri ->
-            imageUri = uri.first()
+            imageUri = uri.firstOrNull()
         }
 
         Column(
