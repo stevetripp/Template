@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.triplet.play)
 }
 
@@ -171,8 +170,6 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.touchlab.kermit)
     implementation(libs.wajahatkarim.flippable)
-
-    ksp(libs.kotlinx.metadata.jvm)
 
     testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.test)

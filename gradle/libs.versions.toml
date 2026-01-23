@@ -29,7 +29,6 @@ kotlin = "2.3.0" # see https://developer.android.com/jetpack/androidx/releases/c
 kotlinxAtomicfu = "0.30.0"
 kotlinxDatetime = "0.7.1"
 kotlinxSerializationJson = "1.10.0"
-ksp = "2.3.4"
 ktor = "3.3.3"
 touchlabKermit = "2.0.8"
 tripletPlay = "3.13.0"
@@ -45,7 +44,6 @@ ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "benM
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 triplet-play = { id = "com.github.triplet.play", version.ref = "tripletPlay" }
 undercouch-download = { id = "de.undercouch.download", version.ref = "undercouchDownload" }
 
@@ -88,7 +86,6 @@ koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin"
 koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
 kotlinx-atomicfu = { group = "org.jetbrains.kotlinx", name = "atomicfu", version.ref = "kotlinxAtomicfu" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
-kotlinx-metadata-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-metadata-jvm", version.ref = "kotlin" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
