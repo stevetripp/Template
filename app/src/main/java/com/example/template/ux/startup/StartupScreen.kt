@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.theme.AppTheme
@@ -17,7 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun StartupScreen(viewModel: StartupViewModel = hiltViewModel()) {
+fun StartupScreen(viewModel: StartupViewModel) {
     StartupContent(countdownFlow = viewModel.countdownFlow)
 }
 
@@ -30,7 +29,6 @@ fun StartupContent(countdownFlow: StateFlow<Int>) {
             Text(text = countdown.toString())
         }
     }
-
 }
 
 @PreviewDefault

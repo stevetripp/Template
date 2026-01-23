@@ -25,7 +25,7 @@ import com.example.template.ux.pullrefresh.deepLinkPatterns
 import io.ktor.http.Url
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
-import org.koin.compose.viewmodel.koinViewModel
+import org.koin.android.ext.android.inject
 import org.lds.mobile.navigation3.DeepLink
 
 /**
@@ -33,8 +33,9 @@ import org.lds.mobile.navigation3.DeepLink
  */
 class MainActivity : ComponentActivity() {
 
-    private lateinit var inAppUpdateManagerUtil: InAppUpdateManagerUtil
+    val mainViewModel: MainViewModel by inject()
 
+    private lateinit var inAppUpdateManagerUtil: InAppUpdateManagerUtil
 
     // Channel to trigger update snackbar from non-Compose code
     private val showSnackbarChannel = Channel<Unit>(Channel.CONFLATED)
@@ -76,7 +77,6 @@ class MainActivity : ComponentActivity() {
         SmtLogger.i("""deepLinkRoute: $deepLinkRoute""")
 
         setContent {
-            val mainViewModel: MainViewModel = koinViewModel()
             val enforceNavigationBarContrastState = mainViewModel.uiState.enforceNavigationBarContrastFlow.collectAsStateWithLifecycle()
 
             // https://developer.android.com/codelabs/edge-to-edge#2
@@ -106,9 +106,9 @@ class MainActivity : ComponentActivity() {
                     MainScreen(deepLinkRoute)
                 }
             }
-
-            // Initialize InAppUpdateManagerUtil here where mainViewModel is in scope
-            inAppUpdateManagerUtil = InAppUpdateManagerUtil(activity = this@MainActivity, inAppUpdateType = mainViewModel.inAppUpdateType, onCompleteUpdate = { showSnackbarChannel.trySend(Unit) })
         }
+
+        // Initialize InAppUpdateManagerUtil here where mainViewModel is in scope
+        inAppUpdateManagerUtil = InAppUpdateManagerUtil(activity = this@MainActivity, inAppUpdateType = mainViewModel.inAppUpdateType, onCompleteUpdate = { showSnackbarChannel.trySend(Unit) })
     }
 }

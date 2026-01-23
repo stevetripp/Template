@@ -8,24 +8,21 @@ import android.os.Bundle
 import android.util.Rational
 import android.view.KeyEvent
 import androidx.activity.addCallback
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Lifecycle
 import androidx.media3.common.MediaItem
-import androidx.media3.datasource.cache.Cache
 import androidx.media3.ui.PlayerView
 import com.example.template.R
 import com.example.template.databinding.ActivityVideoBinding
-import com.example.template.util.SmtLogger
 import com.example.template.domain.VideoId
+import com.example.template.util.SmtLogger
 import com.google.android.gms.cast.framework.CastButtonFactory
 import com.google.android.gms.cast.framework.CastContext
 import com.google.common.util.concurrent.MoreExecutors
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 import org.lds.mobile.ext.withLifecycleOwner
 
 /**
@@ -33,13 +30,9 @@ import org.lds.mobile.ext.withLifecycleOwner
  *
  * android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
  */
-@AndroidEntryPoint
 class PlayerActivity : AppCompatActivity(), PlayerManager.Listener {
 
-    private val viewModel by viewModels<PlayerViewModel>()
-
-    @Inject
-    lateinit var downloadCache: Cache
+    private val viewModel: PlayerViewModel by inject()
 
     private val activityVideoBinding by lazy(LazyThreadSafetyMode.NONE) { ActivityVideoBinding.inflate(layoutInflater) }
     private lateinit var playerView: PlayerView
