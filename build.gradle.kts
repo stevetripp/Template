@@ -5,9 +5,9 @@ import de.undercouch.gradle.tasks.download.Download
 
 plugins {
     alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.arturbosch.detekt)
     alias(libs.plugins.autonomousapps.dependency.analysis)
     alias(libs.plugins.ben.manes.versions)
+    alias(libs.plugins.detekt)
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false

@@ -177,6 +177,7 @@ dependencies {
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
+    testImplementation(libs.konsist)
     testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.willowtreeapps.assertk)

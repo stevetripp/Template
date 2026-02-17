@@ -14,10 +14,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 sealed class ChipItem {
 
     @Composable
-    abstract fun ShowListItem(onClicked: () -> Unit)
+    abstract fun showListItem(onClicked: () -> Unit)
 
     @Composable
-    abstract fun ShowDropdownMenuItem(onClicked: () -> Unit)
+    abstract fun showDropdownMenuItem(onClicked: () -> Unit)
 
     open class Selectable(
         val text: String,
@@ -25,7 +25,7 @@ sealed class ChipItem {
         val checked: Boolean = false,
     ) : ChipItem() {
         @Composable
-        override fun ShowListItem(onClicked: () -> Unit) {
+        override fun showListItem(onClicked: () -> Unit) {
             ListItem(
                 modifier = Modifier.clickable { onClicked() },
                 headlineContent = { Text(text = text) },
@@ -34,7 +34,7 @@ sealed class ChipItem {
         }
 
         @Composable
-        override fun ShowDropdownMenuItem(onClicked: () -> Unit) {
+        override fun showDropdownMenuItem(onClicked: () -> Unit) {
             DropdownMenuItem(
                 text = { Text(text = text) },
                 onClick = onClicked,
@@ -52,7 +52,7 @@ sealed class ChipItem {
         checked: Boolean = true,
     ) : Selectable(text, obj, checked) {
         @Composable
-        override fun ShowListItem(onClicked: () -> Unit) {
+        override fun showListItem(onClicked: () -> Unit) {
             ListItem(
                 modifier = Modifier.clickable { onClicked() },
                 headlineContent = { Text(text = bottomSheetText) },
@@ -61,7 +61,7 @@ sealed class ChipItem {
         }
 
         @Composable
-        override fun ShowDropdownMenuItem(onClicked: () -> Unit) {
+        override fun showDropdownMenuItem(onClicked: () -> Unit) {
             DropdownMenuItem(
                 text = { Text(text = bottomSheetText) },
                 onClick = onClicked,
@@ -74,10 +74,10 @@ sealed class ChipItem {
 
     object Divider : ChipItem() {
         @Composable
-        override fun ShowListItem(onClicked: () -> Unit) = HorizontalDivider()
+        override fun showListItem(onClicked: () -> Unit) = HorizontalDivider()
 
         @Composable
-        override fun ShowDropdownMenuItem(onClicked: () -> Unit) = HorizontalDivider()
+        override fun showDropdownMenuItem(onClicked: () -> Unit) = HorizontalDivider()
     }
 }
 

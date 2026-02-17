@@ -17,14 +17,15 @@ androidxNavigation = "2.9.6"
 androidxNavigation3 = "1.0.0"
 androidxTestExtJunit = "1.3.0"
 androidxTestRunner = "1.7.0"
-arturboschDetekt = "2.0.0-alpha.1"
 autonomousappsDependencyAnalysis = "3.5.1"
 benManesVersions = "0.53.0"
 coil = "2.7.0"
+detekt = "2.0.0-alpha.2"
 googleAndroidMaterial = "1.13.0"
 googleAndroidPlayAppUpdate = "2.1.0"
 junitBom = "6.0.2"
 koin = "4.1.1"
+konsist = "0.16.1"
 kotlin = "2.3.0" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
 kotlinxAtomicfu = "0.30.0"
 kotlinxDatetime = "0.7.1"
@@ -38,9 +39,9 @@ willowtreeappsAssertk = "0.28.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-arturbosch-detekt = { id = "dev.detekt", version.ref = "arturboschDetekt" }
 autonomousapps-dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "autonomousappsDependencyAnalysis" }
 ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "benManesVersions" } # ./gradlew dependencyUpdates -Drevision=release
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -84,10 +85,11 @@ koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = 
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
+konsist = { group = "com.lemonappdev", name = "konsist", version.ref = "konsist" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 kotlinx-atomicfu = { group = "org.jetbrains.kotlinx", name = "atomicfu", version.ref = "kotlinxAtomicfu" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }

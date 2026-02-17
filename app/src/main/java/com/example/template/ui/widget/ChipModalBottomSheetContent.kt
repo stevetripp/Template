@@ -27,7 +27,7 @@ fun ChipModalBottomSheetContent(chipItems: List<ChipItem>, onItemSelected: (Chip
             chipItems.forEach { chipItem ->
                 when (chipItem) {
                     ChipItem.Divider -> HorizontalDivider()
-                    is ChipItem.Selectable -> chipItem.ShowListItem(onClicked = { onItemSelected(chipItem) })
+                    is ChipItem.Selectable -> chipItem.showListItem(onClicked = { onItemSelected(chipItem) })
                 }
             }
         }

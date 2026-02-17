@@ -3,6 +3,7 @@ package org.lds.media.cast
 import android.content.Context
 import android.view.Menu
 import android.view.View
+import androidx.mediarouter.app.MediaRouteButton
 import com.google.android.gms.cast.framework.CastButtonFactory
 import com.google.android.gms.cast.framework.CastContext
 import com.google.android.gms.cast.framework.CastSession
@@ -106,7 +107,7 @@ class CastManager(context: Context, initCast: Boolean, var castFromDeviceEnabled
         }
     }
 
-    fun setupCastButton(context: Context, mediaRouteButton: androidx.mediarouter.app.MediaRouteButton): Boolean {
+    fun setupCastButton(context: Context, mediaRouteButton: MediaRouteButton): Boolean {
         val isCastAvailable = castContext != null
         castContext?.let {
             CastButtonFactory.setUpMediaRouteButton(context, mediaRouteButton)

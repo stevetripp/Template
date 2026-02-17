@@ -28,7 +28,7 @@ fun ChipDropDown(chipItems: List<ChipItem>, onSelected: (ChipItem.Selectable) ->
         FilterChipWrapper(selected = selectedItem !is ChipItem.Category, title = title, onClick = { isExpanded = !isExpanded })
         DropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false }, modifier = Modifier.width(IntrinsicSize.Min)) {
             chipItems.forEach { chipItem ->
-                chipItem.ShowDropdownMenuItem(onClicked = {
+                chipItem.showDropdownMenuItem(onClicked = {
                     isExpanded = false
                     (chipItem as? ChipItem.Selectable)?.let { onSelected(it) }
                 })

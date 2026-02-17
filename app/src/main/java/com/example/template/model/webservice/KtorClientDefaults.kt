@@ -54,6 +54,7 @@ object KtorClientDefaults {
 
 private object KermitKtorLogger : Logger {
     override fun log(message: String) {
+        @Suppress("UnnecessaryFullyQualifiedName")
         co.touchlab.kermit.Logger.i { message }
     }
 }

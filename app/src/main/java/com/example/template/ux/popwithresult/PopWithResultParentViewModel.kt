@@ -6,12 +6,13 @@ import kotlinx.coroutines.flow.mapNotNull
 import org.lds.mobile.ext.stateInDefault
 import org.lds.mobile.navigation3.ViewModelNavigation3
 import org.lds.mobile.navigation3.ViewModelNavigation3Impl
-import org.lds.mobile.navigation3.navigator.ResultStore
+import org.lds.mobile.navigation3.navigator.ResultStore.getResultFlow
+import org.lds.mobile.navigation3.navigator.ResultStore.removeResult
 
 class PopWithResultParentViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
-    val resultStringFlow = ResultStore.getResultFlow<String>(PopWithResultChildViewModel.CHILD_RESULT_KEY).mapNotNull {
-        it?.let { ResultStore.removeResult<String>(PopWithResultChildViewModel.CHILD_RESULT_KEY) }
+    val resultStringFlow = getResultFlow<String>(PopWithResultChildViewModel.CHILD_RESULT_KEY).mapNotNull {
+        it?.let { removeResult<String>(PopWithResultChildViewModel.CHILD_RESULT_KEY) }
     }
 
     val uiState = PopWithResultParentUiState(

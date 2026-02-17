@@ -3,6 +3,7 @@
 package org.lds.mobile.ext
 
 import android.app.Application
+import android.os.Build
 import co.touchlab.kermit.Logger
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -157,7 +158,7 @@ fun HttpRequestBuilder.cacheHeaders(etag: String?, lastModified: String?) {
 }
 
 fun DefaultRequest.DefaultRequestBuilder.acceptLanguage(application: Application) {
-    val locales = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+    val locales = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         application.resources.configuration.locales.toLanguageTags()
     } else {
         @Suppress("DEPRECATION")
