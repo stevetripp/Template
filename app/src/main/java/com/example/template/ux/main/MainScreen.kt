@@ -35,6 +35,8 @@ import com.example.template.ux.chipsheet.ChipSheetRoute
 import com.example.template.ux.chipsheet.ChipSheetScreen
 import com.example.template.ux.datetimeformat.DateTimeFormatRoute
 import com.example.template.ux.datetimeformat.DateTimeFormatScreen
+import com.example.template.ux.deeplink.DeepLinkRoute
+import com.example.template.ux.deeplink.DeepLinkScreen
 import com.example.template.ux.dialog.DialogRoute
 import com.example.template.ux.dialog.DialogScreen
 import com.example.template.ux.edgetoedge.EdgeToEdgeRoute
@@ -148,6 +150,7 @@ fun MainScreen(deeplinkRoute: NavKey?) {
         entry<ChildWithoutNavigationRoute> { ChildWithoutNavigationScreen(navigator) }
         entry<ChipSheetRoute> { ChipSheetScreen(navigator, koinViewModel()) }
         entry<DateTimeFormatRoute> { DateTimeFormatScreen(navigator) }
+        entry<DeepLinkRoute> { key -> DeepLinkScreen(navigator, key) }
         entry<DestinationRoute> { key -> DestinationScreen(navigator, koinViewModel { parametersOf(key) }) }
         entry<DialogRoute> { DialogScreen(navigator, koinViewModel()) }
         entry<EdgeToEdgeRoute> { EdgeToEdgeScreen(navigator, koinViewModel()) }
@@ -208,5 +211,4 @@ fun MainScreen(deeplinkRoute: NavKey?) {
 
     backstack?.let { ObserveRouteChanges(it) { navKey -> SmtLogger.i("""Navigating to: $navKey""") } }
 }
-
 

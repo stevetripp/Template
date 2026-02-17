@@ -11,6 +11,7 @@ import com.example.template.ux.carousel.CarouselRoute
 import com.example.template.ux.childwithnavigation.ChildWithNavigationRoute
 import com.example.template.ux.chipsheet.ChipSheetRoute
 import com.example.template.ux.datetimeformat.DateTimeFormatRoute
+import com.example.template.ux.deeplink.DeepLinkRoute
 import com.example.template.ux.dialog.DialogRoute
 import com.example.template.ux.edgetoedge.EdgeToEdgeRoute
 import com.example.template.ux.fab.FabRoute
@@ -59,6 +60,7 @@ enum class Screen(val title: String, val route: NavKey, val type: ScreenType = S
     CHILD_WITH_NAVIGATION("Child with Navigation", ChildWithNavigationRoute, ScreenType.UI),
     CHIP_SHEET("Chip Sheet", ChipSheetRoute, ScreenType.UI),
     DATE_TIME_FORMAT("Date/Time Format", DateTimeFormatRoute, ScreenType.UI),
+    DEEP_LINK("Deep Link Example", DeepLinkRoute(requiredValue = "placeholder"), ScreenType.UI),
     DIALOG("Dialog", DialogRoute, ScreenType.UI),
     EDGE_TO_EDGE("Edge to Edge Example", EdgeToEdgeRoute, ScreenType.UI),
     FAB("FAB Examples", FabRoute, ScreenType.UI),
