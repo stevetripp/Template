@@ -91,7 +91,7 @@
 
         <provider
             android:name=".ui.photo.TntFileProvider"
-            android:authorities="@string/file_provider"
+            android:authorities="${fileProviderAuthority}"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

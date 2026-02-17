@@ -105,7 +105,8 @@ android {
             versionNameSuffix = "-DEV"
             applicationIdSuffix = ".dev"
             signingConfig = signingConfigs.getByName("uploadConfig")
-            resValue("string", "file_provider", "com.tnt.template.dev.fileprovider")
+            buildConfigField("String", "FILE_PROVIDER", "\"com.tnt.template.dev.fileprovider\"")
+            manifestPlaceholders["fileProviderAuthority"] = "com.tnt.template.dev.fileprovider"
         }
         val release by getting {
             signingConfig = signingConfigs.getByName("uploadConfig")
@@ -115,12 +116,15 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
-            resValue("string", "file_provider", "com.tnt.template.fileprovider")
+            buildConfigField("String", "FILE_PROVIDER", "\"com.tnt.template.fileprovider\"")
+            manifestPlaceholders["fileProviderAuthority"] = "com.tnt.template.fileprovider"
         }
         val alpha by creating {
             initWith(release)
             versionNameSuffix = " ALPHA"
             applicationIdSuffix = ".alpha"
+            buildConfigField("String", "FILE_PROVIDER", "\"com.tnt.template.alpha.fileprovider\"")
+            manifestPlaceholders["fileProviderAuthority"] = "com.tnt.template.alpha.fileprovider"
         }
     }
 }
