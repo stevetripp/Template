@@ -48,7 +48,7 @@ class GoogleMapsViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNaviga
                     userLocationFlow.value = LatLng(1.35, 103.87)
                     isLoadingLocationFlow.value = false
                 }
-            } catch (@Suppress("UNUSED_PARAMETER") e: Exception) {
+            } catch (expected: Exception) {
                 // Default to Singapore on exception
                 userLocationFlow.value = LatLng(1.35, 103.87)
                 isLoadingLocationFlow.value = false
