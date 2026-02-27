@@ -23,6 +23,9 @@ coil = "2.7.0"
 detekt = "2.0.0-alpha.2"
 googleAndroidMaterial = "1.13.0"
 googleAndroidPlayAppUpdate = "2.1.0"
+googleMapsCompose = "6.4.1"
+googlePlayServicesLocation = "21.3.0"
+googlePlayServicesMaps = "19.0.0"
 junitBom = "6.0.2"
 koin = "4.1.1"
 konsist = "0.17.3"
@@ -76,6 +79,9 @@ androidx-test-runner = { group = "androidx.test", name = "runner", version.ref =
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 google-android-material = { group = "com.google.android.material", name = "material", version.ref = "googleAndroidMaterial" } # https://github.com/material-components/material-components-android/releases
 google-android-play-app-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "googleAndroidPlayAppUpdate" }
+google-maps-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "googleMapsCompose" }
+google-play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "googlePlayServicesLocation" }
+google-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "googlePlayServicesMaps" }
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junitBom" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }

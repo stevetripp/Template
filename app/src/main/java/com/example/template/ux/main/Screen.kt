@@ -17,6 +17,7 @@ import com.example.template.ux.edgetoedge.EdgeToEdgeRoute
 import com.example.template.ux.fab.FabRoute
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
+import com.example.template.ux.googlemaps.GoogleMapsRoute
 import com.example.template.ux.home.HomeRoute
 import com.example.template.ux.imagepicker.ImagePickerRoute
 import com.example.template.ux.inputexamples.InputExamplesRoute
@@ -66,6 +67,7 @@ enum class Screen(val title: String, val route: NavKey, val type: ScreenType = S
     FAB("FAB Examples", FabRoute, ScreenType.UI),
     FLIPPABLE("Flippable", FlippableRoute, ScreenType.UI),
     GMAIL_ADDRESS_FIELD("Gmail Address Field", GmailAddressFieldRoute, ScreenType.UI),
+    GOOGLE_MAPS("Google Maps", GoogleMapsRoute, ScreenType.UI),
     HOME("UI Examples", HomeRoute),
     IMAGE_PICKER("Image Picker", ImagePickerRoute, ScreenType.UI),
     INPUT_EXAMPLES("Input Examples", InputExamplesRoute, ScreenType.UI),

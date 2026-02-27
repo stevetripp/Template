@@ -15,6 +15,7 @@ import com.example.template.ux.dialog.DialogViewModel
 import com.example.template.ux.edgetoedge.EdgeToEdgeViewModel
 import com.example.template.ux.fab.FabViewModel
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldViewModel
+import com.example.template.ux.googlemaps.GoogleMapsViewModel
 import com.example.template.ux.home.HomeViewModel
 import com.example.template.ux.ktor.KtorViewModel
 import com.example.template.ux.main.MainViewModel
@@ -147,6 +148,7 @@ val viewModelModule = module {
     viewModelOf(::EdgeToEdgeViewModel)
     viewModelOf(::FabViewModel)
     viewModelOf(::GmailAddressFieldViewModel)
+    viewModelOf(::GoogleMapsViewModel)
     viewModelOf(::HomeViewModel)
     viewModelOf(::KtorViewModel)
     viewModelOf(::MainViewModel)

@@ -47,6 +47,8 @@ import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.flippable.FlippableScreen
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldScreen
+import com.example.template.ux.googlemaps.GoogleMapsRoute
+import com.example.template.ux.googlemaps.GoogleMapsScreen
 import com.example.template.ux.home.HomeRoute
 import com.example.template.ux.home.HomeScreen
 import com.example.template.ux.imagepicker.ImagePickerRoute
@@ -157,6 +159,7 @@ fun MainScreen(deeplinkRoute: NavKey?) {
         entry<FabRoute> { FabScreen(navigator, koinViewModel()) }
         entry<FlippableRoute> { FlippableScreen(navigator) }
         entry<GmailAddressFieldRoute> { GmailAddressFieldScreen(navigator, koinViewModel()) }
+        entry<GoogleMapsRoute> { GoogleMapsScreen(navigator, koinViewModel()) }
         entry<HomeRoute> { HomeScreen(navigator, koinViewModel()) }
         entry<ImagePickerRoute> { ImagePickerScreen(navigator) }
         entry<InputExamplesRoute> { InputExamplesScreen(navigator) }

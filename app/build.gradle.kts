@@ -14,6 +14,9 @@ android {
 
     compileSdk = AppInfo.AndroidSdk.COMPILE
 
+    // Read API key once from gradle.properties (e.g., ~/.gradle/gradle.properties)
+    val googleMapsApiKey: String = project.findProperty("googleMapsApiKey") as? String ?: ""
+
     defaultConfig {
         minSdk = AppInfo.AndroidSdk.MIN
         targetSdk = AppInfo.AndroidSdk.TARGET
@@ -52,6 +55,7 @@ android {
     buildFeatures {
         buildConfig = true
         compose = true
+        resValues = true
         viewBinding = true // needed for ActivityVideoBinding
     }
 
@@ -107,6 +111,7 @@ android {
             signingConfig = signingConfigs.getByName("uploadConfig")
             buildConfigField("String", "FILE_PROVIDER", "\"com.tnt.template.dev.fileprovider\"")
             manifestPlaceholders["fileProviderAuthority"] = "com.tnt.template.dev.fileprovider"
+            resValue("string", "google_maps_api_key", googleMapsApiKey)
         }
         val release by getting {
             signingConfig = signingConfigs.getByName("uploadConfig")
@@ -118,6 +123,7 @@ android {
 
             buildConfigField("String", "FILE_PROVIDER", "\"com.tnt.template.fileprovider\"")
             manifestPlaceholders["fileProviderAuthority"] = "com.tnt.template.fileprovider"
+            resValue("string", "google_maps_api_key", googleMapsApiKey)
         }
         val alpha by creating {
             initWith(release)
@@ -125,6 +131,7 @@ android {
             applicationIdSuffix = ".alpha"
             buildConfigField("String", "FILE_PROVIDER", "\"com.tnt.template.alpha.fileprovider\"")
             manifestPlaceholders["fileProviderAuthority"] = "com.tnt.template.alpha.fileprovider"
+            resValue("string", "google_maps_api_key", googleMapsApiKey)
         }
     }
 }
@@ -158,6 +165,9 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.google.android.material)
     implementation(libs.google.android.play.app.update)
+    implementation(libs.google.maps.compose)
+    implementation(libs.google.play.services.location)
+    implementation(libs.google.play.services.maps)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.startup)
     implementation(libs.koin.compose)
