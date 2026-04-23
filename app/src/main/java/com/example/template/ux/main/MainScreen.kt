@@ -2,6 +2,7 @@ package com.example.template.ux.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavEntry
@@ -136,7 +137,7 @@ fun MainScreen(deeplinkRoute: NavKey?) {
         navKeySerializer = NavKeySerializer()
     )
 
-    val navigator = TopLevelBackStackNavigator(navigationState)
+    val navigator = remember { TopLevelBackStackNavigator(navigationState) }
     val backstack = navigator.getCurrentBackStack()
     val breadcrumbRoutes = backstack?.mapNotNull { it as? BreadcrumbRoute }.orEmpty()
 
