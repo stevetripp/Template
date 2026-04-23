@@ -12,12 +12,12 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
-import java.util.Locale
 import kotlin.time.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -32,6 +32,7 @@ fun DateTimeFormatScreen(navigator: Navigation3Navigator) {
 private fun DateTimeFormatContent(onBack: () -> Unit = {}) {
 
     val context = LocalContext.current
+    val locale = LocalLocale.current.platformLocale
     val now = Clock.System.now()
     Scaffold(topBar = { AppTopAppBar(title = Screen.DATE_TIME_FORMAT.title, onBack = onBack) }) { paddingValues ->
         Column(
@@ -42,7 +43,7 @@ private fun DateTimeFormatContent(onBack: () -> Unit = {}) {
         )
         {
             ReadOnlyTextField(value = now.toString(), label = "UTC")
-            ReadOnlyTextField(value = Locale.getDefault().displayName, label = "Locale")
+            ReadOnlyTextField(value = locale.displayName, label = "Locale")
             ReadOnlyTextField(value = now.toLocalDateTime(TimeZone.currentSystemDefault()).toString(), label = "Local DateTime")
             ReadOnlyTextField(value = DateUtils.formatDateTime(context, now.toEpochMilliseconds(), SHOW_NUMERIC_DATE_YEAR_TIME), label = "SHOW_NUMERIC_DATE_YEAR_TIME")
             ReadOnlyTextField(value = DateUtils.formatDateTime(context, now.toEpochMilliseconds(), SHOW_DATE_YEAR_TIME), label = "SHOW_DATE_YEAR_TIME")

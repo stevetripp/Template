@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Scaffold
@@ -25,7 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 /**
  * MainActivity for the app's main entry point.
  */
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     val mainViewModel: MainViewModel by viewModel()
     private val deepLinkRouteState = mutableStateOf<NavKey?>(null)

@@ -9,7 +9,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -32,7 +31,6 @@ fun VideoScreen(navigator: Navigation3Navigator, viewModel: VideoScreenViewModel
 fun VideoContent(uiState: VideoScreenUiState, onBack: () -> Unit = {}) {
 
     val videoItems by uiState.videoItemsFlow.collectAsStateWithLifecycle()
-    val context = LocalContext.current
 
     Scaffold(topBar = { AppTopAppBar(title = Screen.VIDEO.title, onBack = onBack) }) { paddingValues ->
         LazyColumn(
@@ -42,8 +40,7 @@ fun VideoContent(uiState: VideoScreenUiState, onBack: () -> Unit = {}) {
         ) {
             item { Text(text = "HLS Streams", fontWeight = FontWeight.Bold) }
             items(videoItems) {
-                TextButton(onClick = { uiState.onLaunchPlayer(context, it) }) { Text(text = it.hlsUrl.value, maxLines = 1) }
-//                TextButton(onClick = { uiState.onHlsStreamTapped(it) }) { Text(text = it.hlsUrl.value, maxLines = 1) }
+                TextButton(onClick = { uiState.onHlsStreamTapped(it) }) { Text(text = it.hlsUrl.value, maxLines = 1) }
             }
             item { Text(text = "Video Renditions", fontWeight = FontWeight.Bold) }
             items(videoItems) {

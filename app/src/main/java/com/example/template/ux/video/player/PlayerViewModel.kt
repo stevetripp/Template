@@ -1,14 +1,11 @@
 package com.example.template.ux.video.player
 
 import android.os.Bundle
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.MimeTypes
-import androidx.navigation.toRoute
 import com.example.template.domain.VideoId
-import com.example.template.ux.NavTypeMaps
 import com.example.template.ux.video.TestData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,10 +14,9 @@ import org.lds.mobile.util.LdsDeviceUtil
 
 class PlayerViewModel(
     deviceUtil: LdsDeviceUtil,
-    savedStateHandle: SavedStateHandle,
+    playerRoute: PlayerRoute,
 ) : ViewModel() {
 
-    private val playerRoute = savedStateHandle.toRoute<PlayerRoute>(NavTypeMaps.typeMap)
     private val videoId = playerRoute.videoId
 
     val mediaItemsFlow: Flow<PlayList> = flow {

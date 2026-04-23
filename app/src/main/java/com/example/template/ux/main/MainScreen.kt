@@ -3,7 +3,6 @@ package com.example.template.ux.main
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavEntryDecorator
@@ -114,8 +113,8 @@ import com.example.template.ux.tabs.TabsRoute
 import com.example.template.ux.tabs.TabsScreen
 import com.example.template.ux.typography.TypographyRoute
 import com.example.template.ux.typography.TypographyScreen
-import com.example.template.ux.video.player.PlayerActivity
 import com.example.template.ux.video.player.PlayerRoute
+import com.example.template.ux.video.player.PlayerScreen
 import com.example.template.ux.video.screen.VideoScreen
 import com.example.template.ux.video.screen.VideoScreenRoute
 import com.example.template.ux.webview.WebViewRoute
@@ -176,6 +175,7 @@ fun MainScreen(deeplinkRoute: NavKey?) {
         entry<PanningZoomingRoute> { PanningZoomingScreen(navigator) }
         entry<ParametersRoute> { ParametersScreen(navigator, koinViewModel()) }
         entry<PermissionsRoute> { PermissionsScreen(navigator, koinViewModel()) }
+        entry<PlayerRoute> { key -> PlayerScreen(navigator, koinViewModel { parametersOf(key) }) }
         entry<PopWithResultChildRoute> { PopWithResultChildScreen(navigator, koinViewModel()) }
         entry<PopWithResultParentRoute> { PopWithResultParentScreen(navigator, koinViewModel()) }
         entry<PullRefreshRoute> { key -> PullRefreshScreen(navigator, koinViewModel { parametersOf(key) }) }
@@ -194,11 +194,6 @@ fun MainScreen(deeplinkRoute: NavKey?) {
         entry<TypographyRoute> { TypographyScreen(navigator) }
         entry<VideoScreenRoute> { VideoScreen(navigator, koinViewModel()) }
         entry<WebViewRoute> { WebViewScreen(navigator) }
-        entry<PlayerRoute> { key ->
-            // NOTE: I prefer to launch the PlayerActivity here, but it caused the pop to result in a blank screen and required an
-            // additional back.
-            PlayerActivity.launch(LocalContext.current, key.videoId)
-        }
     }
 
     val decorators: List<NavEntryDecorator<NavKey>> = listOf(rememberSaveableStateHolderNavEntryDecorator(), rememberViewModelStoreNavEntryDecorator())
@@ -215,4 +210,3 @@ fun MainScreen(deeplinkRoute: NavKey?) {
 
     backstack?.let { ObserveRouteChanges(it) { navKey -> SmtLogger.i("""Navigating to: $navKey""") } }
 }
-
