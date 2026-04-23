@@ -5,7 +5,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 data class HomeScreenUiState(
-    val screensFlow: StateFlow<List<Screen>> = MutableStateFlow(emptyList()),
+    val inputScreensFlow: StateFlow<List<Screen>>,
+    val navigationScreensFlow: StateFlow<List<Screen>>,
+    val visualScreensFlow: StateFlow<List<Screen>>,
+    val selectedTabFlow: MutableStateFlow<Int> = MutableStateFlow(0),
     val onItemClicked: (Screen) -> Unit = {},
     val onSettingsClicked: () -> Unit = {},
 )
