@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.template.ux.breadcrumbs.BreadCrumbsViewModel
 import com.example.template.ux.parameters.DestinationRoute
 import com.example.template.ux.pullrefresh.PullRefreshRoute
+import com.example.template.ux.video.player.PlayerRoute
 import com.lemonappdev.konsist.api.Konsist
 import com.lemonappdev.konsist.api.ext.list.modifierprovider.withoutAbstractModifier
 import com.lemonappdev.konsist.api.ext.list.withAllParentsOf
@@ -40,6 +41,7 @@ class AppKoinModuleCheckTest {
             DestinationRoute::class,
             HttpClientEngine::class, // Provided by Ktor
             OkHttpClient::class, // Provided as a wrapper item in StandardOkHttpClient or AuthenticatedOkHttpClient
+            PlayerRoute::class,
             PullRefreshRoute::class,
             SavedStateHandle::class, // Provided with Koin viewModelOf()
         )
