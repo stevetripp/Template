@@ -19,6 +19,7 @@ jobs:
       BUILD_NUMBER: ${{ github.run_number }}
       MIN_VERSION_CODE: 1812
       LAST_VERSION_CODE: ${{ vars.LAST_VERSION_CODE }}
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - uses: actions/checkout@v4

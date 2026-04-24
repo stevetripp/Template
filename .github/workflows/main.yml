@@ -11,6 +11,7 @@ jobs:
 
     env:
       GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx6G -XX:MaxMetaspaceSize=4G"
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - uses: actions/checkout@v4
