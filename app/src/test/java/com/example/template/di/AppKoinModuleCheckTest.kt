@@ -15,9 +15,9 @@ import com.lemonappdev.konsist.api.ext.list.withAllParentsOf
 import com.lemonappdev.konsist.api.verify.assertTrue
 import io.ktor.client.engine.HttpClientEngine
 import kotlin.reflect.KClass
-import kotlin.test.Test
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
+import org.junit.jupiter.api.Test
 import org.koin.core.annotation.KoinInternalApi
 import org.koin.core.instance.InstanceFactory
 import org.koin.core.module.Module
