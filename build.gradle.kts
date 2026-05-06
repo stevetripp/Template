@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.autonomousapps.dependency.analysis)
     alias(libs.plugins.ben.manes.versions)
     alias(libs.plugins.detekt)
-    alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.undercouch.download)
@@ -104,4 +103,3 @@ allprojects {
         }
     }
 }
-

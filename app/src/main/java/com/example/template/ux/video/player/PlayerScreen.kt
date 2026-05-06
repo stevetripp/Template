@@ -41,6 +41,7 @@ import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.compose.PlayerSurface
 import androidx.media3.ui.compose.material3.Player
+import com.example.template.R
 import com.example.template.ui.composable.AppTopAppBar
 import com.google.android.gms.cast.framework.CastButtonFactory
 import com.google.android.gms.cast.framework.CastContext
@@ -236,7 +237,7 @@ fun PlayerScreen(
                         AndroidView(factory = { ctx ->
                             // Wrap context with Material theme to provide a non-transparent background
                             // This prevents IllegalArgumentException from MediaRouterThemeHelper
-                            val themedContext = ContextThemeWrapper(ctx, com.example.template.R.style.AppTheme)
+                            val themedContext = ContextThemeWrapper(ctx, R.style.AppTheme)
                             androidx.mediarouter.app.MediaRouteButton(themedContext).apply {
                                 CastButtonFactory.setUpMediaRouteButton(context, this)
                             }

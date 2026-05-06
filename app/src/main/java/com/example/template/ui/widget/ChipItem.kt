@@ -11,19 +11,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
-sealed class ChipItem {
+sealed interface ChipItem {
 
     @Composable
-    abstract fun showListItem(onClicked: () -> Unit)
+    fun showListItem(onClicked: () -> Unit)
 
     @Composable
-    abstract fun showDropdownMenuItem(onClicked: () -> Unit)
+    fun showDropdownMenuItem(onClicked: () -> Unit)
 
     open class Selectable(
         val text: String,
         val obj: Any? = null,
         val checked: Boolean = false,
-    ) : ChipItem() {
+    ) : ChipItem {
         @Composable
         override fun showListItem(onClicked: () -> Unit) {
             ListItem(
@@ -72,7 +72,7 @@ sealed class ChipItem {
         override fun copy(checked: Boolean): Selectable = Category(text, bottomSheetText, obj, checked)
     }
 
-    object Divider : ChipItem() {
+    object Divider : ChipItem {
         @Composable
         override fun showListItem(onClicked: () -> Unit) = HorizontalDivider()
 

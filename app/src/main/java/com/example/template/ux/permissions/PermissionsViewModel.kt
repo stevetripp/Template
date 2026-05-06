@@ -1,5 +1,6 @@
 package com.example.template.ux.permissions
 
+import android.Manifest
 import android.app.Application
 import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,7 @@ class PermissionsViewModel(
 ) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
     // Allows view model to get notified when permission changes thru system settings.
-    private val hasPermissionGranted = MutableStateFlow(application.checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+    private val hasPermissionGranted = MutableStateFlow(application.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
 
     val uiState = PermissionsUiState(
         onPermissionStatusChanged = { hasPermissionGranted.value = it is PermissionStatus.Granted }

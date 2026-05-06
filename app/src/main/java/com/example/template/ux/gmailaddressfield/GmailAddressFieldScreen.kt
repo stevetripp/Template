@@ -1,5 +1,6 @@
 package com.example.template.ux.gmailaddressfield
 
+import android.Manifest
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -57,7 +58,7 @@ private fun GmailAddressFieldContent(uiState: GmailAddressFieldUiState, onBack: 
     Log.i("SMT", "GmailAddressFieldContent")
     if (!LocalInspectionMode.current) {
 
-        val readContactsPermissionState = rememberPermissionState(android.Manifest.permission.READ_CONTACTS)
+        val readContactsPermissionState = rememberPermissionState(Manifest.permission.READ_CONTACTS)
 
         LaunchedEffect(key1 = readContactsPermissionState.status) {
             Log.i("SMT", "LaunchedEffect: ${readContactsPermissionState.status}")
