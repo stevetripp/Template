@@ -1,5 +1,7 @@
 package com.example.template.ux.flippable
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
@@ -13,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +30,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -57,9 +60,9 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.FLIPPABLE_GRID.title, onBack = onBack) }) { paddingValues ->
         var isXMode by remember { mutableStateOf(false) }
         val cellCoordinates = remember { mutableStateMapOf<Int, LayoutCoordinates>() }
-        val controllers = remember { List(16) { FlippableController() } }
-        val cellSymbols = remember { mutableStateListOf<CellSymbol>().apply { if (isEmpty()) addAll(List(16) { CellSymbol.NONE }) } }
-        val cellIsFlipped = remember { mutableStateListOf<Boolean>().apply { if (isEmpty()) addAll(List(16) { false }) } }
+        val controllers = remember { List(100) { FlippableController() } }
+        val cellSymbols = remember { mutableStateListOf<CellSymbol>().apply { if (isEmpty()) addAll(List(100) { CellSymbol.NONE }) } }
+        val cellIsFlipped = remember { mutableStateListOf<Boolean>().apply { if (isEmpty()) addAll(List(100) { false }) } }
         var parentCoordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
 
         fun triggerFlip(index: Int) {
@@ -81,7 +84,7 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                     awaitEachGesture {
                         val down = awaitFirstDown(requireUnconsumed = false)
                         val startPos = down.position
-                        var currentFlipped = setOf<Int>()
+                        var currentFlippedList = listOf<Int>()
                         val startCellIndex = cellCoordinates.entries.find { (_, coordinates) ->
                             if (coordinates.isAttached && parentCoordinates != null) {
                                 val bounds = parentCoordinates!!.localBoundingBoxOf(coordinates)
@@ -91,8 +94,11 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                             }
                         }?.key
 
+                        var targetState: Boolean? = null
+
                         if (startCellIndex != null) {
-                            currentFlipped = setOf(startCellIndex)
+                            currentFlippedList = listOf(startCellIndex)
+                            targetState = cellIsFlipped[startCellIndex]
                             triggerFlip(startCellIndex)
                         }
 
@@ -117,9 +123,40 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                                     }
                                 }?.key
 
-                                if (cellIndex != null && cellIndex !in currentFlipped) {
-                                    currentFlipped = currentFlipped + cellIndex
-                                    triggerFlip(cellIndex)
+                                if (cellIndex != null && cellIndex !in currentFlippedList) {
+                                    if (targetState == null || cellIsFlipped[cellIndex] == targetState) {
+                                        var canFlip = true
+                                        if (currentFlippedList.size >= 2) {
+                                            val first = currentFlippedList[0]
+                                            val second = currentFlippedList[1]
+                                            val r1 = first / 10
+                                            val c1 = first % 10
+                                            val r2 = second / 10
+                                            val c2 = second % 10
+
+                                            val isAdjacent = (r1 == r2 && kotlin.math.abs(c1 - c2) == 1) ||
+                                                             (c1 == c2 && kotlin.math.abs(r1 - r2) == 1)
+
+                                            if (isAdjacent) {
+                                                val cellRow = cellIndex / 10
+                                                val cellCol = cellIndex % 10
+                                                if (r1 == r2) {
+                                                    if (cellRow != r1) {
+                                                        canFlip = false
+                                                    }
+                                                } else if (c1 == c2) {
+                                                    if (cellCol != c1) {
+                                                        canFlip = false
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        if (canFlip) {
+                                            currentFlippedList = currentFlippedList + cellIndex
+                                            triggerFlip(cellIndex)
+                                        }
+                                    }
                                 }
 
                                 change.consume()
@@ -148,14 +185,12 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                 }
 
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(4),
+                    columns = GridCells.Fixed(10),
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        .padding(16.dp)
                 ) {
-                    items(16) { index ->
+                    items(100) { index ->
                         val flipController = controllers[index]
 
                         Box(
@@ -171,6 +206,8 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .aspectRatio(1f),
+                                        shape = RectangleShape,
+                                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
                                     ) {
                                         Box(modifier = Modifier.fillMaxSize())
@@ -181,6 +218,8 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .aspectRatio(1f),
+                                        shape = RectangleShape,
+                                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
                                     ) {
                                         Box(
@@ -189,20 +228,30 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                                         ) {
                                             when (cellSymbols[index]) {
                                                 CellSymbol.X -> {
-                                                    Text(
-                                                        text = "X",
-                                                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                                        style = MaterialTheme.typography.headlineLarge,
-                                                        fontWeight = FontWeight.Bold
-                                                    )
+                                                    val lineColor = MaterialTheme.colorScheme.onSecondaryContainer
+                                                    Canvas(modifier = Modifier.fillMaxSize()) {
+                                                        val strokeWidthPx = 2.dp.toPx()
+                                                        drawLine(
+                                                            color = lineColor,
+                                                            start = Offset(0f, 0f),
+                                                            end = Offset(size.width, size.height),
+                                                            strokeWidth = strokeWidthPx
+                                                        )
+                                                        drawLine(
+                                                            color = lineColor,
+                                                            start = Offset(size.width, 0f),
+                                                            end = Offset(0f, size.height),
+                                                            strokeWidth = strokeWidthPx
+                                                        )
+                                                    }
                                                 }
                                                 CellSymbol.SQUARE -> {
                                                     Box(
                                                         modifier = Modifier
-                                                            .fillMaxSize(0.6f)
+                                                            .fillMaxSize()
                                                             .background(
                                                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                                                shape = RoundedCornerShape(4.dp)
+                                                                shape = RectangleShape
                                                             )
                                                     )
                                                 }
