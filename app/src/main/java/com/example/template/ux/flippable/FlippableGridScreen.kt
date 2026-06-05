@@ -1,6 +1,5 @@
 package com.example.template.ux.flippable
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -188,7 +187,9 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                     columns = GridCells.Fixed(10),
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(16.dp)
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(1.dp),
+                    horizontalArrangement = Arrangement.spacedBy(1.dp)
                 ) {
                     items(100) { index ->
                         val flipController = controllers[index]
@@ -207,20 +208,24 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                                             .fillMaxSize()
                                             .aspectRatio(1f),
                                         shape = RectangleShape,
-                                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-                                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+                                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
                                     ) {
                                         Box(modifier = Modifier.fillMaxSize())
                                     }
                                 },
                                 backSide = {
+                                    val backColor = if (cellSymbols[index] == CellSymbol.X) {
+                                        MaterialTheme.colorScheme.secondaryContainer
+                                    } else {
+                                        MaterialTheme.colorScheme.primaryContainer
+                                    }
+
                                     Card(
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .aspectRatio(1f),
                                         shape = RectangleShape,
-                                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-                                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
+                                        colors = CardDefaults.cardColors(containerColor = backColor)
                                     ) {
                                         Box(
                                             modifier = Modifier.fillMaxSize(),
@@ -250,7 +255,7 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                                                         modifier = Modifier
                                                             .fillMaxSize()
                                                             .background(
-                                                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                                                color = MaterialTheme.colorScheme.onPrimaryContainer,
                                                                 shape = RectangleShape
                                                             )
                                                     )
