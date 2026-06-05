@@ -43,6 +43,8 @@ import com.example.template.ux.edgetoedge.EdgeToEdgeRoute
 import com.example.template.ux.edgetoedge.EdgeToEdgeScreen
 import com.example.template.ux.fab.FabRoute
 import com.example.template.ux.fab.FabScreen
+import com.example.template.ux.flippable.FlippableGridRoute
+import com.example.template.ux.flippable.FlippableGridScreen
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.flippable.FlippableScreen
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
@@ -158,6 +160,7 @@ fun MainScreen(deeplinkRoute: NavKey?) {
         entry<EdgeToEdgeRoute> { EdgeToEdgeScreen(navigator, koinViewModel()) }
         entry<FabRoute> { FabScreen(navigator, koinViewModel()) }
         entry<FlippableRoute> { FlippableScreen(navigator) }
+        entry<FlippableGridRoute> { FlippableGridScreen(navigator) }
         entry<GmailAddressFieldRoute> { GmailAddressFieldScreen(navigator, koinViewModel()) }
         entry<GoogleMapsRoute> { GoogleMapsScreen(navigator, koinViewModel()) }
         entry<HomeRoute> { HomeScreen(navigator, koinViewModel()) }

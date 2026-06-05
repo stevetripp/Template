@@ -15,6 +15,7 @@ import com.example.template.ux.deeplink.DeepLinkRoute
 import com.example.template.ux.dialog.DialogRoute
 import com.example.template.ux.edgetoedge.EdgeToEdgeRoute
 import com.example.template.ux.fab.FabRoute
+import com.example.template.ux.flippable.FlippableGridRoute
 import com.example.template.ux.flippable.FlippableRoute
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldRoute
 import com.example.template.ux.googlemaps.GoogleMapsRoute
@@ -71,6 +72,7 @@ enum class Screen(
     EDGE_TO_EDGE("Edge to Edge Example", EdgeToEdgeRoute, ScreenType.UI, UiCategory.VISUAL),
     FAB("FAB Examples", FabRoute, ScreenType.UI, UiCategory.VISUAL),
     FLIPPABLE("Flippable", FlippableRoute, ScreenType.UI, UiCategory.VISUAL),
+    FLIPPABLE_GRID("Flippable Grid", FlippableGridRoute, ScreenType.UI, UiCategory.VISUAL),
     GMAIL_ADDRESS_FIELD("Gmail Address Field", GmailAddressFieldRoute, ScreenType.UI, UiCategory.INPUT),
     GOOGLE_MAPS("Google Maps", GoogleMapsRoute, ScreenType.UI, UiCategory.VISUAL),
     HOME("UI Examples", HomeRoute),
