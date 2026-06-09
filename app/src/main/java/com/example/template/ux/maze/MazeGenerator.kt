@@ -6,11 +6,17 @@ package com.example.template.ux.maze
  * A "perfect" maze is defined as a maze with no closed loops and exactly
  * one unique path between any two cells in the grid. This generator uses
  * a randomized Depth-First Search (DFS) recursive backtracker algorithm.
+ *
+ * To prevent branches and dead-ends from extending beyond the exit point,
+ * the maze paths are generated in reverse order, starting from the end
+ * cell at `(rows - 1, cols - 1)` and generating back toward `(0, 0)`.
  */
 object MazeGenerator {
 
     /**
      * Generates a randomized perfect maze grid with the specified dimensions.
+     * The generator starts path carving at the end cell `(rows - 1, cols - 1)`
+     * and constructs the maze in reverse towards the start cell `(0, 0)`.
      *
      * @param rows The number of rows in the maze grid.
      * @param cols The number of columns in the maze grid.
@@ -24,13 +30,14 @@ object MazeGenerator {
         }
 
         val stack = ArrayDeque<MazeCell>()
-        val start = tempGrid[0][0]
+        val start = tempGrid[rows - 1][cols - 1]
         start.visited = true
         stack.addLast(start)
 
         while (stack.isNotEmpty()) {
             val current = stack.last()
             val neighbors = getUnvisitedNeighbors(current, tempGrid, rows, cols)
+
             if (neighbors.isNotEmpty()) {
                 // Select a random unvisited neighbor, carve a path to it, and push it to the stack
                 val next = neighbors.random()
