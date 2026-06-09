@@ -11,29 +11,21 @@ import kotlinx.coroutines.launch
 import org.lds.mobile.navigation3.ViewModelNavigation3
 import org.lds.mobile.navigation3.ViewModelNavigation3Impl
 
-data class CellPos(val row: Int, val col: Int)
-
-data class MazeCell(
-    val row: Int,
-    val col: Int,
-    var hasTopWall: Boolean = true,
-    var hasRightWall: Boolean = true,
-    var hasBottomWall: Boolean = true,
-    var hasLeftWall: Boolean = true,
-    var visited: Boolean = false
-)
-
-enum class Difficulty(val title: String, val rows: Int, val cols: Int) {
-    EASY("Easy (10x10)", 10, 10),
-    MEDIUM("Medium (15x15)", 15, 15),
-    HARD("Hard (20x20)", 20, 20)
-}
-
-enum class MazeDirection { UP, DOWN, LEFT, RIGHT }
-
+/**
+ * ViewModel for managing the state and game loop of the Maze game screen.
+ *
+ * Implements [ViewModelNavigation3] for routing. It manages the backing properties
+ * for [MazeUiState], generates randomized perfect mazes using [MazeGenerator],
+ * handles boundary checked player movements, computes paths using a BFS solver,
+ * and maintains a coroutine game timer.
+ */
 class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
 
     private val _uiState = MutableStateFlow<MazeUiState>(MazeUiState.Loading)
+
+    /**
+     * Observable flow of the active [MazeUiState].
+     */
     val uiState = _uiState.asStateFlow()
 
     // Backing properties for the Ready state
@@ -47,7 +39,7 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
     private var moveCount: Int = 0
     private var isGameCompleted: Boolean = false
     private var timeElapsed: Long = 0L
-    private var difficulty: Difficulty = Difficulty.EASY
+    private var difficulty: MazeDifficulty = MazeDifficulty.EASY
     private var isLoading: Boolean = true
 
     private var timerJob: Job? = null
@@ -56,6 +48,9 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
         generateNewMaze()
     }
 
+    /**
+     * Unifies backing properties and emits a new [MazeUiState.Ready] or [MazeUiState.Loading] state.
+     */
     private fun updateState() {
         if (isLoading) {
             _uiState.value = MazeUiState.Loading
@@ -80,11 +75,20 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
         }
     }
 
-    fun setDifficulty(newDifficulty: Difficulty) {
+    /**
+     * Sets a new difficulty setting and regenerates the maze.
+     *
+     * @param newDifficulty The difficulty to select.
+     */
+    fun setDifficulty(newDifficulty: MazeDifficulty) {
         difficulty = newDifficulty
         generateNewMaze()
     }
 
+    /**
+     * Generates a completely new randomized maze, resets player positions,
+     * resets stats/solution trail, and starts/restarts the stopwatch timer.
+     */
     fun generateNewMaze() {
         isLoading = true
         updateState()
@@ -108,6 +112,13 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
         startTimer()
     }
 
+    /**
+     * Moves the player in the specified direction if the path is not blocked by a wall.
+     * Checks boundaries, increments the move counter, records the visited path,
+     * and stops the timer on game completion.
+     *
+     * @param direction The [MazeDirection] to move.
+     */
     fun movePlayer(direction: MazeDirection) {
         if (isGameCompleted || isLoading) return
         val grid = mazeGrid
@@ -171,6 +182,9 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
         }
     }
 
+    /**
+     * Toggles the display overlay of the shortest-path solver.
+     */
     fun toggleSolution() {
         if (isLoading) return
         if (showSolution) {
@@ -181,6 +195,10 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
         }
     }
 
+    /**
+     * Internal solver function using Breadth-First Search (BFS) to find
+     * and record the shortest path from the player's position to the endCell.
+     */
     private fun calculateSolution() {
         val grid = mazeGrid
         if (grid.isEmpty()) return
@@ -250,6 +268,9 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
         updateState()
     }
 
+    /**
+     * Starts the coroutine-based game timer.
+     */
     private fun startTimer() {
         stopTimer()
         timerJob = viewModelScope.launch {
@@ -262,6 +283,9 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
         }
     }
 
+    /**
+     * Cancels the active timer coroutine job.
+     */
     private fun stopTimer() {
         timerJob?.cancel()
         timerJob = null

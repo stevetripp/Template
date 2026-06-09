@@ -41,6 +41,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -79,19 +80,39 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
-import java.util.Locale
 import org.lds.mobile.navigation3.navigator.Navigation3Navigator
+import java.util.Locale
 
+/**
+ * Main entry point Composable for the Maze game screen.
+ * Collects state from the view model and delegates rendering.
+ *
+ * @param navigator The navigation controller for pop operations.
+ * @param viewModel The view model managing state.
+ */
 @Composable
 fun MazeScreen(navigator: Navigation3Navigator, viewModel: MazeViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (val state = uiState) {
-        is MazeUiState.Loading -> MazeLoadingScreen(onBack = navigator::pop)
-        is MazeUiState.Ready -> MazeContent(uiState = state, onBack = navigator::pop)
+        is MazeUiState.Loading -> {
+            MazeLoadingScreen(onBack = navigator::pop)
+        }
+        is MazeUiState.Ready -> {
+            MazeContent(
+                uiState = state,
+                onBack = navigator::pop
+            )
+        }
     }
 }
 
+/**
+ * Composable screen showing a centered progress spinner during maze loading.
+ *
+ * @param onBack Callback triggered when navigating back.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MazeLoadingScreen(onBack: () -> Unit) {
     Scaffold(
@@ -113,6 +134,15 @@ fun MazeLoadingScreen(onBack: () -> Unit) {
     }
 }
 
+/**
+ * Composable displaying the active gameplay screen for a generated maze.
+ * Renders stats, canvas drawing, D-pad button layout, keyboard listeners,
+ * and handles completion/victory dialogs.
+ *
+ * @param uiState The active [MazeUiState.Ready] state.
+ * @param onBack Callback triggered when navigating back.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MazeContent(
     uiState: MazeUiState.Ready,
@@ -149,7 +179,7 @@ fun MazeContent(
                             expanded = showDifficultyMenu,
                             onDismissRequest = { showDifficultyMenu = false }
                         ) {
-                            Difficulty.entries.forEach { diff ->
+                            MazeDifficulty.entries.forEach { diff ->
                                 DropdownMenuItem(
                                     text = { Text(diff.title) },
                                     onClick = {
@@ -254,22 +284,18 @@ fun MazeContent(
                                     onMove(MazeDirection.UP)
                                     true
                                 }
-
                                 Key.DirectionDown, Key.S -> {
                                     onMove(MazeDirection.DOWN)
                                     true
                                 }
-
                                 Key.DirectionLeft, Key.A -> {
                                     onMove(MazeDirection.LEFT)
                                     true
                                 }
-
                                 Key.DirectionRight, Key.D -> {
                                     onMove(MazeDirection.RIGHT)
                                     true
                                 }
-
                                 else -> false
                             }
                         } else false
@@ -575,7 +601,7 @@ private fun MazeContentPreview() {
                 moveCount = 4,
                 isGameCompleted = false,
                 timeElapsed = 12500L,
-                difficulty = Difficulty.EASY,
+                difficulty = MazeDifficulty.EASY,
                 onMove = {},
                 onToggleSolution = {},
                 onRegenerate = {},
