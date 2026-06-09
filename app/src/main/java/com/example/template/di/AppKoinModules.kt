@@ -19,6 +19,7 @@ import com.example.template.ux.googlemaps.GoogleMapsViewModel
 import com.example.template.ux.home.HomeViewModel
 import com.example.template.ux.ktor.KtorViewModel
 import com.example.template.ux.main.MainViewModel
+import com.example.template.ux.maze.MazeViewModel
 import com.example.template.ux.memorize.MemorizeViewModel
 import com.example.template.ux.modalsidesheet.ModalSideSheetViewModel
 import com.example.template.ux.notification.NotificationUtil
@@ -152,6 +153,7 @@ val viewModelModule = module {
     viewModelOf(::HomeViewModel)
     viewModelOf(::KtorViewModel)
     viewModelOf(::MainViewModel)
+    viewModelOf(::MazeViewModel)
     viewModelOf(::MemorizeViewModel)
     viewModelOf(::ModalSideSheetViewModel)
     viewModelOf(::NotificationPermissionsViewModel)

@@ -57,6 +57,8 @@ import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.inputexamples.InputExamplesScreen
 import com.example.template.ux.ktor.KtorRoute
 import com.example.template.ux.ktor.KtorScreen
+import com.example.template.ux.maze.MazeRoute
+import com.example.template.ux.maze.MazeScreen
 import com.example.template.ux.memorize.MemorizeRoute
 import com.example.template.ux.memorize.MemorizeScreen
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
@@ -164,6 +166,7 @@ fun MainScreen(deeplinkRoute: NavKey?) {
         entry<ImagePickerRoute> { ImagePickerScreen(navigator) }
         entry<InputExamplesRoute> { InputExamplesScreen(navigator) }
         entry<KtorRoute> { KtorScreen(navigator, koinViewModel()) }
+        entry<MazeRoute> { MazeScreen(navigator, koinViewModel()) }
         entry<MemorizeRoute> { MemorizeScreen(navigator, koinViewModel()) }
         entry<ModalBottomSheetRoute> { ModalBottomSheetScreen(navigator) }
         entry<ModalDrawerSheetRoute> { ModelDrawerSheetScreen(navigator) }

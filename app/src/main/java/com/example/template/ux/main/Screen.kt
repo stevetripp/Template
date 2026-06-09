@@ -22,6 +22,7 @@ import com.example.template.ux.home.HomeRoute
 import com.example.template.ux.imagepicker.ImagePickerRoute
 import com.example.template.ux.inputexamples.InputExamplesRoute
 import com.example.template.ux.ktor.KtorRoute
+import com.example.template.ux.maze.MazeRoute
 import com.example.template.ux.memorize.MemorizeRoute
 import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modaldrawersheet.ModalDrawerSheetRoute
@@ -77,6 +78,7 @@ enum class Screen(
     IMAGE_PICKER("Image Picker", ImagePickerRoute, ScreenType.UI, UiCategory.VISUAL),
     INPUT_EXAMPLES("Input Examples", InputExamplesRoute, ScreenType.UI, UiCategory.INPUT),
     KTOR("Ktor Test", KtorRoute, ScreenType.SERVICES),
+    MAZE("Maze Escape", MazeRoute, ScreenType.UI, UiCategory.VISUAL),
     MEMORIZE("Memorize", MemorizeRoute, ScreenType.UI, UiCategory.INPUT),
     MODAL_BOTTOM_SHEET("Modal Bottom Sheet", ModalBottomSheetRoute, ScreenType.UI, UiCategory.NAVIGATION),
     MODAL_DRAWER_SHEET("Modal Drawer Sheet", ModalDrawerSheetRoute, ScreenType.UI, UiCategory.NAVIGATION),
