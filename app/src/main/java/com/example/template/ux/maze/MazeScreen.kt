@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -59,6 +58,7 @@ import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -66,7 +66,6 @@ import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import org.lds.mobile.navigation3.navigator.Navigation3Navigator
-import java.util.Locale
 
 /**
  * Main entry point Composable for the Maze game screen.
@@ -80,15 +79,8 @@ fun MazeScreen(navigator: Navigation3Navigator, viewModel: MazeViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (val state = uiState) {
-        is MazeUiState.Loading -> {
-            MazeLoadingScreen(onBack = navigator::pop)
-        }
-        is MazeUiState.Ready -> {
-            MazeContent(
-                uiState = state,
-                onBack = navigator::pop
-            )
-        }
+        is MazeUiState.Loading -> MazeLoadingScreen(onBack = navigator::pop)
+        is MazeUiState.Ready -> MazeContent(uiState = state, onBack = navigator::pop)
     }
 }
 
@@ -234,8 +226,9 @@ private fun StatsPanel(timeElapsed: Long, moveCount: Int) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = "TIME", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
                 val seconds = timeElapsed / 1000.0
+                val locale = LocalLocale.current.platformLocale
                 Text(
-                    text = String.format(Locale.getDefault(), "%.1fs", seconds),
+                    text = String.format(locale, "%.1fs", seconds),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -292,18 +285,22 @@ private fun MazeGridCanvas(
                             onMove(MazeDirection.UP)
                             true
                         }
+
                         Key.DirectionDown, Key.S -> {
                             onMove(MazeDirection.DOWN)
                             true
                         }
+
                         Key.DirectionLeft, Key.A -> {
                             onMove(MazeDirection.LEFT)
                             true
                         }
+
                         Key.DirectionRight, Key.D -> {
                             onMove(MazeDirection.RIGHT)
                             true
                         }
+
                         else -> false
                     }
                 } else false
@@ -345,7 +342,6 @@ private fun MazeGridCanvas(
         }
     }
 }
-
 
 
 @PreviewDefault

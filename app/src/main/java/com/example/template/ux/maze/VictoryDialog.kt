@@ -15,11 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.util.Locale
 
 /**
  * Composable rendering the victory/success pop-up dialog.
@@ -68,7 +68,8 @@ fun VictoryDialog(
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(text = "Time", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             val sec = timeElapsed / 1000.0
-                            Text(text = String.format(Locale.getDefault(), "%.2f s", sec), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                            val locale = LocalLocale.current.platformLocale
+                            Text(text = String.format(locale, "%.2f s", sec), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                         }
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(text = "Moves", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
