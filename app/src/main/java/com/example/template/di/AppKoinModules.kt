@@ -14,6 +14,7 @@ import com.example.template.ux.chipsheet.ChipSheetViewModel
 import com.example.template.ux.dialog.DialogViewModel
 import com.example.template.ux.edgetoedge.EdgeToEdgeViewModel
 import com.example.template.ux.fab.FabViewModel
+import com.example.template.ux.flippable.FlippableGridViewModel
 import com.example.template.ux.gmailaddressfield.GmailAddressFieldViewModel
 import com.example.template.ux.googlemaps.GoogleMapsViewModel
 import com.example.template.ux.home.HomeViewModel
@@ -147,6 +148,7 @@ val viewModelModule = module {
     viewModelOf(::DialogViewModel)
     viewModelOf(::EdgeToEdgeViewModel)
     viewModelOf(::FabViewModel)
+    viewModelOf(::FlippableGridViewModel)
     viewModelOf(::GmailAddressFieldViewModel)
     viewModelOf(::GoogleMapsViewModel)
     viewModelOf(::HomeViewModel)

@@ -22,7 +22,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,43 +33,42 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.template.ui.PreviewDefault
 import com.example.template.ui.composable.AppTopAppBar
 import com.example.template.ui.theme.AppTheme
 import com.example.template.ux.main.Screen
 import com.wajahatkarim.flippable.Flippable
 import com.wajahatkarim.flippable.FlippableController
-import com.wajahatkarim.flippable.rememberFlipController
+import org.koin.compose.viewmodel.koinViewModel
 import org.lds.mobile.navigation3.navigator.Navigation3Navigator
 
-enum class CellSymbol {
-    NONE, X, SQUARE
+@Composable
+fun FlippableGridScreen(
+    navigator: Navigation3Navigator,
+    viewModel: FlippableGridViewModel = koinViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    FlippableGridContent(
+        uiState = uiState,
+        onBack = navigator::pop
+    )
 }
 
 @Composable
-fun FlippableGridScreen(navigator: Navigation3Navigator) {
-    FlippableGridContent(onBack = navigator::pop)
-}
-
-@Composable
-fun FlippableGridContent(onBack: () -> Unit = {}) {
+fun FlippableGridContent(
+    uiState: FlippableGridUiState,
+    onBack: () -> Unit = {}
+) {
     Scaffold(topBar = { AppTopAppBar(title = Screen.FLIPPABLE_GRID.title, onBack = onBack) }) { paddingValues ->
-        var isXMode by remember { mutableStateOf(false) }
         val cellCoordinates = remember { mutableStateMapOf<Int, LayoutCoordinates>() }
         val controllers = remember { List(100) { FlippableController() } }
-        val cellSymbols = remember { mutableStateListOf<CellSymbol>().apply { if (isEmpty()) addAll(List(100) { CellSymbol.NONE }) } }
-        val cellIsFlipped = remember { mutableStateListOf<Boolean>().apply { if (isEmpty()) addAll(List(100) { false }) } }
         var parentCoordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
 
         fun triggerFlip(index: Int) {
             val controller = controllers[index]
-            val isCurrentlyFlipped = cellIsFlipped[index]
-            if (!isCurrentlyFlipped) {
-                cellSymbols[index] = if (isXMode) CellSymbol.X else CellSymbol.SQUARE
-            }
-            cellIsFlipped[index] = !isCurrentlyFlipped
+            uiState.triggerFlip(index)
             controller.flip()
         }
 
@@ -79,7 +77,7 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                 .fillMaxSize()
                 .padding(paddingValues)
                 .onGloballyPositioned { parentCoordinates = it }
-                .pointerInput(isXMode) {
+                .pointerInput(uiState.isXMode) {
                     awaitEachGesture {
                         val down = awaitFirstDown(requireUnconsumed = false)
                         val startPos = down.position
@@ -97,7 +95,7 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
 
                         if (startCellIndex != null) {
                             currentFlippedList = listOf(startCellIndex)
-                            targetState = cellIsFlipped[startCellIndex]
+                            targetState = uiState.cellIsFlipped[startCellIndex]
                             triggerFlip(startCellIndex)
                         }
 
@@ -123,7 +121,7 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                                 }?.key
 
                                 if (cellIndex != null && cellIndex !in currentFlippedList) {
-                                    if (targetState == null || cellIsFlipped[cellIndex] == targetState) {
+                                    if (uiState.cellIsFlipped[cellIndex] == targetState) {
                                         var canFlip = true
                                         if (currentFlippedList.size >= 2) {
                                             val first = currentFlippedList[0]
@@ -173,13 +171,13 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = if (isXMode) "Displaying 'X'" else "Displaying Solid Square",
+                        text = if (uiState.isXMode) "Displaying 'X'" else "Displaying Solid Square",
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onBackground
                     )
                     Switch(
-                        checked = isXMode,
-                        onCheckedChange = { isXMode = it }
+                        checked = uiState.isXMode,
+                        onCheckedChange = uiState.onXModeChanged
                     )
                 }
 
@@ -214,7 +212,7 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                                     }
                                 },
                                 backSide = {
-                                    val backColor = if (cellSymbols[index] == CellSymbol.X) {
+                                    val backColor = if (uiState.cellSymbols[index] == CellSymbol.X) {
                                         MaterialTheme.colorScheme.secondaryContainer
                                     } else {
                                         MaterialTheme.colorScheme.primaryContainer
@@ -231,7 +229,7 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
                                             modifier = Modifier.fillMaxSize(),
                                             contentAlignment = Alignment.Center
                                         ) {
-                                            when (cellSymbols[index]) {
+                                            when (uiState.cellSymbols[index]) {
                                                 CellSymbol.X -> {
                                                     val lineColor = MaterialTheme.colorScheme.onSecondaryContainer
                                                     Canvas(modifier = Modifier.fillMaxSize()) {
@@ -281,5 +279,5 @@ fun FlippableGridContent(onBack: () -> Unit = {}) {
 @PreviewDefault
 @Composable
 private fun FlippableGridContentPreview() {
-    AppTheme { FlippableGridContent() }
+    AppTheme { FlippableGridContent(uiState = FlippableGridUiState()) }
 }
