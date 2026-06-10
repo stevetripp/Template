@@ -150,99 +150,87 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
      */
     fun movePlayer(direction: MazeDirection) {
         if (isGameCompleted || isLoading) return
-        val grid = mazeGrid
-        if (grid.isEmpty()) return
 
-        val r = playerRow
-        val c = playerCol
-        val cell = grid[r][c]
+        val initialStep = getNextCell(playerRow, playerCol, direction) ?: return
+        moveCount += 1
 
-        var newRow = r
-        var newCol = c
-        var moved = false
+        val pathList = calculateAutoWalkPath(initialStep, direction)
+        val finalCell = pathList.last()
+        playerRow = finalCell.row
+        playerCol = finalCell.col
 
-        when (direction) {
-            MazeDirection.UP -> {
-                if (!cell.hasTopWall && r > 0) {
-                    newRow = r - 1
-                    moved = true
-                }
-            }
-            MazeDirection.DOWN -> {
-                if (!cell.hasBottomWall && r < grid.size - 1) {
-                    newRow = r + 1
-                    moved = true
-                }
-            }
-            MazeDirection.LEFT -> {
-                if (!cell.hasLeftWall && c > 0) {
-                    newCol = c - 1
-                    moved = true
-                }
-            }
-            MazeDirection.RIGHT -> {
-                if (!cell.hasRightWall && c < grid[0].size - 1) {
-                    newCol = c + 1
-                    moved = true
-                }
-            }
+        val currentPath = visitedPath.toMutableList()
+        currentPath.addAll(pathList)
+        visitedPath = currentPath
+
+        if (finalCell == endCell) {
+            isGameCompleted = true
+            stopTimer()
         }
 
-        if (moved) {
-            moveCount += 1
+        if (showSolution) {
+            calculateSolution()
+        } else {
+            updateState()
+        }
+    }
 
-            var currentRow = newRow
-            var currentCol = newCol
-            var lastDir = direction
-            val pathList = mutableListOf(CellPos(currentRow, currentCol))
-            val visitedInMove = mutableSetOf(CellPos(r, c), CellPos(currentRow, currentCol))
+    /**
+     * Calculates the path traversed by auto-walking starting from [start] in [direction].
+     * Walks automatically along straight paths and forced corners until reaching an intersection,
+     * a dead end, or the exit cell.
+     */
+    private fun calculateAutoWalkPath(start: CellPos, direction: MazeDirection): List<CellPos> {
+        val path = mutableListOf<CellPos>()
+        val visited = mutableSetOf(CellPos(playerRow, playerCol), start)
+        path.add(start)
 
-            while (CellPos(currentRow, currentCol) != endCell) {
-                val availableDirs = getAvailableDirections(currentRow, currentCol)
-                val oppositeDir = lastDir.opposite()
-                val forwardDirs = availableDirs.filter { it != oppositeDir }
+        var current = start
+        var lastDir = direction
+        var keepWalking = true
 
-                if (forwardDirs.size == 1) {
-                    val nextDir = forwardDirs[0]
-                    var nextRow = currentRow
-                    var nextCol = currentCol
-                    when (nextDir) {
-                        MazeDirection.UP -> nextRow = currentRow - 1
-                        MazeDirection.DOWN -> nextRow = currentRow + 1
-                        MazeDirection.LEFT -> nextCol = currentCol - 1
-                        MazeDirection.RIGHT -> nextCol = currentCol + 1
-                    }
-                    val nextPos = CellPos(nextRow, nextCol)
-                    if (nextPos in visitedInMove) {
-                        break
-                    }
-                    visitedInMove.add(nextPos)
-                    currentRow = nextRow
-                    currentCol = nextCol
+        while (current != endCell && keepWalking) {
+            val nextDir = getNextAutoWalkDirection(current, lastDir)
+            if (nextDir != null) {
+                val nextPos = getNextCell(current.row, current.col, nextDir)
+                if (nextPos != null && nextPos !in visited) {
+                    visited.add(nextPos)
+                    path.add(nextPos)
+                    current = nextPos
                     lastDir = nextDir
-                    pathList.add(nextPos)
                 } else {
-                    break
+                    keepWalking = false
                 }
-            }
-
-            playerRow = currentRow
-            playerCol = currentCol
-
-            val currentPath = visitedPath.toMutableList()
-            currentPath.addAll(pathList)
-            visitedPath = currentPath
-
-            if (CellPos(playerRow, playerCol) == endCell) {
-                isGameCompleted = true
-                stopTimer()
-            }
-
-            if (showSolution) {
-                calculateSolution()
             } else {
-                updateState()
+                keepWalking = false
             }
+        }
+        return path
+    }
+
+    /**
+     * Determines the next direction to move during an auto-walk, if forced.
+     * Returns the single forward direction if there is exactly one way forward, or null otherwise.
+     */
+    private fun getNextAutoWalkDirection(current: CellPos, lastDir: MazeDirection): MazeDirection? {
+        val availableDirs = getAvailableDirections(current.row, current.col)
+        val oppositeDir = lastDir.opposite()
+        val forwardDirs = availableDirs.filter { it != oppositeDir }
+        return if (forwardDirs.size == 1) forwardDirs[0] else null
+    }
+
+    /**
+     * Calculates the coordinate of the adjacent cell in the given direction if open.
+     */
+    private fun getNextCell(row: Int, col: Int, direction: MazeDirection): CellPos? {
+        val grid = mazeGrid
+        if (grid.isEmpty()) return null
+        val cell = grid[row][col]
+        return when (direction) {
+            MazeDirection.UP -> if (!cell.hasTopWall && row > 0) CellPos(row - 1, col) else null
+            MazeDirection.DOWN -> if (!cell.hasBottomWall && row < grid.size - 1) CellPos(row + 1, col) else null
+            MazeDirection.LEFT -> if (!cell.hasLeftWall && col > 0) CellPos(row, col - 1) else null
+            MazeDirection.RIGHT -> if (!cell.hasRightWall && col < grid[0].size - 1) CellPos(row, col + 1) else null
         }
     }
 
