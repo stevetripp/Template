@@ -1,5 +1,6 @@
 package com.example.template.ux.maze
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
@@ -76,6 +77,32 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
     }
 
     /**
+     * Sets a custom maze grid and resets state for predictable unit testing.
+     */
+    @VisibleForTesting
+    internal fun setGridForTesting(
+        grid: List<List<MazeCell>>,
+        startRow: Int = 0,
+        startCol: Int = 0,
+        endRow: Int = grid.size - 1,
+        endCol: Int = grid[0].size - 1
+    ) {
+        stopTimer()
+        mazeGrid = grid
+        playerRow = startRow
+        playerCol = startCol
+        endCell = CellPos(endRow, endCol)
+        visitedPath = listOf(CellPos(startRow, startCol))
+        solutionPath = emptyList()
+        showSolution = false
+        moveCount = 0
+        isGameCompleted = false
+        timeElapsed = 0L
+        isLoading = false
+        updateState()
+    }
+
+    /**
      * Sets a new difficulty setting and regenerates the maze.
      *
      * @param newDifficulty The difficulty to select.
@@ -114,6 +141,8 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
 
     /**
      * Moves the player in the specified direction if the path is not blocked by a wall.
+     * Continues moving the player automatically along straight paths and forced corridors
+     * until a decision point (intersection or dead-end) is reached.
      * Checks boundaries, increments the move counter, records the visited path,
      * and stops the timer on game completion.
      *
@@ -160,16 +189,51 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
         }
 
         if (moved) {
-            playerRow = newRow
-            playerCol = newCol
             moveCount += 1
 
-            val newPos = CellPos(newRow, newCol)
+            var currentRow = newRow
+            var currentCol = newCol
+            var lastDir = direction
+            val pathList = mutableListOf(CellPos(currentRow, currentCol))
+            val visitedInMove = mutableSetOf(CellPos(r, c), CellPos(currentRow, currentCol))
+
+            while (CellPos(currentRow, currentCol) != endCell) {
+                val availableDirs = getAvailableDirections(currentRow, currentCol)
+                val oppositeDir = lastDir.opposite()
+                val forwardDirs = availableDirs.filter { it != oppositeDir }
+
+                if (forwardDirs.size == 1) {
+                    val nextDir = forwardDirs[0]
+                    var nextRow = currentRow
+                    var nextCol = currentCol
+                    when (nextDir) {
+                        MazeDirection.UP -> nextRow = currentRow - 1
+                        MazeDirection.DOWN -> nextRow = currentRow + 1
+                        MazeDirection.LEFT -> nextCol = currentCol - 1
+                        MazeDirection.RIGHT -> nextCol = currentCol + 1
+                    }
+                    val nextPos = CellPos(nextRow, nextCol)
+                    if (nextPos in visitedInMove) {
+                        break
+                    }
+                    visitedInMove.add(nextPos)
+                    currentRow = nextRow
+                    currentCol = nextCol
+                    lastDir = nextDir
+                    pathList.add(nextPos)
+                } else {
+                    break
+                }
+            }
+
+            playerRow = currentRow
+            playerCol = currentCol
+
             val currentPath = visitedPath.toMutableList()
-            currentPath.add(newPos)
+            currentPath.addAll(pathList)
             visitedPath = currentPath
 
-            if (newPos == endCell) {
+            if (CellPos(playerRow, playerCol) == endCell) {
                 isGameCompleted = true
                 stopTimer()
             }
@@ -180,6 +244,21 @@ class MazeViewModel : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3I
                 updateState()
             }
         }
+    }
+
+    /**
+     * Helper to find all valid, open directions from a cell that do not cross walls or boundaries.
+     */
+    private fun getAvailableDirections(row: Int, col: Int): List<MazeDirection> {
+        val grid = mazeGrid
+        if (grid.isEmpty()) return emptyList()
+        val cell = grid[row][col]
+        val list = mutableListOf<MazeDirection>()
+        if (!cell.hasTopWall && row > 0) list.add(MazeDirection.UP)
+        if (!cell.hasBottomWall && row < grid.size - 1) list.add(MazeDirection.DOWN)
+        if (!cell.hasLeftWall && col > 0) list.add(MazeDirection.LEFT)
+        if (!cell.hasRightWall && col < grid[0].size - 1) list.add(MazeDirection.RIGHT)
+        return list
     }
 
     /**

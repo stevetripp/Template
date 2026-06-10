@@ -11,5 +11,17 @@ enum class MazeDirection {
     /** Move left. */
     LEFT,
     /** Move right. */
-    RIGHT
+    RIGHT;
+
+    /**
+     * Returns the opposite direction of this MazeDirection.
+     */
+    fun opposite(): MazeDirection {
+        return when (this) {
+            UP -> DOWN
+            DOWN -> UP
+            LEFT -> RIGHT
+            RIGHT -> LEFT
+        }
+    }
 }

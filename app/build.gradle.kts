@@ -191,6 +191,7 @@ dependencies {
     testImplementation(libs.konsist)
     testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.willowtreeapps.assertk)
 
     testRuntimeOnly(libs.junit.platform.launcher)
