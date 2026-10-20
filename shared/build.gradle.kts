@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -36,12 +38,14 @@ kotlin {
         commonMain {
             dependencies {
                 api(libs.androidx.datastore.preferences)
+                api(libs.androidx.room.runtime)
                 api(libs.koin.core)
                 api(libs.kotlinx.coroutines.core)
                 api(libs.kotlinx.serialization.json)
                 api(libs.ktor.client.core)
                 api(libs.okio)
                 api(libs.touchlab.kermit)
+                implementation(libs.androidx.sqlite.bundled)
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.client.logging)
                 implementation(libs.ktor.client.resources)
@@ -60,6 +64,7 @@ kotlin {
 
         androidMain {
             dependencies {
+                implementation(libs.koin.android)
                 implementation(libs.ktor.client.okhttp)
             }
         }
@@ -70,4 +75,13 @@ kotlin {
             }
         }
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspJvm", libs.androidx.room.compiler)
+}
+
+room3 {
+    schemaDirectory("$projectDir/schemas")
 }

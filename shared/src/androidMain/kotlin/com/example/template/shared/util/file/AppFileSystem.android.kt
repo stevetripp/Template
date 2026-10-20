@@ -7,6 +7,7 @@ import okio.Path.Companion.toOkioPath
 actual object AppFileSystem {
     lateinit var applicationContext: Application
 
+    actual fun getDatabasesPath(name: String): Path = applicationContext.getDatabasePath(name).toOkioPath()
     actual fun getDatastoreDir(): Path = getFilesDir() / "datastore"
     actual fun getDatastorePath(name: String): Path = getDatastoreDir() / "$name.preferences_pb"
     actual fun getExternalFilesDir(type: String?): Path? = applicationContext.getExternalFilesDir(type)?.toOkioPath()

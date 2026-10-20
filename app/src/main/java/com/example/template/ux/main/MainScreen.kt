@@ -69,6 +69,8 @@ import com.example.template.ux.modalsidesheet.ModalSideSheetRoute
 import com.example.template.ux.modalsidesheet.ModalSideSheetScreen
 import com.example.template.ux.navigatepager.NavigationPagerRoute
 import com.example.template.ux.navigatepager.NavigationPagerScreen
+import com.example.template.ux.notes.NotesRoute
+import com.example.template.ux.notes.NotesScreen
 import com.example.template.ux.notification.NotificationRoute
 import com.example.template.ux.notification.NotificationScreen
 import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
@@ -172,6 +174,7 @@ fun MainScreen(deeplinkRoute: NavKey?) {
         entry<ModalDrawerSheetRoute> { ModelDrawerSheetScreen(navigator) }
         entry<ModalSideSheetRoute> { ModalSideSheetScreen(navigator, koinViewModel()) }
         entry<NavigationPagerRoute> { NavigationPagerScreen(navigator) }
+        entry<NotesRoute> { NotesScreen(navigator, koinViewModel()) }
         entry<NotificationPermissionsRoute> { NotificationPermissionsScreen(navigator, koinViewModel()) }
         entry<NotificationRoute> { NotificationScreen(navigator, koinViewModel()) }
         entry<PagerRoute> { PagerScreen(navigator) }

@@ -14,6 +14,7 @@ androidxDatastorePreferences = "1.2.1"
 androidxLifecycle = "2.11.0"
 androidxMedia3 = "1.11.1"
 androidxNavigation = "2.10.2"
+androidxRoom = "3.0.3"
 androidxNavigation3 = "1.2.0"
 androidxTestExtJunit = "1.3.0"
 androidxTestRunner = "1.7.0"
@@ -28,6 +29,7 @@ googlePlayServicesLocation = "21.4.0"
 googlePlayServicesMaps = "20.1.0"
 junitBom = "6.1.3"
 koin = "4.2.2"
+ksp = "2.3.12" # https://search.maven.org/artifact/com.google.devtools.ksp/symbol-processing-api
 konsist = "0.18.1"
 kotlin = "2.4.21" # see https://developer.android.com/jetpack/androidx/releases/compose-kotlin
 kotlinxAtomicfu = "0.33.0"
@@ -36,6 +38,7 @@ kotlinxDatetime = "0.8.0"
 kotlinxSerializationJson = "1.12.0"
 ktor = "3.6.0"
 okio = "3.18.2"
+sqliteBundled = "2.7.1"
 touchlabKermit = "2.2.0"
 tripletPlay = "4.1.1"
 undercouchDownload = "5.7.0"
@@ -50,7 +53,9 @@ ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "benM
 detekt = { id = "dev.detekt", version.ref = "detekt" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+room = { id = "androidx.room3", version.ref = "androidxRoom" }
 triplet-play = { id = "com.github.triplet.play", version.ref = "tripletPlay" }
 undercouch-download = { id = "de.undercouch.download", version.ref = "undercouchDownload" }
 
@@ -79,6 +84,9 @@ androidx-media3-ui-compose-material3 = { group = "androidx.media3", name = "medi
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "androidxNavigation3" }
 androidx-navigation3-ui = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "androidxNavigation3" }
+androidx-room-compiler = { group = "androidx.room3", name = "room3-compiler", version.ref = "androidxRoom" }
+androidx-room-runtime = { group = "androidx.room3", name = "room3-runtime", version.ref = "androidxRoom" }
+androidx-sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqliteBundled" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExtJunit" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }

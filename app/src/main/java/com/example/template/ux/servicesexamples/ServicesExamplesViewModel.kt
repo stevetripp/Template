@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.template.ux.ktor.KtorRoute
 import com.example.template.ux.main.Screen
 import com.example.template.ux.main.ScreenType
+import com.example.template.ux.notes.NotesRoute
 import com.example.template.ux.regex.RegexRoute
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.lds.mobile.navigation3.ViewModelNavigation3
@@ -23,6 +24,7 @@ class ServicesExamplesViewModel : ViewModel(), ViewModelNavigation3 by ViewModel
         when (screen) {
             Screen.KTOR -> navigate(KtorRoute)
             Screen.REGEX -> navigate(RegexRoute)
+            Screen.ROOM_DATABASE -> navigate(NotesRoute)
             else -> Unit
         }
     }

@@ -28,6 +28,7 @@ import com.example.template.ux.modalbottomsheet.ModalBottomSheetRoute
 import com.example.template.ux.modaldrawersheet.ModalDrawerSheetRoute
 import com.example.template.ux.modalsidesheet.ModalSideSheetRoute
 import com.example.template.ux.navigatepager.NavigationPagerRoute
+import com.example.template.ux.notes.NotesRoute
 import com.example.template.ux.notification.NotificationRoute
 import com.example.template.ux.notificationpermissions.NotificationPermissionsRoute
 import com.example.template.ux.pager.PagerRoute
@@ -93,6 +94,7 @@ enum class Screen(
     POP_WITH_RESULT("Pop With Result", PopWithResultParentRoute, ScreenType.UI, UiCategory.VISUAL),
     PULL_REFRESH("Pull Refresh", PullRefreshRoute(), ScreenType.UI, UiCategory.VISUAL),
     REGEX("RegEx Validator", RegexRoute, ScreenType.SERVICES),
+    ROOM_DATABASE("Room Database", NotesRoute, ScreenType.SERVICES),
     REORDERABLE_LIST("Reorderable List", ReorderableListRoute, ScreenType.UI, UiCategory.VISUAL),
     SEARCH("Search", SearchRoute, ScreenType.UI, UiCategory.INPUT),
     SERVICE_EXAMPLES("Service Examples", ServicesExamplesRoute),
