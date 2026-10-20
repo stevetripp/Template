@@ -1,7 +1,7 @@
 package com.example.template.ux.parameters
 
 import androidx.navigation3.runtime.NavKey
-import com.example.template.domain.Parameter
+import com.example.template.shared.domain.Parameter
 import com.example.template.util.DeepLinkConstants
 import com.example.template.util.ext.addPathSegmentVariables
 import com.example.template.util.ext.addPathSegments

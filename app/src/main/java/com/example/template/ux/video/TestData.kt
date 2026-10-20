@@ -1,8 +1,8 @@
 package com.example.template.ux.video
 
-import com.example.template.domain.VideoId
-import com.example.template.domain.VideoRenditionType
-import com.example.template.domain.VideoUrl
+import com.example.template.shared.domain.VideoId
+import com.example.template.shared.domain.VideoRenditionType
+import com.example.template.shared.domain.VideoUrl
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 

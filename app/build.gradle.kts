@@ -136,6 +136,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":shared"))
+
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
 
@@ -150,7 +152,6 @@ dependencies {
     implementation(libs.androidx.compose.material3.window.size)
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.core.splashscreen)
-    implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
@@ -177,11 +178,8 @@ dependencies {
     implementation(libs.kotlinx.atomicfu)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.okhttp)
-    implementation(libs.ktor.client.resources)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.touchlab.kermit)
     implementation(libs.wajahatkarim.flippable)

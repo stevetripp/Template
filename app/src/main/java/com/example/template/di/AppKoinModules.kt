@@ -5,10 +5,7 @@ import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.cache.Cache
 import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
-import com.example.template.model.datastore.AppPreferenceDataSource
-import com.example.template.model.webservice.GoogleBooksService
-import com.example.template.model.webservice.KtorClientDefaults.defaultSetup
-import com.example.template.model.webservice.KtorClientDefaults.setupStandardHeaders
+import com.example.template.shared.di.getSharedKoinModules
 import com.example.template.ux.breadcrumbs.BreadCrumbsViewModel
 import com.example.template.ux.chipsheet.ChipSheetViewModel
 import com.example.template.ux.dialog.DialogViewModel
@@ -42,17 +39,7 @@ import com.example.template.ux.stickyheaders.StickyHeaderViewModel
 import com.example.template.ux.synchronizescrolling.SynchronizeScrollingViewModel
 import com.example.template.ux.video.player.PlayerViewModel
 import com.example.template.ux.video.screen.VideoScreenViewModel
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.okhttp.OkHttp
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.plugins.resources.Resources
 import java.io.File
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -62,35 +49,10 @@ import org.lds.media.cast.CastManager
 import org.lds.mobile.util.LdsDeviceUtil
 
 fun getAllKoinModules(): List<Module> = buildList {
-    add(coroutineModule)
     add(appModule)
-    add(datastoreModule)
     add(mediaModule)
-    add(serviceModule)
     add(viewModelModule)
-}
-
-// ===== Coroutine Module =====
-interface CoroutineDispatchers {
-    val default: CoroutineDispatcher
-    val io: CoroutineDispatcher
-    val main: CoroutineDispatcher
-}
-
-val coroutineModule = module {
-    // ===== Scopes =====
-    // ApplicationScope (No name on this one so that it IS the default one that is used if there is no name is provided)
-    single<CoroutineScope> { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
-
-    // ===== Dispatchers =====
-    // IoDispatcher (No name on this one so that it IS the default one that is used if there is no name is provided)
-    single<CoroutineDispatchers> {
-        object : CoroutineDispatchers {
-            override val default = Dispatchers.Default
-            override val io = Dispatchers.IO
-            override val main = Dispatchers.Main
-        }
-    }
+    addAll(getSharedKoinModules())
 }
 
 // ===== App Module =====
@@ -100,12 +62,6 @@ val appModule = module {
 
     // CastManager
     single<CastManager> { CastManager(get(), initCast = true) }
-}
-
-// ===== DataStore Module =====
-val datastoreModule = module {
-    // AppPreferenceDataSource
-    single<AppPreferenceDataSource> { AppPreferenceDataSource(application = androidApplication(), appScope = get<CoroutineScope>()) }
 }
 
 // ===== Media Module =====
@@ -119,25 +75,6 @@ val mediaModule = module {
         downloadDirectory.mkdirs()
         SimpleCache(File(downloadDirectory, "downloads"), NoOpCacheEvictor(), get<DatabaseProvider>())
     }
-}
-
-// ===== Service Module =====
-val serviceModule = module {
-    // Google Books API HttpClient
-    single() {
-        HttpClient(OkHttp.create()) {
-            install(Logging) { defaultSetup() }
-            install(Resources)
-            install(ContentNegotiation) { defaultSetup(allowAnyContentType = true) }
-            defaultRequest {
-                url("https://www.googleapis.com/books/")
-                setupStandardHeaders()
-            }
-        }
-    }
-
-    // Google Books Service
-    singleOf(::GoogleBooksService)
 }
 
 // ===== ViewModel Module =====

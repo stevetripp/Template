@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.MimeTypes
-import com.example.template.domain.VideoId
+import com.example.template.shared.domain.VideoId
 import com.example.template.ux.video.TestData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

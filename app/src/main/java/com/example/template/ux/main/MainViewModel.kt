@@ -2,8 +2,8 @@ package com.example.template.ux.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.template.model.datastore.AppPreferenceDataSource
-import com.example.template.ux.settings.InAppUpdateType
+import com.example.template.shared.model.datastore.AppPreferenceDataSource
+import com.example.template.shared.model.settings.InAppUpdateType
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.lds.mobile.ext.stateInDefault

@@ -1,7 +1,7 @@
 package com.example.template.ux.fab
 
 import androidx.lifecycle.ViewModel
-import com.example.template.model.data.SelectedObject
+import com.example.template.shared.model.data.SelectedObject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 

@@ -2,7 +2,7 @@ package com.example.template.ux
 
 import android.os.Bundle
 import androidx.navigation.NavType
-import com.example.template.domain.VideoId
+import com.example.template.shared.domain.VideoId
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 

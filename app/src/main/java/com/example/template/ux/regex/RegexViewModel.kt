@@ -2,7 +2,7 @@ package com.example.template.ux.regex
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.template.model.datastore.AppPreferenceDataSource
+import com.example.template.shared.model.datastore.AppPreferenceDataSource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first

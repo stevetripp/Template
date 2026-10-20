@@ -1,7 +1,7 @@
 package com.example.template.ux.parameters
 
 import androidx.lifecycle.ViewModel
-import com.example.template.domain.Parameter
+import com.example.template.shared.domain.Parameter
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.lds.mobile.navigation3.ViewModelNavigation3
 import org.lds.mobile.navigation3.ViewModelNavigation3Impl

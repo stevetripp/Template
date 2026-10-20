@@ -3,7 +3,7 @@ package com.example.template.ux.ktor
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import com.example.template.model.webservice.GoogleBooksService
+import com.example.template.shared.model.webservice.GoogleBooksService
 import com.example.template.util.SmtLogger
 import kotlinx.coroutines.launch
 import org.lds.mobile.network.onException

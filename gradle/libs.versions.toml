@@ -35,6 +35,7 @@ kotlinxCoroutines = "1.11.0"
 kotlinxDatetime = "0.8.0"
 kotlinxSerializationJson = "1.12.0"
 ktor = "3.6.0"
+okio = "3.18.2"
 touchlabKermit = "2.2.0"
 tripletPlay = "4.1.1"
 undercouchDownload = "5.7.0"
@@ -43,10 +44,12 @@ willowtreeappsAssertk = "0.28.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 autonomousapps-dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "autonomousappsDependencyAnalysis" }
 ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "benManesVersions" } # ./gradlew dependencyUpdates -Drevision=release
 detekt = { id = "dev.detekt", version.ref = "detekt" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 triplet-play = { id = "com.github.triplet.play", version.ref = "tripletPlay" }
 undercouch-download = { id = "de.undercouch.download", version.ref = "undercouchDownload" }
@@ -96,15 +99,19 @@ koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin"
 konsist = { group = "com.lemonappdev", name = "konsist", version.ref = "konsist" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 kotlinx-atomicfu = { group = "org.jetbrains.kotlinx", name = "atomicfu", version.ref = "kotlinxAtomicfu" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
 touchlab-kermit = { group = "co.touchlab", name = "kermit", version.ref = "touchlabKermit" }
 wajahatkarim-flippable = { group = "com.wajahatkarim", name = "flippable", version.ref = "wajahatkarimFlippable" } # https://devlibrary.withgoogle.com/products/android/repos/wajahatkarim3-Flippable
 willowtreeapps-assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "willowtreeappsAssertk" }

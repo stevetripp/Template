@@ -1,6 +1,6 @@
 package com.example.template.ux.parameters
 
-import com.example.template.domain.Parameter
+import com.example.template.shared.domain.Parameter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

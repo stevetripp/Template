@@ -6,7 +6,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.example.template.util.SmtLogger
-import com.example.template.ux.settings.InAppUpdateType
+import com.example.template.shared.model.settings.InAppUpdateType
+import com.example.template.ux.settings.appUpdateType
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory

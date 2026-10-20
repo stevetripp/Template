@@ -2,7 +2,8 @@ package com.example.template.ux.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.template.model.datastore.AppPreferenceDataSource
+import com.example.template.shared.model.datastore.AppPreferenceDataSource
+import com.example.template.shared.model.settings.InAppUpdateType
 import org.lds.mobile.ext.stateInDefault
 import org.lds.mobile.navigation3.ViewModelNavigation3
 import org.lds.mobile.navigation3.ViewModelNavigation3Impl

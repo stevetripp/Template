@@ -5,10 +5,12 @@ import de.undercouch.gradle.tasks.download.Download
 
 plugins {
     alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.autonomousapps.dependency.analysis)
     alias(libs.plugins.ben.manes.versions)
     alias(libs.plugins.detekt)
     alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.undercouch.download)
 }

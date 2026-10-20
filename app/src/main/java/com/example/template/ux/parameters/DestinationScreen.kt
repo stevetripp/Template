@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.template.domain.Parameter
+import com.example.template.shared.domain.Parameter
 import com.example.template.ui.composable.AppTopAppBar
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.lds.mobile.navigation3.navigator.Navigation3Navigator

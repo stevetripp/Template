@@ -6,7 +6,7 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
-import com.example.template.domain.Parameter
+import com.example.template.shared.domain.Parameter
 import com.example.template.ux.parameters.DestinationRoute
 import com.example.template.ux.parameters.EnumParameter
 import com.example.template.ux.parameters.deepLinkPatterns

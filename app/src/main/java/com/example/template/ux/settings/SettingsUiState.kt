@@ -1,5 +1,6 @@
 package com.example.template.ux.settings
 
+import com.example.template.shared.model.settings.InAppUpdateType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
