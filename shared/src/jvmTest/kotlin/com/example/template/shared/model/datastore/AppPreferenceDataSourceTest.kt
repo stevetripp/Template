@@ -2,6 +2,13 @@ package com.example.template.shared.model.datastore
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import com.example.template.shared.model.settings.InAppUpdateType
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
+import kotlin.uuid.Uuid
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -10,19 +17,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okio.FileSystem
 import okio.Path
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 /**
  * Runs against a real preferences DataStore on a temp file.
  */
-@OptIn(ExperimentalUuidApi::class)
 class AppPreferenceDataSourceTest {
 
     private lateinit var dataStoreDir: Path

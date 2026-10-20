@@ -3,7 +3,6 @@
 package org.lds.mobile.network
 
 import io.ktor.http.HttpStatusCode
-import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
@@ -121,7 +120,6 @@ inline val ApiResponse<*, *>.messageOrNull: String?
  * @return The original [ApiResponse].
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
-@OptIn(ExperimentalContracts::class)
 inline fun <T> ApiResponse<out T, *>.onSuccess(
     onResult: ApiResponse.Success<out T>.() -> Unit,
 ): ApiResponse<out T, *> {
@@ -139,7 +137,6 @@ inline fun <T> ApiResponse<out T, *>.onSuccess(
  * @return The original [ApiResponse].
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
-@OptIn(ExperimentalContracts::class)
 inline fun <T> ApiResponse<out T, *>.onFailure(
     onResult: ApiResponse.Failure<*>.() -> Unit,
 ): ApiResponse<out T, *> {
@@ -157,7 +154,6 @@ inline fun <T> ApiResponse<out T, *>.onFailure(
  * @return The original [ApiResponse].
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
-@OptIn(ExperimentalContracts::class)
 inline fun <E> ApiResponse<*, out E>.onError(
     onResult: ApiResponse.Failure.Error<out E>.() -> Unit,
 ): ApiResponse<*, out E> {
@@ -175,7 +171,6 @@ inline fun <E> ApiResponse<*, out E>.onError(
  * @return The original [ApiResponse].
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
-@OptIn(ExperimentalContracts::class)
 inline fun ApiResponse<*, *>.onException(
     onResult: ApiResponse.Failure.Exception.() -> Unit,
 ): ApiResponse<*, *> {

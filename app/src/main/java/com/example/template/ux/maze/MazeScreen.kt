@@ -33,7 +33,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -89,7 +88,6 @@ fun MazeScreen(navigator: Navigation3Navigator, viewModel: MazeViewModel) {
  *
  * @param onBack Callback triggered when navigating back.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MazeLoadingScreen(onBack: () -> Unit) {
     Scaffold(
@@ -119,7 +117,6 @@ fun MazeLoadingScreen(onBack: () -> Unit) {
  * @param uiState The active [MazeUiState.Ready] state.
  * @param onBack Callback triggered when navigating back.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MazeContent(
     uiState: MazeUiState.Ready,

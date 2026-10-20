@@ -3,7 +3,6 @@
 package org.lds.mobile.network
 
 import io.ktor.http.HttpStatusCode
-import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
@@ -121,7 +120,6 @@ inline val CacheApiResponse<*, *>.messageOrNull: String?
  * @return The original [CacheApiResponse].
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
-@OptIn(ExperimentalContracts::class)
 inline fun <T> CacheApiResponse<out T, *>.onSuccess(
     onResult: CacheApiResponse.Success<out T>.() -> Unit,
 ): CacheApiResponse<out T, *> {
@@ -139,7 +137,6 @@ inline fun <T> CacheApiResponse<out T, *>.onSuccess(
  * @return The original [CacheApiResponse].
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
-@OptIn(ExperimentalContracts::class)
 inline fun <T> CacheApiResponse<out T, *>.onFailure(
     onResult: CacheApiResponse.Failure<*>.() -> Unit,
 ): CacheApiResponse<out T, *> {
@@ -157,7 +154,6 @@ inline fun <T> CacheApiResponse<out T, *>.onFailure(
  * @return The original [CacheApiResponse].
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
-@OptIn(ExperimentalContracts::class)
 inline fun <E> CacheApiResponse<*, out E>.onError(
     onResult: CacheApiResponse.Failure.Error<out E>.() -> Unit,
 ): CacheApiResponse<*, out E> {
@@ -175,7 +171,6 @@ inline fun <E> CacheApiResponse<*, out E>.onError(
  * @return The original [CacheApiResponse].
  */
 @Suppress("OutdatedDocumentation") // Detekt does not seem to work well with this function for documentation
-@OptIn(ExperimentalContracts::class)
 inline fun CacheApiResponse<*, *>.onException(
     onResult: CacheApiResponse.Failure.Exception.() -> Unit,
 ): CacheApiResponse<*, *> {

@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
-import kotlin.experimental.ExperimentalTypeInference
 
 /**
  * Invokes [shareIn] with the recommended settings
@@ -33,5 +32,4 @@ fun <T> Flow<T>.stateInDefault(coroutineScope: CoroutineScope, initialValue: T):
 /**
  * Applies a [map] transform to a flow, only emitting new values when the value is distinct.
  */
-@OptIn(ExperimentalTypeInference::class)
 inline fun <T, R> Flow<T>.mapDistinct(@BuilderInference crossinline transform: suspend (value: T) -> R) = this.map(transform).distinctUntilChanged()

@@ -28,7 +28,8 @@ kotlin {
     }
 
     compilerOptions {
-        optIn.add("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        optIn.add("kotlin.contracts.ExperimentalContracts")
+        optIn.add("kotlin.experimental.ExperimentalTypeInference")
     }
 
     sourceSets {
