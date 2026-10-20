@@ -6,7 +6,7 @@ import com.example.template.shared.model.datastore.AppPreferenceDataSource
 import org.lds.mobile.ext.stateInDefault
 
 class EdgeToEdgeViewModel(
-    private val preferenceDataSource: AppPreferenceDataSource,
+    preferenceDataSource: AppPreferenceDataSource,
 ) : ViewModel() {
     val uiState = EdgeToEdgeUiState(
         enforceNavigationBarContrastFlow = preferenceDataSource.enforceNavigationBarContrastFlow.stateInDefault(viewModelScope, true),

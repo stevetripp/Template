@@ -9,7 +9,7 @@ import org.lds.mobile.navigation3.ViewModelNavigation3
 import org.lds.mobile.navigation3.ViewModelNavigation3Impl
 
 class SettingsViewModel(
-    private val preferenceDataSource: AppPreferenceDataSource,
+    preferenceDataSource: AppPreferenceDataSource,
 ) : ViewModel(), ViewModelNavigation3 by ViewModelNavigation3Impl() {
     private val inAppUpdateTypes = InAppUpdateType.entries
 
